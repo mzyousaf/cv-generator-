@@ -1,0 +1,14 @@
+# App lives in CV-Generator-Tool/
+CV-Generator-Tool/node_modules/
+CV-Generator-Tool/.next/
+CV-Generator-Tool/out/
+CV-Generator-Tool/build/
+CV-Generator-Tool/.vercel/
+CV-Generator-Tool/.env
+CV-Generator-Tool/.env.local
+CV-Generator-Tool/.env.*.local
+!CV-Generator-Tool/.env.example
+CV-Generator-Tool/*.tsbuildinfo
+CV-Generator-Tool/next-env.d.ts
+CV-Generator-Tool/coverage/
+CV-Generator-Tool/.DS_Store
