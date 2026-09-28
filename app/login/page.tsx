@@ -14,7 +14,7 @@ export default function LoginPage() {
       }
     >
       <Suspense fallback={<p className="text-sm text-zinc-500">Loading…</p>}>
-        <LoginForm />
+        <LoginForm submitLabel="Sign in" />
       </Suspense>
     </AuthShell>
   );

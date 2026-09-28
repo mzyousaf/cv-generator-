@@ -12,7 +12,7 @@ export default function SignupPage() {
         </>
       }
     >
-      <SignupForm />
+      <SignupForm mode="page" />
     </AuthShell>
   );
 }
