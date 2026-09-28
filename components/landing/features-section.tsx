@@ -17,64 +17,64 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    title: "Professional templates",
+    title: "Structured editor",
     description:
-      "Default, Classic, and Modern layouts designed for readable, print-friendly CVs.",
-    icon: <TemplateIcon />,
-  },
-  {
-    title: "Easy CV builder",
-    description:
-      "Edit experience, education, and skills in one place with autosave to your account.",
+      "Add experience, education, and skills in a clear layout that stays easy to scan.",
     icon: <BuilderIcon />,
   },
   {
-    title: "AI writing assistance",
+    title: "Professional templates",
     description:
-      "Improve summaries, experience text, and skills when AI is configured for your workspace.",
+      "Default, Classic, and Modern layouts built for readable, print-ready CVs.",
+    icon: <TemplateIcon />,
+  },
+  {
+    title: "AI content assist",
+    description:
+      "Refine your summary, experience, and skills with AI when it is enabled for your workspace.",
     icon: <AiIcon />,
   },
   {
-    title: "PDF export",
+    title: "PDF download",
     description:
-      "Download a PDF generated from your saved CV and selected template.",
+      "Export a PDF from your saved CV using the template you selected in the builder.",
     icon: <PdfIcon />,
   },
   {
-    title: "Save and edit",
+    title: "Autosave & return anytime",
     description:
-      "Return anytime to update CVs as your role and experience change.",
+      "Your CV stays in your account so you can update it as your experience grows.",
     icon: <SaveIcon />,
   },
   {
-    title: "Multiple CV templates",
+    title: "Switch templates freely",
     description:
-      "Switch templates without losing content—compare layouts before you export.",
+      "Compare layouts with the same content—change template without starting over.",
     icon: <LayoutsIcon />,
   },
 ];
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="scroll-mt-24 bg-white py-16 sm:py-24">
+    <section id="features" className="scroll-mt-24 bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Features"
-          title="Built for real CV workflows"
-          description="Everything listed here is available in the product today—templates, builder, AI assist, and PDF export."
+          title="Everything you need to finish a strong CV"
+          description="Editor, templates, AI assist, and PDF export—focused tools without extra complexity."
         />
 
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => (
             <li
               key={feature.title}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-slate-300 hover:shadow-md"
+              className="group flex h-full flex-col rounded-xl border border-slate-200/90 bg-white p-6 shadow-sm transition duration-200 hover:border-blue-200/80 hover:shadow-md hover:shadow-slate-200/60"
             >
               {feature.icon}
-              <h3 className="mt-4 text-base font-semibold text-slate-900">
+              <h3 className="mt-5 text-base font-semibold text-slate-900">
                 {feature.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">
                 {feature.description}
               </p>
             </li>

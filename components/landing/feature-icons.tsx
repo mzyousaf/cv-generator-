@@ -5,7 +5,7 @@ type IconProps = { className?: string };
 function IconShell({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <span
-      className={`inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-800 ring-1 ring-blue-100 ${className}`.trim()}
+      className={`inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-700 ring-1 ring-blue-100/90 ${className}`.trim()}
       aria-hidden="true"
     >
       {children}

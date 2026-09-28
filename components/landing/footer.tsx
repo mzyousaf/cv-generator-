@@ -10,9 +10,8 @@ export function LandingFooter() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
           <p className="text-lg font-semibold text-slate-900">{siteConfig.name}</p>
-          <p className="mt-2 max-w-md text-sm text-slate-600">
-            {siteConfig.description} Build, refine, and export polished CVs with
-            templates, AI assist, and PDF download.
+          <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-600">
+            {siteConfig.description}
           </p>
           <div className="mt-4">
             <GenerateFreeButton variant="secondary" />

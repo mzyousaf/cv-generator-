@@ -2,50 +2,29 @@ import Link from "next/link";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { ProductPreview } from "@/components/landing/product-preview";
 
-const valuePoints = [
-  "Create a professional CV with structured sections",
-  "Build quickly with autosave in the CV editor",
-  "Improve summaries and experience with AI assist",
-  "Download a PDF from your saved CV",
-];
-
 export function HeroSection() {
   return (
-    <section className="border-b border-slate-200 bg-slate-50">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
+    <section className="relative border-b border-slate-200 bg-gradient-to-b from-slate-50 to-white">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:py-28">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-14">
           <div className="max-w-xl">
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-700">
-              Online CV builder
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-700 sm:text-sm">
+              Professional CV builder
             </p>
-            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl sm:leading-[1.1]">
-              Create a professional CV—fast, clear, and ready to send
+            <h1 className="mt-4 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl sm:leading-[1.08] lg:text-[3.25rem]">
+              Build a professional CV without the busywork
             </h1>
-            <p className="mt-4 text-lg leading-relaxed text-slate-600">
-              CV Generator helps you draft a polished resume, refine it with AI
-              writing assistance, pick a template, and export a PDF when you are
-              ready to apply.
+            <p className="mt-5 text-lg leading-relaxed text-slate-600 sm:text-xl sm:leading-relaxed">
+              Use a structured editor, polish your content with AI, pick a
+              template, and download a PDF—everything you need, nothing extra.
             </p>
-            <ul className="mt-6 space-y-2.5">
-              {valuePoints.map((point) => (
-                <li key={point} className="flex gap-2.5 text-sm text-slate-700 sm:text-base">
-                  <span
-                    className="mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-700 text-[10px] font-bold text-white"
-                    aria-hidden="true"
-                  >
-                    ✓
-                  </span>
-                  {point}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <GenerateFreeButton />
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <GenerateFreeButton className="w-full sm:w-auto" />
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center rounded-md px-4 py-2.5 text-sm font-medium text-slate-700 underline-offset-2 hover:text-slate-900 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                className="inline-flex min-h-11 items-center justify-center text-sm font-medium text-slate-600 underline-offset-4 transition hover:text-slate-900 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:justify-start"
               >
-                I already have an account
+                Sign in to your account
               </Link>
             </div>
           </div>
