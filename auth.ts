@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import authConfig from "@/auth.config";
+import { normalizeAuthEmail, resolveJwtSub } from "@/lib/auth/resolve-jwt-sub";
 import { verifyPassword } from "@/lib/auth/password";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -71,54 +72,62 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       const { UserModel } = await import("@/lib/db/models");
       await connectToDatabase();
 
-      const email = user.email.toLowerCase();
-      const existing = await UserModel.findOne({ email });
+      const email = normalizeAuthEmail(user.email);
+      let dbUser = await UserModel.findOne({ email });
 
-      if (!existing) {
-        await UserModel.create({
+      if (!dbUser) {
+        dbUser = await UserModel.create({
           email,
           name: user.name?.trim() || email,
           image: user.image ?? undefined,
         });
-        return true;
+      } else {
+        let shouldSave = false;
+        if (user.image && !dbUser.image) {
+          dbUser.image = user.image;
+          shouldSave = true;
+        }
+        if (user.name?.trim() && dbUser.name !== user.name.trim()) {
+          dbUser.name = user.name.trim();
+          shouldSave = true;
+        }
+        if (shouldSave) {
+          await dbUser.save();
+        }
       }
 
-      let shouldSave = false;
-      if (user.image && !existing.image) {
-        existing.image = user.image;
-        shouldSave = true;
-      }
-      if (user.name?.trim() && existing.name !== user.name.trim()) {
-        existing.name = user.name.trim();
-        shouldSave = true;
-      }
-      if (shouldSave) {
-        await existing.save();
-      }
-
+      user.id = String(dbUser._id);
       return true;
     },
-    async jwt({ token, user }) {
-      if (user?.id) {
-        token.sub = user.id;
+    async jwt({ token, user, account }) {
+      if (!user) {
         return token;
       }
 
-      if (user?.email) {
-        const { connectToDatabase } = await import("@/lib/db/connect");
-        const { UserModel } = await import("@/lib/db/models");
-        await connectToDatabase();
+      const { connectToDatabase } = await import("@/lib/db/connect");
+      const { UserModel } = await import("@/lib/db/models");
+      await connectToDatabase();
 
-        const dbUser = await UserModel.findOne({
-          email: user.email.toLowerCase(),
-        });
+      const resolved = await resolveJwtSub(user, account ?? null, async (email) => {
+        const dbUser = await UserModel.findOne({ email });
+        if (!dbUser) {
+          return null;
+        }
+        const image = dbUser.get("image");
+        return {
+          id: String(dbUser._id),
+          name: String(dbUser.get("name")),
+          email: String(dbUser.get("email")),
+          image: image ? String(image) : undefined,
+        };
+      });
 
-        if (dbUser) {
-          token.sub = String(dbUser._id);
-          token.name = String(dbUser.get("name"));
-          token.email = String(dbUser.get("email"));
-          const image = dbUser.get("image");
-          token.picture = image ? String(image) : undefined;
+      if (resolved) {
+        token.sub = resolved.sub;
+        if (resolved.dbUser) {
+          token.name = resolved.dbUser.name;
+          token.email = resolved.dbUser.email;
+          token.picture = resolved.dbUser.image;
         }
       }
 

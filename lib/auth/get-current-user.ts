@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { isValidMongoObjectIdString } from "@/lib/auth/mongo-object-id";
 import { connectToDatabase } from "@/lib/db/connect";
 import { UserModel } from "@/lib/db/models";
 import type { UserDocumentFields } from "@/types/user";
@@ -9,9 +10,19 @@ export type CurrentUser = UserDocumentFields & {
   updatedAt: Date;
 };
 
+/** Returns a MongoDB user id for lookup, or null if the session id is missing/invalid. */
+export function resolveSessionUserIdForDbLookup(
+  userId: string | undefined,
+): string | null {
+  if (!userId || !isValidMongoObjectIdString(userId)) {
+    return null;
+  }
+  return userId;
+}
+
 export async function getCurrentUser(): Promise<CurrentUser | null> {
   const session = await auth();
-  const userId = session?.user?.id;
+  const userId = resolveSessionUserIdForDbLookup(session?.user?.id);
 
   if (!userId) {
     return null;
