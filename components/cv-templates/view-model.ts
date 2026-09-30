@@ -1,4 +1,9 @@
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
+import {
+  createDefaultSectionSettings,
+  getVisibleSectionOrder,
+  type ManageableSectionId,
+} from "@/lib/cv/section-settings";
 
 export type CvDocumentView = CvBuilderFormState & {
   displayName: string;
@@ -6,6 +11,7 @@ export type CvDocumentView = CvBuilderFormState & {
   contactItems: string[];
   skillsList: string[];
   isEmpty: boolean;
+  visibleSectionOrder: ManageableSectionId[];
 };
 
 export function buildCvDocumentView(state: CvBuilderFormState): CvDocumentView {
@@ -22,8 +28,12 @@ export function buildCvDocumentView(state: CvBuilderFormState): CvDocumentView {
     state.languages.length === 0 &&
     state.customSections.length === 0;
 
+  const sectionSettings = state.sectionSettings ?? createDefaultSectionSettings();
+
   return {
     ...state,
+    sectionSettings,
+    visibleSectionOrder: getVisibleSectionOrder(sectionSettings),
     displayName: state.personal.fullName.trim() || "Your Name",
     displayTitle: state.personal.professionalTitle.trim() || "Professional Title",
     contactItems: [

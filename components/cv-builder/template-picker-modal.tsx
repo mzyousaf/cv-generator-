@@ -10,8 +10,12 @@ import {
 } from "@/components/cv-templates/registry";
 import { TEMPLATE_PREVIEW_SAMPLE_STATE } from "@/components/cv-templates/sample-preview-state";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
+import { Modal } from "@/components/ui/modal";
+import { cn } from "@/lib/cn";
 
-type TemplateSelectorProps = {
+type TemplatePickerModalProps = {
+  open: boolean;
+  onClose: () => void;
   cvId: string;
   selectedTemplate: CvTemplateId;
   onTemplateChange: (templateId: CvTemplateId) => void;
@@ -28,7 +32,7 @@ function TemplateThumbnail({ templateId }: { templateId: CvTemplateId }) {
   return (
     <div
       aria-hidden
-      className="pointer-events-none h-36 overflow-hidden rounded-md border border-zinc-200 bg-zinc-100"
+      className="pointer-events-none h-36 overflow-hidden rounded-lg border border-slate-200 bg-slate-100"
     >
       <div className="origin-top-left scale-[0.18]">
         <CvTemplateRenderer templateId={templateId} state={sampleState} />
@@ -37,14 +41,17 @@ function TemplateThumbnail({ templateId }: { templateId: CvTemplateId }) {
   );
 }
 
-export function TemplateSelector({
+export function TemplatePickerModal({
+  open,
+  onClose,
   cvId,
   selectedTemplate,
   onTemplateChange,
   onTemplateSaved,
   onTemplateError,
-}: TemplateSelectorProps) {
+}: TemplatePickerModalProps) {
   const [isSavingTemplate, setIsSavingTemplate] = useState(false);
+  const activeTemplate = getTemplateDefinition(selectedTemplate);
 
   async function handleSelect(templateId: CvTemplateId) {
     if (templateId === selectedTemplate || isSavingTemplate) {
@@ -65,22 +72,17 @@ export function TemplateSelector({
     }
 
     onTemplateSaved(templateId);
+    onClose();
   }
 
-  const activeTemplate = getTemplateDefinition(selectedTemplate);
-
   return (
-    <section className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <div>
-          <h2 className="text-base font-semibold text-zinc-900">Template</h2>
-          <p className="text-sm text-zinc-500">
-            {activeTemplate.name}
-            {isSavingTemplate ? " · Saving template..." : ""}
-          </p>
-        </div>
-      </div>
-
+    <Modal
+      open={open}
+      onClose={onClose}
+      title="Templates"
+      description={`Current: ${activeTemplate.name}${isSavingTemplate ? ". Saving…" : ""}`}
+      className="max-w-3xl"
+    >
       <div className="grid gap-3 sm:grid-cols-3">
         {CV_TEMPLATE_REGISTRY.map((template) => {
           const isSelected = template.id === selectedTemplate;
@@ -92,21 +94,23 @@ export function TemplateSelector({
               disabled={isSavingTemplate}
               aria-pressed={isSelected}
               onClick={() => void handleSelect(template.id)}
-              className={`rounded-lg border p-3 text-left transition-colors ${
+              className={cn(
+                "cursor-pointer rounded-xl border p-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed",
                 isSelected
-                  ? "border-zinc-900 ring-2 ring-zinc-900/10"
-                  : "border-zinc-200 hover:border-zinc-400"
-              } disabled:cursor-not-allowed disabled:opacity-60`}
+                  ? "border-blue-600 bg-blue-50/50 ring-2 ring-blue-600/15"
+                  : "border-slate-200 bg-white hover:border-slate-400 hover:bg-slate-50",
+                "disabled:cursor-not-allowed disabled:opacity-60",
+              )}
             >
               <TemplateThumbnail templateId={template.id} />
-              <p className="mt-2 text-sm font-semibold text-zinc-900">
+              <p className="mt-2 text-sm font-semibold text-slate-900">
                 {template.name}
               </p>
-              <p className="mt-1 text-xs text-zinc-500">{template.description}</p>
+              <p className="mt-1 text-xs text-slate-600">{template.description}</p>
             </button>
           );
         })}
       </div>
-    </section>
+    </Modal>
   );
 }

@@ -8,6 +8,10 @@ import {
   DEFAULT_CV_TITLE,
   type CvTemplateId,
 } from "@/lib/cv/constants";
+import {
+  sanitizeSectionSettings,
+  sectionSettingsToStored,
+} from "@/lib/cv/section-settings";
 import type { CVContent, CVSectionValue } from "@/types/cv";
 
 export type ValidatedCreateCvInput = {
@@ -128,10 +132,17 @@ function buildContentFromInput(
     }
   }
 
+  if ("sectionSettings" in input) {
+    content.sectionSettings = sectionSettingsToStored(
+      sanitizeSectionSettings(input.sectionSettings),
+    );
+  }
+
   for (const [key, value] of Object.entries(input)) {
     if (
       key === "personal" ||
       key === "summary" ||
+      key === "sectionSettings" ||
       (CV_ARRAY_SECTION_KEYS as readonly string[]).includes(key)
     ) {
       continue;

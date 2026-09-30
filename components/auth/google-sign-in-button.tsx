@@ -1,7 +1,9 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { authSecondaryButtonClassName } from "@/components/auth/auth-form-styles";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { GoogleIcon } from "@/components/ui/google-icon";
 
 type GoogleSignInButtonProps = {
   callbackUrl: string;
@@ -16,19 +18,28 @@ export function GoogleSignInButton({
   onStart,
   label = "Continue with Google",
 }: GoogleSignInButtonProps) {
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
   async function handleClick() {
     onStart?.();
+    setIsRedirecting(true);
     await signIn("google", { callbackUrl });
   }
 
   return (
-    <button
+    <Button
       type="button"
-      onClick={handleClick}
+      variant="outline"
+      size="md"
+      fullWidth
+      onClick={() => void handleClick()}
       disabled={disabled}
-      className={authSecondaryButtonClassName}
+      isLoading={isRedirecting}
+      loadingText="Redirecting…"
+      leftIcon={<GoogleIcon className="size-[18px]" />}
+      className="font-medium"
     >
       {label}
-    </button>
+    </Button>
   );
 }

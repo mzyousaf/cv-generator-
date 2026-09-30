@@ -12,7 +12,7 @@ export default function SignupPage() {
         </>
       }
     >
-      <SignupForm mode="page" />
+      <SignupForm mode="page" submitLabel="Create Your CV Free" />
     </AuthShell>
   );
 }

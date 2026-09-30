@@ -1,5 +1,6 @@
 "use server";
 
+import { signOut } from "@/auth";
 import { hashPassword } from "@/lib/auth/password";
 import { connectToDatabase } from "@/lib/db/connect";
 import { UserModel } from "@/lib/db/models";
@@ -42,4 +43,8 @@ export async function registerUser(
   } catch {
     return { error: "Could not create account. Please try again." };
   }
+}
+
+export async function signOutUserAction(): Promise<void> {
+  await signOut({ redirectTo: "/" });
 }

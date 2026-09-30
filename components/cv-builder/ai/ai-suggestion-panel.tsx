@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 type AiSuggestionPanelProps = {
   title: string;
   content: string;
@@ -14,26 +16,18 @@ export function AiSuggestionPanel({
   useLabel = "Use",
 }: AiSuggestionPanelProps) {
   return (
-    <div className="rounded-md border border-zinc-200 bg-zinc-50 p-3">
-      <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+    <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
         {title}
       </p>
-      <p className="mt-2 whitespace-pre-wrap text-sm text-zinc-800">{content}</p>
+      <p className="mt-2 whitespace-pre-wrap text-sm text-slate-800">{content}</p>
       <div className="mt-3 flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={onUse}
-          className="rounded-md bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-zinc-800"
-        >
+        <Button type="button" variant="primary" size="sm" onClick={onUse}>
           {useLabel}
-        </button>
-        <button
-          type="button"
-          onClick={onDismiss}
-          className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-white"
-        >
+        </Button>
+        <Button type="button" variant="outline" size="sm" onClick={onDismiss}>
           Dismiss
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,82 +1,78 @@
 import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
-
-type FieldProps = {
-  label: string;
-  htmlFor: string;
-};
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/cn";
 
 export function FormField({
   label,
   htmlFor,
   children,
-}: FieldProps & { children: React.ReactNode }) {
+}: {
+  label: string;
+  htmlFor: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="space-y-1.5">
-      <label htmlFor={htmlFor} className="block text-sm font-medium text-zinc-800">
-        {label}
-      </label>
+    <Field label={label} htmlFor={htmlFor}>
       {children}
-    </div>
+    </Field>
   );
 }
-
-const inputClassName =
-  "w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm focus:border-zinc-500 focus:outline-none focus:ring-2 focus:ring-zinc-200";
 
 export function TextInput({
   id,
   ...props
 }: InputHTMLAttributes<HTMLInputElement> & { id: string }) {
-  return <input id={id} className={inputClassName} {...props} />;
+  return <Input id={id} {...props} />;
 }
 
 export function TextArea({
   id,
   ...props
 }: TextareaHTMLAttributes<HTMLTextAreaElement> & { id: string }) {
-  return (
-    <textarea
-      id={id}
-      className={`${inputClassName} min-h-24 resize-y`}
-      {...props}
-    />
-  );
+  return <Textarea id={id} {...props} />;
 }
 
 export function SectionCard({
   title,
   description,
+  statusBadge,
   children,
   onAdd,
   addLabel,
 }: {
   title: string;
   description?: string;
+  statusBadge?: React.ReactNode;
   children: React.ReactNode;
   onAdd?: () => void;
   addLabel?: string;
 }) {
   return (
-    <section className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
-      <div className="mb-4 flex items-start justify-between gap-3">
-        <div>
-          <h2 className="text-base font-semibold text-zinc-900">{title}</h2>
+    <Card className="rounded-xl border-slate-200 shadow-sm">
+      <CardContent className="p-4 sm:p-5">
+        <div className="mb-4 space-y-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="text-base font-semibold text-slate-900">{title}</h2>
+            {statusBadge}
+          </div>
           {description ? (
-            <p className="mt-1 text-sm text-zinc-500">{description}</p>
+            <p className="text-sm text-slate-600">{description}</p>
           ) : null}
         </div>
+        <div className="space-y-3">{children}</div>
         {onAdd ? (
-          <button
-            type="button"
-            onClick={onAdd}
-            className="shrink-0 rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-800 hover:bg-zinc-50"
-          >
-            {addLabel ?? "Add"}
-          </button>
+          <div className="mt-4 border-t border-slate-100 pt-4">
+            <Button type="button" variant="outline" size="sm" onClick={onAdd}>
+              {addLabel ?? "+ Add"}
+            </Button>
+          </div>
         ) : null}
-      </div>
-      <div className="space-y-4">{children}</div>
-    </section>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -90,18 +86,106 @@ export function EntryCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-md border border-zinc-200 bg-zinc-50 p-4">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <h3 className="text-sm font-semibold text-zinc-800">{title}</h3>
-        <button
-          type="button"
-          onClick={onRemove}
-          className="text-sm font-medium text-red-700 hover:text-red-800"
-        >
-          Remove
-        </button>
+    <CollapsibleEntryCard
+      summaryTitle={title}
+      summarySubtitle=""
+      expanded
+      onToggle={() => undefined}
+      onRemove={onRemove}
+      hideToggle
+    >
+      {children}
+    </CollapsibleEntryCard>
+  );
+}
+
+export function CollapsibleEntryCard({
+  summaryTitle,
+  summarySubtitle,
+  expanded,
+  onToggle,
+  onRemove,
+  children,
+  hideToggle = false,
+}: {
+  summaryTitle: string;
+  summarySubtitle?: string;
+  expanded: boolean;
+  onToggle: () => void;
+  onRemove: () => void;
+  children: React.ReactNode;
+  hideToggle?: boolean;
+}) {
+  return (
+    <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+      <div className="flex items-start gap-2 px-3 py-2.5 sm:px-4">
+        <div className="min-w-0 flex-1">
+          <p className="break-words text-sm font-semibold leading-snug text-slate-900">
+            {summaryTitle}
+          </p>
+          {summarySubtitle ? (
+            <p className="mt-0.5 break-words text-xs leading-snug text-slate-600">
+              {summarySubtitle}
+            </p>
+          ) : null}
+        </div>
+        <div className="flex shrink-0 items-center gap-0.5">
+          {!hideToggle ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              aria-expanded={expanded}
+              onClick={onToggle}
+              className="text-slate-700"
+            >
+              {expanded ? "Collapse" : "Expand"}
+            </Button>
+          ) : null}
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="text-slate-500 hover:text-red-700"
+            onClick={onRemove}
+          >
+            Remove
+          </Button>
+        </div>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2">{children}</div>
+      {expanded ? (
+        <div className="grid gap-3 border-t border-slate-100 p-4 sm:grid-cols-2">
+          {children}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+export function SummaryTextArea({
+  id,
+  value = "",
+  onChange,
+  maxLength,
+  className,
+}: Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "id"> & {
+  id: string;
+  maxLength?: number;
+}) {
+  const text = typeof value === "string" ? value : String(value ?? "");
+
+  return (
+    <div className={cn("space-y-1", className)}>
+      <Textarea id={id} value={text} onChange={onChange} rows={8} className="min-h-[160px]" />
+      {maxLength ? (
+        <p className="text-right text-xs text-slate-500" aria-live="polite">
+          {text.length}/{maxLength}
+        </p>
+      ) : (
+        <p className="text-right text-xs text-slate-500" aria-live="polite">
+          {text.length} characters
+        </p>
+      )}
     </div>
   );
 }

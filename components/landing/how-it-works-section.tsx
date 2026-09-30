@@ -1,4 +1,5 @@
 import { SectionHeading } from "@/components/landing/section-heading";
+import { Card } from "@/components/ui/card";
 
 const steps = [
   {
@@ -36,25 +37,24 @@ export function HowItWorksSection() {
 
         <ol className="mt-16 grid gap-8 md:grid-cols-3 md:gap-6">
           {steps.map((item, index) => (
-            <li
-              key={item.step}
-              className="relative flex flex-col rounded-xl border border-slate-200/90 bg-white p-7 shadow-sm"
-            >
+            <li key={item.step} className="relative">
               {index < steps.length - 1 ? (
                 <div
                   className="absolute -right-3 top-12 hidden h-px w-6 bg-slate-300 md:block lg:w-8"
                   aria-hidden="true"
                 />
               ) : null}
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
-                {item.step}
-              </span>
-              <p className="mt-5 text-lg font-semibold text-slate-900">
-                {item.title}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                {item.description}
-              </p>
+              <Card className="flex h-full flex-col p-7">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
+                  {item.step}
+                </span>
+                <p className="mt-5 text-lg font-semibold text-slate-900">
+                  {item.title}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  {item.description}
+                </p>
+              </Card>
             </li>
           ))}
         </ol>

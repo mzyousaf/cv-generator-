@@ -28,5 +28,5 @@ export function formatDateRange(
   if (!endLabel) {
     return startLabel;
   }
-  return `${startLabel} – ${endLabel}`;
+  return `${startLabel} to ${endLabel}`;
 }

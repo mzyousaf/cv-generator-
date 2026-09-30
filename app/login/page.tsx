@@ -13,7 +13,13 @@ export default function LoginPage() {
         </>
       }
     >
-      <Suspense fallback={<p className="text-sm text-zinc-500">Loading…</p>}>
+      <Suspense
+        fallback={
+          <p className="flex items-center gap-2 text-sm text-slate-500" role="status">
+            Loading…
+          </p>
+        }
+      >
         <LoginForm submitLabel="Sign in" />
       </Suspense>
     </AuthShell>

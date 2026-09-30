@@ -12,7 +12,7 @@ export function FinalCtaSection() {
           download a PDF when you are ready to apply.
         </p>
         <div className="mt-9 flex justify-center">
-          <GenerateFreeButton className="w-full max-w-xs bg-white text-slate-900 shadow-lg hover:bg-slate-100 focus-visible:ring-white sm:w-auto sm:max-w-none" />
+          <GenerateFreeButton variant="inverse" className="w-full max-w-xs sm:w-auto sm:max-w-none" />
         </div>
       </div>
     </section>

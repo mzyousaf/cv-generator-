@@ -57,6 +57,12 @@ export type CustomSectionEntry = {
 };
 
 import type { CvTemplateId } from "@/lib/cv/constants";
+import {
+  createDefaultSectionSettings,
+  type CvSectionSettings,
+} from "@/lib/cv/section-settings";
+
+export type { CvSectionSettings };
 
 export type CvBuilderFormState = {
   title: string;
@@ -70,6 +76,7 @@ export type CvBuilderFormState = {
   certifications: CertificationEntry[];
   languages: LanguageEntry[];
   customSections: CustomSectionEntry[];
+  sectionSettings: CvSectionSettings;
 };
 
 export function createEmptyBuilderState(
@@ -96,5 +103,6 @@ export function createEmptyBuilderState(
     certifications: [],
     languages: [],
     customSections: [],
+    sectionSettings: createDefaultSectionSettings(),
   };
 }

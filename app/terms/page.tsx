@@ -13,7 +13,7 @@ export default function TermsPage() {
       <p>
         These Terms &amp; Conditions (&quot;Terms&quot;) govern your access to
         and use of {siteConfig.name} (the &quot;Service&quot;). By using the
-        Service, you agree to these Terms. [PLACEHOLDER — have qualified legal
+        Service, you agree to these Terms. [PLACEHOLDER: have qualified legal
         counsel review and finalize these Terms for your business and
         jurisdiction.]
       </p>
@@ -74,7 +74,7 @@ export default function TermsPage() {
       <p>
         The Service, including software, templates, branding, and documentation
         (excluding your CV content), is owned by us or our licensors and
-        protected by applicable intellectual property laws. [PLACEHOLDER —
+        protected by applicable intellectual property laws. [PLACEHOLDER:
         specify ownership entity when established.]
       </p>
 
@@ -97,7 +97,7 @@ export default function TermsPage() {
       <p>
         THE SERVICE IS PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot;
         WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, TO THE
-        FULLEST EXTENT PERMITTED BY LAW. [PLACEHOLDER — legal review required
+        FULLEST EXTENT PERMITTED BY LAW. [PLACEHOLDER: legal review required
         for warranty disclaimers in your jurisdiction.]
       </p>
 
@@ -106,7 +106,7 @@ export default function TermsPage() {
         TO THE FULLEST EXTENT PERMITTED BY LAW, WE WILL NOT BE LIABLE FOR
         INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR
         ANY LOSS OF PROFITS, DATA, OR GOODWILL, ARISING FROM YOUR USE OF THE
-        SERVICE. [PLACEHOLDER — cap and exceptions must be set with legal
+        SERVICE. [PLACEHOLDER: cap and exceptions must be set with legal
         advice.]
       </p>
 
@@ -114,26 +114,26 @@ export default function TermsPage() {
       <p>
         You may stop using the Service at any time. We may suspend or terminate
         access for violations of these Terms or to protect the Service.
-        [PLACEHOLDER — describe data handling on termination.]
+        [PLACEHOLDER: describe data handling on termination.]
       </p>
 
       <h2>Changes to terms</h2>
       <p>
         We may modify these Terms. Material changes will be posted on this page
-        with an updated date. [PLACEHOLDER — notification process.]
+        with an updated date. [PLACEHOLDER: notification process.]
       </p>
 
       <h2>Governing law</h2>
       <p>
-        [PLACEHOLDER — governing law and venue, e.g., &quot;These Terms are
+        [PLACEHOLDER: governing law and venue, e.g., &quot;These Terms are
         governed by the laws of [Jurisdiction], without regard to conflict of
         law principles.&quot; Do not specify until confirmed with counsel.]
       </p>
 
       <h2>Contact</h2>
       <p>
-        Questions about these Terms: [PLACEHOLDER — contact email or support
-        channel]. [PLACEHOLDER — legal entity name and registered address if
+        Questions about these Terms: [PLACEHOLDER: contact email or support
+        channel]. [PLACEHOLDER: legal entity name and registered address if
         applicable.]
       </p>
     </LegalPageLayout>

@@ -11,13 +11,17 @@ import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import type { CvTemplateId } from "@/lib/cv/constants";
 import type { CvRecord } from "@/lib/cv/serialize";
 import { getTemplateDefinition } from "@/components/cv-templates/registry";
-import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
 import { BuilderEditor } from "@/components/cv-builder/builder-editor";
 import {
   BuilderHeader,
   type SaveStatus,
 } from "@/components/cv-builder/builder-header";
-import { TemplateSelector } from "@/components/cv-builder/template-selector";
+import { BuilderPreviewPanel } from "@/components/cv-builder/builder-preview-panel";
+import { BuilderSidebarNav } from "@/components/cv-builder/builder-sidebar-nav";
+import { ManageSectionsModal } from "@/components/cv-builder/manage-sections-modal";
+import { TemplatePickerModal } from "@/components/cv-builder/template-picker-modal";
+import type { BuilderMobilePane } from "@/lib/cv/builder-ui-utils";
+import { cn } from "@/lib/cn";
 
 const AUTOSAVE_DELAY_MS = 1800;
 
@@ -44,6 +48,9 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [manageOpen, setManageOpen] = useState(false);
+  const [templatesOpen, setTemplatesOpen] = useState(false);
+  const [mobilePane, setMobilePane] = useState<BuilderMobilePane>("edit");
   const autosaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const isDirty = serializeBuilderState(state) !== savedSnapshot;
@@ -162,7 +169,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-100">
+    <div className="min-h-screen bg-slate-50/80">
       <BuilderHeader
         title={state.title}
         onTitleChange={(title) => setState((current) => ({ ...current, title }))}
@@ -172,31 +179,57 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         isSaving={isSaving}
         onExportPdf={() => void handleExportPdf()}
         isExporting={isExporting}
+        onOpenTemplates={() => setTemplatesOpen(true)}
+        onManageSections={() => setManageOpen(true)}
+        mobilePane={mobilePane}
+        onMobilePaneChange={setMobilePane}
+        showMobilePaneToggle
       />
 
-      <div className="mx-auto grid max-w-[1600px] gap-6 px-4 py-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="min-w-0 space-y-4">
-          <TemplateSelector
-            cvId={cvId}
-            selectedTemplate={state.template}
-            onTemplateChange={handleTemplateChange}
-            onTemplateSaved={handleTemplateSaved}
-            onTemplateError={setSaveError}
-          />
+      <div className="mx-auto flex max-w-[1600px] gap-4 px-4 py-4 lg:gap-6 lg:py-6">
+        <BuilderSidebarNav
+          state={state}
+          onManageSections={() => setManageOpen(true)}
+          className="sticky top-[7.5rem] hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto xl:flex"
+        />
+
+        <div
+          className={cn(
+            "min-w-0 flex-1 xl:max-w-[680px]",
+            mobilePane === "preview" && "hidden xl:block",
+          )}
+        >
           <BuilderEditor state={state} onChange={setState} />
         </div>
-        <div className="min-w-0 xl:sticky xl:top-24 xl:self-start">
-          <div className="mb-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-600">
-              Live Preview
-            </h2>
-            <p className="text-sm text-zinc-500">{activeTemplate.name} template</p>
-          </div>
-          <div className="overflow-x-auto pb-6">
-            <CvTemplateRenderer templateId={state.template} state={state} />
-          </div>
-        </div>
+
+        <BuilderPreviewPanel
+          templateId={state.template}
+          state={state}
+          templateLabel={`${activeTemplate.name} template`}
+          onOpenTemplates={() => setTemplatesOpen(true)}
+          className={cn(
+            "w-full flex-1 xl:min-w-[400px] xl:max-w-[540px]",
+            mobilePane === "edit" && "hidden xl:flex",
+          )}
+        />
       </div>
+
+      <ManageSectionsModal
+        open={manageOpen}
+        onClose={() => setManageOpen(false)}
+        state={state}
+        onChange={setState}
+      />
+
+      <TemplatePickerModal
+        open={templatesOpen}
+        onClose={() => setTemplatesOpen(false)}
+        cvId={cvId}
+        selectedTemplate={state.template}
+        onTemplateChange={handleTemplateChange}
+        onTemplateSaved={handleTemplateSaved}
+        onTemplateError={setSaveError}
+      />
     </div>
   );
 }

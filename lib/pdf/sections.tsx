@@ -6,6 +6,7 @@ import {
   formatMonth,
 } from "@/components/cv-templates/utils/format-dates";
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
+import type { ManageableSectionId } from "@/lib/cv/section-settings";
 
 type SectionProps = {
   title: string;
@@ -281,6 +282,68 @@ export function PdfCustomSections({
   );
 }
 
+function renderPdfSection(
+  sectionId: ManageableSectionId,
+  view: CvDocumentView,
+  styles: {
+    headingStyle: Style;
+    titleStyle: Style;
+    metaStyle: Style;
+    dateStyle: Style;
+  },
+) {
+  switch (sectionId) {
+    case "summary":
+      return <PdfSummarySection key={sectionId} view={view} headingStyle={styles.headingStyle} />;
+    case "workExperience":
+      return (
+        <PdfWorkSection
+          key={sectionId}
+          view={view}
+          headingStyle={styles.headingStyle}
+          titleStyle={styles.titleStyle}
+          metaStyle={styles.metaStyle}
+          dateStyle={styles.dateStyle}
+        />
+      );
+    case "education":
+      return (
+        <PdfEducationSection
+          key={sectionId}
+          view={view}
+          headingStyle={styles.headingStyle}
+          titleStyle={styles.titleStyle}
+          metaStyle={styles.metaStyle}
+          dateStyle={styles.dateStyle}
+        />
+      );
+    case "skills":
+      return <PdfSkillsSection key={sectionId} view={view} headingStyle={styles.headingStyle} />;
+    case "projects":
+      return (
+        <PdfProjectsSection
+          key={sectionId}
+          view={view}
+          headingStyle={styles.headingStyle}
+          titleStyle={styles.titleStyle}
+        />
+      );
+    case "certifications":
+      return (
+        <PdfCertificationsSection
+          key={sectionId}
+          view={view}
+          headingStyle={styles.headingStyle}
+          titleStyle={styles.titleStyle}
+        />
+      );
+    case "languages":
+      return <PdfLanguagesSection key={sectionId} view={view} headingStyle={styles.headingStyle} />;
+    default:
+      return null;
+  }
+}
+
 export function PdfBodySections({
   view,
   headingStyle,
@@ -294,35 +357,13 @@ export function PdfBodySections({
   metaStyle: Style;
   dateStyle: Style;
 }) {
+  const styles = { headingStyle, titleStyle, metaStyle, dateStyle };
+
   return (
     <>
-      <PdfSummarySection view={view} headingStyle={headingStyle} />
-      <PdfWorkSection
-        view={view}
-        headingStyle={headingStyle}
-        titleStyle={titleStyle}
-        metaStyle={metaStyle}
-        dateStyle={dateStyle}
-      />
-      <PdfEducationSection
-        view={view}
-        headingStyle={headingStyle}
-        titleStyle={titleStyle}
-        metaStyle={metaStyle}
-        dateStyle={dateStyle}
-      />
-      <PdfSkillsSection view={view} headingStyle={headingStyle} />
-      <PdfProjectsSection
-        view={view}
-        headingStyle={headingStyle}
-        titleStyle={titleStyle}
-      />
-      <PdfCertificationsSection
-        view={view}
-        headingStyle={headingStyle}
-        titleStyle={titleStyle}
-      />
-      <PdfLanguagesSection view={view} headingStyle={headingStyle} />
+      {view.visibleSectionOrder.map((sectionId) =>
+        renderPdfSection(sectionId, view, styles),
+      )}
       <PdfCustomSections view={view} headingStyle={headingStyle} />
     </>
   );

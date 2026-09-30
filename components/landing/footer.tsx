@@ -2,6 +2,9 @@ import Link from "next/link";
 import { siteConfig } from "@/lib/constants";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 
+const footerLinkClass =
+  "cursor-pointer text-slate-600 transition-colors hover:text-slate-900 focus:outline-none focus-visible:underline";
+
 export function LandingFooter() {
   const year = new Date().getFullYear();
 
@@ -22,22 +25,22 @@ export function LandingFooter() {
           <p className="text-sm font-semibold text-slate-900">Product</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <Link href="#features" className="text-slate-600 hover:text-slate-900">
+              <Link href="#features" className={footerLinkClass}>
                 Features
               </Link>
             </li>
             <li>
-              <Link href="#templates" className="text-slate-600 hover:text-slate-900">
+              <Link href="#templates" className={footerLinkClass}>
                 Templates
               </Link>
             </li>
             <li>
-              <Link href="#how-it-works" className="text-slate-600 hover:text-slate-900">
+              <Link href="#how-it-works" className={footerLinkClass}>
                 How it works
               </Link>
             </li>
             <li>
-              <Link href="/login" className="text-slate-600 hover:text-slate-900">
+              <Link href="/login" className={footerLinkClass}>
                 Sign in
               </Link>
             </li>
@@ -48,12 +51,12 @@ export function LandingFooter() {
           <p className="text-sm font-semibold text-slate-900">Legal</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <Link href="/privacy" className="text-slate-600 hover:text-slate-900">
+              <Link href="/privacy" className={footerLinkClass}>
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="text-slate-600 hover:text-slate-900">
+              <Link href="/terms" className={footerLinkClass}>
                 Terms &amp; Conditions
               </Link>
             </li>

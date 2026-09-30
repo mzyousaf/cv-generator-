@@ -3,15 +3,19 @@
 import type { ReactNode } from "react";
 import { AuthModal } from "@/components/auth/auth-modal";
 import { AuthModalProvider } from "@/components/landing/auth-modal-context";
-import { LandingFooter } from "@/components/landing/footer";
 import { LandingNavbar } from "@/components/landing/navbar";
 
-export function LandingShell({ children }: { children: ReactNode }) {
+type LandingShellProps = {
+  children: ReactNode;
+  footer: ReactNode;
+};
+
+export function LandingShell({ children, footer }: LandingShellProps) {
   return (
     <AuthModalProvider>
       <LandingNavbar />
       {children}
-      <LandingFooter />
+      {footer}
       <AuthModal />
     </AuthModalProvider>
   );

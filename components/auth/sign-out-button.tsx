@@ -1,19 +1,14 @@
-import { signOut } from "@/auth";
+"use client";
+
+import { signOutUserAction } from "@/lib/auth/actions";
+import { Button } from "@/components/ui/button";
 
 export function SignOutButton() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signOut({ redirectTo: "/" });
-      }}
-    >
-      <button
-        type="submit"
-        className="rounded-md border border-zinc-300 px-4 py-2 text-sm font-medium dark:border-zinc-700"
-      >
+    <form action={signOutUserAction}>
+      <Button type="submit" variant="outline" size="sm" fullWidth>
         Sign out
-      </button>
+      </Button>
     </form>
   );
 }

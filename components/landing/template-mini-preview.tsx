@@ -10,28 +10,42 @@ type TemplateMiniPreviewProps = {
   className?: string;
 };
 
+const PREVIEW_PAGE_WIDTH_PX = 794;
+
 export function TemplateMiniPreview({
   templateId,
   heightClass = "h-[340px]",
   scale = 0.36,
   className = "",
 }: TemplateMiniPreviewProps) {
+  const layoutWidth = Math.ceil(PREVIEW_PAGE_WIDTH_PX * scale);
+
   return (
     <div
       className={`relative w-full max-w-full overflow-hidden rounded-lg border border-slate-200 bg-slate-100 ${heightClass} ${className}`.trim()}
     >
-      <div
-        className="pointer-events-none absolute left-1/2 top-0 origin-top select-none"
-        style={{ transform: `translateX(-50%) scale(${scale})` }}
-        aria-hidden="true"
-      >
-        <CvTemplateRenderer
-          templateId={templateId}
-          state={{
-            ...TEMPLATE_PREVIEW_SAMPLE_STATE,
-            template: templateId,
-          }}
-        />
+      <div className="absolute left-1/2 top-3 -translate-x-1/2">
+        <div
+          className="pointer-events-none overflow-hidden shadow-sm ring-1 ring-slate-200/80"
+          style={{ width: layoutWidth }}
+          aria-hidden="true"
+        >
+          <div
+            className="origin-top-left"
+            style={{
+              width: PREVIEW_PAGE_WIDTH_PX,
+              transform: `scale(${scale})`,
+            }}
+          >
+            <CvTemplateRenderer
+              templateId={templateId}
+              state={{
+                ...TEMPLATE_PREVIEW_SAMPLE_STATE,
+                template: templateId,
+              }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

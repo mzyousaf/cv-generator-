@@ -1,19 +1,35 @@
 "use client";
 
-import {
-  createEntryId,
-} from "@/lib/cv/builder-mapper";
+import { useCallback, useState } from "react";
+import { createEntryId } from "@/lib/cv/builder-mapper";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import {
+  certificationEntrySummary,
+  educationEntrySummary,
+  languageEntrySummary,
+  normalizeSkillsList,
+  projectEntrySummary,
+  workExperienceEntrySummary,
+} from "@/lib/cv/builder-ui-utils";
+import {
+  getEditorSectionOrder,
+  isSectionHidden,
+  type ManageableSectionId,
+} from "@/lib/cv/section-settings";
+import {
+  CollapsibleEntryCard,
   EntryCard,
   FormField,
   SectionCard,
+  SummaryTextArea,
   TextArea,
   TextInput,
 } from "@/components/cv-builder/form-primitives";
-import { SkillsAiControls } from "@/components/cv-builder/ai/skills-ai-controls";
+import { BuilderMobileSectionsMenu } from "@/components/cv-builder/builder-mobile-sections-menu";
+import { SkillsEditor } from "@/components/cv-builder/skills-editor";
 import { SummaryAiControls } from "@/components/cv-builder/ai/summary-ai-controls";
 import { WorkExperienceAiControls } from "@/components/cv-builder/ai/work-experience-ai-controls";
+import { Badge } from "@/components/ui/badge";
 
 type BuilderEditorProps = {
   state: CvBuilderFormState;
@@ -24,14 +40,67 @@ function confirmRemove(label: string): boolean {
   return window.confirm(`Remove this ${label}? This cannot be undone until you save.`);
 }
 
+function useExpandedEntries() {
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set());
+
+  const expand = useCallback((id: string) => {
+    setExpandedIds((current) => {
+      const next = new Set(current);
+      next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggle = useCallback((id: string) => {
+    setExpandedIds((current) => {
+      const next = new Set(current);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  }, []);
+
+  const isExpanded = useCallback(
+    (id: string) => expandedIds.has(id),
+    [expandedIds],
+  );
+
+  return { expand, toggle, isExpanded };
+}
+
 export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
+  const { expand, toggle, isExpanded } = useExpandedEntries();
+  const sectionOrder = getEditorSectionOrder(state.sectionSettings);
+
   function update(partial: Partial<CvBuilderFormState>) {
     onChange({ ...state, ...partial });
   }
 
+  function flexOrder(sectionId: ManageableSectionId) {
+    return { order: sectionOrder.indexOf(sectionId) + 1 };
+  }
+
+  function hiddenBadge(sectionId: ManageableSectionId) {
+    return isSectionHidden(state.sectionSettings, sectionId) ? (
+      <Badge variant="muted">Hidden from resume</Badge>
+    ) : undefined;
+  }
+
   return (
     <div className="space-y-4">
-      <SectionCard title="Personal Information">
+      <div className="xl:hidden">
+        <BuilderMobileSectionsMenu state={state} />
+      </div>
+
+      <div className="flex flex-col gap-4">
+      <div id="builder-section-personal" className="scroll-mt-28" style={{ order: 0 }}>
+      <SectionCard
+        title="Personal Information"
+        description="Contact details shown at the top of your resume."
+      >
         <div className="grid gap-3 sm:grid-cols-2">
           <FormField label="Full name" htmlFor="personal-fullName">
             <TextInput
@@ -120,30 +189,42 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
           </FormField>
         </div>
       </SectionCard>
+      </div>
 
-      <SectionCard title="Professional Summary">
-        <SummaryAiControls
-          state={state}
-          onApplySummary={(summary) => update({ summary })}
-        />
+      <div id="builder-section-summary" className="scroll-mt-28" style={flexOrder("summary")}>
+      <SectionCard
+        title="Professional Summary"
+        description="A concise overview of your experience and strengths."
+        statusBadge={hiddenBadge("summary")}
+      >
         <FormField label="Summary" htmlFor="summary">
-          <TextArea
+          <SummaryTextArea
             id="summary"
             value={state.summary}
             onChange={(event) => update({ summary: event.target.value })}
           />
         </FormField>
+        <SummaryAiControls
+          state={state}
+          onApplySummary={(summary) => update({ summary })}
+        />
       </SectionCard>
+      </div>
 
+      <div id="builder-section-workExperience" className="scroll-mt-28" style={flexOrder("workExperience")}>
       <SectionCard
         title="Work Experience"
-        addLabel="Add experience"
-        onAdd={() =>
+        description="Add your employment history."
+        statusBadge={hiddenBadge("workExperience")}
+        addLabel="+ Add experience"
+        onAdd={() => {
+          const id = createEntryId();
+          expand(id);
           update({
             workExperience: [
               ...state.workExperience,
               {
-                id: createEntryId(),
+                id,
                 jobTitle: "",
                 company: "",
                 location: "",
@@ -153,16 +234,21 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 description: "",
               },
             ],
-          })
-        }
+          });
+        }}
       >
         {state.workExperience.length === 0 ? (
-          <p className="text-sm text-zinc-500">No work experience added yet.</p>
+          <p className="text-sm text-slate-500">No work experience added yet.</p>
         ) : null}
-        {state.workExperience.map((entry, index) => (
-          <EntryCard
+        {state.workExperience.map((entry) => {
+          const summary = workExperienceEntrySummary(entry);
+          return (
+          <CollapsibleEntryCard
             key={entry.id}
-            title={`Experience ${index + 1}`}
+            summaryTitle={summary.title}
+            summarySubtitle={summary.subtitle}
+            expanded={isExpanded(entry.id)}
+            onToggle={() => toggle(entry.id)}
             onRemove={() => {
               if (!confirmRemove("work experience entry")) {
                 return;
@@ -253,7 +339,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               />
             </FormField>
             <div className="sm:col-span-2">
-              <label className="inline-flex items-center gap-2 text-sm text-zinc-700">
+              <label className="inline-flex items-center gap-2 text-sm text-slate-700">
                 <input
                   type="checkbox"
                   checked={entry.current}
@@ -301,19 +387,26 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </div>
-          </EntryCard>
-        ))}
+          </CollapsibleEntryCard>
+          );
+        })}
       </SectionCard>
+      </div>
 
+      <div id="builder-section-education" className="scroll-mt-28" style={flexOrder("education")}>
       <SectionCard
         title="Education"
-        addLabel="Add education"
-        onAdd={() =>
+        description="List degrees, certifications, and relevant coursework."
+        statusBadge={hiddenBadge("education")}
+        addLabel="+ Add education"
+        onAdd={() => {
+          const id = createEntryId();
+          expand(id);
           update({
             education: [
               ...state.education,
               {
-                id: createEntryId(),
+                id,
                 degree: "",
                 institution: "",
                 location: "",
@@ -322,16 +415,21 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 description: "",
               },
             ],
-          })
-        }
+          });
+        }}
       >
         {state.education.length === 0 ? (
-          <p className="text-sm text-zinc-500">No education entries yet.</p>
+          <p className="text-sm text-slate-500">No education entries yet.</p>
         ) : null}
-        {state.education.map((entry, index) => (
-          <EntryCard
+        {state.education.map((entry) => {
+          const summary = educationEntrySummary(entry);
+          return (
+          <CollapsibleEntryCard
             key={entry.id}
-            title={`Education ${index + 1}`}
+            summaryTitle={summary.title}
+            summarySubtitle={summary.subtitle}
+            expanded={isExpanded(entry.id)}
+            onToggle={() => toggle(entry.id)}
             onRemove={() => {
               if (!confirmRemove("education entry")) {
                 return;
@@ -435,84 +533,54 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 />
               </FormField>
             </div>
-          </EntryCard>
-        ))}
+          </CollapsibleEntryCard>
+          );
+        })}
       </SectionCard>
+      </div>
 
-      <SectionCard title="Skills" addLabel="Add skill" onAdd={() => update({ skills: [...state.skills, ""] })}>
-        <SkillsAiControls
+      <div id="builder-section-skills" className="scroll-mt-28" style={flexOrder("skills")}>
+      <SectionCard
+        title="Skills"
+        description="Highlight tools and technologies recruiters look for."
+        statusBadge={hiddenBadge("skills")}
+      >
+        <SkillsEditor
           state={state}
-          onAddSkill={(skill) => {
-            const trimmed = skill.trim();
-            if (!trimmed) {
-              return;
-            }
-
-            const existing = state.skills.filter(Boolean);
-            if (existing.includes(trimmed)) {
-              return;
-            }
-
-            update({ skills: [...existing, trimmed] });
-          }}
+          onChangeSkills={(skills) => update({ skills: normalizeSkillsList(skills) })}
         />
-        {state.skills.length === 0 ? (
-          <p className="text-sm text-zinc-500">No skills added yet.</p>
-        ) : null}
-        {state.skills.map((skill, index) => (
-          <div key={`skill-${index}`} className="flex items-end gap-2">
-            <div className="flex-1">
-              <FormField label={`Skill ${index + 1}`} htmlFor={`skill-${index}`}>
-                <TextInput
-                  id={`skill-${index}`}
-                  value={skill}
-                  onChange={(event) =>
-                    update({
-                      skills: state.skills.map((item, itemIndex) =>
-                        itemIndex === index ? event.target.value : item,
-                      ),
-                    })
-                  }
-                />
-              </FormField>
-            </div>
-            <button
-              type="button"
-              className="mb-0.5 rounded-md px-2 py-2 text-sm font-medium text-red-700 hover:bg-red-50"
-              onClick={() => {
-                if (!confirmRemove("skill")) {
-                  return;
-                }
-                update({
-                  skills: state.skills.filter((_, itemIndex) => itemIndex !== index),
-                });
-              }}
-            >
-              Remove
-            </button>
-          </div>
-        ))}
       </SectionCard>
+      </div>
 
+      <div id="builder-section-projects" className="scroll-mt-28" style={flexOrder("projects")}>
       <SectionCard
         title="Projects"
-        addLabel="Add project"
-        onAdd={() =>
+        description="Showcase personal or professional projects."
+        statusBadge={hiddenBadge("projects")}
+        addLabel="+ Add project"
+        onAdd={() => {
+          const id = createEntryId();
+          expand(id);
           update({
             projects: [
               ...state.projects,
-              { id: createEntryId(), name: "", description: "", url: "" },
+              { id, name: "", description: "", url: "" },
             ],
-          })
-        }
+          });
+        }}
       >
         {state.projects.length === 0 ? (
-          <p className="text-sm text-zinc-500">No projects added yet.</p>
+          <p className="text-sm text-slate-500">No projects added yet.</p>
         ) : null}
-        {state.projects.map((entry, index) => (
-          <EntryCard
+        {state.projects.map((entry) => {
+          const summary = projectEntrySummary(entry);
+          return (
+          <CollapsibleEntryCard
             key={entry.id}
-            title={`Project ${index + 1}`}
+            summaryTitle={summary.title}
+            summarySubtitle={summary.subtitle}
+            expanded={isExpanded(entry.id)}
+            onToggle={() => toggle(entry.id)}
             onRemove={() => {
               if (!confirmRemove("project")) {
                 return;
@@ -570,29 +638,41 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 />
               </FormField>
             </div>
-          </EntryCard>
-        ))}
+          </CollapsibleEntryCard>
+          );
+        })}
       </SectionCard>
+      </div>
 
+      <div id="builder-section-certifications" className="scroll-mt-28" style={flexOrder("certifications")}>
       <SectionCard
         title="Certifications"
-        addLabel="Add certification"
-        onAdd={() =>
+        description="Professional credentials and licenses."
+        statusBadge={hiddenBadge("certifications")}
+        addLabel="+ Add certification"
+        onAdd={() => {
+          const id = createEntryId();
+          expand(id);
           update({
             certifications: [
               ...state.certifications,
-              { id: createEntryId(), name: "", issuer: "", date: "", url: "" },
+              { id, name: "", issuer: "", date: "", url: "" },
             ],
-          })
-        }
+          });
+        }}
       >
         {state.certifications.length === 0 ? (
-          <p className="text-sm text-zinc-500">No certifications added yet.</p>
+          <p className="text-sm text-slate-500">No certifications added yet.</p>
         ) : null}
-        {state.certifications.map((entry, index) => (
-          <EntryCard
+        {state.certifications.map((entry) => {
+          const summary = certificationEntrySummary(entry);
+          return (
+          <CollapsibleEntryCard
             key={entry.id}
-            title={`Certification ${index + 1}`}
+            summaryTitle={summary.title}
+            summarySubtitle={summary.subtitle}
+            expanded={isExpanded(entry.id)}
+            onToggle={() => toggle(entry.id)}
             onRemove={() => {
               if (!confirmRemove("certification")) {
                 return;
@@ -666,29 +746,41 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-          </EntryCard>
-        ))}
+          </CollapsibleEntryCard>
+          );
+        })}
       </SectionCard>
+      </div>
 
+      <div id="builder-section-languages" className="scroll-mt-28" style={flexOrder("languages")}>
       <SectionCard
         title="Languages"
-        addLabel="Add language"
-        onAdd={() =>
+        description="Languages you speak and your proficiency level."
+        statusBadge={hiddenBadge("languages")}
+        addLabel="+ Add language"
+        onAdd={() => {
+          const id = createEntryId();
+          expand(id);
           update({
             languages: [
               ...state.languages,
-              { id: createEntryId(), language: "", proficiency: "" },
+              { id, language: "", proficiency: "" },
             ],
-          })
-        }
+          });
+        }}
       >
         {state.languages.length === 0 ? (
-          <p className="text-sm text-zinc-500">No languages added yet.</p>
+          <p className="text-sm text-slate-500">No languages added yet.</p>
         ) : null}
-        {state.languages.map((entry, index) => (
-          <EntryCard
+        {state.languages.map((entry) => {
+          const summary = languageEntrySummary(entry);
+          return (
+          <CollapsibleEntryCard
             key={entry.id}
-            title={`Language ${index + 1}`}
+            summaryTitle={summary.title}
+            summarySubtitle={summary.subtitle}
+            expanded={isExpanded(entry.id)}
+            onToggle={() => toggle(entry.id)}
             onRemove={() => {
               if (!confirmRemove("language entry")) {
                 return;
@@ -729,13 +821,17 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-          </EntryCard>
-        ))}
+          </CollapsibleEntryCard>
+          );
+        })}
       </SectionCard>
+      </div>
 
+      <div className="scroll-mt-28" style={{ order: 100 }}>
       <SectionCard
         title="Custom Sections"
-        addLabel="Add section"
+        description="Optional sections for awards, volunteering, or other content."
+        addLabel="+ Add section"
         onAdd={() =>
           update({
             customSections: [
@@ -746,7 +842,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
         }
       >
         {state.customSections.length === 0 ? (
-          <p className="text-sm text-zinc-500">No custom sections added yet.</p>
+          <p className="text-sm text-slate-500">No custom sections added yet.</p>
         ) : null}
         {state.customSections.map((entry, index) => (
           <EntryCard
@@ -798,6 +894,8 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
           </EntryCard>
         ))}
       </SectionCard>
+      </div>
+      </div>
     </div>
   );
 }

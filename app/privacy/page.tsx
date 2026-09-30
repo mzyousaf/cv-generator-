@@ -15,7 +15,7 @@ export default function PrivacyPage() {
         &quot;us,&quot; or &quot;our&quot;) collects, uses, and stores
         information when you use our CV generation service (the
         &quot;Service&quot;). This document is provided for transparency.
-        [PLACEHOLDER — have qualified legal counsel review and finalize this
+        [PLACEHOLDER: have qualified legal counsel review and finalize this
         policy for your jurisdiction and business structure.]
       </p>
 
@@ -37,8 +37,8 @@ export default function PrivacyPage() {
 
       <h2>CV and resume content</h2>
       <p>
-        Content you enter into the CV builder—including employment history,
-        education, skills, summaries, and related fields—is stored so you can
+        Content you enter into the CV builder, including employment history,
+        education, skills, summaries, and related fields, is stored so you can
         edit, save, and export your CVs. You control what you submit.
       </p>
 
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
       </ul>
       <p>
         Each provider processes data according to its own terms and privacy
-        policies. [PLACEHOLDER — list the specific vendors and links you use in
+        policies. [PLACEHOLDER: list the specific vendors and links you use in
         production.]
       </p>
 
@@ -116,7 +116,7 @@ export default function PrivacyPage() {
       <h2>Data retention</h2>
       <p>
         We retain account and CV data while your account is active and as needed
-        to provide the Service. [PLACEHOLDER — define retention periods, backup
+        to provide the Service. [PLACEHOLDER: define retention periods, backup
         retention, and deletion practices with legal advice.]
       </p>
 
@@ -130,7 +130,7 @@ export default function PrivacyPage() {
       <h2>Your rights</h2>
       <p>
         Depending on where you live, you may have rights to access, correct,
-        delete, or export personal data. [PLACEHOLDER — describe how users can
+        delete, or export personal data. [PLACEHOLDER: describe how users can
         exercise rights and any regional requirements after legal review. We do
         not claim compliance with GDPR, CCPA, or other regimes unless formally
         established.]
@@ -140,21 +140,21 @@ export default function PrivacyPage() {
       <p>
         The Service is not directed to children under 13 (or the minimum age in
         your jurisdiction). We do not knowingly collect personal information
-        from children. [PLACEHOLDER — adjust age threshold per applicable law.]
+        from children. [PLACEHOLDER: adjust age threshold per applicable law.]
       </p>
 
       <h2>Changes to this policy</h2>
       <p>
         We may update this Privacy Policy from time to time. We will post the
         updated version on this page and update the &quot;Last updated&quot;
-        date. [PLACEHOLDER — describe how you will notify users of material
+        date. [PLACEHOLDER: describe how you will notify users of material
         changes.]
       </p>
 
       <h2>Contact</h2>
       <p>
-        For privacy questions or requests, contact: [PLACEHOLDER — privacy
-        contact email or web form]. [PLACEHOLDER — do not list a legal entity
+        For privacy questions or requests, contact: [PLACEHOLDER: privacy
+        contact email or web form]. [PLACEHOLDER: do not list a legal entity
         address until confirmed with counsel.]
       </p>
     </LegalPageLayout>

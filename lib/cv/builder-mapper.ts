@@ -1,3 +1,4 @@
+import { sanitizeSectionSettings, sectionSettingsToStored } from "@/lib/cv/section-settings";
 import { resolveTemplateId } from "@/lib/cv/template-registry";
 import type { CVContent } from "@/types/cv";
 import {
@@ -160,6 +161,7 @@ export function cvRecordToBuilderState(
   base.certifications = (content.certifications ?? []).map(mapCertificationEntry);
   base.languages = (content.languages ?? []).map(mapLanguageEntry);
   base.customSections = (content.customSections ?? []).map(mapCustomSectionEntry);
+  base.sectionSettings = sanitizeSectionSettings(content.sectionSettings);
 
   return base;
 }
@@ -217,6 +219,7 @@ export function builderStateToContentPatch(
       title,
       content,
     })),
+    sectionSettings: sectionSettingsToStored(state.sectionSettings),
   };
 }
 

@@ -1,5 +1,6 @@
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import { DEFAULT_CV_TEMPLATE } from "@/lib/cv/constants";
+import { createDefaultSectionSettings } from "@/lib/cv/section-settings";
 
 export const TEMPLATE_PREVIEW_SAMPLE_STATE: CvBuilderFormState = {
   title: "Sample CV",
@@ -42,4 +43,5 @@ export const TEMPLATE_PREVIEW_SAMPLE_STATE: CvBuilderFormState = {
   certifications: [],
   languages: [],
   customSections: [],
+  sectionSettings: createDefaultSectionSettings(),
 };

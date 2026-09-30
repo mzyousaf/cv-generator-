@@ -4,12 +4,12 @@ import { signIn } from "next-auth/react";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { registerUser, type RegisterUserState } from "@/lib/auth/actions";
 import { useRouter } from "next/navigation";
-import {
-  authErrorClassName,
-  authInputClassName,
-  authPrimaryButtonClassName,
-} from "@/components/auth/auth-form-styles";
 import { GoogleSignInButton } from "@/components/auth/google-sign-in-button";
+import { AuthDivider } from "@/components/ui/auth-divider";
+import { Button } from "@/components/ui/button";
+import { Field } from "@/components/ui/field";
+import { FormMessage } from "@/components/ui/form-message";
+import { Input } from "@/components/ui/input";
 
 const initialState: RegisterUserState = {};
 
@@ -106,67 +106,53 @@ export function SignupForm({
   const busy = isPending || oauthBusy;
 
   return (
-    <div className="space-y-4">
-      {state.error ? <p className={authErrorClassName}>{state.error}</p> : null}
-      {signInError ? <p className={authErrorClassName}>{signInError}</p> : null}
+    <div className="space-y-5">
+      {state.error ? <FormMessage>{state.error}</FormMessage> : null}
+      {signInError ? <FormMessage>{signInError}</FormMessage> : null}
 
       <form action={handleFormAction} className="space-y-4">
-        <div className="space-y-2">
-          <label htmlFor={nameId} className="block text-sm font-medium text-slate-800">
-            Name
-          </label>
-          <input
+        <Field label="Name" htmlFor={nameId}>
+          <Input
             id={nameId}
             name="name"
             type="text"
             autoComplete="name"
             required
-            className={authInputClassName}
           />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor={emailId} className="block text-sm font-medium text-slate-800">
-            Email
-          </label>
-          <input
+        </Field>
+        <Field label="Email" htmlFor={emailId}>
+          <Input
             id={emailId}
             name="email"
             type="email"
             autoComplete="email"
             required
-            className={authInputClassName}
           />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor={passwordId} className="block text-sm font-medium text-slate-800">
-            Password
-          </label>
-          <input
+        </Field>
+        <Field label="Password" htmlFor={passwordId} hint="At least 8 characters">
+          <Input
             id={passwordId}
             name="password"
             type="password"
             autoComplete="new-password"
             minLength={8}
             required
-            className={authInputClassName}
           />
-        </div>
-        <button
+        </Field>
+        <Button
           type="submit"
+          variant="primary"
+          size="md"
+          fullWidth
+          isLoading={busy && isPending}
+          loadingText={submitLabel}
           disabled={busy}
-          className={authPrimaryButtonClassName}
         >
           {submitLabel}
-        </button>
+        </Button>
       </form>
 
-      <div className="relative text-center text-xs uppercase tracking-wide text-slate-500">
-        <span className="relative z-10 bg-white px-2">or</span>
-        <div
-          className="absolute inset-x-0 top-1/2 border-t border-slate-200"
-          aria-hidden="true"
-        />
-      </div>
+      <AuthDivider />
 
       <GoogleSignInButton
         callbackUrl={callbackUrl}

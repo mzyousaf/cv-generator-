@@ -33,6 +33,7 @@ yarn-error.log*
 # env files (keep .env.example committed)
 .env
 .env.local
+scripts/fixtures/.qa-last-run.json
 .env.development.local
 .env.test.local
 .env.production.local

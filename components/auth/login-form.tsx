@@ -3,13 +3,12 @@
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import {
-  authErrorClassName,
-  authInfoClassName,
-  authInputClassName,
-  authPrimaryButtonClassName,
-} from "@/components/auth/auth-form-styles";
 import { GoogleSignInButton } from "@/components/auth/google-sign-in-button";
+import { AuthDivider } from "@/components/ui/auth-divider";
+import { Button } from "@/components/ui/button";
+import { Field } from "@/components/ui/field";
+import { FormMessage } from "@/components/ui/form-message";
+import { Input } from "@/components/ui/input";
 
 export type LoginFormProps = {
   callbackUrl?: string;
@@ -70,57 +69,46 @@ export function LoginForm({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {registered ? (
-        <p className={authInfoClassName}>
+        <FormMessage variant="info">
           Account created. Sign in to continue.
-        </p>
+        </FormMessage>
       ) : null}
-      {error ? <p className={authErrorClassName}>{error}</p> : null}
+      {error ? <FormMessage>{error}</FormMessage> : null}
 
       <form className="space-y-4" onSubmit={handleCredentialsSubmit}>
-        <div className="space-y-2">
-          <label htmlFor={emailId} className="block text-sm font-medium text-slate-800">
-            Email
-          </label>
-          <input
+        <Field label="Email" htmlFor={emailId}>
+          <Input
             id={emailId}
             name="email"
             type="email"
             autoComplete="email"
             required
-            className={authInputClassName}
           />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor={passwordId} className="block text-sm font-medium text-slate-800">
-            Password
-          </label>
-          <input
+        </Field>
+        <Field label="Password" htmlFor={passwordId}>
+          <Input
             id={passwordId}
             name="password"
             type="password"
             autoComplete="current-password"
             required
-            className={authInputClassName}
           />
-        </div>
-        <button
+        </Field>
+        <Button
           type="submit"
-          disabled={isSubmitting}
-          className={authPrimaryButtonClassName}
+          variant="primary"
+          size="md"
+          fullWidth
+          isLoading={isSubmitting}
+          loadingText={submitLabel}
         >
           {submitLabel}
-        </button>
+        </Button>
       </form>
 
-      <div className="relative text-center text-xs uppercase tracking-wide text-slate-500">
-        <span className="relative z-10 bg-white px-2">or</span>
-        <div
-          className="absolute inset-x-0 top-1/2 border-t border-slate-200"
-          aria-hidden="true"
-        />
-      </div>
+      <AuthDivider />
 
       <GoogleSignInButton
         callbackUrl={callbackUrl}

@@ -1,6 +1,7 @@
 import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
 import { TEMPLATE_PREVIEW_SAMPLE_STATE } from "@/components/cv-templates/sample-preview-state";
 import { CV_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
+import { Badge } from "@/components/ui/badge";
 
 const templateLabels: Record<CvTemplateId, string> = {
   default: "Default",
@@ -18,7 +19,7 @@ export function ProductPreview() {
       className="mx-auto w-full max-w-xl lg:max-w-none"
       aria-label="CV Generator product preview (demo data)"
     >
-      <div className="rounded-2xl bg-gradient-to-br from-blue-50/40 via-white to-slate-50 p-1 shadow-xl shadow-slate-300/25 ring-1 ring-slate-200/80">
+      <div className="rounded-2xl border border-slate-200/90 bg-white p-1 shadow-lg shadow-slate-200/50">
         <div className="overflow-hidden rounded-[0.9rem] border border-slate-200/90 bg-white">
           <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50/90 px-3 py-3 sm:px-4">
             <div className="min-w-0">
@@ -29,9 +30,7 @@ export function ProductPreview() {
                 {sample.title}
               </p>
             </div>
-            <span className="shrink-0 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-800 ring-1 ring-emerald-200/80">
-              Saved
-            </span>
+            <Badge variant="success">Saved</Badge>
           </div>
 
           <div className="grid gap-0 lg:grid-cols-5">
@@ -90,7 +89,7 @@ export function ProductPreview() {
                   ))}
                 </div>
                 <p className="text-[11px] text-slate-400">
-                  AI assist · PDF export in builder
+                  AI assist and PDF export in builder
                 </p>
               </div>
             </div>

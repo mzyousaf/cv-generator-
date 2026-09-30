@@ -13,7 +13,7 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   agentRules: false,
   poweredByHeader: false,
-  serverExternalPackages: ["@react-pdf/renderer"],
+  serverExternalPackages: ["@react-pdf/renderer", "pdf-parse", "mammoth"],
   async headers() {
     return [
       {
