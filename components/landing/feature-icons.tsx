@@ -5,7 +5,7 @@ type IconProps = { className?: string };
 function IconShell({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <span
-      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-fuchsia-50 text-blue-600 shadow-[0_1px_0_white_inset,0_6px_16px_-8px_rgb(101_66_236/0.5)] ring-1 ring-blue-100 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105 ${className}`.trim()}
+      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100/60 text-blue-600 shadow-[0_1px_0_white_inset,0_6px_16px_-8px_color-mix(in_oklab,var(--brand-600)_50%,transparent)] ring-1 ring-blue-100 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105 ${className}`.trim()}
       aria-hidden="true"
     >
       {children}

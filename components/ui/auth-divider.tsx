@@ -1,5 +1,9 @@
+"use client";
+
+import { useI18n } from "@/components/i18n/i18n-provider";
 import { ModalDivider } from "@/components/ui/modal";
 
 export function AuthDivider() {
-  return <ModalDivider>or continue with</ModalDivider>;
+  const { t } = useI18n();
+  return <ModalDivider>{t.common.orContinueWith}</ModalDivider>;
 }

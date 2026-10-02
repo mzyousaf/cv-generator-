@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import {
   builderSectionDomId,
   getOrderedSectionNavItems,
@@ -26,6 +28,7 @@ export function BuilderSidebarNav({
   onManageSections,
   className,
 }: BuilderSidebarNavProps) {
+  const { t } = useI18n();
   const activeDomId = useBuilderActiveSection(state);
   const navItems = getOrderedSectionNavItems(state.sectionSettings);
 
@@ -35,14 +38,14 @@ export function BuilderSidebarNav({
 
   return (
     <nav
-      aria-label="Resume sections"
+      aria-label={t.builder.resumeSections}
       className={cn(
-        "flex w-[230px] shrink-0 flex-col rounded-3xl border border-slate-200/70 bg-white/80 p-2.5 shadow-soft backdrop-blur",
+        "flex w-[230px] shrink-0 flex-col rounded-3xl border border-slate-200/70 bg-surface/80 p-2.5 shadow-soft backdrop-blur",
         className,
       )}
     >
       <p className="px-2.5 pb-2 pt-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
-        Sections
+        {t.builder.sections}
       </p>
       <ul className="space-y-0.5">
         {navItems.map((item) => {
@@ -59,9 +62,9 @@ export function BuilderSidebarNav({
                 onClick={() => handleNavigate(item.id)}
                 aria-current={isActive ? "true" : undefined}
                 className={cn(
-                  "flex w-full cursor-pointer items-center gap-2.5 rounded-xl px-2.5 py-2 text-left text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+                  "flex w-full cursor-pointer items-center gap-2.5 rounded-xl px-2.5 py-2 text-start text-sm font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
                   isActive
-                    ? "bg-gradient-to-r from-blue-50 to-fuchsia-50/60 text-blue-700 shadow-[inset_0_0_0_1px_rgb(101_66_236/0.12)]"
+                    ? "bg-gradient-to-r from-blue-50 to-blue-100/40 text-blue-700 shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--brand-600)_12%,transparent)]"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-950",
                 )}
               >
@@ -72,13 +75,13 @@ export function BuilderSidebarNav({
                     isActive ? "text-blue-600" : "text-slate-400",
                   )}
                 />
-                <span className="min-w-0 flex-1 leading-snug">{item.label}</span>
+                <span className="min-w-0 flex-1 leading-snug">{t.sections[item.id]}</span>
                 {hidden ? (
                   <span
                     className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-slate-400"
-                    title="Hidden from resume"
+                    title={t.editor.hiddenFromResume}
                   >
-                    Hidden
+                    {t.common.hidden}
                   </span>
                 ) : null}
               </button>
@@ -94,7 +97,7 @@ export function BuilderSidebarNav({
           className="w-full justify-start text-slate-700"
           onClick={onManageSections}
         >
-          Manage Sections
+          {t.builder.manageSections}
         </Button>
       </div>
     </nav>

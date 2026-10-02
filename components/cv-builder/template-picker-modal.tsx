@@ -1,5 +1,8 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+import { format } from "@/lib/i18n/format";
+
 import { useState } from "react";
 import { updateCvAction } from "@/lib/cv/actions";
 import type { CvTemplateId } from "@/lib/cv/constants";
@@ -50,6 +53,7 @@ export function TemplatePickerModal({
   onTemplateSaved,
   onTemplateError,
 }: TemplatePickerModalProps) {
+  const { t } = useI18n();
   const [isSavingTemplate, setIsSavingTemplate] = useState(false);
   const activeTemplate = getTemplateDefinition(selectedTemplate);
 
@@ -79,8 +83,8 @@ export function TemplatePickerModal({
     <Modal
       open={open}
       onClose={onClose}
-      title="Templates"
-      description={`Current: ${activeTemplate.name}${isSavingTemplate ? ". Saving…" : ""}`}
+      title={t.builder.templates}
+      description={`${format(t.builder.templatesCurrent, { name: t.templateMeta[activeTemplate.id].name })}${isSavingTemplate ? t.builder.templatesSaving : ""}`}
       className="max-w-3xl"
     >
       <div className="grid gap-3 sm:grid-cols-3">
@@ -95,18 +99,18 @@ export function TemplatePickerModal({
               aria-pressed={isSelected}
               onClick={() => void handleSelect(template.id)}
               className={cn(
-                "cursor-pointer rounded-xl border p-3 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed",
+                "cursor-pointer rounded-xl border p-3 text-start transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed",
                 isSelected
                   ? "border-blue-600 bg-blue-50/50 ring-2 ring-blue-600/15"
-                  : "border-slate-200 bg-white hover:border-slate-400 hover:bg-slate-50",
+                  : "border-slate-200 bg-surface hover:border-slate-400 hover:bg-slate-50",
                 "disabled:cursor-not-allowed disabled:opacity-60",
               )}
             >
               <TemplateThumbnail templateId={template.id} />
               <p className="mt-2 text-sm font-semibold text-slate-900">
-                {template.name}
+                {t.templateMeta[template.id].name}
               </p>
-              <p className="mt-1 text-xs text-slate-600">{template.description}</p>
+              <p className="mt-1 text-xs text-slate-600">{t.templateMeta[template.id].description}</p>
             </button>
           );
         })}

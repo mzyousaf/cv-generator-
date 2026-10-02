@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import {
   DashboardSidebar,
@@ -15,6 +17,7 @@ type DashboardShellProps = {
 };
 
 export function DashboardShell({ user, children }: DashboardShellProps) {
+  const { t } = useI18n();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const closeMobileNav = useCallback(() => {
@@ -45,7 +48,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
 
   return (
     <div className="flex min-h-screen min-w-0 bg-background">
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 bg-ink bg-[radial-gradient(80%_40%_at_0%_0%,rgb(101_66_236/0.28),transparent)] lg:flex lg:flex-col">
+      <aside className="scheme-light sticky top-0 hidden h-screen border-r border-white/5 w-64 shrink-0 bg-ink bg-[radial-gradient(80%_40%_at_0%_0%,color-mix(in_oklab,var(--brand-600)_28%,transparent),transparent)] lg:flex lg:flex-col">
         <DashboardSidebar user={user} />
       </aside>
 
@@ -63,16 +66,16 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
           <button
             type="button"
             className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
-            aria-label="Close navigation menu"
+            aria-label={t.dashboard.closeNavigation}
             onClick={closeMobileNav}
           />
           <div
             className={cn(
-              "relative flex h-full w-[min(100%,18rem)] flex-col bg-ink shadow-2xl",
+              "scheme-light relative flex h-full w-[min(100%,18rem)] flex-col bg-ink shadow-2xl",
             )}
             role="dialog"
             aria-modal="true"
-            aria-label="Navigation"
+            aria-label={t.dashboard.navigation}
           >
             <div className="flex items-center justify-end px-3 pt-3">
               <Button
@@ -80,7 +83,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
                 variant="ghost"
                 size="sm"
                 className="min-h-9 min-w-9 px-2 text-slate-300 hover:bg-white/10 hover:text-white"
-                aria-label="Close menu"
+                aria-label={t.common.closeMenu}
                 onClick={closeMobileNav}
               >
                 <span aria-hidden="true">×</span>

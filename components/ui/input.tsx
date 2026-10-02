@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       disabled={disabled}
       aria-invalid={invalid || undefined}
       className={cn(
-        "h-11 w-full rounded-xl border border-slate-200 bg-white px-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-all duration-150",
+        "h-11 w-full rounded-xl border border-slate-200 bg-surface px-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-all duration-150",
         "placeholder:text-slate-400",
         "hover:border-slate-300",
         "focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/12",

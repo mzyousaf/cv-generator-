@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
 import { useCallback, useState } from "react";
 import { createEntryId } from "@/lib/cv/builder-mapper";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
@@ -30,15 +31,14 @@ import { SkillsEditor } from "@/components/cv-builder/skills-editor";
 import { SummaryAiControls } from "@/components/cv-builder/ai/summary-ai-controls";
 import { WorkExperienceAiControls } from "@/components/cv-builder/ai/work-experience-ai-controls";
 import { Badge } from "@/components/ui/badge";
+import { useEntrySummaryLabels } from "@/components/cv-builder/use-entry-summary-labels";
+import { format } from "@/lib/i18n/format";
 
 type BuilderEditorProps = {
   state: CvBuilderFormState;
   onChange: (next: CvBuilderFormState) => void;
 };
 
-function confirmRemove(label: string): boolean {
-  return window.confirm(`Remove this ${label}? This cannot be undone until you save.`);
-}
 
 function useExpandedEntries() {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set());
@@ -72,7 +72,13 @@ function useExpandedEntries() {
 }
 
 export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
+  const { t } = useI18n();
   const { expand, toggle, isExpanded } = useExpandedEntries();
+  const summaryLabels = useEntrySummaryLabels();
+
+  function confirmRemove(item: string): boolean {
+    return window.confirm(format(t.editor.confirmRemove, { item }));
+  }
   const sectionOrder = getEditorSectionOrder(state.sectionSettings);
 
   function update(partial: Partial<CvBuilderFormState>) {
@@ -85,7 +91,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
   function hiddenBadge(sectionId: ManageableSectionId) {
     return isSectionHidden(state.sectionSettings, sectionId) ? (
-      <Badge variant="muted">Hidden from resume</Badge>
+      <Badge variant="muted">{t.editor.hiddenFromResume}</Badge>
     ) : undefined;
   }
 
@@ -98,11 +104,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       <div className="flex flex-col gap-4">
       <div id="builder-section-personal" className="scroll-mt-28" style={{ order: 0 }}>
       <SectionCard
-        title="Personal Information"
-        description="Contact details shown at the top of your resume."
+        title={t.sections.personal}
+        description={t.editor.descriptions.personal}
       >
         <div className="grid gap-3 sm:grid-cols-2">
-          <FormField label="Full name" htmlFor="personal-fullName">
+          <FormField label={t.editor.fields.fullName} htmlFor="personal-fullName">
             <TextInput
               id="personal-fullName"
               value={state.personal.fullName}
@@ -113,7 +119,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               }
             />
           </FormField>
-          <FormField label="Professional title" htmlFor="personal-title">
+          <FormField label={t.editor.fields.professionalTitle} htmlFor="personal-title">
             <TextInput
               id="personal-title"
               value={state.personal.professionalTitle}
@@ -127,7 +133,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               }
             />
           </FormField>
-          <FormField label="Email" htmlFor="personal-email">
+          <FormField label={t.editor.fields.email} htmlFor="personal-email">
             <TextInput
               id="personal-email"
               type="email"
@@ -140,7 +146,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               }
             />
           </FormField>
-          <FormField label="Phone" htmlFor="personal-phone">
+          <FormField label={t.editor.fields.phone} htmlFor="personal-phone">
             <TextInput
               id="personal-phone"
               type="tel"
@@ -152,7 +158,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               }
             />
           </FormField>
-          <FormField label="Location" htmlFor="personal-location">
+          <FormField label={t.editor.fields.location} htmlFor="personal-location">
             <TextInput
               id="personal-location"
               value={state.personal.location}
@@ -163,7 +169,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               }
             />
           </FormField>
-          <FormField label="Website" htmlFor="personal-website">
+          <FormField label={t.editor.fields.website} htmlFor="personal-website">
             <TextInput
               id="personal-website"
               type="url"
@@ -175,7 +181,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               }
             />
           </FormField>
-          <FormField label="LinkedIn" htmlFor="personal-linkedin">
+          <FormField label={t.editor.fields.linkedin} htmlFor="personal-linkedin">
             <TextInput
               id="personal-linkedin"
               type="url"
@@ -193,11 +199,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
       <div id="builder-section-summary" className="scroll-mt-28" style={flexOrder("summary")}>
       <SectionCard
-        title="Professional Summary"
-        description="A concise overview of your experience and strengths."
+        title={t.sections.summary}
+        description={t.editor.descriptions.summary}
         statusBadge={hiddenBadge("summary")}
       >
-        <FormField label="Summary" htmlFor="summary">
+        <FormField label={t.editor.fields.summary} htmlFor="summary">
           <SummaryTextArea
             id="summary"
             value={state.summary}
@@ -213,10 +219,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
       <div id="builder-section-workExperience" className="scroll-mt-28" style={flexOrder("workExperience")}>
       <SectionCard
-        title="Work Experience"
-        description="Add your employment history."
+        title={t.sections.workExperience}
+        description={t.editor.descriptions.workExperience}
         statusBadge={hiddenBadge("workExperience")}
-        addLabel="+ Add experience"
+        addLabel={t.editor.add.workExperience}
         onAdd={() => {
           const id = createEntryId();
           expand(id);
@@ -238,10 +244,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
         }}
       >
         {state.workExperience.length === 0 ? (
-          <p className="text-sm text-slate-500">No work experience added yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.workExperience}</p>
         ) : null}
         {state.workExperience.map((entry) => {
-          const summary = workExperienceEntrySummary(entry);
+          const summary = workExperienceEntrySummary(entry, summaryLabels);
           return (
           <CollapsibleEntryCard
             key={entry.id}
@@ -250,7 +256,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
             expanded={isExpanded(entry.id)}
             onToggle={() => toggle(entry.id)}
             onRemove={() => {
-              if (!confirmRemove("work experience entry")) {
+              if (!confirmRemove(t.editor.removeItems.work)) {
                 return;
               }
               update({
@@ -260,7 +266,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               });
             }}
           >
-            <FormField label="Job title" htmlFor={`work-title-${entry.id}`}>
+            <FormField label={t.editor.fields.jobTitle} htmlFor={`work-title-${entry.id}`}>
               <TextInput
                 id={`work-title-${entry.id}`}
                 value={entry.jobTitle}
@@ -275,7 +281,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Company" htmlFor={`work-company-${entry.id}`}>
+            <FormField label={t.editor.fields.company} htmlFor={`work-company-${entry.id}`}>
               <TextInput
                 id={`work-company-${entry.id}`}
                 value={entry.company}
@@ -290,7 +296,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Location" htmlFor={`work-location-${entry.id}`}>
+            <FormField label={t.editor.fields.location} htmlFor={`work-location-${entry.id}`}>
               <TextInput
                 id={`work-location-${entry.id}`}
                 value={entry.location}
@@ -305,7 +311,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Start date" htmlFor={`work-start-${entry.id}`}>
+            <FormField label={t.editor.fields.startDate} htmlFor={`work-start-${entry.id}`}>
               <TextInput
                 id={`work-start-${entry.id}`}
                 type="month"
@@ -321,7 +327,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="End date" htmlFor={`work-end-${entry.id}`}>
+            <FormField label={t.editor.fields.endDate} htmlFor={`work-end-${entry.id}`}>
               <TextInput
                 id={`work-end-${entry.id}`}
                 type="month"
@@ -357,11 +363,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                     })
                   }
                 />
-                Current job
+                {t.editor.fields.currentJob}
               </label>
             </div>
             <div className="sm:col-span-2">
-              <FormField label="Description" htmlFor={`work-desc-${entry.id}`}>
+              <FormField label={t.editor.fields.description} htmlFor={`work-desc-${entry.id}`}>
                 <TextArea
                   id={`work-desc-${entry.id}`}
                   value={entry.description}
@@ -395,10 +401,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
       <div id="builder-section-education" className="scroll-mt-28" style={flexOrder("education")}>
       <SectionCard
-        title="Education"
-        description="List degrees, certifications, and relevant coursework."
+        title={t.sections.education}
+        description={t.editor.descriptions.education}
         statusBadge={hiddenBadge("education")}
-        addLabel="+ Add education"
+        addLabel={t.editor.add.education}
         onAdd={() => {
           const id = createEntryId();
           expand(id);
@@ -419,10 +425,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
         }}
       >
         {state.education.length === 0 ? (
-          <p className="text-sm text-slate-500">No education entries yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.education}</p>
         ) : null}
         {state.education.map((entry) => {
-          const summary = educationEntrySummary(entry);
+          const summary = educationEntrySummary(entry, summaryLabels);
           return (
           <CollapsibleEntryCard
             key={entry.id}
@@ -431,7 +437,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
             expanded={isExpanded(entry.id)}
             onToggle={() => toggle(entry.id)}
             onRemove={() => {
-              if (!confirmRemove("education entry")) {
+              if (!confirmRemove(t.editor.removeItems.education)) {
                 return;
               }
               update({
@@ -439,7 +445,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               });
             }}
           >
-            <FormField label="Degree" htmlFor={`edu-degree-${entry.id}`}>
+            <FormField label={t.editor.fields.degree} htmlFor={`edu-degree-${entry.id}`}>
               <TextInput
                 id={`edu-degree-${entry.id}`}
                 value={entry.degree}
@@ -454,7 +460,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Institution" htmlFor={`edu-inst-${entry.id}`}>
+            <FormField label={t.editor.fields.institution} htmlFor={`edu-inst-${entry.id}`}>
               <TextInput
                 id={`edu-inst-${entry.id}`}
                 value={entry.institution}
@@ -469,7 +475,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Location" htmlFor={`edu-location-${entry.id}`}>
+            <FormField label={t.editor.fields.location} htmlFor={`edu-location-${entry.id}`}>
               <TextInput
                 id={`edu-location-${entry.id}`}
                 value={entry.location}
@@ -484,7 +490,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Start date" htmlFor={`edu-start-${entry.id}`}>
+            <FormField label={t.editor.fields.startDate} htmlFor={`edu-start-${entry.id}`}>
               <TextInput
                 id={`edu-start-${entry.id}`}
                 type="month"
@@ -500,7 +506,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="End date" htmlFor={`edu-end-${entry.id}`}>
+            <FormField label={t.editor.fields.endDate} htmlFor={`edu-end-${entry.id}`}>
               <TextInput
                 id={`edu-end-${entry.id}`}
                 type="month"
@@ -517,7 +523,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               />
             </FormField>
             <div className="sm:col-span-2">
-              <FormField label="Description" htmlFor={`edu-desc-${entry.id}`}>
+              <FormField label={t.editor.fields.description} htmlFor={`edu-desc-${entry.id}`}>
                 <TextArea
                   id={`edu-desc-${entry.id}`}
                   value={entry.description}
@@ -541,8 +547,8 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
       <div id="builder-section-skills" className="scroll-mt-28" style={flexOrder("skills")}>
       <SectionCard
-        title="Skills"
-        description="Highlight tools and technologies recruiters look for."
+        title={t.sections.skills}
+        description={t.editor.descriptions.skills}
         statusBadge={hiddenBadge("skills")}
       >
         <SkillsEditor
@@ -554,10 +560,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
       <div id="builder-section-projects" className="scroll-mt-28" style={flexOrder("projects")}>
       <SectionCard
-        title="Projects"
-        description="Showcase personal or professional projects."
+        title={t.sections.projects}
+        description={t.editor.descriptions.projects}
         statusBadge={hiddenBadge("projects")}
-        addLabel="+ Add project"
+        addLabel={t.editor.add.projects}
         onAdd={() => {
           const id = createEntryId();
           expand(id);
@@ -570,10 +576,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
         }}
       >
         {state.projects.length === 0 ? (
-          <p className="text-sm text-slate-500">No projects added yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.projects}</p>
         ) : null}
         {state.projects.map((entry) => {
-          const summary = projectEntrySummary(entry);
+          const summary = projectEntrySummary(entry, summaryLabels);
           return (
           <CollapsibleEntryCard
             key={entry.id}
@@ -582,7 +588,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
             expanded={isExpanded(entry.id)}
             onToggle={() => toggle(entry.id)}
             onRemove={() => {
-              if (!confirmRemove("project")) {
+              if (!confirmRemove(t.editor.removeItems.project)) {
                 return;
               }
               update({
@@ -590,7 +596,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               });
             }}
           >
-            <FormField label="Project name" htmlFor={`project-name-${entry.id}`}>
+            <FormField label={t.editor.fields.projectName} htmlFor={`project-name-${entry.id}`}>
               <TextInput
                 id={`project-name-${entry.id}`}
                 value={entry.name}
@@ -605,7 +611,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="URL" htmlFor={`project-url-${entry.id}`}>
+            <FormField label={t.editor.fields.url} htmlFor={`project-url-${entry.id}`}>
               <TextInput
                 id={`project-url-${entry.id}`}
                 type="url"
@@ -622,7 +628,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               />
             </FormField>
             <div className="sm:col-span-2">
-              <FormField label="Description" htmlFor={`project-desc-${entry.id}`}>
+              <FormField label={t.editor.fields.description} htmlFor={`project-desc-${entry.id}`}>
                 <TextArea
                   id={`project-desc-${entry.id}`}
                   value={entry.description}
@@ -646,10 +652,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
       <div id="builder-section-certifications" className="scroll-mt-28" style={flexOrder("certifications")}>
       <SectionCard
-        title="Certifications"
-        description="Professional credentials and licenses."
+        title={t.sections.certifications}
+        description={t.editor.descriptions.certifications}
         statusBadge={hiddenBadge("certifications")}
-        addLabel="+ Add certification"
+        addLabel={t.editor.add.certifications}
         onAdd={() => {
           const id = createEntryId();
           expand(id);
@@ -662,10 +668,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
         }}
       >
         {state.certifications.length === 0 ? (
-          <p className="text-sm text-slate-500">No certifications added yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.certifications}</p>
         ) : null}
         {state.certifications.map((entry) => {
-          const summary = certificationEntrySummary(entry);
+          const summary = certificationEntrySummary(entry, summaryLabels);
           return (
           <CollapsibleEntryCard
             key={entry.id}
@@ -674,7 +680,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
             expanded={isExpanded(entry.id)}
             onToggle={() => toggle(entry.id)}
             onRemove={() => {
-              if (!confirmRemove("certification")) {
+              if (!confirmRemove(t.editor.removeItems.certification)) {
                 return;
               }
               update({
@@ -684,7 +690,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               });
             }}
           >
-            <FormField label="Name" htmlFor={`cert-name-${entry.id}`}>
+            <FormField label={t.editor.fields.name} htmlFor={`cert-name-${entry.id}`}>
               <TextInput
                 id={`cert-name-${entry.id}`}
                 value={entry.name}
@@ -699,7 +705,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Issuer" htmlFor={`cert-issuer-${entry.id}`}>
+            <FormField label={t.editor.fields.issuer} htmlFor={`cert-issuer-${entry.id}`}>
               <TextInput
                 id={`cert-issuer-${entry.id}`}
                 value={entry.issuer}
@@ -714,7 +720,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Date" htmlFor={`cert-date-${entry.id}`}>
+            <FormField label={t.editor.fields.date} htmlFor={`cert-date-${entry.id}`}>
               <TextInput
                 id={`cert-date-${entry.id}`}
                 type="month"
@@ -730,7 +736,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="URL" htmlFor={`cert-url-${entry.id}`}>
+            <FormField label={t.editor.fields.url} htmlFor={`cert-url-${entry.id}`}>
               <TextInput
                 id={`cert-url-${entry.id}`}
                 type="url"
@@ -754,10 +760,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
       <div id="builder-section-languages" className="scroll-mt-28" style={flexOrder("languages")}>
       <SectionCard
-        title="Languages"
-        description="Languages you speak and your proficiency level."
+        title={t.sections.languages}
+        description={t.editor.descriptions.languages}
         statusBadge={hiddenBadge("languages")}
-        addLabel="+ Add language"
+        addLabel={t.editor.add.languages}
         onAdd={() => {
           const id = createEntryId();
           expand(id);
@@ -770,10 +776,10 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
         }}
       >
         {state.languages.length === 0 ? (
-          <p className="text-sm text-slate-500">No languages added yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.languages}</p>
         ) : null}
         {state.languages.map((entry) => {
-          const summary = languageEntrySummary(entry);
+          const summary = languageEntrySummary(entry, summaryLabels);
           return (
           <CollapsibleEntryCard
             key={entry.id}
@@ -782,7 +788,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
             expanded={isExpanded(entry.id)}
             onToggle={() => toggle(entry.id)}
             onRemove={() => {
-              if (!confirmRemove("language entry")) {
+              if (!confirmRemove(t.editor.removeItems.language)) {
                 return;
               }
               update({
@@ -790,7 +796,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               });
             }}
           >
-            <FormField label="Language" htmlFor={`lang-name-${entry.id}`}>
+            <FormField label={t.editor.fields.language} htmlFor={`lang-name-${entry.id}`}>
               <TextInput
                 id={`lang-name-${entry.id}`}
                 value={entry.language}
@@ -805,11 +811,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                 }
               />
             </FormField>
-            <FormField label="Proficiency" htmlFor={`lang-level-${entry.id}`}>
+            <FormField label={t.editor.fields.proficiency} htmlFor={`lang-level-${entry.id}`}>
               <TextInput
                 id={`lang-level-${entry.id}`}
                 value={entry.proficiency}
-                placeholder="Native, Professional, Intermediate"
+                placeholder={t.editor.fields.proficiencyPlaceholder}
                 onChange={(event) =>
                   update({
                     languages: state.languages.map((item) =>
@@ -829,9 +835,9 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
 
       <div className="scroll-mt-28" style={{ order: 100 }}>
       <SectionCard
-        title="Custom Sections"
-        description="Optional sections for awards, volunteering, or other content."
-        addLabel="+ Add section"
+        title={t.editor.customSections}
+        description={t.editor.customSectionsDescription}
+        addLabel={t.editor.add.custom}
         onAdd={() =>
           update({
             customSections: [
@@ -842,14 +848,14 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
         }
       >
         {state.customSections.length === 0 ? (
-          <p className="text-sm text-slate-500">No custom sections added yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.custom}</p>
         ) : null}
         {state.customSections.map((entry, index) => (
           <EntryCard
             key={entry.id}
-            title={`Custom section ${index + 1}`}
+            title={format(t.editor.customSectionN, { n: index + 1 })}
             onRemove={() => {
-              if (!confirmRemove("custom section")) {
+              if (!confirmRemove(t.editor.removeItems.custom)) {
                 return;
               }
               update({
@@ -859,7 +865,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               });
             }}
           >
-            <FormField label="Section title" htmlFor={`custom-title-${entry.id}`}>
+            <FormField label={t.editor.fields.sectionTitle} htmlFor={`custom-title-${entry.id}`}>
               <TextInput
                 id={`custom-title-${entry.id}`}
                 value={entry.title}
@@ -875,7 +881,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
               />
             </FormField>
             <div className="sm:col-span-2">
-              <FormField label="Content" htmlFor={`custom-content-${entry.id}`}>
+              <FormField label={t.editor.fields.content} htmlFor={`custom-content-${entry.id}`}>
                 <TextArea
                   id={`custom-content-${entry.id}`}
                   value={entry.content}

@@ -13,7 +13,7 @@ export function SectionHeading({
   description,
   align = "center",
 }: SectionHeadingProps) {
-  const alignClass = align === "center" ? "text-center mx-auto" : "text-left";
+  const alignClass = align === "center" ? "text-center mx-auto" : "text-start";
 
   return (
     <div className={`max-w-3xl ${alignClass}`}>

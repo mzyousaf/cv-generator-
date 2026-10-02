@@ -1,8 +1,10 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import Link from "next/link";
 import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
-import { getTemplateDefinition } from "@/components/cv-templates/registry";
+import { format } from "@/lib/i18n/format";
 import { cvRecordToBuilderState } from "@/lib/cv/builder-mapper";
 import { resolveTemplateId } from "@/lib/cv/template-registry";
 import type { CVContent } from "@/types/cv";
@@ -18,9 +20,9 @@ export type ResumeCardProps = {
   editHref: string;
 };
 
-function formatUpdatedAt(iso: string): string {
+function formatUpdatedAt(iso: string, locale: string): string {
   try {
-    return new Date(iso).toLocaleDateString(undefined, {
+    return new Date(iso).toLocaleDateString(locale, {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -38,7 +40,8 @@ export function ResumeCard({
   editHref,
 }: ResumeCardProps) {
   const templateId = resolveTemplateId(template);
-  const templateName = getTemplateDefinition(templateId).name;
+  const { t, locale } = useI18n();
+  const templateName = t.templateMeta[templateId].name;
   const previewState = cvRecordToBuilderState(title, content, templateId);
 
   return (
@@ -54,12 +57,12 @@ export function ResumeCard({
             <CvTemplateRenderer templateId={templateId} state={previewState} />
           </div>
         </div>
-        <span className="absolute left-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 shadow-sm ring-1 ring-blue-100 backdrop-blur">
+        <span className="absolute start-4 top-4 rounded-full bg-surface/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 shadow-sm ring-1 ring-blue-100 backdrop-blur">
           {templateName}
         </span>
         <span className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pb-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <span className="rounded-full bg-white px-4 py-1.5 text-xs font-bold text-slate-900 shadow-lg">
-            Open editor →
+          <span className="rounded-full bg-surface px-4 py-1.5 text-xs font-bold text-slate-900 shadow-lg">
+            {t.dashboard.openEditor}
           </span>
         </span>
       </Link>
@@ -69,7 +72,7 @@ export function ResumeCard({
             {title}
           </h3>
           <p className="text-xs text-slate-500">
-            Edited {formatUpdatedAt(updatedAt)}
+            {format(t.dashboard.edited, { date: formatUpdatedAt(updatedAt, locale) })}
           </p>
         </div>
         <Link
@@ -79,7 +82,7 @@ export function ResumeCard({
             "shrink-0 cursor-pointer",
           )}
         >
-          Edit
+          {t.dashboard.edit}
         </Link>
       </CardContent>
     </Card>

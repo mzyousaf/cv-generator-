@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import type { CvTemplateId } from "@/lib/cv/constants";
@@ -40,6 +42,7 @@ export function BuilderPreviewPanel({
   className,
   sticky = true,
 }: BuilderPreviewPanelProps) {
+  const { t } = useI18n();
   const [zoomMode, setZoomMode] = useState<PreviewZoomMode>(
     createDefaultPreviewZoomMode(),
   );
@@ -98,26 +101,26 @@ export function BuilderPreviewPanel({
     >
       <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         <div className="min-w-0">
-          <h2 className="flex items-center gap-2 text-sm font-bold text-slate-950"><span className="size-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgb(16_185_129/0.18)]" aria-hidden="true" />Preview</h2>
+          <h2 className="flex items-center gap-2 text-sm font-bold text-slate-950"><span className="size-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgb(16_185_129/0.18)]" aria-hidden="true" />{t.builder.preview}</h2>
           <button
             type="button"
             onClick={onOpenTemplates}
-            className="cursor-pointer truncate text-left text-xs text-slate-500 underline-offset-2 hover:text-slate-700 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            className="cursor-pointer truncate text-start text-xs text-slate-500 underline-offset-2 hover:text-slate-700 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
           >
-            {templateLabel} · Change template
+            {templateLabel} · {t.builder.changeTemplate}
           </button>
         </div>
         <div
-          className="inline-flex flex-wrap items-center rounded-xl border border-slate-200 bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)]"
+          className="inline-flex flex-wrap items-center rounded-xl border border-slate-200 bg-surface shadow-[0_1px_2px_rgb(15_23_42/0.04)]"
           role="group"
-          aria-label="Preview zoom"
+          aria-label={t.builder.previewZoom}
         >
           <Button
             type="button"
             variant="ghost"
             size="sm"
             className="min-w-9 px-2"
-            aria-label="Zoom out"
+            aria-label={t.builder.zoomOut}
             disabled={!canStepPreviewZoomOut(zoomMode)}
             onClick={() =>
               setZoomMode((current) =>
@@ -135,7 +138,7 @@ export function BuilderPreviewPanel({
             variant="ghost"
             size="sm"
             className="min-w-9 px-2"
-            aria-label="Zoom in"
+            aria-label={t.builder.zoomIn}
             disabled={!canStepPreviewZoomIn(zoomMode)}
             onClick={() =>
               setZoomMode((current) =>
@@ -156,12 +159,13 @@ export function BuilderPreviewPanel({
             aria-pressed={zoomMode.type === "fit"}
             onClick={() => setZoomMode({ type: "fit" })}
           >
-            Fit
+            {t.builder.fit}
           </Button>
         </div>
       </div>
       <div
         ref={canvasRef}
+        dir="ltr"
         className="min-h-0 flex-1 overflow-auto overflow-x-hidden rounded-3xl border border-slate-200/70 bg-gradient-to-br from-slate-100 via-slate-100/70 to-blue-50/60 p-4 shadow-[inset_0_2px_8px_rgb(15_23_42/0.04)] sm:p-6"
       >
         <div
@@ -174,7 +178,7 @@ export function BuilderPreviewPanel({
           >
             <div
               ref={docRef}
-              className="absolute left-0 top-0 origin-top-left"
+              className="absolute start-0 top-0 origin-top-left"
               style={{
                 width: docSize.width,
                 transform: `scale(${scale})`,

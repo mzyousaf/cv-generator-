@@ -3,7 +3,7 @@ import type { ComponentType } from "react";
 
 export type DashboardNavItem = {
   id: string;
-  label: string;
+  labelKey: "navResumes";
   href: string;
   icon: ComponentType<{ className?: string }>;
   isActive: (pathname: string) => boolean;
@@ -12,7 +12,7 @@ export type DashboardNavItem = {
 export const dashboardNavItems: DashboardNavItem[] = [
   {
     id: "resumes",
-    label: "Resumes",
+    labelKey: "navResumes",
     href: "/dashboard",
     icon: ResumesNavIcon,
     isActive: (pathname) => pathname === "/dashboard",

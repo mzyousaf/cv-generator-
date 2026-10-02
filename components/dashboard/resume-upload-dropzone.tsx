@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 
 
 import { useId, useRef, useState } from "react";
@@ -22,6 +24,7 @@ import { importResumeForReviewAction } from "@/lib/resume-import/actions";
 
 import type { ResumeImportFileKind } from "@/lib/resume-import/constants";
 
+import { format } from "@/lib/i18n/format";
 import { formatFileSize, validateResumeFileClient } from "@/lib/resume-import/validation";
 
 import { cn } from "@/lib/cn";
@@ -53,6 +56,7 @@ type ImportReviewSession = {
 
 
 export function ResumeUploadDropzone() {
+  const { t } = useI18n();
 
   const inputId = useId();
 
@@ -278,19 +282,19 @@ export function ResumeUploadDropzone() {
 
         className={cn(
 
-          "group/drop rounded-3xl border-2 border-dashed bg-white/70 p-8 text-center transition-all duration-200 sm:p-10",
+          "group/drop rounded-3xl border-2 border-dashed bg-surface/70 p-8 text-center transition-all duration-200 sm:p-10",
 
           isDragging
 
-            ? "border-blue-400 bg-blue-50/70 shadow-[0_0_0_6px_rgb(101_66_236/0.08)]"
+            ? "border-blue-400 bg-blue-50/70 shadow-[0_0_0_6px_color-mix(in_oklab,var(--brand-600)_8%,transparent)]"
 
-            : "border-slate-200 hover:border-blue-300 hover:bg-white",
+            : "border-slate-200 hover:border-blue-300 hover:bg-surface",
 
         )}
 
       >
 
-        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-fuchsia-50 text-blue-600 shadow-[0_8px_20px_-10px_rgb(101_66_236/0.6)] ring-1 ring-blue-100 transition-transform duration-300 group-hover/drop:-translate-y-0.5">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100/60 text-blue-600 shadow-[0_8px_20px_-10px_color-mix(in_oklab,var(--brand-600)_60%,transparent)] ring-1 ring-blue-100 transition-transform duration-300 group-hover/drop:-translate-y-0.5">
 
           <UploadIcon className="size-7" />
 
@@ -298,13 +302,13 @@ export function ResumeUploadDropzone() {
 
         <h2 className="mt-4 text-lg font-bold tracking-tight text-slate-950">
 
-          Upload an existing resume
+          {t.importer.uploadTitle}
 
         </h2>
 
         <p className="mx-auto mt-2 max-w-md text-sm text-slate-600">
 
-          Drag and drop your resume here, or{" "}
+          {t.importer.dropPrompt}{" "}
 
           <button
 
@@ -316,7 +320,7 @@ export function ResumeUploadDropzone() {
 
           >
 
-            browse
+            {t.importer.browse}
 
           </button>
 
@@ -324,7 +328,7 @@ export function ResumeUploadDropzone() {
 
         <p className="mt-1 text-xs text-slate-500">
 
-          PDF or DOCX. Max {formatFileSize(5 * 1024 * 1024)}.
+          {format(t.importer.fileHint, { size: formatFileSize(5 * 1024 * 1024) })}
 
         </p>
 
@@ -392,7 +396,7 @@ export function ResumeUploadDropzone() {
 
               >
 
-                Remove
+                {t.common.remove}
 
               </Button>
 
@@ -408,13 +412,13 @@ export function ResumeUploadDropzone() {
 
                 isLoading={isImporting}
 
-                loadingText="Importing…"
+                loadingText={t.importer.importing}
 
                 onClick={() => void runImport()}
 
               >
 
-                Import Resume
+                {t.importer.importResume}
 
               </Button>
 
@@ -450,13 +454,13 @@ export function ResumeUploadDropzone() {
 
               isLoading={isImporting}
 
-              loadingText="Retrying…"
+              loadingText={t.importer.retrying}
 
               onClick={() => void runImport()}
 
             >
 
-              Retry import
+              {t.importer.retry}
 
             </Button>
 

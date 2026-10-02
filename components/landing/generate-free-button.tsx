@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useI18n } from "@/components/i18n/i18n-provider";
 import { useAuthModal } from "@/components/landing/auth-modal-context";
 import { Button, type ButtonSize, type ButtonVariant } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
@@ -26,8 +27,9 @@ const variantMap: Record<
 export function GenerateFreeButton({
   className = "",
   variant = "primary",
-  children = LANDING_PRIMARY_CTA,
+  children,
 }: GenerateFreeButtonProps) {
+  const { t } = useI18n();
   const { openAuthModal } = useAuthModal();
   const mapped = variantMap[variant];
 
@@ -43,7 +45,7 @@ export function GenerateFreeButton({
       )}
       onClick={() => openAuthModal("signup")}
     >
-      {children}
+      {children ?? t.common.createCvFree}
     </Button>
   );
 }

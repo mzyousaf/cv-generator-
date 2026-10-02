@@ -1,10 +1,13 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { dashboardNavItems } from "@/components/dashboard/dashboard-nav-config";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Logo } from "@/components/ui/logo";
+import { PreferencesMenu } from "@/components/preferences/preferences-menu";
 import { cn } from "@/lib/cn";
 
 export type DashboardSidebarUser = {
@@ -34,6 +37,7 @@ export function DashboardSidebar({
   className,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
+  const { t } = useI18n();
 
   return (
     <div className={cn("flex h-full flex-col", className)}>
@@ -47,9 +51,9 @@ export function DashboardSidebar({
         </Link>
       </div>
 
-      <nav className="flex-1 px-3 py-4" aria-label="Application">
+      <nav className="flex-1 px-3 py-4" aria-label={t.dashboard.navLabel}>
         <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
-          Workspace
+          {t.dashboard.workspace}
         </p>
         <ul className="space-y-1">
           {dashboardNavItems.map((item) => {
@@ -65,7 +69,7 @@ export function DashboardSidebar({
                   className={cn(
                     "relative flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400",
                     active
-                      ? "bg-white/10 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.08)] before:absolute before:-left-3 before:top-2 before:bottom-2 before:w-1 before:rounded-r-full before:bg-blue-400"
+                      ? "bg-white/10 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.08)] before:absolute before:-start-3 before:top-2 before:bottom-2 before:w-1 before:rounded-e-full before:bg-blue-400"
                       : "text-slate-400 hover:bg-white/5 hover:text-white",
                   )}
                 >
@@ -75,7 +79,7 @@ export function DashboardSidebar({
                       active ? "text-blue-300" : "text-slate-500",
                     )}
                   />
-                  {item.label}
+                  {t.dashboard[item.labelKey]}
                 </Link>
               </li>
             );
@@ -107,8 +111,11 @@ export function DashboardSidebar({
             <p className="truncate text-xs text-slate-400">{user.email}</p>
           </div>
         </div>
-        <div className="mt-2">
-          <SignOutButton tone="dark" />
+        <div className="mt-2 flex items-center gap-2">
+          <PreferencesMenu tone="dark" align="start" placement="top" />
+          <div className="flex-1">
+            <SignOutButton tone="dark" />
+          </div>
         </div>
       </div>
     </div>

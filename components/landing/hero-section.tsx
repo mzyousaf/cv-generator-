@@ -1,12 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { useI18n } from "@/components/i18n/i18n-provider";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { ProductPreview } from "@/components/landing/product-preview";
-
-const highlights = [
-  "3 recruiter-ready templates",
-  "AI writing assist",
-  "One-click PDF export",
-];
 
 function CheckIcon() {
   return (
@@ -21,33 +18,32 @@ function CheckIcon() {
 }
 
 export function HeroSection() {
+  const { t } = useI18n();
   return (
-    <section className="relative isolate overflow-hidden bg-ink-mesh text-white">
+    <section className="scheme-light relative isolate overflow-hidden bg-ink-mesh text-white">
       <div
         className="absolute inset-0 -z-10 bg-grid-faint [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_75%)]"
         aria-hidden="true"
       />
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-20 pt-14 sm:px-6 sm:pb-24 sm:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pb-32 lg:pt-24">
         <div className="max-w-2xl animate-fade-up">
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.06] py-1 pl-1 pr-3.5 text-xs font-medium text-slate-200 backdrop-blur">
+          <p className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.06] py-1 ps-1 pe-3.5 text-xs font-medium text-slate-200 backdrop-blur">
             <span className="rounded-full bg-brand-gradient px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-              New
+              {t.hero.badgeNew}
             </span>
-            AI-assisted CV writing is here
+            {t.hero.badge}
           </p>
 
           <h1 className="mt-7 text-[2.6rem] font-bold leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-[4.1rem]">
-            Your career story,{" "}
-            <span className="font-display text-[1.12em] font-normal italic tracking-[-0.01em] text-gradient">
-              beautifully
+            {t.hero.titleStart}{" "}
+            <span className="inline-block font-display text-[1.12em] font-normal italic tracking-[-0.01em] text-gradient">
+              {t.hero.titleHighlight}
             </span>{" "}
-            told.
+            {t.hero.titleEnd}
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-300/90 sm:text-xl">
-            Craft a polished, recruiter-ready CV in minutes. A focused editor,
-            AI that sharpens every line, and elegant templates that export to
-            a flawless PDF.
+            {t.hero.subtitle}
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -56,13 +52,13 @@ export function HeroSection() {
               href="#templates"
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-6 text-sm font-semibold text-white backdrop-blur transition-colors hover:border-white/25 hover:bg-white/[0.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:text-[0.95rem]"
             >
-              Browse templates
-              <span aria-hidden="true">→</span>
+              {t.hero.browseTemplates}
+              <span aria-hidden="true" className="rtl:rotate-180">→</span>
             </Link>
           </div>
 
           <ul className="mt-9 flex flex-wrap gap-x-6 gap-y-2.5 text-sm text-slate-300">
-            {highlights.map((item) => (
+            {t.hero.highlights.map((item) => (
               <li key={item} className="inline-flex items-center gap-2">
                 <CheckIcon />
                 {item}
@@ -78,7 +74,7 @@ export function HeroSection() {
           />
           <ProductPreview />
           <div
-            className="absolute -bottom-7 left-6 hidden animate-float items-center gap-2.5 rounded-2xl border border-white/60 bg-white/95 px-3.5 py-2.5 text-slate-900 shadow-lift backdrop-blur sm:flex"
+            className="absolute -bottom-7 start-6 hidden animate-float items-center gap-2.5 rounded-2xl border border-white/60 bg-surface/95 px-3.5 py-2.5 text-slate-900 shadow-lift backdrop-blur sm:flex"
             aria-hidden="true"
           >
             <span className="flex size-8 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
@@ -87,16 +83,16 @@ export function HeroSection() {
               </svg>
             </span>
             <span>
-              <span className="block text-xs font-bold">Summary improved</span>
-              <span className="block text-[11px] text-slate-500">AI assist · just now</span>
+              <span className="block text-xs font-bold">{t.hero.chipAiTitle}</span>
+              <span className="block text-[11px] text-slate-500">{t.hero.chipAiMeta}</span>
             </span>
           </div>
           <div
-            className="absolute -right-3 -top-5 hidden animate-float items-center gap-2 rounded-full border border-white/60 bg-white/95 px-3.5 py-2 text-xs font-bold text-slate-900 shadow-lift [animation-delay:1.2s] sm:flex lg:-right-6"
+            className="absolute -end-3 -top-5 hidden animate-float items-center gap-2 rounded-full border border-white/60 bg-surface/95 px-3.5 py-2 text-xs font-bold text-slate-900 shadow-lift [animation-delay:1.2s] sm:flex lg:-end-6"
             aria-hidden="true"
           >
             <span className="size-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgb(16_185_129/0.2)]" />
-            PDF ready to download
+            {t.hero.chipPdf}
           </div>
         </div>
       </div>

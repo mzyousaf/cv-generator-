@@ -1,5 +1,8 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+import { format } from "@/lib/i18n/format";
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { updateCvAction } from "@/lib/cv/actions";
 import {
@@ -31,6 +34,7 @@ type CvBuilderProps = {
 };
 
 export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
+  const { t } = useI18n();
   const initialState = useMemo(
     () =>
       cvRecordToBuilderState(
@@ -169,7 +173,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background bg-[radial-gradient(60%_40%_at_100%_0%,rgb(101_66_236/0.06),transparent),radial-gradient(40%_30%_at_0%_100%,rgb(236_72_153/0.04),transparent)]">
+    <div className="min-h-screen bg-background bg-[radial-gradient(60%_40%_at_100%_0%,color-mix(in_oklab,var(--brand-600)_6%,transparent),transparent),radial-gradient(40%_30%_at_0%_100%,rgb(236_72_153/0.04),transparent)]">
       <BuilderHeader
         title={state.title}
         onTitleChange={(title) => setState((current) => ({ ...current, title }))}
@@ -205,7 +209,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         <BuilderPreviewPanel
           templateId={state.template}
           state={state}
-          templateLabel={`${activeTemplate.name} template`}
+          templateLabel={format(t.builder.templateLabel, { name: t.templateMeta[activeTemplate.id].name })}
           onOpenTemplates={() => setTemplatesOpen(true)}
           className={cn(
             "w-full flex-1 xl:min-w-[400px] xl:max-w-[540px]",

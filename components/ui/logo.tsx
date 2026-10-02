@@ -13,7 +13,7 @@ export function LogoMark({ className }: { className?: string }) {
     <span
       aria-hidden="true"
       className={cn(
-        "relative inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[0.6rem] bg-brand-gradient shadow-[0_1px_0_rgb(255_255_255/0.35)_inset,0_6px_14px_-4px_rgb(101_66_236/0.65)] ring-1 ring-blue-700/30",
+        "relative inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-[0.6rem] bg-brand-gradient shadow-[0_1px_0_rgb(255_255_255/0.35)_inset,0_6px_14px_-4px_color-mix(in_oklab,var(--brand-600)_65%,transparent)] ring-1 ring-blue-700/30",
         className,
       )}
     >
@@ -26,7 +26,7 @@ export function LogoMark({ className }: { className?: string }) {
         <path d="M14 4.5V8.5h4" fill="white" fillOpacity="0.55" />
         <path
           d="M9.5 12h6M9.5 14.75h6M9.5 17.5h3.5"
-          stroke="#6542ec"
+          style={{ stroke: "var(--brand-600)" }}
           strokeWidth="1.4"
           strokeLinecap="round"
         />

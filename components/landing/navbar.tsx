@@ -2,20 +2,23 @@
 
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
+import { useI18n } from "@/components/i18n/i18n-provider";
+import { PreferencesMenu } from "@/components/preferences/preferences-menu";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/cn";
 
-const navLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#templates", label: "Templates" },
-];
 
 const navLinkClass =
   "cursor-pointer rounded-full px-3.5 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400";
 
 export function LandingNavbar() {
+  const { t } = useI18n();
+  const navLinks = [
+    { href: "#features", label: t.nav.features },
+    { href: "#how-it-works", label: t.nav.howItWorks },
+    { href: "#templates", label: t.nav.templates },
+  ];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuId = useId();
@@ -47,7 +50,7 @@ export function LandingNavbar() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b transition-colors duration-300",
+        "scheme-light sticky top-0 z-40 border-b transition-colors duration-300",
         scrolled || mobileOpen
           ? "border-white/10 bg-ink/80 backdrop-blur-xl"
           : "border-transparent bg-ink",
@@ -55,7 +58,7 @@ export function LandingNavbar() {
     >
       <nav
         className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6"
-        aria-label="Main"
+        aria-label={t.nav.main}
       >
         <Link
           href="/"
@@ -77,19 +80,21 @@ export function LandingNavbar() {
             href="/login"
             className="rounded-full px-3 py-1.5 text-sm font-semibold text-slate-200 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
           >
-            Sign in
+            {t.common.signIn}
           </Link>
+          <PreferencesMenu tone="dark" />
           <GenerateFreeButton variant="nav" />
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
+          <PreferencesMenu tone="dark" className="hidden min-[420px]:block" />
           <GenerateFreeButton variant="nav" />
           <button
             type="button"
             className="inline-flex size-9 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             aria-expanded={mobileOpen}
             aria-controls={menuId}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-label={mobileOpen ? t.common.closeMenu : t.common.openMenu}
             onClick={() => setMobileOpen((open) => !open)}
           >
             <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
@@ -105,7 +110,7 @@ export function LandingNavbar() {
           className="border-t border-white/10 px-4 py-4 lg:hidden"
         >
           <ul className="space-y-1">
-            {[...navLinks, { href: "/login", label: "Sign in" }].map((link) => (
+            {[...navLinks, { href: "/login", label: t.common.signIn }].map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
@@ -117,6 +122,7 @@ export function LandingNavbar() {
               </li>
             ))}
           </ul>
+          <PreferencesMenu tone="dark" align="start" className="mt-3 min-[420px]:hidden" />
         </div>
       ) : null}
     </header>

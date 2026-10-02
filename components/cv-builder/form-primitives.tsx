@@ -1,3 +1,7 @@
+"use client";
+
+import { useI18n } from "@/components/i18n/i18n-provider";
+import { format } from "@/lib/i18n/format";
 import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -116,6 +120,7 @@ export function CollapsibleEntryCard({
   children: React.ReactNode;
   hideToggle?: boolean;
 }) {
+  const { t } = useI18n();
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-50/40 transition-colors hover:border-slate-300/80">
       <div className="flex items-start gap-2 px-4 py-3">
@@ -139,7 +144,7 @@ export function CollapsibleEntryCard({
               onClick={onToggle}
               className="text-slate-700"
             >
-              {expanded ? "Collapse" : "Expand"}
+              {expanded ? t.editor.collapse : t.editor.expand}
             </Button>
           ) : null}
           <Button
@@ -149,12 +154,12 @@ export function CollapsibleEntryCard({
             className="text-slate-500 hover:text-red-700"
             onClick={onRemove}
           >
-            Remove
+            {t.common.remove}
           </Button>
         </div>
       </div>
       {expanded ? (
-        <div className="grid gap-4 border-t border-slate-100 bg-white p-4 sm:grid-cols-2 sm:p-5">
+        <div className="grid gap-4 border-t border-slate-100 bg-surface p-4 sm:grid-cols-2 sm:p-5">
           {children}
         </div>
       ) : null}
@@ -172,18 +177,19 @@ export function SummaryTextArea({
   id: string;
   maxLength?: number;
 }) {
+  const { t } = useI18n();
   const text = typeof value === "string" ? value : String(value ?? "");
 
   return (
     <div className={cn("space-y-1", className)}>
       <Textarea id={id} value={text} onChange={onChange} rows={8} className="min-h-[160px]" />
       {maxLength ? (
-        <p className="text-right text-xs text-slate-500" aria-live="polite">
+        <p className="text-end text-xs text-slate-500" aria-live="polite">
           {text.length}/{maxLength}
         </p>
       ) : (
-        <p className="text-right text-xs text-slate-500" aria-live="polite">
-          {text.length} characters
+        <p className="text-end text-xs text-slate-500" aria-live="polite">
+          {format(t.editor.characters, { n: text.length })}
         </p>
       )}
     </div>

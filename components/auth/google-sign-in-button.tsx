@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -16,8 +18,9 @@ export function GoogleSignInButton({
   callbackUrl,
   disabled,
   onStart,
-  label = "Continue with Google",
+  label,
 }: GoogleSignInButtonProps) {
+  const { t } = useI18n();
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   async function handleClick() {
@@ -35,11 +38,11 @@ export function GoogleSignInButton({
       onClick={() => void handleClick()}
       disabled={disabled}
       isLoading={isRedirecting}
-      loadingText="Redirecting…"
+      loadingText={t.auth.redirecting}
       leftIcon={<GoogleIcon className="size-[18px]" />}
       className="font-medium"
     >
-      {label}
+      {label ?? t.auth.continueWithGoogle}
     </Button>
   );
 }

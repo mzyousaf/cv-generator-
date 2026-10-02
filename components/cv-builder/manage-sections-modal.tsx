@@ -1,9 +1,11 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+import { format } from "@/lib/i18n/format";
+
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import {
   getEditorSectionOrder,
-  getSectionLabel,
   isSectionHidden,
   moveSection,
   toggleSectionVisibility,
@@ -25,6 +27,7 @@ export function ManageSectionsModal({
   state,
   onChange,
 }: ManageSectionsModalProps) {
+  const { t } = useI18n();
   const order = getEditorSectionOrder(state.sectionSettings);
 
   function updateSettings(next: CvBuilderFormState["sectionSettings"]) {
@@ -35,14 +38,14 @@ export function ManageSectionsModal({
     <Modal
       open={open}
       onClose={onClose}
-      title="Manage sections"
-      description="Change the order of resume sections or hide sections from the preview and PDF. Hidden sections keep their content."
+      title={t.builder.manageTitle}
+      description={t.builder.manageDescription}
       className="max-w-lg"
     >
       <ul className="space-y-2">
         {order.map((sectionId, index) => {
           const hidden = isSectionHidden(state.sectionSettings, sectionId);
-          const label = getSectionLabel(sectionId);
+          const label = t.sections[sectionId];
 
           return (
             <li
@@ -52,38 +55,38 @@ export function ManageSectionsModal({
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-slate-900">{label}</p>
                 <p className="text-xs text-slate-600">
-                  {hidden ? "Hidden from preview and PDF" : "Visible on resume"}
+                  {hidden ? t.builder.hiddenFromPdf : t.builder.visibleOnResume}
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 {hidden ? (
-                  <Badge variant="muted">Hidden</Badge>
+                  <Badge variant="muted">{t.common.hidden}</Badge>
                 ) : (
-                  <Badge>Visible</Badge>
+                  <Badge>{t.common.visible}</Badge>
                 )}
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
-                  aria-label={`Move ${label} up`}
+                  aria-label={format(t.builder.moveUpLabel, { label })}
                   disabled={index === 0}
                   onClick={() =>
                     updateSettings(moveSection(state.sectionSettings, sectionId, "up"))
                   }
                 >
-                  Move up
+                  {t.builder.moveUp}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
-                  aria-label={`Move ${label} down`}
+                  aria-label={format(t.builder.moveDownLabel, { label })}
                   disabled={index === order.length - 1}
                   onClick={() =>
                     updateSettings(moveSection(state.sectionSettings, sectionId, "down"))
                   }
                 >
-                  Move down
+                  {t.builder.moveDown}
                 </Button>
                 <Button
                   type="button"
@@ -94,7 +97,7 @@ export function ManageSectionsModal({
                     updateSettings(toggleSectionVisibility(state.sectionSettings, sectionId))
                   }
                 >
-                  {hidden ? "Show" : "Hide"}
+                  {hidden ? t.builder.show : t.builder.hide}
                 </Button>
               </div>
             </li>

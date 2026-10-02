@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { signIn } from "next-auth/react";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { registerUser, type RegisterUserState } from "@/lib/auth/actions";
@@ -27,8 +29,10 @@ export function SignupForm({
   idPrefix = "",
   onSuccess,
   mode = "page",
-  submitLabel = "Create account",
+  submitLabel: submitLabelProp,
 }: SignupFormProps) {
+  const { t } = useI18n();
+  const submitLabel = submitLabelProp ?? t.common.createCvFree;
   const router = useRouter();
   const [state, formAction, isPending] = useActionState(
     registerUser,
@@ -74,9 +78,7 @@ export function SignupForm({
       }
 
       if (result?.error) {
-        setSignInError(
-          "Account created. Please sign in with your email and password.",
-        );
+        setSignInError(t.auth.accountCreatedSignIn);
         return;
       }
 
@@ -90,7 +92,7 @@ export function SignupForm({
     return () => {
       cancelled = true;
     };
-  }, [state.success, mode, router, callbackUrl, onSuccess]);
+  }, [state.success, mode, router, callbackUrl, onSuccess, t]);
 
   function handleFormAction(formData: FormData) {
     setSignInError(null);
@@ -111,7 +113,7 @@ export function SignupForm({
       {signInError ? <FormMessage>{signInError}</FormMessage> : null}
 
       <form action={handleFormAction} className="space-y-4">
-        <Field label="Name" htmlFor={nameId}>
+        <Field label={t.auth.name} htmlFor={nameId}>
           <Input
             id={nameId}
             name="name"
@@ -120,7 +122,7 @@ export function SignupForm({
             required
           />
         </Field>
-        <Field label="Email" htmlFor={emailId}>
+        <Field label={t.auth.email} htmlFor={emailId}>
           <Input
             id={emailId}
             name="email"
@@ -129,7 +131,7 @@ export function SignupForm({
             required
           />
         </Field>
-        <Field label="Password" htmlFor={passwordId} hint="At least 8 characters">
+        <Field label={t.auth.password} htmlFor={passwordId} hint={t.auth.passwordHint}>
           <Input
             id={passwordId}
             name="password"

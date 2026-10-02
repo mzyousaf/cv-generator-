@@ -1,5 +1,8 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+import { format } from "@/lib/i18n/format";
+
 import { createEntryId } from "@/lib/cv/builder-mapper";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import {
@@ -20,29 +23,30 @@ export function ResumeImportReviewForm({
   state,
   onChange,
 }: ResumeImportReviewFormProps) {
+  const { t } = useI18n();
   function update(partial: Partial<CvBuilderFormState>) {
     onChange({ ...state, ...partial });
   }
 
   return (
     <div className="space-y-4 overflow-x-hidden">
-      <SectionCard title="Resume title">
-        <FormField label="Title" htmlFor="import-resume-title">
+      <SectionCard title={t.importer.resumeTitle}>
+        <FormField label={t.importer.titleLabel} htmlFor="import-resume-title">
           <TextInput
             id="import-resume-title"
             value={state.title}
-            placeholder="Imported Resume"
+            placeholder={t.importer.titlePlaceholder}
             onChange={(event) => update({ title: event.target.value })}
           />
         </FormField>
         <p className="text-xs text-slate-500">
-          Shown on your dashboard. Default uses your name when available.
+          {t.importer.titleHint}
         </p>
       </SectionCard>
 
-      <SectionCard title="Personal information">
+      <SectionCard title={t.importer.personal}>
         <div className="grid gap-3 sm:grid-cols-2">
-          <FormField label="Full name" htmlFor="import-fullName">
+          <FormField label={t.editor.fields.fullName} htmlFor="import-fullName">
             <TextInput
               id="import-fullName"
               value={state.personal.fullName}
@@ -53,7 +57,7 @@ export function ResumeImportReviewForm({
               }
             />
           </FormField>
-          <FormField label="Professional title" htmlFor="import-title">
+          <FormField label={t.editor.fields.professionalTitle} htmlFor="import-title">
             <TextInput
               id="import-title"
               value={state.personal.professionalTitle}
@@ -67,7 +71,7 @@ export function ResumeImportReviewForm({
               }
             />
           </FormField>
-          <FormField label="Email" htmlFor="import-email">
+          <FormField label={t.editor.fields.email} htmlFor="import-email">
             <TextInput
               id="import-email"
               type="email"
@@ -80,7 +84,7 @@ export function ResumeImportReviewForm({
               }
             />
           </FormField>
-          <FormField label="Phone" htmlFor="import-phone">
+          <FormField label={t.editor.fields.phone} htmlFor="import-phone">
             <TextInput
               id="import-phone"
               type="tel"
@@ -92,7 +96,7 @@ export function ResumeImportReviewForm({
               }
             />
           </FormField>
-          <FormField label="Location" htmlFor="import-location">
+          <FormField label={t.editor.fields.location} htmlFor="import-location">
             <TextInput
               id="import-location"
               value={state.personal.location}
@@ -103,7 +107,7 @@ export function ResumeImportReviewForm({
               }
             />
           </FormField>
-          <FormField label="Website" htmlFor="import-website">
+          <FormField label={t.editor.fields.website} htmlFor="import-website">
             <TextInput
               id="import-website"
               type="url"
@@ -115,7 +119,7 @@ export function ResumeImportReviewForm({
               }
             />
           </FormField>
-          <FormField label="LinkedIn" htmlFor="import-linkedin">
+          <FormField label={t.editor.fields.linkedin} htmlFor="import-linkedin">
             <TextInput
               id="import-linkedin"
               type="url"
@@ -130,8 +134,8 @@ export function ResumeImportReviewForm({
         </div>
       </SectionCard>
 
-      <SectionCard title="Professional summary">
-        <FormField label="Summary" htmlFor="import-summary">
+      <SectionCard title={t.importer.summary}>
+        <FormField label={t.editor.fields.summary} htmlFor="import-summary">
           <TextArea
             id="import-summary"
             value={state.summary}
@@ -141,8 +145,8 @@ export function ResumeImportReviewForm({
       </SectionCard>
 
       <SectionCard
-        title="Work experience"
-        addLabel="Add experience"
+        title={t.importer.work}
+        addLabel={t.importer.addExperience}
         onAdd={() =>
           update({
             workExperience: [
@@ -162,12 +166,12 @@ export function ResumeImportReviewForm({
         }
       >
         {state.workExperience.length === 0 ? (
-          <p className="text-sm text-slate-500">No work experience entries yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.workExperience}</p>
         ) : null}
         {state.workExperience.map((entry, index) => (
           <EntryCard
             key={entry.id}
-            title={`Experience ${index + 1}`}
+            title={format(t.importer.experienceN, { n: index + 1 })}
             onRemove={() =>
               update({
                 workExperience: state.workExperience.filter(
@@ -176,7 +180,7 @@ export function ResumeImportReviewForm({
               })
             }
           >
-            <FormField label="Job title" htmlFor={`import-work-title-${entry.id}`}>
+            <FormField label={t.editor.fields.jobTitle} htmlFor={`import-work-title-${entry.id}`}>
               <TextInput
                 id={`import-work-title-${entry.id}`}
                 value={entry.jobTitle}
@@ -191,7 +195,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Company" htmlFor={`import-work-company-${entry.id}`}>
+            <FormField label={t.editor.fields.company} htmlFor={`import-work-company-${entry.id}`}>
               <TextInput
                 id={`import-work-company-${entry.id}`}
                 value={entry.company}
@@ -206,7 +210,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Location" htmlFor={`import-work-location-${entry.id}`}>
+            <FormField label={t.editor.fields.location} htmlFor={`import-work-location-${entry.id}`}>
               <TextInput
                 id={`import-work-location-${entry.id}`}
                 value={entry.location}
@@ -221,10 +225,10 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Start date" htmlFor={`import-work-start-${entry.id}`}>
+            <FormField label={t.editor.fields.startDate} htmlFor={`import-work-start-${entry.id}`}>
               <TextInput
                 id={`import-work-start-${entry.id}`}
-                placeholder="e.g. Jan 2023 or 2022"
+                placeholder={t.importer.startPlaceholder}
                 value={entry.startDate}
                 onChange={(event) =>
                   update({
@@ -237,10 +241,10 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="End date" htmlFor={`import-work-end-${entry.id}`}>
+            <FormField label={t.editor.fields.endDate} htmlFor={`import-work-end-${entry.id}`}>
               <TextInput
                 id={`import-work-end-${entry.id}`}
-                placeholder="e.g. Present or 2024"
+                placeholder={t.importer.endPlaceholder}
                 value={entry.endDate}
                 disabled={entry.current}
                 onChange={(event) =>
@@ -273,11 +277,11 @@ export function ResumeImportReviewForm({
                     })
                   }
                 />
-                Current job
+                {t.editor.fields.currentJob}
               </label>
             </div>
             <div className="sm:col-span-2">
-              <FormField label="Description" htmlFor={`import-work-desc-${entry.id}`}>
+              <FormField label={t.editor.fields.description} htmlFor={`import-work-desc-${entry.id}`}>
                 <TextArea
                   id={`import-work-desc-${entry.id}`}
                   value={entry.description}
@@ -298,8 +302,8 @@ export function ResumeImportReviewForm({
       </SectionCard>
 
       <SectionCard
-        title="Education"
-        addLabel="Add education"
+        title={t.sections.education}
+        addLabel={t.importer.addEducation}
         onAdd={() =>
           update({
             education: [
@@ -318,19 +322,19 @@ export function ResumeImportReviewForm({
         }
       >
         {state.education.length === 0 ? (
-          <p className="text-sm text-slate-500">No education entries yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.education}</p>
         ) : null}
         {state.education.map((entry, index) => (
           <EntryCard
             key={entry.id}
-            title={`Education ${index + 1}`}
+            title={format(t.importer.educationN, { n: index + 1 })}
             onRemove={() =>
               update({
                 education: state.education.filter((item) => item.id !== entry.id),
               })
             }
           >
-            <FormField label="Degree" htmlFor={`import-edu-degree-${entry.id}`}>
+            <FormField label={t.editor.fields.degree} htmlFor={`import-edu-degree-${entry.id}`}>
               <TextInput
                 id={`import-edu-degree-${entry.id}`}
                 value={entry.degree}
@@ -345,7 +349,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Institution" htmlFor={`import-edu-inst-${entry.id}`}>
+            <FormField label={t.editor.fields.institution} htmlFor={`import-edu-inst-${entry.id}`}>
               <TextInput
                 id={`import-edu-inst-${entry.id}`}
                 value={entry.institution}
@@ -360,7 +364,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Location" htmlFor={`import-edu-location-${entry.id}`}>
+            <FormField label={t.editor.fields.location} htmlFor={`import-edu-location-${entry.id}`}>
               <TextInput
                 id={`import-edu-location-${entry.id}`}
                 value={entry.location}
@@ -375,7 +379,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Start date" htmlFor={`import-edu-start-${entry.id}`}>
+            <FormField label={t.editor.fields.startDate} htmlFor={`import-edu-start-${entry.id}`}>
               <TextInput
                 id={`import-edu-start-${entry.id}`}
                 value={entry.startDate}
@@ -390,7 +394,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="End date" htmlFor={`import-edu-end-${entry.id}`}>
+            <FormField label={t.editor.fields.endDate} htmlFor={`import-edu-end-${entry.id}`}>
               <TextInput
                 id={`import-edu-end-${entry.id}`}
                 value={entry.endDate}
@@ -406,7 +410,7 @@ export function ResumeImportReviewForm({
               />
             </FormField>
             <div className="sm:col-span-2">
-              <FormField label="Description" htmlFor={`import-edu-desc-${entry.id}`}>
+              <FormField label={t.editor.fields.description} htmlFor={`import-edu-desc-${entry.id}`}>
                 <TextArea
                   id={`import-edu-desc-${entry.id}`}
                   value={entry.description}
@@ -427,17 +431,17 @@ export function ResumeImportReviewForm({
       </SectionCard>
 
       <SectionCard
-        title="Skills"
-        addLabel="Add skill"
+        title={t.sections.skills}
+        addLabel={t.importer.addSkill}
         onAdd={() => update({ skills: [...state.skills, ""] })}
       >
         {state.skills.length === 0 ? (
-          <p className="text-sm text-slate-500">No skills yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.skills}</p>
         ) : null}
         {state.skills.map((skill, index) => (
           <div key={`import-skill-${index}`} className="flex items-end gap-2">
             <div className="min-w-0 flex-1">
-              <FormField label={`Skill ${index + 1}`} htmlFor={`import-skill-${index}`}>
+              <FormField label={format(t.importer.skillN, { n: index + 1 })} htmlFor={`import-skill-${index}`}>
                 <TextInput
                   id={`import-skill-${index}`}
                   value={skill}
@@ -461,15 +465,15 @@ export function ResumeImportReviewForm({
                 })
               }
             >
-              Remove
+              {t.common.remove}
             </Button>
           </div>
         ))}
       </SectionCard>
 
       <SectionCard
-        title="Projects"
-        addLabel="Add project"
+        title={t.sections.projects}
+        addLabel={t.importer.addProject}
         onAdd={() =>
           update({
             projects: [
@@ -480,19 +484,19 @@ export function ResumeImportReviewForm({
         }
       >
         {state.projects.length === 0 ? (
-          <p className="text-sm text-slate-500">No projects yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.projects}</p>
         ) : null}
         {state.projects.map((entry, index) => (
           <EntryCard
             key={entry.id}
-            title={`Project ${index + 1}`}
+            title={format(t.importer.projectN, { n: index + 1 })}
             onRemove={() =>
               update({
                 projects: state.projects.filter((item) => item.id !== entry.id),
               })
             }
           >
-            <FormField label="Project name" htmlFor={`import-project-name-${entry.id}`}>
+            <FormField label={t.editor.fields.projectName} htmlFor={`import-project-name-${entry.id}`}>
               <TextInput
                 id={`import-project-name-${entry.id}`}
                 value={entry.name}
@@ -507,7 +511,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="URL" htmlFor={`import-project-url-${entry.id}`}>
+            <FormField label={t.editor.fields.url} htmlFor={`import-project-url-${entry.id}`}>
               <TextInput
                 id={`import-project-url-${entry.id}`}
                 type="url"
@@ -524,7 +528,7 @@ export function ResumeImportReviewForm({
               />
             </FormField>
             <div className="sm:col-span-2">
-              <FormField label="Description" htmlFor={`import-project-desc-${entry.id}`}>
+              <FormField label={t.editor.fields.description} htmlFor={`import-project-desc-${entry.id}`}>
                 <TextArea
                   id={`import-project-desc-${entry.id}`}
                   value={entry.description}
@@ -545,8 +549,8 @@ export function ResumeImportReviewForm({
       </SectionCard>
 
       <SectionCard
-        title="Certifications"
-        addLabel="Add certification"
+        title={t.sections.certifications}
+        addLabel={t.importer.addCertification}
         onAdd={() =>
           update({
             certifications: [
@@ -557,12 +561,12 @@ export function ResumeImportReviewForm({
         }
       >
         {state.certifications.length === 0 ? (
-          <p className="text-sm text-slate-500">No certifications yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.certifications}</p>
         ) : null}
         {state.certifications.map((entry, index) => (
           <EntryCard
             key={entry.id}
-            title={`Certification ${index + 1}`}
+            title={format(t.importer.certificationN, { n: index + 1 })}
             onRemove={() =>
               update({
                 certifications: state.certifications.filter(
@@ -571,7 +575,7 @@ export function ResumeImportReviewForm({
               })
             }
           >
-            <FormField label="Name" htmlFor={`import-cert-name-${entry.id}`}>
+            <FormField label={t.editor.fields.name} htmlFor={`import-cert-name-${entry.id}`}>
               <TextInput
                 id={`import-cert-name-${entry.id}`}
                 value={entry.name}
@@ -586,7 +590,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Issuer" htmlFor={`import-cert-issuer-${entry.id}`}>
+            <FormField label={t.editor.fields.issuer} htmlFor={`import-cert-issuer-${entry.id}`}>
               <TextInput
                 id={`import-cert-issuer-${entry.id}`}
                 value={entry.issuer}
@@ -601,7 +605,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Date" htmlFor={`import-cert-date-${entry.id}`}>
+            <FormField label={t.editor.fields.date} htmlFor={`import-cert-date-${entry.id}`}>
               <TextInput
                 id={`import-cert-date-${entry.id}`}
                 value={entry.date}
@@ -616,7 +620,7 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="URL" htmlFor={`import-cert-url-${entry.id}`}>
+            <FormField label={t.editor.fields.url} htmlFor={`import-cert-url-${entry.id}`}>
               <TextInput
                 id={`import-cert-url-${entry.id}`}
                 type="url"
@@ -637,8 +641,8 @@ export function ResumeImportReviewForm({
       </SectionCard>
 
       <SectionCard
-        title="Languages"
-        addLabel="Add language"
+        title={t.sections.languages}
+        addLabel={t.importer.addLanguage}
         onAdd={() =>
           update({
             languages: [
@@ -649,19 +653,19 @@ export function ResumeImportReviewForm({
         }
       >
         {state.languages.length === 0 ? (
-          <p className="text-sm text-slate-500">No languages yet.</p>
+          <p className="text-sm text-slate-500">{t.editor.empty.languages}</p>
         ) : null}
         {state.languages.map((entry, index) => (
           <EntryCard
             key={entry.id}
-            title={`Language ${index + 1}`}
+            title={format(t.importer.languageN, { n: index + 1 })}
             onRemove={() =>
               update({
                 languages: state.languages.filter((item) => item.id !== entry.id),
               })
             }
           >
-            <FormField label="Language" htmlFor={`import-lang-${entry.id}`}>
+            <FormField label={t.editor.fields.language} htmlFor={`import-lang-${entry.id}`}>
               <TextInput
                 id={`import-lang-${entry.id}`}
                 value={entry.language}
@@ -676,10 +680,10 @@ export function ResumeImportReviewForm({
                 }
               />
             </FormField>
-            <FormField label="Proficiency" htmlFor={`import-lang-level-${entry.id}`}>
+            <FormField label={t.editor.fields.proficiency} htmlFor={`import-lang-level-${entry.id}`}>
               <TextInput
                 id={`import-lang-level-${entry.id}`}
-                placeholder="Native, Professional, Intermediate"
+                placeholder={t.editor.fields.proficiencyPlaceholder}
                 value={entry.proficiency}
                 onChange={(event) =>
                   update({

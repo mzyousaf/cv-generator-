@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createCvAction } from "@/lib/cv/actions";
@@ -15,12 +17,13 @@ type CreateCvFormProps = {
 };
 
 export function CreateCvForm({
-  buttonLabel = "Create new CV",
-  loadingText = "Creating…",
+  buttonLabel,
+  loadingText,
   size = "md",
   variant = "primary",
   className,
 }: CreateCvFormProps) {
+  const { t } = useI18n();
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -51,9 +54,9 @@ export function CreateCvForm({
         size={size}
         onClick={() => void handleCreate()}
         isLoading={isCreating}
-        loadingText={loadingText}
+        loadingText={loadingText ?? t.dashboard.creating}
       >
-        {buttonLabel}
+        {buttonLabel ?? t.dashboard.createNew}
       </Button>
       {error ? <FormMessage>{error}</FormMessage> : null}
     </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
@@ -13,6 +15,7 @@ import { ResumeImportReviewForm } from "@/components/dashboard/resume-import-rev
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FormMessage } from "@/components/ui/form-message";
+import { format } from "@/lib/i18n/format";
 import { Badge } from "@/components/ui/badge";
 
 type ResumeImportReviewPanelProps = {
@@ -32,6 +35,7 @@ export function ResumeImportReviewPanel({
   onReviewStateChange,
   onBack,
 }: ResumeImportReviewPanelProps) {
+  const { t } = useI18n();
   const router = useRouter();
   const creatingRef = useRef(false);
   const [createError, setCreateError] = useState<string | null>(null);
@@ -65,11 +69,10 @@ export function ResumeImportReviewPanel({
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0 space-y-1">
               <h2 className="text-xl font-semibold text-slate-900">
-                Review your resume
+                {t.importer.reviewTitle}
               </h2>
               <p className="max-w-2xl text-sm text-slate-600">
-                We found the information below. Check it before creating your
-                resume.
+                {t.importer.reviewBody}
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -78,17 +81,17 @@ export function ResumeImportReviewPanel({
             </div>
           </div>
           <p className="truncate text-xs text-slate-500" title={filename}>
-            Source file: {filename}
+            {format(t.importer.sourceFile, { name: filename })}
           </p>
         </CardContent>
       </Card>
 
       <ResumeImportReviewForm state={reviewState} onChange={onReviewStateChange} />
 
-      <Card className="sticky bottom-0 z-10 border-slate-200 bg-white/95 shadow-md backdrop-blur-sm">
+      <Card className="sticky bottom-0 z-10 border-slate-200 bg-surface/95 shadow-md backdrop-blur-sm">
         <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
           <p className="text-xs text-slate-500">
-            Create resume saves to your account and opens the editor.
+            {t.importer.createHint}
           </p>
           <div className="flex flex-wrap gap-2">
             <Button
@@ -97,17 +100,17 @@ export function ResumeImportReviewPanel({
               disabled={isCreating}
               onClick={onBack}
             >
-              Back
+              {t.common.back}
             </Button>
             <Button
               type="button"
               variant="primary"
               disabled={isCreating}
               isLoading={isCreating}
-              loadingText="Creating resume…"
+              loadingText={t.importer.creatingResume}
               onClick={() => void handleCreateResume()}
             >
-              Create Resume
+              {t.importer.createResume}
             </Button>
           </div>
         </CardContent>

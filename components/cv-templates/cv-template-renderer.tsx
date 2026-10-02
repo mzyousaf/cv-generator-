@@ -14,9 +14,16 @@ export function CvTemplateRenderer({
   templateId,
   state,
 }: CvTemplateRendererProps) {
-  const resolvedTemplate = resolveTemplateId(templateId);
+  // The CV is printed paper: keep it on the light palette in dark mode.
+  return (
+    <div className="scheme-light" dir="ltr">
+      {renderTemplate(templateId, state)}
+    </div>
+  );
+}
 
-  switch (resolvedTemplate) {
+function renderTemplate(templateId: CvTemplateId | string, state: CvBuilderFormState) {
+  switch (resolveTemplateId(templateId)) {
     case "classic":
       return <ClassicCvTemplate state={state} />;
     case "modern":

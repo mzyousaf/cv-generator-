@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
 
@@ -12,15 +14,16 @@ export function MobileDashboardHeader({
   onOpenMenu,
   menuOpen = false,
 }: MobileDashboardHeaderProps) {
+  const { t } = useI18n();
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 bg-ink/95 px-4 backdrop-blur-xl lg:hidden">
+    <header className="scheme-light sticky top-0 z-30 flex h-16 items-center justify-between gap-3 bg-ink/95 px-4 backdrop-blur-xl lg:hidden">
       <Link href="/dashboard" className="min-w-0 truncate rounded-lg">
         <Logo tone="light" />
       </Link>
       <button
         type="button"
         className="inline-flex size-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-        aria-label="Open navigation menu"
+        aria-label={t.dashboard.openNavigation}
         aria-expanded={menuOpen}
         onClick={onOpenMenu}
       >
