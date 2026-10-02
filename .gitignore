@@ -45,3 +45,6 @@ scripts/fixtures/.qa-last-run.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local QA screenshots
+/screenshots/
