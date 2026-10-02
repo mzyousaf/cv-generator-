@@ -563,6 +563,7 @@ export const ar: Dictionary = {
     sectionTooMany: "يحتوي هذا القسم على عدد كبير جدًا من الإدخالات.",
     personalInvalid: "المعلومات الشخصية غير صالحة.",
     contentField: "حقل محتوى غير صالح.",
+    documentLocaleInvalid: "لغة السيرة الذاتية غير مدعومة.",
     contentNotObject: "محتوى السيرة الذاتية غير صالح.",
     contentTooLarge: "محتوى السيرة الذاتية كبير جدًا.",
     contentShape: "بنية محتوى السيرة الذاتية غير صالحة.",

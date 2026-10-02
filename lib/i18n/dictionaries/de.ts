@@ -563,6 +563,7 @@ export const de: Dictionary = {
     sectionTooMany: "Dieser Abschnitt enthält zu viele Einträge.",
     personalInvalid: "Die persönlichen Angaben sind ungültig.",
     contentField: "Ungültiges Inhaltsfeld.",
+    documentLocaleInvalid: "Nicht unterstützte Lebenslaufsprache.",
     contentNotObject: "Der Inhalt des Lebenslaufs ist ungültig.",
     contentTooLarge: "Der Inhalt des Lebenslaufs ist zu groß.",
     contentShape: "Die Struktur des Lebenslaufs ist ungültig.",

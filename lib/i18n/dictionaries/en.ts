@@ -575,6 +575,7 @@ export const en = {
     sectionTooMany: "This section has too many entries.",
     personalInvalid: "Personal information must be an object.",
     contentField: "Invalid content field.",
+    documentLocaleInvalid: "Unsupported CV language.",
     contentNotObject: "CV content must be an object.",
     contentTooLarge: "CV content is too large.",
     contentShape: "Invalid CV content shape.",

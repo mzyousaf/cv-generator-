@@ -563,6 +563,7 @@ export const es: Dictionary = {
     sectionTooMany: "Esta sección tiene demasiadas entradas.",
     personalInvalid: "La información personal no es válida.",
     contentField: "Campo de contenido no válido.",
+    documentLocaleInvalid: "Idioma de CV no compatible.",
     contentNotObject: "El contenido del CV no es válido.",
     contentTooLarge: "El contenido del CV es demasiado grande.",
     contentShape: "La estructura del contenido del CV no es válida.",

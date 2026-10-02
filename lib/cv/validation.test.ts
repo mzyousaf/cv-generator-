@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, it, test } from "node:test";
 import {
   createEmptyCvContent,
   sanitizeCvContent,
+  sanitizeCvContentPatch,
   validateCreateCvInput,
   validateUpdateCvInput,
 } from "@/lib/cv/validation";
@@ -43,4 +44,13 @@ describe("CV validation", () => {
     const result = validateUpdateCvInput({});
     assert.equal(result.ok, false);
   });
+});
+
+test("content patch accepts supported document languages only", () => {
+  const ok = sanitizeCvContentPatch({ documentLocale: "de" }, createEmptyCvContent());
+  assert.equal(ok.ok, true);
+  assert.equal(ok.ok && ok.value.documentLocale, "de");
+
+  const bad = sanitizeCvContentPatch({ documentLocale: "xx" }, createEmptyCvContent());
+  assert.equal(bad.ok, false);
 });

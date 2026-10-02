@@ -540,6 +540,7 @@ export const zh: Dictionary = {
     sectionTooMany: "此板块条目过多。",
     personalInvalid: "个人信息无效。",
     contentField: "内容字段无效。",
+    documentLocaleInvalid: "不支持的简历语言。",
     contentNotObject: "简历内容无效。",
     contentTooLarge: "简历内容过大。",
     contentShape: "简历内容结构无效。",
