@@ -36,7 +36,7 @@ export function ResumeImportReviewPanel({
   onReviewStateChange,
   onBack,
 }: ResumeImportReviewPanelProps) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const router = useRouter();
   const creatingRef = useRef(false);
   const [createError, setCreateError] = useState<string | null>(null);
@@ -51,7 +51,7 @@ export function ResumeImportReviewPanel({
     setCreateError(null);
     setIsCreating(true);
 
-    const result = await createResumeFromImportAction(reviewState);
+    const result = await createResumeFromImportAction({ ...reviewState, documentLocale: locale });
     setIsCreating(false);
     creatingRef.current = false;
 

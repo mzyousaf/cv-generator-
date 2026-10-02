@@ -10,7 +10,6 @@ import {
   canStepPreviewZoomIn,
   canStepPreviewZoomOut,
   computeFitPreviewScale,
-  createDefaultPreviewZoomMode,
   formatPreviewZoomLabel,
   PREVIEW_DOCUMENT_WIDTH_FALLBACK_PX,
   resolvePreviewScale,
@@ -43,9 +42,8 @@ export function BuilderPreviewPanel({
   sticky = true,
 }: BuilderPreviewPanelProps) {
   const { t } = useI18n();
-  const [zoomMode, setZoomMode] = useState<PreviewZoomMode>(
-    createDefaultPreviewZoomMode(),
-  );
+  // Start fitted to the column so the whole page width is visible.
+  const [zoomMode, setZoomMode] = useState<PreviewZoomMode>({ type: "fit" });
   const [fitScale, setFitScale] = useState(0.75);
   const [docSize, setDocSize] = useState<DocumentSize>({
     width: PREVIEW_DOCUMENT_WIDTH_FALLBACK_PX,
@@ -89,7 +87,7 @@ export function BuilderPreviewPanel({
   const scale = resolvePreviewScale(zoomMode, fitScale);
   const layoutWidth = Math.ceil(docSize.width * scale);
   const layoutHeight = Math.ceil(docSize.height * scale);
-  const zoomLabel = formatPreviewZoomLabel(zoomMode);
+  const zoomLabel = zoomMode.type === "fit" ? `${Math.round(scale * 100)}%` : formatPreviewZoomLabel(zoomMode);
 
   return (
     <aside

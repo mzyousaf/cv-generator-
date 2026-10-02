@@ -142,6 +142,8 @@ export const en = {
       "Preview three print-friendly templates with real sample data. Switch anytime without retyping a word.",
     footnote:
       "Start with any template in the builder. You can change the layout later and keep your content.",
+    regionalTitle: "Plus {n} regional formats",
+    regionalBody: "Europass, German Lebenslauf, US resume, UK CV, Gulf, Chinese 简历 and more, each following local conventions.",
     tags: {
       default: "Versatile",
       classic: "Timeless",
@@ -160,6 +162,94 @@ export const en = {
     modern: {
       name: "Modern",
       description: "Contemporary layout with a distinct header band.",
+    },
+    "europass": {
+      name: "Europass",
+      description: "Official EU format with a label column, personal details and language skills.",
+    },
+    "euro-modern": {
+      name: "Euro Modern",
+      description: "Two-column European CV with a coloured sidebar for contact and skills.",
+    },
+    "nordic-minimal": {
+      name: "Nordic Minimal",
+      description: "Calm, airy single column popular in the Nordics and Benelux.",
+    },
+    "uk-classic": {
+      name: "UK Classic",
+      description: "Traditional British CV with a personal profile and references line.",
+    },
+    "uk-professional": {
+      name: "UK Professional",
+      description: "Clean British CV with accent rules, ideal for corporate roles.",
+    },
+    "lebenslauf": {
+      name: "Lebenslauf",
+      description: "German tabular CV with a date column, personal data and signature line.",
+    },
+    "dach-modern": {
+      name: "DACH Modern",
+      description: "Contemporary Lebenslauf for Germany, Austria and Switzerland with a header band.",
+    },
+    "cv-francais": {
+      name: "CV Français",
+      description: "French two-column CV with a sidebar for skills, languages and details.",
+    },
+    "france-elegant": {
+      name: "France Élégant",
+      description: "Refined serif CV for French corporate and creative roles.",
+    },
+    "us-resume": {
+      name: "US Resume",
+      description: "Compact US Letter resume: no photo or personal data, ATS-friendly.",
+    },
+    "ats-plain": {
+      name: "ATS Plain",
+      description: "Maximally plain layout that applicant tracking systems parse perfectly.",
+    },
+    "us-executive": {
+      name: "US Executive",
+      description: "Polished serif resume for senior and executive roles in North America.",
+    },
+    "canada-resume": {
+      name: "Canada Resume",
+      description: "Canadian-style resume with a profile section and bold section bars.",
+    },
+    "gulf-cv": {
+      name: "Gulf CV",
+      description: "Middle East CV with nationality and date of birth in a side column.",
+    },
+    "middle-east-executive": {
+      name: "Middle East Executive",
+      description: "Executive CV for the GCC with a dark header band and gold accents.",
+    },
+    "china-jianli": {
+      name: "China Jianli",
+      description: "Chinese 简历 format with a basic-information block and bold section bars.",
+    },
+    "china-modern": {
+      name: "China Modern",
+      description: "Modern Chinese CV with a sidebar for personal details and skills.",
+    },
+    "india-resume": {
+      name: "India Resume",
+      description: "Indian resume with a career objective and personal details section.",
+    },
+    "australia-resume": {
+      name: "Australia Resume",
+      description: "Australian resume with a career objective and referees line.",
+    },
+    "latam-cv": {
+      name: "LatAm CV",
+      description: "Latin American CV with personal data and a coloured sidebar.",
+    },
+    "academic-cv": {
+      name: "Academic CV",
+      description: "Scholarly CV with a date column for research and teaching roles.",
+    },
+    "creative-sidebar": {
+      name: "Creative Sidebar",
+      description: "Bold two-column design for creative and design roles.",
     },
   },
   cta: {
@@ -228,6 +318,7 @@ export const en = {
       "This is a translation provided for your convenience. If there is any difference, the English version prevails.",
   },
   dashboard: {
+    untitled: "Untitled CV",
     navLabel: "Application",
     workspace: "Workspace",
     navResumes: "Resumes",
@@ -345,6 +436,10 @@ export const en = {
       location: "Location",
       website: "Website",
       linkedin: "LinkedIn",
+      dateOfBirth: "Date of birth",
+      nationality: "Nationality",
+      regionalHeading: "Regional details (optional)",
+      regionalHint: "Shown only by formats that expect them, such as Europass, Lebenslauf, Gulf and Asian CVs.",
       summary: "Summary",
       jobTitle: "Job title",
       company: "Company",
@@ -516,6 +611,36 @@ export const en = {
     pdfExportFailed: "Could not generate the PDF. Please try again.",
     pdfExportFallback: "Could not export PDF.",
     autosaveFailed: "Autosave failed. Use Save to retry.",
+  },
+  templatePicker: {
+    recommended: "Recommended for you",
+    all: "All templates",
+    region: "Region",
+    documentLanguage: "CV language",
+    documentLanguageHint: "Headings, dates and the PDF use this language.",
+    count: "{n} templates",
+    core: "Essentials",
+    regions: {
+      "global": "Global",
+      "europe": "Europe",
+      "uk": "UK & Ireland",
+      "dach": "Germany, Austria & Switzerland",
+      "france": "France",
+      "north-america": "USA & Canada",
+      "latam": "Latin America",
+      "middle-east": "Middle East & Gulf",
+      "india": "India & South Asia",
+      "china": "China",
+      "oceania": "Australia & New Zealand",
+    },
+    tags: {
+      "ats": "ATS-friendly",
+      "europass": "Europass",
+      "two-column": "Two columns",
+      "personal-details": "Personal details",
+      "letter": "US Letter",
+      "a4": "A4",
+    },
   },
 };
 

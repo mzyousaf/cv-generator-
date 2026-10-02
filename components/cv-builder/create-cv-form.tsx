@@ -6,6 +6,7 @@ import { localizeServerMessage } from "@/lib/i18n/server-messages";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createCvAction } from "@/lib/cv/actions";
+import { DEFAULT_TEMPLATE_FOR_LOCALE } from "@/lib/cv/template-catalog";
 import { Button, type ButtonSize, type ButtonVariant } from "@/components/ui/button";
 import { FormMessage } from "@/components/ui/form-message";
 
@@ -24,7 +25,7 @@ export function CreateCvForm({
   variant = "primary",
   className,
 }: CreateCvFormProps) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +37,11 @@ export function CreateCvForm({
     setIsCreating(true);
     setError(null);
 
-    const result = await createCvAction({});
+    const result = await createCvAction({
+      title: t.dashboard.untitled,
+      template: DEFAULT_TEMPLATE_FOR_LOCALE[locale],
+      content: { documentLocale: locale },
+    });
     setIsCreating(false);
 
     if (!result.success) {

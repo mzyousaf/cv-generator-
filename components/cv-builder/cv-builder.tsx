@@ -231,6 +231,10 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         onClose={() => setTemplatesOpen(false)}
         cvId={cvId}
         selectedTemplate={state.template}
+        documentLocale={state.documentLocale}
+        onDocumentLocaleChange={(documentLocale) =>
+          setState((current) => ({ ...current, documentLocale }))
+        }
         onTemplateChange={handleTemplateChange}
         onTemplateSaved={handleTemplateSaved}
         onTemplateError={setSaveError}

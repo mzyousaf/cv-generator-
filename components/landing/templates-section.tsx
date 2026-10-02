@@ -1,7 +1,9 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
-import { CV_TEMPLATE_IDS } from "@/lib/cv/constants";
+import { CORE_TEMPLATE_IDS, REGIONAL_TEMPLATE_IDS } from "@/lib/cv/constants";
+import { TEMPLATE_REGIONS } from "@/lib/cv/template-catalog";
+import { format } from "@/lib/i18n/format";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { SectionHeading } from "@/components/landing/section-heading";
 import { TemplateMiniPreview } from "@/components/landing/template-mini-preview";
@@ -18,7 +20,7 @@ export function TemplatesSection() {
         />
 
         <ul className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {CV_TEMPLATE_IDS.map((templateId) => (
+          {CORE_TEMPLATE_IDS.map((templateId) => (
             <li key={templateId}>
               <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/70 bg-surface shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-lift">
                 <div className="relative bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50/70 px-6 pt-6">
@@ -52,6 +54,29 @@ export function TemplatesSection() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-12 rounded-3xl border border-slate-200/70 bg-surface p-6 shadow-soft sm:p-8">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h3 className="text-xl font-bold tracking-tight text-slate-950">
+                {format(t.templatesSection.regionalTitle, { n: REGIONAL_TEMPLATE_IDS.length })}
+              </h3>
+              <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-500">
+                {t.templatesSection.regionalBody}
+              </p>
+            </div>
+          </div>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {TEMPLATE_REGIONS.filter((region) => region !== "global").map((region) => (
+              <li
+                key={region}
+                className="rounded-full border border-blue-100 bg-blue-50/70 px-3 py-1.5 text-xs font-semibold text-blue-700"
+              >
+                {t.templatePicker.regions[region]}
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="mt-16 flex flex-col items-center gap-5 text-center">
           <p className="max-w-md text-[0.95rem] leading-relaxed text-slate-500">

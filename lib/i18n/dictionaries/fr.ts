@@ -136,6 +136,8 @@ export const fr: Dictionary = {
       "Découvrez trois modèles prêts à imprimer avec de vraies données d'exemple. Changez à tout moment sans rien ressaisir.",
     footnote:
       "Commencez avec n'importe quel modèle dans l'éditeur. Vous pourrez changer de mise en page plus tard en gardant votre contenu.",
+    regionalTitle: "Et {n} formats régionaux",
+    regionalBody: "Europass, Lebenslauf allemand, resume américain, CV britannique, du Golfe, chinois 简历 et plus, chacun selon les usages locaux.",
     tags: { default: "Polyvalent", classic: "Intemporel", modern: "Populaire" },
   },
   templateMeta: {
@@ -150,6 +152,94 @@ export const fr: Dictionary = {
     modern: {
       name: "Moderne",
       description: "Mise en page contemporaine avec un bandeau d'en-tête distinctif.",
+    },
+    "europass": {
+      name: "Europass",
+      description: "Format officiel de l'UE avec colonne d'intitulés, informations personnelles et langues.",
+    },
+    "euro-modern": {
+      name: "Euro Moderne",
+      description: "CV européen sur deux colonnes avec barre latérale colorée pour contact et compétences.",
+    },
+    "nordic-minimal": {
+      name: "Nordique Minimal",
+      description: "Colonne unique sobre et aérée, appréciée dans les pays nordiques et au Benelux.",
+    },
+    "uk-classic": {
+      name: "Royaume-Uni Classique",
+      description: "CV britannique traditionnel avec profil personnel et mention des références.",
+    },
+    "uk-professional": {
+      name: "Royaume-Uni Pro",
+      description: "CV britannique épuré avec filets de couleur, idéal en entreprise.",
+    },
+    "lebenslauf": {
+      name: "Lebenslauf",
+      description: "CV allemand en tableau avec colonne de dates, données personnelles et signature.",
+    },
+    "dach-modern": {
+      name: "DACH Moderne",
+      description: "Lebenslauf contemporain pour l'Allemagne, l'Autriche et la Suisse avec bandeau d'en-tête.",
+    },
+    "cv-francais": {
+      name: "CV Français",
+      description: "CV français sur deux colonnes avec barre latérale pour compétences, langues et informations.",
+    },
+    "france-elegant": {
+      name: "France Élégant",
+      description: "CV raffiné en sérif pour les postes corporate et créatifs en France.",
+    },
+    "us-resume": {
+      name: "CV États-Unis",
+      description: "Resume compact au format Letter : sans photo ni données personnelles, compatible ATS.",
+    },
+    "ats-plain": {
+      name: "ATS Sobre",
+      description: "Mise en page la plus simple possible, parfaitement lue par les logiciels ATS.",
+    },
+    "us-executive": {
+      name: "Cadre États-Unis",
+      description: "Resume sérif soigné pour les postes de direction en Amérique du Nord.",
+    },
+    "canada-resume": {
+      name: "CV Canada",
+      description: "Resume à la canadienne avec section profil et bandeaux de section marqués.",
+    },
+    "gulf-cv": {
+      name: "CV Golfe",
+      description: "CV pour le Moyen-Orient avec nationalité et date de naissance dans une colonne latérale.",
+    },
+    "middle-east-executive": {
+      name: "Cadre Moyen-Orient",
+      description: "CV de cadre pour le CCG avec bandeau sombre et accents dorés.",
+    },
+    "china-jianli": {
+      name: "Chine Jianli",
+      description: "Format chinois 简历 avec bloc d'informations de base et bandeaux de section.",
+    },
+    "china-modern": {
+      name: "Chine Moderne",
+      description: "CV chinois moderne avec barre latérale pour informations personnelles et compétences.",
+    },
+    "india-resume": {
+      name: "CV Inde",
+      description: "CV indien avec objectif professionnel et section d'informations personnelles.",
+    },
+    "australia-resume": {
+      name: "CV Australie",
+      description: "CV australien avec objectif professionnel et mention des références.",
+    },
+    "latam-cv": {
+      name: "CV Amérique latine",
+      description: "CV latino-américain avec données personnelles et barre latérale colorée.",
+    },
+    "academic-cv": {
+      name: "CV Académique",
+      description: "CV universitaire avec colonne de dates pour la recherche et l'enseignement.",
+    },
+    "creative-sidebar": {
+      name: "Latéral Créatif",
+      description: "Design audacieux sur deux colonnes pour les métiers créatifs.",
     },
   },
   cta: {
@@ -218,6 +308,7 @@ export const fr: Dictionary = {
       "Cette traduction est fournie pour votre commodité. En cas de divergence, la version anglaise prévaut.",
   },
   dashboard: {
+    untitled: "CV sans titre",
     navLabel: "Application",
     workspace: "Espace de travail",
     navResumes: "CV",
@@ -336,6 +427,10 @@ export const fr: Dictionary = {
       location: "Lieu",
       website: "Site web",
       linkedin: "LinkedIn",
+      dateOfBirth: "Date de naissance",
+      nationality: "Nationalité",
+      regionalHeading: "Informations régionales (facultatif)",
+      regionalHint: "Affichées uniquement par les formats qui les attendent : Europass, Lebenslauf, CV du Golfe et d'Asie.",
       summary: "Résumé",
       jobTitle: "Intitulé du poste",
       company: "Entreprise",
@@ -504,5 +599,35 @@ export const fr: Dictionary = {
     pdfExportFailed: "Impossible de générer le PDF. Veuillez réessayer.",
     pdfExportFallback: "Impossible d'exporter le PDF.",
     autosaveFailed: "L'enregistrement automatique a échoué. Cliquez sur Enregistrer pour réessayer.",
+  },
+  templatePicker: {
+    recommended: "Recommandés pour vous",
+    all: "Tous les modèles",
+    region: "Région",
+    documentLanguage: "Langue du CV",
+    documentLanguageHint: "Les titres, les dates et le PDF utilisent cette langue.",
+    count: "{n} modèles",
+    core: "Essentiels",
+    regions: {
+      "global": "International",
+      "europe": "Europe",
+      "uk": "Royaume-Uni et Irlande",
+      "dach": "Allemagne, Autriche et Suisse",
+      "france": "France",
+      "north-america": "États-Unis et Canada",
+      "latam": "Amérique latine",
+      "middle-east": "Moyen-Orient et Golfe",
+      "india": "Inde et Asie du Sud",
+      "china": "Chine",
+      "oceania": "Australie et Nouvelle-Zélande",
+    },
+    tags: {
+      "ats": "Compatible ATS",
+      "europass": "Europass",
+      "two-column": "Deux colonnes",
+      "personal-details": "Infos personnelles",
+      "letter": "Letter (US)",
+      "a4": "A4",
+    },
   },
 };

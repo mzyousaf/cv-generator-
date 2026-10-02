@@ -119,6 +119,8 @@ export const zh: Dictionary = {
     title: "优雅布局，同样出色的内容。",
     description: "用真实示例数据预览三套适合打印的模板。随时切换，无需重新输入。",
     footnote: "在编辑器中从任意模板开始。之后可更换布局，内容保持不变。",
+    regionalTitle: "另有 {n} 种地区格式",
+    regionalBody: "Europass、德式 Lebenslauf、美式简历、英式 CV、海湾简历、中式简历等，均符合当地惯例。",
     tags: { default: "百搭", classic: "经典", modern: "热门" },
   },
   templateMeta: {
@@ -133,6 +135,94 @@ export const zh: Dictionary = {
     modern: {
       name: "现代",
       description: "带有醒目页眉的现代布局。",
+    },
+    "europass": {
+      name: "Europass 欧洲",
+      description: "欧盟官方格式，含标签栏、个人信息和语言能力。",
+    },
+    "euro-modern": {
+      name: "欧式现代",
+      description: "欧洲双栏简历，彩色侧栏展示联系方式和技能。",
+    },
+    "nordic-minimal": {
+      name: "北欧极简",
+      description: "安静留白的单栏版式，在北欧和比荷卢地区很受欢迎。",
+    },
+    "uk-classic": {
+      name: "英式经典",
+      description: "传统英式简历，含个人简介和推荐人说明。",
+    },
+    "uk-professional": {
+      name: "英式专业",
+      description: "简洁的英式简历，带强调线，适合企业岗位。",
+    },
+    "lebenslauf": {
+      name: "德式 Lebenslauf",
+      description: "德式表格简历，含日期栏、个人信息和签名行。",
+    },
+    "dach-modern": {
+      name: "DACH 现代",
+      description: "适用于德国、奥地利和瑞士的现代简历，带页眉色带。",
+    },
+    "cv-francais": {
+      name: "法式简历",
+      description: "法式双栏简历，侧栏展示技能、语言和个人信息。",
+    },
+    "france-elegant": {
+      name: "法式优雅",
+      description: "精致的衬线字体简历，适合法国企业和创意岗位。",
+    },
+    "us-resume": {
+      name: "美式简历",
+      description: "紧凑的 US Letter 简历：无照片和个人信息，适配 ATS。",
+    },
+    "ats-plain": {
+      name: "ATS 纯净版",
+      description: "极简版式，招聘系统（ATS）可完美解析。",
+    },
+    "us-executive": {
+      name: "美式高管",
+      description: "适用于北美高管岗位的精致衬线简历。",
+    },
+    "canada-resume": {
+      name: "加拿大简历",
+      description: "加拿大风格简历，含个人简介和醒目的板块色条。",
+    },
+    "gulf-cv": {
+      name: "海湾简历",
+      description: "中东简历，侧栏展示国籍和出生日期。",
+    },
+    "middle-east-executive": {
+      name: "中东高管",
+      description: "海湾地区高管简历，深色页眉色带搭配金色点缀。",
+    },
+    "china-jianli": {
+      name: "中式简历",
+      description: "中文简历格式，含基本信息板块和醒目的板块色条。",
+    },
+    "china-modern": {
+      name: "中式现代",
+      description: "现代中文简历，侧栏展示个人信息和技能。",
+    },
+    "india-resume": {
+      name: "印度简历",
+      description: "印度简历，含求职目标和个人信息板块。",
+    },
+    "australia-resume": {
+      name: "澳洲简历",
+      description: "澳大利亚简历，含求职目标和推荐人说明。",
+    },
+    "latam-cv": {
+      name: "拉美简历",
+      description: "拉丁美洲简历，含个人信息和彩色侧栏。",
+    },
+    "academic-cv": {
+      name: "学术简历",
+      description: "学术简历，带日期栏，适合科研和教学岗位。",
+    },
+    "creative-sidebar": {
+      name: "创意侧栏",
+      description: "醒目的双栏设计，适合创意和设计岗位。",
     },
   },
   cta: {
@@ -199,6 +289,7 @@ export const zh: Dictionary = {
     englishOnly: "本译文仅为方便阅读而提供。如有任何差异，以英文版本为准。",
   },
   dashboard: {
+    untitled: "未命名简历",
     navLabel: "应用",
     workspace: "工作区",
     navResumes: "简历",
@@ -314,6 +405,10 @@ export const zh: Dictionary = {
       location: "所在地",
       website: "个人网站",
       linkedin: "LinkedIn",
+      dateOfBirth: "出生日期",
+      nationality: "国籍",
+      regionalHeading: "地区信息（可选）",
+      regionalHint: "仅在需要这些信息的格式中显示，例如 Europass、德式简历、海湾及亚洲简历。",
       summary: "摘要",
       jobTitle: "职位名称",
       company: "公司",
@@ -481,5 +576,35 @@ export const zh: Dictionary = {
     pdfExportFailed: "无法生成 PDF，请重试。",
     pdfExportFallback: "无法导出 PDF。",
     autosaveFailed: "自动保存失败。请点击“保存”重试。",
+  },
+  templatePicker: {
+    recommended: "为你推荐",
+    all: "全部模板",
+    region: "地区",
+    documentLanguage: "简历语言",
+    documentLanguageHint: "标题、日期和 PDF 将使用此语言。",
+    count: "{n} 个模板",
+    core: "基础模板",
+    regions: {
+      "global": "通用",
+      "europe": "欧洲",
+      "uk": "英国和爱尔兰",
+      "dach": "德国、奥地利和瑞士",
+      "france": "法国",
+      "north-america": "美国和加拿大",
+      "latam": "拉丁美洲",
+      "middle-east": "中东和海湾",
+      "india": "印度和南亚",
+      "china": "中国",
+      "oceania": "澳大利亚和新西兰",
+    },
+    tags: {
+      "ats": "适配 ATS",
+      "europass": "Europass",
+      "two-column": "双栏",
+      "personal-details": "个人信息",
+      "letter": "US Letter",
+      "a4": "A4",
+    },
   },
 };

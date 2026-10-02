@@ -79,6 +79,11 @@ html:is([lang="ar"], [lang="zh"]) [class*="tracking-["] {
   letter-spacing: 0;
 }
 
+/* CV paper in Arabic or Chinese: spacing breaks joined letters and CJK rhythm. */
+.scheme-light:is([lang="ar"], [lang="zh"]) * {
+  letter-spacing: 0 !important;
+}
+
 html[lang="ar"] .font-display,
 html[lang="zh"] .font-display {
   font-style: normal;

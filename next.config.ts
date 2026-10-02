@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
   agentRules: false,
   poweredByHeader: false,
   serverExternalPackages: ["@react-pdf/renderer", "pdf-parse", "mammoth"],
+  // Bundled PDF fonts are read from disk at runtime by the export route.
+  outputFileTracingIncludes: {
+    "/api/cv/[id]/export": ["./lib/pdf/fonts/**/*"],
+  },
   async headers() {
     return [
       {

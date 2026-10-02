@@ -6,6 +6,9 @@ export type PersonalInfoForm = {
   location: string;
   website: string;
   linkedIn: string;
+  /** Optional details some regional formats expect (Europe, Middle East, Asia). */
+  dateOfBirth: string;
+  nationality: string;
 };
 
 export type WorkExperienceEntry = {
@@ -57,6 +60,7 @@ export type CustomSectionEntry = {
 };
 
 import type { CvTemplateId } from "@/lib/cv/constants";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n/preferences";
 import {
   createDefaultSectionSettings,
   type CvSectionSettings,
@@ -77,11 +81,14 @@ export type CvBuilderFormState = {
   languages: LanguageEntry[];
   customSections: CustomSectionEntry[];
   sectionSettings: CvSectionSettings;
+  /** Language of the CV document (headings, dates), independent of the UI language. */
+  documentLocale: Locale;
 };
 
 export function createEmptyBuilderState(
   title = "Untitled CV",
   template: CvTemplateId = "default",
+  documentLocale: Locale = DEFAULT_LOCALE,
 ): CvBuilderFormState {
   return {
     title,
@@ -94,6 +101,8 @@ export function createEmptyBuilderState(
       location: "",
       website: "",
       linkedIn: "",
+      dateOfBirth: "",
+      nationality: "",
     },
     summary: "",
     workExperience: [],
@@ -104,5 +113,6 @@ export function createEmptyBuilderState(
     languages: [],
     customSections: [],
     sectionSettings: createDefaultSectionSettings(),
+    documentLocale,
   };
 }

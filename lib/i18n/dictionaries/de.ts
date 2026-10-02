@@ -136,6 +136,8 @@ export const de: Dictionary = {
       "Drei druckfreundliche Vorlagen mit echten Beispieldaten. Jederzeit wechseln, ohne ein Wort neu zu tippen.",
     footnote:
       "Beginnen Sie im Editor mit einer beliebigen Vorlage. Sie können das Layout später ändern und Ihren Inhalt behalten.",
+    regionalTitle: "Dazu {n} regionale Formate",
+    regionalBody: "Europass, deutscher Lebenslauf, US-Resume, britischer CV, Golf-Lebenslauf, chinesischer 简历 und mehr – jeweils nach lokalen Konventionen.",
     tags: { default: "Vielseitig", classic: "Zeitlos", modern: "Beliebt" },
   },
   templateMeta: {
@@ -150,6 +152,94 @@ export const de: Dictionary = {
     modern: {
       name: "Modern",
       description: "Zeitgemäßes Layout mit markantem Kopfbereich.",
+    },
+    "europass": {
+      name: "Europass",
+      description: "Offizielles EU-Format mit Beschriftungsspalte, persönlichen Daten und Sprachkenntnissen.",
+    },
+    "euro-modern": {
+      name: "Euro Modern",
+      description: "Zweispaltiger europäischer Lebenslauf mit farbiger Seitenleiste für Kontakt und Fähigkeiten.",
+    },
+    "nordic-minimal": {
+      name: "Nordisch Minimal",
+      description: "Ruhige, luftige Einspaltigkeit, beliebt in Skandinavien und den Benelux-Ländern.",
+    },
+    "uk-classic": {
+      name: "UK Klassisch",
+      description: "Traditioneller britischer Lebenslauf mit persönlichem Profil und Referenzhinweis.",
+    },
+    "uk-professional": {
+      name: "UK Professionell",
+      description: "Klarer britischer Lebenslauf mit Akzentlinien, ideal für Unternehmen.",
+    },
+    "lebenslauf": {
+      name: "Lebenslauf",
+      description: "Tabellarischer deutscher Lebenslauf mit Datumsspalte, persönlichen Daten und Unterschrift.",
+    },
+    "dach-modern": {
+      name: "DACH Modern",
+      description: "Moderner Lebenslauf für Deutschland, Österreich und die Schweiz mit Kopfband.",
+    },
+    "cv-francais": {
+      name: "CV Français",
+      description: "Französischer zweispaltiger Lebenslauf mit Seitenleiste für Kenntnisse, Sprachen und Daten.",
+    },
+    "france-elegant": {
+      name: "Frankreich Elegant",
+      description: "Edler Serifen-Lebenslauf für Unternehmens- und Kreativrollen in Frankreich.",
+    },
+    "us-resume": {
+      name: "US-Resume",
+      description: "Kompaktes Resume im US-Letter-Format: ohne Foto und persönliche Daten, ATS-geeignet.",
+    },
+    "ats-plain": {
+      name: "ATS Schlicht",
+      description: "Maximal schlichtes Layout, das Bewerbermanagementsysteme fehlerfrei auslesen.",
+    },
+    "us-executive": {
+      name: "US Executive",
+      description: "Hochwertiges Serifen-Resume für Führungspositionen in Nordamerika.",
+    },
+    "canada-resume": {
+      name: "Kanada-Resume",
+      description: "Resume im kanadischen Stil mit Profil und markanten Abschnittsbalken.",
+    },
+    "gulf-cv": {
+      name: "Golf-Lebenslauf",
+      description: "Lebenslauf für den Nahen Osten mit Staatsangehörigkeit und Geburtsdatum in der Seitenspalte.",
+    },
+    "middle-east-executive": {
+      name: "Nahost Executive",
+      description: "Führungs-Lebenslauf für die Golfstaaten mit dunklem Kopfband und Goldakzenten.",
+    },
+    "china-jianli": {
+      name: "China Jianli",
+      description: "Chinesisches 简历-Format mit Basisinformationen und Abschnittsbalken.",
+    },
+    "china-modern": {
+      name: "China Modern",
+      description: "Moderner chinesischer Lebenslauf mit Seitenleiste für persönliche Daten und Fähigkeiten.",
+    },
+    "india-resume": {
+      name: "Indien-Resume",
+      description: "Indisches Resume mit Karriereziel und Abschnitt für persönliche Daten.",
+    },
+    "australia-resume": {
+      name: "Australien-Resume",
+      description: "Australisches Resume mit Karriereziel und Referenzhinweis.",
+    },
+    "latam-cv": {
+      name: "Lateinamerika-CV",
+      description: "Lateinamerikanischer Lebenslauf mit persönlichen Daten und farbiger Seitenleiste.",
+    },
+    "academic-cv": {
+      name: "Akademischer CV",
+      description: "Wissenschaftlicher Lebenslauf mit Datumsspalte für Forschung und Lehre.",
+    },
+    "creative-sidebar": {
+      name: "Kreativ-Seitenleiste",
+      description: "Ausdrucksstarkes zweispaltiges Design für kreative Berufe.",
     },
   },
   cta: {
@@ -218,6 +308,7 @@ export const de: Dictionary = {
       "Diese Übersetzung dient Ihrer Bequemlichkeit. Bei Abweichungen ist die englische Fassung maßgeblich.",
   },
   dashboard: {
+    untitled: "Unbenannter Lebenslauf",
     navLabel: "Anwendung",
     workspace: "Arbeitsbereich",
     navResumes: "Lebensläufe",
@@ -336,6 +427,10 @@ export const de: Dictionary = {
       location: "Ort",
       website: "Website",
       linkedin: "LinkedIn",
+      dateOfBirth: "Geburtsdatum",
+      nationality: "Staatsangehörigkeit",
+      regionalHeading: "Regionale Angaben (optional)",
+      regionalHint: "Nur in Formaten sichtbar, die sie erwarten, etwa Europass, Lebenslauf, Golf- und asiatische Lebensläufe.",
       summary: "Zusammenfassung",
       jobTitle: "Position",
       company: "Unternehmen",
@@ -504,5 +599,35 @@ export const de: Dictionary = {
     pdfExportFailed: "Das PDF konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
     pdfExportFallback: "PDF-Export fehlgeschlagen.",
     autosaveFailed: "Automatisches Speichern fehlgeschlagen. Klicken Sie auf Speichern, um es erneut zu versuchen.",
+  },
+  templatePicker: {
+    recommended: "Für Sie empfohlen",
+    all: "Alle Vorlagen",
+    region: "Region",
+    documentLanguage: "Sprache des Lebenslaufs",
+    documentLanguageHint: "Überschriften, Datumsangaben und das PDF verwenden diese Sprache.",
+    count: "{n} Vorlagen",
+    core: "Grundlagen",
+    regions: {
+      "global": "International",
+      "europe": "Europa",
+      "uk": "Großbritannien & Irland",
+      "dach": "Deutschland, Österreich & Schweiz",
+      "france": "Frankreich",
+      "north-america": "USA & Kanada",
+      "latam": "Lateinamerika",
+      "middle-east": "Naher Osten & Golf",
+      "india": "Indien & Südasien",
+      "china": "China",
+      "oceania": "Australien & Neuseeland",
+    },
+    tags: {
+      "ats": "ATS-geeignet",
+      "europass": "Europass",
+      "two-column": "Zweispaltig",
+      "personal-details": "Persönliche Daten",
+      "letter": "US Letter",
+      "a4": "A4",
+    },
   },
 };

@@ -3,7 +3,7 @@
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
 import { TEMPLATE_PREVIEW_SAMPLE_STATE } from "@/components/cv-templates/sample-preview-state";
-import { CV_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
+import { CORE_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
 
 const activePreviewTemplate: CvTemplateId = "modern";
 
@@ -51,7 +51,7 @@ export function ProductPreview() {
           <div className="grid gap-0 sm:grid-cols-5">
             <div className="hidden space-y-3 border-r border-slate-200/80 bg-slate-50/60 p-4 sm:col-span-2 sm:block">
               <div className="flex gap-1 rounded-lg bg-slate-100 p-0.5">
-                {CV_TEMPLATE_IDS.map((id) => (
+                {CORE_TEMPLATE_IDS.map((id) => (
                   <span
                     key={id}
                     className={`flex-1 rounded-md py-1 text-center text-[10px] font-semibold ${

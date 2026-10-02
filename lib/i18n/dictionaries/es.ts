@@ -136,6 +136,8 @@ export const es: Dictionary = {
       "Mira tres plantillas listas para imprimir con datos reales de ejemplo. Cambia cuando quieras sin reescribir nada.",
     footnote:
       "Empieza con cualquier plantilla en el editor. Puedes cambiar el diseño después y conservar tu contenido.",
+    regionalTitle: "Y {n} formatos regionales",
+    regionalBody: "Europass, Lebenslauf alemán, currículum de EE. UU., CV británico, del Golfo, chino 简历 y más, cada uno con sus convenciones locales.",
     tags: { default: "Versátil", classic: "Atemporal", modern: "Popular" },
   },
   templateMeta: {
@@ -150,6 +152,94 @@ export const es: Dictionary = {
     modern: {
       name: "Moderno",
       description: "Diseño contemporáneo con una banda de encabezado distintiva.",
+    },
+    "europass": {
+      name: "Europass",
+      description: "Formato oficial de la UE con columna de etiquetas, datos personales e idiomas.",
+    },
+    "euro-modern": {
+      name: "Euro Moderno",
+      description: "CV europeo a dos columnas con barra lateral de color para contacto y habilidades.",
+    },
+    "nordic-minimal": {
+      name: "Nórdico Minimal",
+      description: "Columna única, sobria y espaciosa, popular en los países nórdicos y el Benelux.",
+    },
+    "uk-classic": {
+      name: "Reino Unido Clásico",
+      description: "CV británico tradicional con perfil personal y línea de referencias.",
+    },
+    "uk-professional": {
+      name: "Reino Unido Profesional",
+      description: "CV británico limpio con líneas de acento, ideal para empresas.",
+    },
+    "lebenslauf": {
+      name: "Lebenslauf",
+      description: "CV alemán en tabla con columna de fechas, datos personales y firma.",
+    },
+    "dach-modern": {
+      name: "DACH Moderno",
+      description: "Lebenslauf actual para Alemania, Austria y Suiza con banda de cabecera.",
+    },
+    "cv-francais": {
+      name: "CV Francés",
+      description: "CV francés a dos columnas con barra lateral de habilidades, idiomas y datos.",
+    },
+    "france-elegant": {
+      name: "Francia Elegante",
+      description: "CV refinado con tipografía serif para puestos corporativos y creativos en Francia.",
+    },
+    "us-resume": {
+      name: "Currículum EE. UU.",
+      description: "Currículum compacto tamaño Carta: sin foto ni datos personales, apto para ATS.",
+    },
+    "ats-plain": {
+      name: "ATS Simple",
+      description: "Diseño lo más sencillo posible para que los sistemas ATS lo lean a la perfección.",
+    },
+    "us-executive": {
+      name: "Ejecutivo EE. UU.",
+      description: "Currículum serif elegante para puestos directivos en Norteamérica.",
+    },
+    "canada-resume": {
+      name: "Currículum Canadá",
+      description: "Currículum al estilo canadiense con perfil y barras de sección marcadas.",
+    },
+    "gulf-cv": {
+      name: "CV Golfo",
+      description: "CV de Oriente Medio con nacionalidad y fecha de nacimiento en una columna lateral.",
+    },
+    "middle-east-executive": {
+      name: "Ejecutivo Oriente Medio",
+      description: "CV ejecutivo para el CCG con banda oscura y detalles dorados.",
+    },
+    "china-jianli": {
+      name: "China Jianli",
+      description: "Formato chino 简历 con bloque de información básica y barras de sección.",
+    },
+    "china-modern": {
+      name: "China Moderno",
+      description: "CV chino moderno con barra lateral para datos personales y habilidades.",
+    },
+    "india-resume": {
+      name: "Currículum India",
+      description: "Currículum indio con objetivo profesional y sección de datos personales.",
+    },
+    "australia-resume": {
+      name: "Currículum Australia",
+      description: "Currículum australiano con objetivo profesional y línea de referencias.",
+    },
+    "latam-cv": {
+      name: "CV Latinoamérica",
+      description: "CV latinoamericano con datos personales y barra lateral de color.",
+    },
+    "academic-cv": {
+      name: "CV Académico",
+      description: "CV académico con columna de fechas para investigación y docencia.",
+    },
+    "creative-sidebar": {
+      name: "Lateral Creativo",
+      description: "Diseño audaz a dos columnas para perfiles creativos y de diseño.",
     },
   },
   cta: {
@@ -218,6 +308,7 @@ export const es: Dictionary = {
       "Esta traducción se ofrece para tu comodidad. En caso de discrepancia, prevalece la versión en inglés.",
   },
   dashboard: {
+    untitled: "CV sin título",
     navLabel: "Aplicación",
     workspace: "Espacio de trabajo",
     navResumes: "Currículums",
@@ -336,6 +427,10 @@ export const es: Dictionary = {
       location: "Ubicación",
       website: "Sitio web",
       linkedin: "LinkedIn",
+      dateOfBirth: "Fecha de nacimiento",
+      nationality: "Nacionalidad",
+      regionalHeading: "Datos regionales (opcional)",
+      regionalHint: "Solo se muestran en formatos que los esperan, como Europass, Lebenslauf o CV del Golfo y Asia.",
       summary: "Resumen",
       jobTitle: "Puesto",
       company: "Empresa",
@@ -504,5 +599,35 @@ export const es: Dictionary = {
     pdfExportFailed: "No se pudo generar el PDF. Inténtalo de nuevo.",
     pdfExportFallback: "No se pudo exportar el PDF.",
     autosaveFailed: "Falló el guardado automático. Pulsa Guardar para reintentar.",
+  },
+  templatePicker: {
+    recommended: "Recomendadas para ti",
+    all: "Todas las plantillas",
+    region: "Región",
+    documentLanguage: "Idioma del CV",
+    documentLanguageHint: "Los títulos, las fechas y el PDF usan este idioma.",
+    count: "{n} plantillas",
+    core: "Esenciales",
+    regions: {
+      "global": "Global",
+      "europe": "Europa",
+      "uk": "Reino Unido e Irlanda",
+      "dach": "Alemania, Austria y Suiza",
+      "france": "Francia",
+      "north-america": "EE. UU. y Canadá",
+      "latam": "Latinoamérica",
+      "middle-east": "Oriente Medio y Golfo",
+      "india": "India y Asia del Sur",
+      "china": "China",
+      "oceania": "Australia y Nueva Zelanda",
+    },
+    tags: {
+      "ats": "Apto para ATS",
+      "europass": "Europass",
+      "two-column": "Dos columnas",
+      "personal-details": "Datos personales",
+      "letter": "Carta (EE. UU.)",
+      "a4": "A4",
+    },
   },
 };

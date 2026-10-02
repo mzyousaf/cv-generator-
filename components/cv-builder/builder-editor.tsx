@@ -194,6 +194,34 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
             />
           </FormField>
         </div>
+        <div className="mt-5 rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-4">
+          <p className="text-sm font-semibold text-slate-800">{t.editor.fields.regionalHeading}</p>
+          <p className="mt-0.5 text-xs text-slate-500">{t.editor.fields.regionalHint}</p>
+          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+            <FormField label={t.editor.fields.dateOfBirth} htmlFor="personal-dob">
+              <TextInput
+                id="personal-dob"
+                value={state.personal.dateOfBirth}
+                onChange={(event) =>
+                  update({
+                    personal: { ...state.personal, dateOfBirth: event.target.value },
+                  })
+                }
+              />
+            </FormField>
+            <FormField label={t.editor.fields.nationality} htmlFor="personal-nationality">
+              <TextInput
+                id="personal-nationality"
+                value={state.personal.nationality}
+                onChange={(event) =>
+                  update({
+                    personal: { ...state.personal, nationality: event.target.value },
+                  })
+                }
+              />
+            </FormField>
+          </div>
+        </div>
       </SectionCard>
       </div>
 

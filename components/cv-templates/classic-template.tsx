@@ -29,7 +29,7 @@ export function ClassicCvTemplate({ state }: { state: CvBuilderFormState }) {
         />
       </header>
 
-      {view.isEmpty ? <EmptyDocumentHint className="mt-8 text-center" /> : null}
+      {view.isEmpty ? <EmptyDocumentHint text={view.labels.emptyHint} className="mt-8 text-center" /> : null}
 
       <OrderedHtmlBodySections view={view} variant="classic" />
 

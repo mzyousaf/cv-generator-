@@ -1,10 +1,7 @@
 import type { ReactNode } from "react";
 import type { Style } from "@react-pdf/types";
-import { Text, View } from "@react-pdf/renderer";
-import {
-  formatDateRange,
-  formatMonth,
-} from "@/components/cv-templates/utils/format-dates";
+import { View } from "@react-pdf/renderer";
+import { DirText as Text, pdfDir } from "@/lib/pdf/direction";
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
 import type { ManageableSectionId } from "@/lib/cv/section-settings";
 
@@ -41,7 +38,7 @@ export function PdfSummarySection({
   }
 
   return (
-    <PdfSection title="Professional Summary" headingStyle={headingStyle}>
+    <PdfSection title={view.labels.summary} headingStyle={headingStyle}>
       <Text style={{ fontSize: 10, lineHeight: 1.45 }}>{view.summary}</Text>
     </PdfSection>
   );
@@ -60,17 +57,18 @@ export function PdfWorkSection({
   metaStyle: Style;
   dateStyle: Style;
 }) {
+  const { row } = pdfDir(view.dir);
   if (view.workExperience.length === 0) {
     return null;
   }
 
   return (
-    <PdfSection title="Work Experience" headingStyle={headingStyle}>
+    <PdfSection title={view.labels.workExperience} headingStyle={headingStyle}>
       {view.workExperience.map((entry) => (
         <View key={entry.id} style={{ marginBottom: 8 }}>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: row,
               justifyContent: "space-between",
               gap: 8,
             }}
@@ -82,7 +80,7 @@ export function PdfWorkSection({
               </Text>
             </View>
             <Text style={dateStyle}>
-              {formatDateRange(entry.startDate, entry.endDate, entry.current)}
+              {entry.dates}
             </Text>
           </View>
           {entry.description.trim() ? (
@@ -109,17 +107,18 @@ export function PdfEducationSection({
   metaStyle: Style;
   dateStyle: Style;
 }) {
+  const { row } = pdfDir(view.dir);
   if (view.education.length === 0) {
     return null;
   }
 
   return (
-    <PdfSection title="Education" headingStyle={headingStyle}>
+    <PdfSection title={view.labels.education} headingStyle={headingStyle}>
       {view.education.map((entry) => (
         <View key={entry.id} style={{ marginBottom: 8 }}>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: row,
               justifyContent: "space-between",
               gap: 8,
             }}
@@ -131,7 +130,7 @@ export function PdfEducationSection({
               </Text>
             </View>
             <Text style={dateStyle}>
-              {formatDateRange(entry.startDate, entry.endDate)}
+              {entry.dates}
             </Text>
           </View>
           {entry.description.trim() ? (
@@ -157,7 +156,7 @@ export function PdfSkillsSection({
   }
 
   return (
-    <PdfSection title="Skills" headingStyle={headingStyle}>
+    <PdfSection title={view.labels.skills} headingStyle={headingStyle}>
       <Text style={{ fontSize: 10, lineHeight: 1.45 }}>
         {view.skillsList.join(" · ")}
       </Text>
@@ -179,7 +178,7 @@ export function PdfProjectsSection({
   }
 
   return (
-    <PdfSection title="Projects" headingStyle={headingStyle}>
+    <PdfSection title={view.labels.projects} headingStyle={headingStyle}>
       {view.projects.map((entry) => (
         <View key={entry.id} style={{ marginBottom: 6 }}>
           <Text style={titleStyle}>{entry.name || "Project"}</Text>
@@ -211,12 +210,12 @@ export function PdfCertificationsSection({
   }
 
   return (
-    <PdfSection title="Certifications" headingStyle={headingStyle}>
+    <PdfSection title={view.labels.certifications} headingStyle={headingStyle}>
       {view.certifications.map((entry) => (
         <View key={entry.id} style={{ marginBottom: 6 }}>
           <Text style={titleStyle}>{entry.name || "Certification"}</Text>
           <Text style={{ fontSize: 10, color: "#3f3f46" }}>
-            {[entry.issuer, formatMonth(entry.date)].filter(Boolean).join(" · ")}
+            {[entry.issuer, entry.dates].filter(Boolean).join(" · ")}
           </Text>
         </View>
       ))}
@@ -231,17 +230,18 @@ export function PdfLanguagesSection({
   view: CvDocumentView;
   headingStyle: Style;
 }) {
+  const { row } = pdfDir(view.dir);
   if (view.languages.length === 0) {
     return null;
   }
 
   return (
-    <PdfSection title="Languages" headingStyle={headingStyle}>
+    <PdfSection title={view.labels.languages} headingStyle={headingStyle}>
       {view.languages.map((entry) => (
         <View
           key={entry.id}
           style={{
-            flexDirection: "row",
+            flexDirection: row,
             justifyContent: "space-between",
             marginBottom: 3,
           }}
@@ -272,7 +272,7 @@ export function PdfCustomSections({
       {view.customSections.map((entry) => (
         <PdfSection
           key={entry.id}
-          title={entry.title || "Custom Section"}
+          title={entry.title}
           headingStyle={headingStyle}
         >
           <Text style={{ fontSize: 10, lineHeight: 1.45 }}>{entry.content}</Text>

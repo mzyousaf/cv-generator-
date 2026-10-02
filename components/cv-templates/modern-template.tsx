@@ -30,7 +30,7 @@ export function ModernCvTemplate({ state }: { state: CvBuilderFormState }) {
       </header>
 
       <div className="px-10 py-8">
-        {view.isEmpty ? <EmptyDocumentHint className="mb-2" /> : null}
+        {view.isEmpty ? <EmptyDocumentHint text={view.labels.emptyHint} className="mb-2" /> : null}
 
         <OrderedHtmlBodySections view={view} variant="modern" />
 
