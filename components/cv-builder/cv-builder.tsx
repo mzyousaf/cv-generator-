@@ -169,7 +169,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/80">
+    <div className="min-h-screen bg-background bg-[radial-gradient(60%_40%_at_100%_0%,rgb(101_66_236/0.06),transparent),radial-gradient(40%_30%_at_0%_100%,rgb(236_72_153/0.04),transparent)]">
       <BuilderHeader
         title={state.title}
         onTitleChange={(title) => setState((current) => ({ ...current, title }))}
@@ -190,7 +190,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         <BuilderSidebarNav
           state={state}
           onManageSections={() => setManageOpen(true)}
-          className="sticky top-[7.5rem] hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto xl:flex"
+          className="sticky top-[5.75rem] hidden max-h-[calc(100vh-6.5rem)] self-start overflow-y-auto xl:flex"
         />
 
         <div

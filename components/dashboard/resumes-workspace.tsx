@@ -17,24 +17,54 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
   );
   const hasResumes = sortedResumes.length > 0;
 
+  const lastEdited = sortedResumes[0]
+    ? new Date(sortedResumes[0].updatedAt).toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+      })
+    : "—";
+
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-12">
-      <header className="flex flex-col gap-4 border-b border-slate-200 pb-8 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-        <div className="min-w-0 max-w-2xl space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-            Resumes
-          </h1>
-          <p className="text-base text-slate-600">
-            Create a new resume or continue working on an existing one.
-          </p>
+    <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-8 lg:py-10">
+      <header className="relative isolate overflow-hidden rounded-[1.75rem] bg-ink-mesh px-6 py-8 text-white shadow-[0_30px_70px_-35px_rgb(40_26_110/0.7)] sm:px-10 sm:py-10">
+        <div
+          className="absolute inset-0 -z-10 bg-grid-faint [mask-image:radial-gradient(ellipse_at_top_right,black_20%,transparent_70%)]"
+          aria-hidden="true"
+        />
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="min-w-0 max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
+              Your workspace
+            </p>
+            <h1 className="mt-3 text-3xl font-bold tracking-[-0.03em] sm:text-4xl">
+              Resumes
+            </h1>
+            <p className="mt-2 text-base text-slate-300">
+              Create a new resume or continue working on an existing one.
+            </p>
+          </div>
+          <div className="shrink-0">
+            <CreateCvForm
+              buttonLabel="+ Create New Resume"
+              size="lg"
+              variant="inverse"
+            />
+          </div>
         </div>
-        <div className="shrink-0">
-          <CreateCvForm
-            buttonLabel="+ Create New Resume"
-            size="md"
-            className="sm:pt-1"
-          />
-        </div>
+        <dl className="mt-8 grid max-w-md grid-cols-2 gap-3">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+            <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+              Resumes
+            </dt>
+            <dd className="mt-1 text-2xl font-bold">{sortedResumes.length}</dd>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+            <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+              Last edited
+            </dt>
+            <dd className="mt-1 text-2xl font-bold">{lastEdited}</dd>
+          </div>
+        </dl>
       </header>
 
       <section className="mt-8 space-y-8">
@@ -43,12 +73,17 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
         {listError ? <FormMessage>{listError}</FormMessage> : null}
 
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-slate-900">Your resumes</h2>
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-xl font-bold tracking-tight text-slate-950">Your resumes</h2>
+            {hasResumes ? (
+              <p className="text-sm text-slate-500">Sorted by last edited</p>
+            ) : null}
+          </div>
 
           {!hasResumes ? (
             <ResumeEmptyState />
           ) : (
-            <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
               {sortedResumes.map((resume) => (
                 <li key={resume.id} className="min-w-0">
                   <ResumeCard

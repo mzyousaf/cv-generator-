@@ -14,7 +14,7 @@ export function AiAssistShell({ children, className }: AiAssistShellProps) {
         className,
       )}
     >
-      <p className="text-xs font-medium text-slate-500">AI Assist</p>
+      <p className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-blue-600"><span aria-hidden="true">✦</span>AI Assist</p>
       {children}
     </div>
   );

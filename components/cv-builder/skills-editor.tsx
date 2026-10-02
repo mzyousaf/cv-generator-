@@ -47,7 +47,7 @@ export function SkillsEditor({ state, onChangeSkills }: SkillsEditorProps) {
         <ul className="flex max-w-full flex-wrap gap-2" aria-label="Skills">
           {skills.map((skill, index) => (
             <li key={`${skill}-${index}`} className="max-w-full">
-              <span className="inline-flex max-w-full items-center gap-1 rounded-full border border-slate-200 bg-slate-50 py-1 pl-3 pr-1 text-sm text-slate-800">
+              <span className="inline-flex max-w-full items-center gap-1 rounded-full border border-blue-100 bg-gradient-to-b from-white to-blue-50/70 py-1 pl-3 pr-1 text-sm font-medium text-blue-900 shadow-[0_1px_2px_rgb(101_66_236/0.08)]">
                 <span className="break-words">{skill}</span>
                 <Button
                   type="button"

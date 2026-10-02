@@ -44,8 +44,8 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
   }, [mobileNavOpen, closeMobileNav]);
 
   return (
-    <div className="flex min-h-screen min-w-0 bg-slate-50/80">
-      <aside className="hidden w-64 shrink-0 border-r border-slate-200 bg-white lg:flex lg:flex-col">
+    <div className="flex min-h-screen min-w-0 bg-background">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 bg-ink bg-[radial-gradient(80%_40%_at_0%_0%,rgb(101_66_236/0.28),transparent)] lg:flex lg:flex-col">
         <DashboardSidebar user={user} />
       </aside>
 
@@ -62,24 +62,24 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
         <div className="fixed inset-0 z-50 lg:hidden" role="presentation">
           <button
             type="button"
-            className="absolute inset-0 bg-slate-900/50"
+            className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
             aria-label="Close navigation menu"
             onClick={closeMobileNav}
           />
           <div
             className={cn(
-              "relative flex h-full w-[min(100%,18rem)] flex-col bg-white shadow-xl",
+              "relative flex h-full w-[min(100%,18rem)] flex-col bg-ink shadow-2xl",
             )}
             role="dialog"
             aria-modal="true"
             aria-label="Navigation"
           >
-            <div className="flex items-center justify-end border-b border-slate-200 px-3 py-2">
+            <div className="flex items-center justify-end px-3 pt-3">
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="min-h-9 min-w-9 px-2"
+                className="min-h-9 min-w-9 px-2 text-slate-300 hover:bg-white/10 hover:text-white"
                 aria-label="Close menu"
                 onClick={closeMobileNav}
               >

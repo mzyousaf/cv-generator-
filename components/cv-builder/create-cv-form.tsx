@@ -3,13 +3,14 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createCvAction } from "@/lib/cv/actions";
-import { Button, type ButtonSize } from "@/components/ui/button";
+import { Button, type ButtonSize, type ButtonVariant } from "@/components/ui/button";
 import { FormMessage } from "@/components/ui/form-message";
 
 type CreateCvFormProps = {
   buttonLabel?: string;
   loadingText?: string;
   size?: ButtonSize;
+  variant?: ButtonVariant;
   className?: string;
 };
 
@@ -17,6 +18,7 @@ export function CreateCvForm({
   buttonLabel = "Create new CV",
   loadingText = "Creating…",
   size = "md",
+  variant = "primary",
   className,
 }: CreateCvFormProps) {
   const router = useRouter();
@@ -45,7 +47,7 @@ export function CreateCvForm({
     <div className={`space-y-2 ${className ?? ""}`.trim()}>
       <Button
         type="button"
-        variant="primary"
+        variant={variant}
         size={size}
         onClick={() => void handleCreate()}
         isLoading={isCreating}

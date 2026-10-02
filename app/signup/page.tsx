@@ -4,8 +4,8 @@ import { SignupForm } from "@/components/auth/signup-form";
 export default function SignupPage() {
   return (
     <AuthShell
-      title="Create account"
-      description="Sign up with email and password."
+      title="Create your account"
+      description="Start building a standout CV in minutes."
       footer={
         <>
           Already have an account? <AuthLink href="/login">Sign in</AuthLink>

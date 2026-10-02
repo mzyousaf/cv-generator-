@@ -278,25 +278,25 @@ export function ResumeUploadDropzone() {
 
         className={cn(
 
-          "rounded-xl border-2 border-dashed bg-white p-8 text-center transition-colors sm:p-10",
+          "group/drop rounded-3xl border-2 border-dashed bg-white/70 p-8 text-center transition-all duration-200 sm:p-10",
 
           isDragging
 
-            ? "border-blue-400 bg-blue-50/60"
+            ? "border-blue-400 bg-blue-50/70 shadow-[0_0_0_6px_rgb(101_66_236/0.08)]"
 
-            : "border-slate-300 hover:border-blue-300 hover:bg-blue-50/30",
+            : "border-slate-200 hover:border-blue-300 hover:bg-white",
 
         )}
 
       >
 
-        <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-blue-50 text-blue-700 ring-1 ring-blue-100">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-fuchsia-50 text-blue-600 shadow-[0_8px_20px_-10px_rgb(101_66_236/0.6)] ring-1 ring-blue-100 transition-transform duration-300 group-hover/drop:-translate-y-0.5">
 
           <UploadIcon className="size-7" />
 
         </div>
 
-        <h2 className="mt-4 text-lg font-semibold text-slate-900">
+        <h2 className="mt-4 text-lg font-bold tracking-tight text-slate-950">
 
           Upload an existing resume
 

@@ -52,20 +52,20 @@ export function SectionCard({
   addLabel?: string;
 }) {
   return (
-    <Card className="rounded-xl border-slate-200 shadow-sm">
-      <CardContent className="p-4 sm:p-5">
-        <div className="mb-4 space-y-1">
+    <Card className="rounded-3xl">
+      <CardContent className="p-5 sm:p-7">
+        <div className="mb-5 space-y-1">
           <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-base font-semibold text-slate-900">{title}</h2>
+            <h2 className="text-lg font-bold tracking-tight text-slate-950">{title}</h2>
             {statusBadge}
           </div>
           {description ? (
-            <p className="text-sm text-slate-600">{description}</p>
+            <p className="text-sm text-slate-500">{description}</p>
           ) : null}
         </div>
-        <div className="space-y-3">{children}</div>
+        <div className="space-y-4">{children}</div>
         {onAdd ? (
-          <div className="mt-4 border-t border-slate-100 pt-4">
+          <div className="mt-5 border-t border-slate-100 pt-5">
             <Button type="button" variant="outline" size="sm" onClick={onAdd}>
               {addLabel ?? "+ Add"}
             </Button>
@@ -117,8 +117,8 @@ export function CollapsibleEntryCard({
   hideToggle?: boolean;
 }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-      <div className="flex items-start gap-2 px-3 py-2.5 sm:px-4">
+    <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-50/40 transition-colors hover:border-slate-300/80">
+      <div className="flex items-start gap-2 px-4 py-3">
         <div className="min-w-0 flex-1">
           <p className="break-words text-sm font-semibold leading-snug text-slate-900">
             {summaryTitle}
@@ -154,7 +154,7 @@ export function CollapsibleEntryCard({
         </div>
       </div>
       {expanded ? (
-        <div className="grid gap-3 border-t border-slate-100 p-4 sm:grid-cols-2">
+        <div className="grid gap-4 border-t border-slate-100 bg-white p-4 sm:grid-cols-2 sm:p-5">
           {children}
         </div>
       ) : null}

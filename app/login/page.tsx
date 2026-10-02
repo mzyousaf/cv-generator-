@@ -5,8 +5,8 @@ import { LoginForm } from "@/components/auth/login-form";
 export default function LoginPage() {
   return (
     <AuthShell
-      title="Sign in"
-      description="Access your CV Generator account."
+      title="Welcome back"
+      description="Sign in to pick up right where you left off."
       footer={
         <>
           Need an account? <AuthLink href="/signup">Create one</AuthLink>
