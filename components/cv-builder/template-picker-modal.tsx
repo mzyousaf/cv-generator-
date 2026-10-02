@@ -35,9 +35,9 @@ function TemplateThumbnail({ templateId }: { templateId: CvTemplateId }) {
   return (
     <div
       aria-hidden
-      className="pointer-events-none h-36 overflow-hidden rounded-lg border border-slate-200 bg-slate-100"
+      className="pointer-events-none relative h-36 overflow-hidden rounded-lg border border-slate-200 bg-gradient-to-br from-slate-100 to-blue-50/60"
     >
-      <div className="origin-top-left scale-[0.18]">
+      <div className="absolute left-1/2 top-2 w-[794px] origin-top -translate-x-1/2 scale-[0.14] shadow-[0_20px_40px_-12px_rgb(15_23_42/0.4)]">
         <CvTemplateRenderer templateId={templateId} state={sampleState} />
       </div>
     </div>
