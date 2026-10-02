@@ -196,7 +196,7 @@ export const zh: Dictionary = {
     eyebrow: "法律",
     backHome: "← 返回首页",
     lastUpdated: "最后更新：[PLACEHOLDER: 填写日期]",
-    englishOnly: "本文件以英文提供，以英文版本为准。",
+    englishOnly: "本译文仅为方便阅读而提供。如有任何差异，以英文版本为准。",
   },
   dashboard: {
     navLabel: "应用",

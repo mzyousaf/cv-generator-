@@ -215,7 +215,7 @@ export const fr: Dictionary = {
     backHome: "← Retour à l'accueil",
     lastUpdated: "Dernière mise à jour : [PLACEHOLDER: insérer la date]",
     englishOnly:
-      "Ce document est fourni en anglais. La version anglaise fait foi.",
+      "Cette traduction est fournie pour votre commodité. En cas de divergence, la version anglaise prévaut.",
   },
   dashboard: {
     navLabel: "Application",

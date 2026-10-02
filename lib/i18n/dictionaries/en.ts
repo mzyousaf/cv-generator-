@@ -225,7 +225,7 @@ export const en = {
     backHome: "← Back home",
     lastUpdated: "Last updated: [PLACEHOLDER: insert date]",
     englishOnly:
-      "This document is provided in English. The English version is the binding version.",
+      "This is a translation provided for your convenience. If there is any difference, the English version prevails.",
   },
   dashboard: {
     navLabel: "Application",

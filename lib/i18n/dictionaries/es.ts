@@ -215,7 +215,7 @@ export const es: Dictionary = {
     backHome: "← Volver al inicio",
     lastUpdated: "Última actualización: [PLACEHOLDER: insertar fecha]",
     englishOnly:
-      "Este documento se ofrece en inglés. La versión en inglés es la versión vinculante.",
+      "Esta traducción se ofrece para tu comodidad. En caso de discrepancia, prevalece la versión en inglés.",
   },
   dashboard: {
     navLabel: "Aplicación",

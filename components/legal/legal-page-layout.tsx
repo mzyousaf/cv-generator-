@@ -58,7 +58,7 @@ export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
               {t.legal.englishOnly}
             </p>
           ) : null}
-          <article lang="en" dir="ltr" className="legal-content space-y-6 rounded-3xl border border-slate-200/70 bg-surface p-6 text-[0.95rem] leading-relaxed text-slate-600 shadow-lift sm:p-10 [&_a]:font-semibold [&_a]:text-blue-600 [&_a]:underline-offset-2 hover:[&_a]:text-blue-700 hover:[&_a]:underline [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-950 [&_li]:mt-1.5 [&_p]:mt-3 [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:marker:text-blue-400">
+          <article className="legal-content space-y-6 rounded-3xl border border-slate-200/70 bg-surface p-6 text-[0.95rem] leading-relaxed text-slate-600 shadow-lift sm:p-10 [&_a]:font-semibold [&_a]:text-blue-600 [&_a]:underline-offset-2 hover:[&_a]:text-blue-700 hover:[&_a]:underline [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-950 [&_li]:mt-1.5 [&_p]:mt-3 [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:ps-6 [&_ul]:marker:text-blue-400">
             {children}
           </article>
         </main>

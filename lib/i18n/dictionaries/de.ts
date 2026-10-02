@@ -215,7 +215,7 @@ export const de: Dictionary = {
     backHome: "← Zur Startseite",
     lastUpdated: "Zuletzt aktualisiert: [PLACEHOLDER: Datum einfügen]",
     englishOnly:
-      "Dieses Dokument wird auf Englisch bereitgestellt. Maßgeblich ist die englische Fassung.",
+      "Diese Übersetzung dient Ihrer Bequemlichkeit. Bei Abweichungen ist die englische Fassung maßgeblich.",
   },
   dashboard: {
     navLabel: "Anwendung",
