@@ -1,4 +1,4 @@
-import { Document, Page, View } from "@react-pdf/renderer";
+import { Document, Image, Page, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
 import {
@@ -185,9 +185,28 @@ function Footer({ model }: { model: RegionalDocumentModel }) {
   );
 }
 
+function Photo({ src, size = 70, round = false, ring }: { src: string; size?: number; round?: boolean; ring?: string }) {
+  const height = round ? size : Math.round(size * 1.25);
+  return (
+    // react-pdf Image is not an HTML <img>; it has no alt attribute.
+    // eslint-disable-next-line jsx-a11y/alt-text
+    <Image
+      src={src}
+      style={{
+        width: size,
+        height,
+        objectFit: "cover",
+        borderRadius: round ? size / 2 : 4,
+        borderWidth: ring ? 2 : 0.5,
+        borderColor: ring ?? "#e4e4e7",
+      }}
+    />
+  );
+}
+
 function Header({ model, withContacts = true }: { model: RegionalDocumentModel; withContacts?: boolean }) {
   const { spec } = model;
-  const { rtl } = pdfDir(model.dir);
+  const { rtl, row } = pdfDir(model.dir);
   const band = spec.headerBand;
   const align: Style["textAlign"] = spec.headerAlign === "center" ? "center" : rtl ? "right" : "left";
   const details = spec.layout === "single" && model.details.length
@@ -201,6 +220,8 @@ function Header({ model, withContacts = true }: { model: RegionalDocumentModel; 
           : { marginBottom: 14 }
       }
     >
+      <View style={{ flexDirection: row, alignItems: "center" }}>
+      <View style={{ flex: 1 }}>
       <Text style={{ fontSize: 22, fontWeight: 700, color: band ? "#ffffff" : INK, textAlign: align }}>{model.name}</Text>
       <Text style={{ fontSize: 11, fontWeight: 700, color: band ? bandTitleColor(spec.accent) : spec.accent, marginTop: 3, textAlign: align }}>{model.title}</Text>
       {withContacts && model.contacts.length ? (
@@ -211,6 +232,13 @@ function Header({ model, withContacts = true }: { model: RegionalDocumentModel; 
       {details ? (
         <Text style={{ fontSize: 8.5, color: band ? "#ffffffcc" : MUTED, marginTop: 2, textAlign: align }}>{details}</Text>
       ) : null}
+      </View>
+      {model.photo ? (
+        <View style={rtl ? { marginRight: 16 } : { marginLeft: 16 }}>
+          <Photo src={model.photo} size={band ? 62 : 68} ring={band ? "#ffffffdd" : undefined} />
+        </View>
+      ) : null}
+      </View>
     </View>
   );
 }
@@ -271,7 +299,14 @@ function EuropassBody({ model }: { model: RegionalDocumentModel }) {
   return (
     <>
       <View style={{ flexDirection: row, alignItems: "flex-end", marginBottom: 14 }}>
-        <Text style={[labelStyle, gap, { fontSize: 7.5 }]}>{labels.curriculumVitae}</Text>
+        <View style={[{ width: "30%", alignItems: rtl ? "flex-start" : "flex-end" }, gap]}>
+          {model.photo ? (
+            <View style={{ marginBottom: 6 }}>
+              <Photo src={model.photo} size={62} />
+            </View>
+          ) : null}
+          <Text style={[labelStyle, { width: "100%", fontSize: 7.5 }]}>{labels.curriculumVitae}</Text>
+        </View>
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 21, fontWeight: 700, color: INK }}>{model.name}</Text>
           <Text style={{ fontSize: 10.5, fontWeight: 700, color: spec.accent, marginTop: 2 }}>{model.title}</Text>
@@ -333,6 +368,11 @@ function SidebarBody({ model }: { model: RegionalDocumentModel }) {
   return (
     <View style={{ flexDirection: row, flexGrow: 1 }}>
       <View style={{ width: "33%", backgroundColor: spec.sidebarColor, paddingVertical: 30, paddingHorizontal: 18 }}>
+        {model.photo ? (
+          <View style={{ alignItems: "center", marginBottom: 16 }}>
+            <Photo src={model.photo} size={88} round ring={spec.accent} />
+          </View>
+        ) : null}
         {model.contacts.length ? (
           <View style={{ marginBottom: 14 }}>
             <Heading title={labels.contact} model={model} tone="side" />

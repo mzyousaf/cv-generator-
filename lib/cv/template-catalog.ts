@@ -31,7 +31,9 @@ export type TemplateRegion = (typeof TEMPLATE_REGIONS)[number];
  */
 export type TemplateLayout = "single" | "sidebar" | "europass" | "timeline";
 
-export type TemplateTag = "ats" | "europass" | "two-column" | "personal-details" | "letter" | "a4";
+export type PhotoPolicy = "expected" | "optional" | "none";
+
+export type TemplateTag = "ats" | "europass" | "two-column" | "personal-details" | "photo" | "letter" | "a4";
 
 export type RegionalTemplateSpec = {
   id: RegionalTemplateId;
@@ -51,6 +53,12 @@ export type RegionalTemplateSpec = {
   educationLabel: "education" | "educationTraining";
   /** Show date of birth and nationality when filled in. */
   personalDetails: boolean;
+  /**
+   * Photo convention for the region: "expected" (DACH, France, Gulf, Asia,
+   * LatAm), "optional", or "none" where photos invite bias concerns (US, UK,
+   * Canada, Australia, ATS-oriented formats).
+   */
+  photo: PhotoPolicy;
   /** "Place, date / Signature" line at the end (DACH convention). */
   signature: boolean;
   /** "References available upon request" line (UK, Australia). */
@@ -73,6 +81,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "educationTraining",
     personalDetails: true,
+    photo: "optional",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -92,6 +101,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "optional",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -110,6 +120,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "none",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -128,6 +139,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "none",
     signature: false,
     referencesNote: true,
     pageSize: "A4",
@@ -146,6 +158,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "none",
     signature: false,
     referencesNote: true,
     pageSize: "A4",
@@ -164,6 +177,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "educationTraining",
     personalDetails: true,
+    photo: "expected",
     signature: true,
     referencesNote: false,
     pageSize: "A4",
@@ -183,6 +197,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "expected",
     signature: true,
     referencesNote: false,
     pageSize: "A4",
@@ -202,6 +217,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "expected",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -220,6 +236,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "optional",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -238,6 +255,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "none",
     signature: false,
     referencesNote: false,
     pageSize: "LETTER",
@@ -256,6 +274,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "none",
     signature: false,
     referencesNote: false,
     pageSize: "LETTER",
@@ -274,6 +293,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "none",
     signature: false,
     referencesNote: false,
     pageSize: "LETTER",
@@ -292,6 +312,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "none",
     signature: false,
     referencesNote: false,
     pageSize: "LETTER",
@@ -311,6 +332,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "expected",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -330,6 +352,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "expected",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -348,6 +371,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "expected",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -367,6 +391,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "expected",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -385,6 +410,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "optional",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -403,6 +429,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "none",
     signature: false,
     referencesNote: true,
     pageSize: "A4",
@@ -422,6 +449,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: true,
+    photo: "expected",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -440,6 +468,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "professionalExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "optional",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -459,6 +488,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: false,
+    photo: "optional",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
@@ -521,3 +551,8 @@ export const DEFAULT_TEMPLATE_FOR_LOCALE: Record<Locale, CvTemplateId> = {
   ar: "gulf-cv",
   zh: "china-jianli",
 };
+
+/** Photo convention for any template id (core templates never show photos). */
+export function templatePhotoPolicy(id: CvTemplateId | string): PhotoPolicy {
+  return getRegionalTemplateSpec(id)?.photo ?? "none";
+}

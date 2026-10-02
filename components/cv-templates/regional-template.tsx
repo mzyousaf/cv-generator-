@@ -216,6 +216,26 @@ function Footer({ model }: { model: RegionalDocumentModel }) {
   );
 }
 
+function Photo({ src, size = 96, round = false, ring }: { src: string; size?: number; round?: boolean; ring?: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- inline data URL on printed paper
+    <img
+      src={src}
+      alt=""
+      width={size}
+      height={round ? size : Math.round(size * 1.25)}
+      style={{
+        width: size,
+        height: round ? size : Math.round(size * 1.25),
+        objectFit: "cover",
+        borderRadius: round ? "50%" : 6,
+        flexShrink: 0,
+        border: ring ? `3px solid ${ring}` : "1px solid #e4e4e7",
+      }}
+    />
+  );
+}
+
 function Header({ model, compactContacts = false }: { model: RegionalDocumentModel; compactContacts?: boolean }) {
   const { spec } = model;
   const band = spec.headerBand;
@@ -230,8 +250,12 @@ function Header({ model, compactContacts = false }: { model: RegionalDocumentMod
         padding: band ? "28px 48px" : undefined,
         margin: band ? "-40px -48px 24px" : "0 0 20px",
         borderBottom: band ? `4px solid ${spec.accent}` : undefined,
+        display: model.photo ? "flex" : undefined,
+        alignItems: "center",
+        gap: 24,
       }}
     >
+      <div style={{ flex: 1, minWidth: 0 }}>
       <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.15, color: band ? "#fff" : spec.heading === "caps" ? "#18181b" : spec.accent === "#000000" ? "#000" : "#18181b" }}>
         {model.name}
       </h1>
@@ -248,9 +272,16 @@ function Header({ model, compactContacts = false }: { model: RegionalDocumentMod
       ) : null}
       {showDetailsInline ? (
         <p style={{ fontSize: 10.5, marginTop: 3, color: band ? "rgba(255,255,255,0.8)" : "#52525b" }}>
-          {model.details.map((pair) => `${pair.label}: $<bdi>{pair.value}</bdi>`).join("  ·  ")}
+          {model.details.map((pair, index) => (
+            <span key={pair.label}>
+              {index > 0 ? "  ·  " : null}
+              {pair.label}: <bdi>{pair.value}</bdi>
+            </span>
+          ))}
         </p>
       ) : null}
+      </div>
+      {model.photo ? <Photo src={model.photo} size={band ? 84 : 92} ring={band ? "rgba(255,255,255,0.85)" : undefined} /> : null}
     </header>
   );
 }
@@ -317,7 +348,10 @@ function EuropassLayout({ model }: { model: RegionalDocumentModel }) {
   return (
     <>
       <header style={{ ...row, alignItems: "end", marginBottom: 18 }}>
-        <span style={{ ...label, fontSize: 9 }}>{labels.curriculumVitae}</span>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
+          {model.photo ? <Photo src={model.photo} size={84} /> : null}
+          <span style={{ ...label, fontSize: 9 }}>{labels.curriculumVitae}</span>
+        </div>
         <div>
           <h1 style={{ fontSize: 26, fontWeight: 700, color: "#18181b" }}>{model.name}</h1>
           <p style={{ fontSize: 13, color: spec.accent, fontWeight: 600, marginTop: 2 }}>{model.title}</p>
@@ -383,6 +417,11 @@ function SidebarLayout({ model }: { model: RegionalDocumentModel }) {
   return (
     <div style={{ display: "flex", minHeight: "inherit" }}>
       <aside style={{ width: "33%", background: spec.sidebarColor, color: "#fff", padding: "40px 24px", display: "grid", alignContent: "start", gap: 20 }}>
+        {model.photo ? (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Photo src={model.photo} size={118} round ring={spec.accent} />
+          </div>
+        ) : null}
         {model.contacts.length ? (
           <section>
             <Heading title={labels.contact} spec={spec} tone="side" />

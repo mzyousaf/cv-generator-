@@ -1,3 +1,4 @@
+import { sanitizePhoto } from "@/lib/cv/photo";
 import { resolveDocumentLocale } from "@/lib/cv/builder-mapper";
 import { builderStateToContentPatch } from "@/lib/cv/builder-mapper";
 import {
@@ -94,6 +95,7 @@ function sanitizePersonal(value: unknown): PersonalInfoForm {
     website: trimString(record.website, RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH),
     dateOfBirth: trimString(record.dateOfBirth, RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH),
     nationality: trimString(record.nationality, RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH),
+    photo: sanitizePhoto(record.photo),
     linkedIn: trimString(record.linkedIn, RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH),
   };
 }

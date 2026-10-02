@@ -1,6 +1,7 @@
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
 import type { CvDocumentLabels } from "@/lib/cv/document-labels";
 import type { ManageableSectionId } from "@/lib/cv/section-settings";
+import { sanitizePhoto } from "@/lib/cv/photo";
 import type { RegionalTemplateSpec } from "@/lib/cv/template-catalog";
 
 export type DocItem = {
@@ -43,6 +44,8 @@ export type RegionalDocumentModel = {
   contacts: DocPair[];
   /** Date of birth / nationality, only when the spec shows personal details. */
   details: DocPair[];
+  /** Photo data URL when the format shows photos and one is set; otherwise "". */
+  photo: string;
   sections: DocSection[];
 };
 
@@ -188,6 +191,7 @@ export function buildRegionalDocumentModel(
     title: view.displayTitle,
     contacts,
     details: spec.personalDetails ? view.personalDetails : [],
+    photo: spec.photo === "none" ? "" : sanitizePhoto(personal.photo),
     sections,
   };
 }

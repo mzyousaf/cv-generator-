@@ -198,7 +198,7 @@ export function TemplatePickerModal({
               </p>
               {spec ? (
                 <div className="mt-2 flex flex-wrap gap-1">
-                  {spec.tags.map((tag) => (
+                  {[...spec.tags, ...(spec.photo === "expected" ? (["photo"] as const) : [])].map((tag) => (
                     <span
                       key={tag}
                       className="rounded-md bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"

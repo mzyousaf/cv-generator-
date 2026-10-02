@@ -9,6 +9,8 @@ export type PersonalInfoForm = {
   /** Optional details some regional formats expect (Europe, Middle East, Asia). */
   dateOfBirth: string;
   nationality: string;
+  /** JPEG/PNG data URL, cropped in the browser; empty when no photo. */
+  photo: string;
 };
 
 export type WorkExperienceEntry = {
@@ -103,6 +105,7 @@ export function createEmptyBuilderState(
       linkedIn: "",
       dateOfBirth: "",
       nationality: "",
+      photo: "",
     },
     summary: "",
     workExperience: [],

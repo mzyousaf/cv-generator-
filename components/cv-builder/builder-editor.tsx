@@ -28,6 +28,7 @@ import {
 } from "@/components/cv-builder/form-primitives";
 import { BuilderMobileSectionsMenu } from "@/components/cv-builder/builder-mobile-sections-menu";
 import { SkillsEditor } from "@/components/cv-builder/skills-editor";
+import { PhotoField } from "@/components/cv-builder/photo-field";
 import { SummaryAiControls } from "@/components/cv-builder/ai/summary-ai-controls";
 import { WorkExperienceAiControls } from "@/components/cv-builder/ai/work-experience-ai-controls";
 import { Badge } from "@/components/ui/badge";
@@ -197,7 +198,14 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
         <div className="mt-5 rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-4">
           <p className="text-sm font-semibold text-slate-800">{t.editor.fields.regionalHeading}</p>
           <p className="mt-0.5 text-xs text-slate-500">{t.editor.fields.regionalHint}</p>
-          <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <div className="mt-4">
+            <PhotoField
+              value={state.personal.photo}
+              templateId={state.template}
+              onChange={(photo) => update({ personal: { ...state.personal, photo } })}
+            />
+          </div>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <FormField label={t.editor.fields.dateOfBirth} htmlFor="personal-dob">
               <TextInput
                 id="personal-dob"

@@ -1,3 +1,4 @@
+import { isValidPhotoDataUrl } from "@/lib/cv/photo";
 import {
   CV_ARRAY_SECTION_KEYS,
   CV_CONTENT_MAX_BYTES,
@@ -93,6 +94,10 @@ function validatePersonal(value: unknown): Record<string, unknown> | undefined {
 
   if (!isPlainObject(value)) {
     throw new Error("Personal information must be an object.");
+  }
+
+  if (value.photo !== undefined && value.photo !== "" && !isValidPhotoDataUrl(value.photo)) {
+    throw new Error("Photo must be a JPEG or PNG image under 240 KB.");
   }
 
   return value;

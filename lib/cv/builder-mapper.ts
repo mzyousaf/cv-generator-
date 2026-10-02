@@ -1,6 +1,7 @@
 import { sanitizeSectionSettings, sectionSettingsToStored } from "@/lib/cv/section-settings";
 import { resolveTemplateId } from "@/lib/cv/template-registry";
 import type { CVContent } from "@/types/cv";
+import { sanitizePhoto } from "@/lib/cv/photo";
 import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n/preferences";
 import {
   createEmptyBuilderState,
@@ -144,6 +145,7 @@ export function cvRecordToBuilderState(
     linkedIn: asString(personalRaw.linkedIn ?? personalRaw.linkedin),
     dateOfBirth: asString(personalRaw.dateOfBirth),
     nationality: asString(personalRaw.nationality),
+    photo: sanitizePhoto(personalRaw.photo),
   };
 
   base.summary = asString(content.summary);

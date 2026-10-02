@@ -2,6 +2,7 @@ import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import { DEFAULT_CV_TEMPLATE } from "@/lib/cv/constants";
 import { createDefaultSectionSettings } from "@/lib/cv/section-settings";
 import type { Locale } from "@/lib/i18n/preferences";
+import { SAMPLE_PHOTO_DATA_URL } from "@/components/cv-templates/sample-photo";
 
 export const TEMPLATE_PREVIEW_SAMPLE_STATE: CvBuilderFormState = {
   title: "Sample CV",
@@ -16,6 +17,7 @@ export const TEMPLATE_PREVIEW_SAMPLE_STATE: CvBuilderFormState = {
     linkedIn: "linkedin.com/in/alexmorgan",
     dateOfBirth: "12 April 1990",
     nationality: "British",
+    photo: SAMPLE_PHOTO_DATA_URL,
   },
   summary:
     "Product leader with 8+ years shipping B2B platforms. Turns ambiguous problems into clear roadmaps and measurable outcomes.",
