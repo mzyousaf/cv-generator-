@@ -1,29 +1,26 @@
 import Link from "next/link";
 import { siteConfig } from "@/lib/constants";
-import { GenerateFreeButton } from "@/components/landing/generate-free-button";
+import { Logo } from "@/components/ui/logo";
 
 const footerLinkClass =
-  "cursor-pointer text-slate-600 transition-colors hover:text-slate-900 focus:outline-none focus-visible:underline";
+  "cursor-pointer text-slate-400 transition-colors hover:text-white focus:outline-none focus-visible:underline";
 
 export function LandingFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
+    <footer className="bg-ink text-slate-300">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
-          <p className="text-lg font-semibold text-slate-900">{siteConfig.name}</p>
-          <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-600">
+          <Logo tone="light" />
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">
             {siteConfig.description}
           </p>
-          <div className="mt-4">
-            <GenerateFreeButton variant="secondary" />
-          </div>
         </div>
 
         <div>
-          <p className="text-sm font-semibold text-slate-900">Product</p>
-          <ul className="mt-3 space-y-2 text-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">Product</p>
+          <ul className="mt-4 space-y-3 text-sm">
             <li>
               <Link href="#features" className={footerLinkClass}>
                 Features
@@ -48,8 +45,8 @@ export function LandingFooter() {
         </div>
 
         <div>
-          <p className="text-sm font-semibold text-slate-900">Legal</p>
-          <ul className="mt-3 space-y-2 text-sm">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">Legal</p>
+          <ul className="mt-4 space-y-3 text-sm">
             <li>
               <Link href="/privacy" className={footerLinkClass}>
                 Privacy Policy
@@ -64,8 +61,8 @@ export function LandingFooter() {
         </div>
       </div>
 
-      <div className="border-t border-slate-200">
-        <p className="mx-auto max-w-6xl px-4 py-6 text-sm text-slate-500 sm:px-6">
+      <div className="border-t border-white/10">
+        <p className="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 sm:px-6">
           © {year} {siteConfig.name}. All rights reserved.
         </p>
       </div>

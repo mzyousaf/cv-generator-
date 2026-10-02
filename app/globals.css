@@ -1,26 +1,124 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background: #fbfbfe;
+  --foreground: #0b1024;
+  --ink: #070a1a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-ink: var(--ink);
+  --font-sans: var(--font-jakarta);
+  --font-display: var(--font-instrument);
   --font-mono: var(--font-geist-mono);
+}
+
+/*
+ * Brand palette. The app's accent classes use `blue-*`, so the scale is
+ * remapped to a refined indigo-violet ("iris") and every accent follows.
+ */
+@theme {
+  --color-blue-50: #f4f3ff;
+  --color-blue-100: #ebe8ff;
+  --color-blue-200: #d8d3ff;
+  --color-blue-300: #bab0ff;
+  --color-blue-400: #9784fc;
+  --color-blue-500: #7b5ff7;
+  --color-blue-600: #6542ec;
+  --color-blue-700: #5531d1;
+  --color-blue-800: #4629aa;
+  --color-blue-900: #3b2588;
+  --color-blue-950: #22145a;
+
+  --color-gold-300: #f6d58e;
+  --color-gold-400: #f0c060;
+  --color-gold-500: #e2a63b;
+
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -4px rgb(15 23 42 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.04), 0 18px 40px -12px rgb(40 26 110 / 0.22);
+  --shadow-glow: 0 10px 30px -8px rgb(101 66 236 / 0.55);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: rgb(101 66 236 / 0.18);
 }
 
 a[href],
 button:not(:disabled),
 [role="button"]:not([aria-disabled="true"]) {
   cursor: pointer;
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(100deg, #b9a8ff 0%, #f0c3ff 45%, #f6d58e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(135deg, #7b5ff7 0%, #6542ec 45%, #4b2fd0 100%);
+}
+
+@utility bg-ink-mesh {
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(60% 50% at 15% 0%, rgb(101 66 236 / 0.45) 0%, transparent 70%),
+    radial-gradient(45% 40% at 90% 15%, rgb(236 72 153 / 0.22) 0%, transparent 70%),
+    radial-gradient(50% 45% at 60% 100%, rgb(56 189 248 / 0.16) 0%, transparent 70%);
+}
+
+@utility bg-grid-faint {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility bg-dots-soft {
+  background-image: radial-gradient(rgb(101 66 236 / 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

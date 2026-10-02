@@ -22,11 +22,11 @@ export function TemplateMiniPreview({
 
   return (
     <div
-      className={`relative w-full max-w-full overflow-hidden rounded-lg border border-slate-200 bg-slate-100 ${heightClass} ${className}`.trim()}
+      className={`relative w-full max-w-full overflow-hidden ${heightClass} ${className}`.trim()}
     >
-      <div className="absolute left-1/2 top-3 -translate-x-1/2">
+      <div className="absolute left-1/2 top-0 -translate-x-1/2">
         <div
-          className="pointer-events-none overflow-hidden shadow-sm ring-1 ring-slate-200/80"
+          className="pointer-events-none overflow-hidden rounded-t-md shadow-[0_18px_40px_-16px_rgb(15_23_42/0.35)] ring-1 ring-slate-200/80"
           style={{ width: layoutWidth }}
           aria-hidden="true"
         >

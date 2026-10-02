@@ -9,7 +9,7 @@ import { TemplatesSection } from "@/components/landing/templates-section";
 export function LandingPage() {
   return (
     <LandingShell footer={<LandingFooter />}>
-      <main className="flex-1 overflow-x-hidden bg-white text-slate-900">
+      <main className="flex-1 overflow-x-hidden bg-background text-slate-900">
         <HeroSection />
         <FeaturesSection />
         <HowItWorksSection />
