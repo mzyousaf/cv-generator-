@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -55,7 +56,7 @@ export function ResumeImportReviewPanel({
     creatingRef.current = false;
 
     if (!result.success) {
-      setCreateError(result.error.message);
+      setCreateError(localizeServerMessage(t, result.error.message));
       return;
     }
 

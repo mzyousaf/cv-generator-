@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
 
 import { signIn } from "next-auth/react";
 import { useActionState, useEffect, useRef, useState } from "react";
@@ -109,7 +110,7 @@ export function SignupForm({
 
   return (
     <div className="space-y-5">
-      {state.error ? <FormMessage>{state.error}</FormMessage> : null}
+      {state.error ? <FormMessage>{localizeServerMessage(t, state.error)}</FormMessage> : null}
       {signInError ? <FormMessage>{signInError}</FormMessage> : null}
 
       <form action={handleFormAction} className="space-y-4">

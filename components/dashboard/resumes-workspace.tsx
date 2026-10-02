@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
 import { CreateCvForm } from "@/components/cv-builder/create-cv-form";
 import { ResumeCard } from "@/components/dashboard/resume-card";
 import { ResumeEmptyState } from "@/components/dashboard/resume-empty-state";
@@ -74,7 +75,7 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
       <section className="mt-8 space-y-8">
         <ResumeUploadDropzone />
 
-        {listError ? <FormMessage>{listError}</FormMessage> : null}
+        {listError ? <FormMessage>{localizeServerMessage(t, listError)}</FormMessage> : null}
 
         <div className="space-y-4">
           <div className="flex items-baseline justify-between">

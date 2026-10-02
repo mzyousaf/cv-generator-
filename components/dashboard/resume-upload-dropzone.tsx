@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
 
 
 
@@ -114,7 +115,7 @@ export function ResumeUploadDropzone() {
 
     if (validationError) {
 
-      setClientError(validationError);
+      setClientError(localizeServerMessage(t, validationError));
 
       setSelected(null);
 
@@ -178,7 +179,7 @@ export function ResumeUploadDropzone() {
 
     if (!result.success) {
 
-      setServerError(result.error.message);
+      setServerError(localizeServerMessage(t, result.error.message));
 
       return;
 

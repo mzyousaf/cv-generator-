@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
 import { format } from "@/lib/i18n/format";
 
 import { useState } from "react";
@@ -70,7 +71,7 @@ export function TemplatePickerModal({
     setIsSavingTemplate(false);
 
     if (!result.success) {
-      onTemplateError(result.error.message);
+      onTemplateError(localizeServerMessage(t, result.error.message));
       onTemplateChange(previousTemplate);
       return;
     }

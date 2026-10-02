@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
 import { format } from "@/lib/i18n/format";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -91,8 +92,8 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
       if (!result.success) {
         setSaveError(
           mode === "auto"
-            ? "Autosave failed. Use Save to retry."
-            : result.error.message,
+            ? t.serverErrors.autosaveFailed
+            : localizeServerMessage(t, result.error.message),
         );
         return;
       }
@@ -106,7 +107,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
       setSavedSnapshot(serializeBuilderState(nextState));
       setSaveError(null);
     },
-    [cvId, isSaving, savedSnapshot, state],
+    [cvId, isSaving, savedSnapshot, state, t],
   );
 
   useEffect(() => {
@@ -142,7 +143,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
 
       if (!response.ok) {
         const payload = (await response.json()) as { message?: string };
-        setSaveError(payload.message ?? "Could not export PDF.");
+        setSaveError(localizeServerMessage(t, payload.message) || t.serverErrors.pdfExportFallback);
         return;
       }
 
@@ -157,7 +158,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
       anchor.click();
       URL.revokeObjectURL(objectUrl);
     } catch {
-      setSaveError("Could not export PDF.");
+      setSaveError(t.serverErrors.pdfExportFallback);
     } finally {
       setIsExporting(false);
     }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
 
 
 
@@ -73,7 +74,7 @@ export function WorkExperienceAiControls({
 
     if (!result.success) {
 
-      setError(result.error.message);
+      setError(localizeServerMessage(t, result.error.message));
 
       return;
 

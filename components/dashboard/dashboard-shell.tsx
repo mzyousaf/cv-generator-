@@ -48,8 +48,11 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
 
   return (
     <div className="flex min-h-screen min-w-0 bg-background">
-      <aside className="scheme-light sticky top-0 hidden h-screen border-r border-white/5 w-64 shrink-0 bg-ink bg-[radial-gradient(80%_40%_at_0%_0%,color-mix(in_oklab,var(--brand-600)_28%,transparent),transparent)] lg:flex lg:flex-col">
-        <DashboardSidebar user={user} />
+      {/* The aside stretches to the full page height; its content stays pinned while scrolling. */}
+      <aside className="scheme-light hidden w-64 shrink-0 self-stretch border-e border-white/5 bg-ink bg-[radial-gradient(80%_40%_at_0%_0%,color-mix(in_oklab,var(--brand-600)_28%,transparent),transparent)] lg:block">
+        <div className="sticky top-0 flex h-screen flex-col">
+          <DashboardSidebar user={user} />
+        </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
