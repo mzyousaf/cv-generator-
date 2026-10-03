@@ -1,3 +1,5 @@
+import { isValidPhotoDataUrl } from "@/lib/cv/photo";
+import { LOCALES } from "@/lib/i18n/preferences";
 import {
   CV_ARRAY_SECTION_KEYS,
   CV_CONTENT_MAX_BYTES,
@@ -95,6 +97,10 @@ function validatePersonal(value: unknown): Record<string, unknown> | undefined {
     throw new Error("Personal information must be an object.");
   }
 
+  if (value.photo !== undefined && value.photo !== "" && !isValidPhotoDataUrl(value.photo)) {
+    throw new Error("Photo must be a JPEG or PNG image under 240 KB.");
+  }
+
   return value;
 }
 
@@ -132,6 +138,13 @@ function buildContentFromInput(
     }
   }
 
+  if ("documentLocale" in input) {
+    if (!(LOCALES as readonly unknown[]).includes(input.documentLocale)) {
+      throw new Error("Unsupported CV language.");
+    }
+    content.documentLocale = input.documentLocale;
+  }
+
   if ("sectionSettings" in input) {
     content.sectionSettings = sectionSettingsToStored(
       sanitizeSectionSettings(input.sectionSettings),
@@ -143,6 +156,7 @@ function buildContentFromInput(
       key === "personal" ||
       key === "summary" ||
       key === "sectionSettings" ||
+      key === "documentLocale" ||
       (CV_ARRAY_SECTION_KEYS as readonly string[]).includes(key)
     ) {
       continue;

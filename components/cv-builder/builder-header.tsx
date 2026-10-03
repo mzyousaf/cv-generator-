@@ -1,7 +1,12 @@
+"use client";
+
+import { useI18n } from "@/components/i18n/i18n-provider";
 import Link from "next/link";
 import { BuilderHeaderMoreMenu } from "@/components/cv-builder/builder-header-more-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { LogoMark } from "@/components/ui/logo";
+import { PreferencesMenu } from "@/components/preferences/preferences-menu";
 import { cn } from "@/lib/cn";
 import type { BuilderMobilePane } from "@/lib/cv/builder-ui-utils";
 
@@ -30,10 +35,12 @@ function SaveStatusLabel({
   saveStatus: SaveStatus;
   saveError: string | null;
 }) {
+  const { t } = useI18n();
   if (saveError) {
     return (
-      <span className="text-xs font-medium text-red-700 sm:text-sm" role="alert">
-        Save failed
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700 ring-1 ring-red-200" role="alert">
+        <span className="size-1.5 rounded-full bg-red-500" />
+        {t.builder.saveFailed}
       </span>
     );
   }
@@ -41,20 +48,23 @@ function SaveStatusLabel({
   switch (saveStatus) {
     case "saving":
       return (
-        <span className="text-xs text-slate-500 sm:text-sm" aria-live="polite">
-          Saving…
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700 ring-1 ring-blue-100" aria-live="polite">
+          <span className="size-1.5 animate-pulse rounded-full bg-blue-500" />
+          {t.common.saving}
         </span>
       );
     case "saved":
       return (
-        <span className="text-xs text-slate-500 sm:text-sm" aria-live="polite">
-          Saved
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200/70" aria-live="polite">
+          <span className="size-1.5 rounded-full bg-emerald-500" />
+          {t.builder.saved}
         </span>
       );
     case "unsaved":
       return (
-        <span className="text-xs text-amber-700 sm:text-sm" aria-live="polite">
-          Unsaved changes
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200/70" aria-live="polite">
+          <span className="size-1.5 rounded-full bg-amber-500" />
+          {t.builder.unsaved}
         </span>
       );
     default:
@@ -77,37 +87,41 @@ export function BuilderHeader({
   onMobilePaneChange,
   showMobilePaneToggle = false,
 }: BuilderHeaderProps) {
+  const { t } = useI18n();
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-[1600px] flex-col gap-2 px-4 py-3 xl:gap-3 xl:py-3.5">
-        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+    <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-surface/95 shadow-[0_1px_0_rgb(255_255_255/0.6)_inset,0_8px_24px_-18px_rgb(15_23_42/0.25)] backdrop-blur-xl">
+      <div className="mx-auto flex max-w-[1600px] flex-col gap-2 px-4 py-3 xl:flex-row xl:items-center xl:gap-6">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-3 xl:flex-1">
           <Link
             href="/dashboard"
-            className="shrink-0 cursor-pointer rounded-md text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            className="group/back inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-xl py-1 ps-1 pe-3 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
-            <span className="hidden min-[400px]:inline">Back to Resumes</span>
-            <span className="min-[400px]:hidden">Back</span>
+            <LogoMark className="size-7" />
+            <span aria-hidden="true" className="transition-transform group-hover/back:-translate-x-0.5 rtl:rotate-180">←</span>
+            <span className="hidden min-[400px]:inline">{t.builder.resumes}</span>
+            <span className="min-[400px]:hidden">{t.common.back}</span>
           </Link>
+          <span className="hidden h-6 w-px bg-slate-200 sm:block" aria-hidden="true" />
           <label className="sr-only" htmlFor="cv-title">
-            Resume title
+            {t.builder.resumeTitle}
           </label>
           <Input
             id="cv-title"
             value={title}
             onChange={(event) => onTitleChange(event.target.value)}
-            className="min-w-0 flex-1 border-transparent bg-transparent text-base font-semibold shadow-none focus:border-slate-200 sm:text-lg"
+            className="min-w-0 flex-1 border-transparent bg-transparent text-base font-bold tracking-tight text-slate-950 shadow-none hover:border-slate-200 hover:bg-surface focus:bg-surface sm:text-lg"
           />
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 xl:justify-end xl:gap-4">
           <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
 
           <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
             {showMobilePaneToggle && onMobilePaneChange ? (
               <div
-                className="inline-flex rounded-lg border border-slate-200 bg-slate-50 p-0.5 xl:hidden"
+                className="inline-flex rounded-xl border border-slate-200 bg-slate-100/80 p-1 xl:hidden"
                 role="tablist"
-                aria-label="Editor workspace"
+                aria-label={t.builder.editorPane}
               >
                 {(["edit", "preview"] as const).map((pane) => (
                   <button
@@ -116,22 +130,24 @@ export function BuilderHeader({
                     role="tab"
                     aria-selected={mobilePane === pane}
                     className={cn(
-                      "cursor-pointer rounded-md px-3 py-1.5 text-xs font-medium capitalize transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
+                      "cursor-pointer rounded-lg px-3.5 py-1.5 text-xs font-semibold capitalize transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
                       mobilePane === pane
-                        ? "bg-white text-slate-900 shadow-sm"
+                        ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.12)]"
                         : "text-slate-600 hover:text-slate-900",
                     )}
                     onClick={() => onMobilePaneChange(pane)}
                   >
-                    {pane}
+                    {t.builder.panes[pane]}
                   </button>
                 ))}
               </div>
             ) : null}
 
-            <div className="hidden items-center gap-1.5 xl:flex">
+            <PreferencesMenu />
+
+            <div className="hidden items-center gap-2 xl:flex">
               <Button type="button" variant="ghost" size="sm" onClick={onOpenTemplates}>
-                Templates
+                {t.builder.templates}
               </Button>
               <Button
                 type="button"
@@ -139,7 +155,7 @@ export function BuilderHeader({
                 size="sm"
                 onClick={onManageSections}
               >
-                Manage Sections
+                {t.builder.manageSections}
               </Button>
               <Button
                 type="button"
@@ -148,9 +164,9 @@ export function BuilderHeader({
                 onClick={onExportPdf}
                 disabled={isExporting || isSaving}
                 isLoading={isExporting}
-                loadingText="Exporting…"
+                loadingText={t.builder.exporting}
               >
-                Export PDF
+                {t.builder.exportPdf}
               </Button>
               <Button
                 type="button"
@@ -159,9 +175,9 @@ export function BuilderHeader({
                 onClick={onSave}
                 disabled={isSaving || isExporting || saveStatus === "saved"}
                 isLoading={isSaving}
-                loadingText="Saving…"
+                loadingText={t.common.saving}
               >
-                Save
+                {t.common.save}
               </Button>
             </div>
 
@@ -173,10 +189,10 @@ export function BuilderHeader({
                 onClick={onExportPdf}
                 disabled={isExporting || isSaving}
                 isLoading={isExporting}
-                loadingText="Exporting…"
+                loadingText={t.builder.exporting}
                 className="hidden min-[400px]:inline-flex"
               >
-                Export PDF
+                {t.builder.exportPdf}
               </Button>
               <BuilderHeaderMoreMenu
                 onOpenTemplates={onOpenTemplates}

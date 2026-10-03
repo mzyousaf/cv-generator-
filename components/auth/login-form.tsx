@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -23,8 +25,10 @@ export function LoginForm({
   idPrefix = "",
   showRegisteredBanner,
   onSuccess,
-  submitLabel = "Login",
+  submitLabel: submitLabelProp,
 }: LoginFormProps) {
+  const { t } = useI18n();
+  const submitLabel = submitLabelProp ?? t.common.signIn;
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl =
@@ -59,7 +63,7 @@ export function LoginForm({
     setIsSubmitting(false);
 
     if (result?.error) {
-      setError("Invalid email or password.");
+      setError(t.auth.invalidCredentials);
       return;
     }
 
@@ -72,13 +76,13 @@ export function LoginForm({
     <div className="space-y-5">
       {registered ? (
         <FormMessage variant="info">
-          Account created. Sign in to continue.
+          {t.auth.accountCreated}
         </FormMessage>
       ) : null}
       {error ? <FormMessage>{error}</FormMessage> : null}
 
       <form className="space-y-4" onSubmit={handleCredentialsSubmit}>
-        <Field label="Email" htmlFor={emailId}>
+        <Field label={t.auth.email} htmlFor={emailId}>
           <Input
             id={emailId}
             name="email"
@@ -87,7 +91,7 @@ export function LoginForm({
             required
           />
         </Field>
-        <Field label="Password" htmlFor={passwordId}>
+        <Field label={t.auth.password} htmlFor={passwordId}>
           <Input
             id={passwordId}
             name="password"

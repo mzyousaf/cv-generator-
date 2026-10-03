@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
@@ -25,6 +27,7 @@ export function BuilderHeaderMoreMenu({
   saveDisabled,
   className,
 }: BuilderHeaderMoreMenuProps) {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
@@ -75,30 +78,30 @@ export function BuilderHeaderMoreMenu({
         aria-controls={menuId}
         onClick={() => setOpen((current) => !current)}
       >
-        More
+        {t.builder.more}
       </Button>
       {open ? (
         <div
           id={menuId}
           role="menu"
-          aria-label="Builder actions"
-          className="absolute right-0 z-40 mt-1 min-w-[11rem] rounded-xl border border-slate-200 bg-white py-1 shadow-lg"
+          aria-label={t.builder.actions}
+          className="absolute end-0 z-40 mt-1 min-w-[11rem] rounded-xl border border-slate-200 bg-surface py-1 shadow-lg"
         >
           <MenuItem
-            label="Templates"
+            label={t.builder.templates}
             onClick={() => runAction(onOpenTemplates)}
           />
           <MenuItem
-            label="Manage Sections"
+            label={t.builder.manageSections}
             onClick={() => runAction(onManageSections)}
           />
           <MenuItem
-            label={isExporting ? "Exporting PDF…" : "Export PDF"}
+            label={isExporting ? t.builder.exportingPdf : t.builder.exportPdf}
             disabled={isExporting || isSaving}
             onClick={() => runAction(onExportPdf)}
           />
           <MenuItem
-            label={isSaving ? "Saving…" : "Save"}
+            label={isSaving ? t.common.saving : t.common.save}
             disabled={isSaving || isExporting || saveDisabled}
             onClick={() => runAction(onSave)}
           />
@@ -122,7 +125,7 @@ function MenuItem({
       type="button"
       role="menuitem"
       disabled={disabled}
-      className="flex w-full cursor-pointer px-3 py-2 text-left text-sm text-slate-800 hover:bg-slate-50 focus:outline-none focus-visible:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex w-full cursor-pointer px-3 py-2 text-start text-sm text-slate-800 hover:bg-slate-50 focus:outline-none focus-visible:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
       onClick={onClick}
     >
       {label}

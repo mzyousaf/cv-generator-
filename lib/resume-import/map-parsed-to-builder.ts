@@ -11,7 +11,7 @@ export function parsedResumeToBuilderState(
 ): CvBuilderFormState {
   const state = createEmptyBuilderState(defaultImportResumeTitle(parsed.personal.fullName));
 
-  state.personal = { ...parsed.personal };
+  state.personal = { ...state.personal, ...parsed.personal };
   state.summary = parsed.summary;
   state.workExperience = parsed.workExperience.map((entry) => ({
     id: createEntryId(),

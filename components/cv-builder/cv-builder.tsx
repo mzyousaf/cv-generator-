@@ -1,5 +1,9 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
+import { format } from "@/lib/i18n/format";
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { updateCvAction } from "@/lib/cv/actions";
 import {
@@ -31,6 +35,7 @@ type CvBuilderProps = {
 };
 
 export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
+  const { t } = useI18n();
   const initialState = useMemo(
     () =>
       cvRecordToBuilderState(
@@ -87,8 +92,8 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
       if (!result.success) {
         setSaveError(
           mode === "auto"
-            ? "Autosave failed. Use Save to retry."
-            : result.error.message,
+            ? t.serverErrors.autosaveFailed
+            : localizeServerMessage(t, result.error.message),
         );
         return;
       }
@@ -102,7 +107,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
       setSavedSnapshot(serializeBuilderState(nextState));
       setSaveError(null);
     },
-    [cvId, isSaving, savedSnapshot, state],
+    [cvId, isSaving, savedSnapshot, state, t],
   );
 
   useEffect(() => {
@@ -138,7 +143,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
 
       if (!response.ok) {
         const payload = (await response.json()) as { message?: string };
-        setSaveError(payload.message ?? "Could not export PDF.");
+        setSaveError(localizeServerMessage(t, payload.message) || t.serverErrors.pdfExportFallback);
         return;
       }
 
@@ -153,7 +158,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
       anchor.click();
       URL.revokeObjectURL(objectUrl);
     } catch {
-      setSaveError("Could not export PDF.");
+      setSaveError(t.serverErrors.pdfExportFallback);
     } finally {
       setIsExporting(false);
     }
@@ -169,7 +174,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/80">
+    <div className="min-h-screen bg-background bg-[radial-gradient(60%_40%_at_100%_0%,color-mix(in_oklab,var(--brand-600)_6%,transparent),transparent),radial-gradient(40%_30%_at_0%_100%,rgb(236_72_153/0.04),transparent)]">
       <BuilderHeader
         title={state.title}
         onTitleChange={(title) => setState((current) => ({ ...current, title }))}
@@ -190,7 +195,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         <BuilderSidebarNav
           state={state}
           onManageSections={() => setManageOpen(true)}
-          className="sticky top-[7.5rem] hidden max-h-[calc(100vh-8rem)] self-start overflow-y-auto xl:flex"
+          className="sticky top-[5.75rem] hidden max-h-[calc(100vh-6.5rem)] self-start overflow-y-auto xl:flex"
         />
 
         <div
@@ -205,7 +210,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         <BuilderPreviewPanel
           templateId={state.template}
           state={state}
-          templateLabel={`${activeTemplate.name} template`}
+          templateLabel={format(t.builder.templateLabel, { name: t.templateMeta[activeTemplate.id].name })}
           onOpenTemplates={() => setTemplatesOpen(true)}
           className={cn(
             "w-full flex-1 xl:min-w-[400px] xl:max-w-[540px]",
@@ -226,6 +231,10 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         onClose={() => setTemplatesOpen(false)}
         cvId={cvId}
         selectedTemplate={state.template}
+        documentLocale={state.documentLocale}
+        onDocumentLocaleChange={(documentLocale) =>
+          setState((current) => ({ ...current, documentLocale }))
+        }
         onTemplateChange={handleTemplateChange}
         onTemplateSaved={handleTemplateSaved}
         onTemplateError={setSaveError}

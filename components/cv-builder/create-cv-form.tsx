@@ -1,24 +1,31 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+import { localizeServerMessage } from "@/lib/i18n/server-messages";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createCvAction } from "@/lib/cv/actions";
-import { Button, type ButtonSize } from "@/components/ui/button";
+import { DEFAULT_TEMPLATE_FOR_LOCALE } from "@/lib/cv/template-catalog";
+import { Button, type ButtonSize, type ButtonVariant } from "@/components/ui/button";
 import { FormMessage } from "@/components/ui/form-message";
 
 type CreateCvFormProps = {
   buttonLabel?: string;
   loadingText?: string;
   size?: ButtonSize;
+  variant?: ButtonVariant;
   className?: string;
 };
 
 export function CreateCvForm({
-  buttonLabel = "Create new CV",
-  loadingText = "Creating…",
+  buttonLabel,
+  loadingText,
   size = "md",
+  variant = "primary",
   className,
 }: CreateCvFormProps) {
+  const { t, locale } = useI18n();
   const router = useRouter();
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -30,11 +37,15 @@ export function CreateCvForm({
     setIsCreating(true);
     setError(null);
 
-    const result = await createCvAction({});
+    const result = await createCvAction({
+      title: t.dashboard.untitled,
+      template: DEFAULT_TEMPLATE_FOR_LOCALE[locale],
+      content: { documentLocale: locale },
+    });
     setIsCreating(false);
 
     if (!result.success) {
-      setError(result.error.message);
+      setError(localizeServerMessage(t, result.error.message));
       return;
     }
 
@@ -45,13 +56,13 @@ export function CreateCvForm({
     <div className={`space-y-2 ${className ?? ""}`.trim()}>
       <Button
         type="button"
-        variant="primary"
+        variant={variant}
         size={size}
         onClick={() => void handleCreate()}
         isLoading={isCreating}
-        loadingText={loadingText}
+        loadingText={loadingText ?? t.dashboard.creating}
       >
-        {buttonLabel}
+        {buttonLabel ?? t.dashboard.createNew}
       </Button>
       {error ? <FormMessage>{error}</FormMessage> : null}
     </div>

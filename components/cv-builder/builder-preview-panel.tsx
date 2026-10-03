@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import type { CvTemplateId } from "@/lib/cv/constants";
@@ -8,7 +10,6 @@ import {
   canStepPreviewZoomIn,
   canStepPreviewZoomOut,
   computeFitPreviewScale,
-  createDefaultPreviewZoomMode,
   formatPreviewZoomLabel,
   PREVIEW_DOCUMENT_WIDTH_FALLBACK_PX,
   resolvePreviewScale,
@@ -40,9 +41,9 @@ export function BuilderPreviewPanel({
   className,
   sticky = true,
 }: BuilderPreviewPanelProps) {
-  const [zoomMode, setZoomMode] = useState<PreviewZoomMode>(
-    createDefaultPreviewZoomMode(),
-  );
+  const { t } = useI18n();
+  // Start fitted to the column so the whole page width is visible.
+  const [zoomMode, setZoomMode] = useState<PreviewZoomMode>({ type: "fit" });
   const [fitScale, setFitScale] = useState(0.75);
   const [docSize, setDocSize] = useState<DocumentSize>({
     width: PREVIEW_DOCUMENT_WIDTH_FALLBACK_PX,
@@ -86,38 +87,38 @@ export function BuilderPreviewPanel({
   const scale = resolvePreviewScale(zoomMode, fitScale);
   const layoutWidth = Math.ceil(docSize.width * scale);
   const layoutHeight = Math.ceil(docSize.height * scale);
-  const zoomLabel = formatPreviewZoomLabel(zoomMode);
+  const zoomLabel = zoomMode.type === "fit" ? `${Math.round(scale * 100)}%` : formatPreviewZoomLabel(zoomMode);
 
   return (
     <aside
       className={cn(
         "flex min-h-0 min-w-0 flex-col",
-        sticky && "xl:sticky xl:top-[4.75rem] xl:max-h-[calc(100vh-5.5rem)]",
+        sticky && "xl:sticky xl:top-[5.75rem] xl:max-h-[calc(100vh-6.5rem)]",
         className,
       )}
     >
       <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         <div className="min-w-0">
-          <h2 className="text-sm font-semibold text-slate-900">Preview</h2>
+          <h2 className="flex items-center gap-2 text-sm font-bold text-slate-950"><span className="size-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgb(16_185_129/0.18)]" aria-hidden="true" />{t.builder.preview}</h2>
           <button
             type="button"
             onClick={onOpenTemplates}
-            className="cursor-pointer truncate text-left text-xs text-slate-500 underline-offset-2 hover:text-slate-700 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            className="cursor-pointer truncate text-start text-xs text-slate-500 underline-offset-2 hover:text-slate-700 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
           >
-            {templateLabel} · Change template
+            {templateLabel} · {t.builder.changeTemplate}
           </button>
         </div>
         <div
-          className="inline-flex flex-wrap items-center rounded-lg border border-slate-200 bg-white"
+          className="inline-flex flex-wrap items-center rounded-xl border border-slate-200 bg-surface shadow-[0_1px_2px_rgb(15_23_42/0.04)]"
           role="group"
-          aria-label="Preview zoom"
+          aria-label={t.builder.previewZoom}
         >
           <Button
             type="button"
             variant="ghost"
             size="sm"
             className="min-w-9 px-2"
-            aria-label="Zoom out"
+            aria-label={t.builder.zoomOut}
             disabled={!canStepPreviewZoomOut(zoomMode)}
             onClick={() =>
               setZoomMode((current) =>
@@ -135,7 +136,7 @@ export function BuilderPreviewPanel({
             variant="ghost"
             size="sm"
             className="min-w-9 px-2"
-            aria-label="Zoom in"
+            aria-label={t.builder.zoomIn}
             disabled={!canStepPreviewZoomIn(zoomMode)}
             onClick={() =>
               setZoomMode((current) =>
@@ -156,25 +157,26 @@ export function BuilderPreviewPanel({
             aria-pressed={zoomMode.type === "fit"}
             onClick={() => setZoomMode({ type: "fit" })}
           >
-            Fit
+            {t.builder.fit}
           </Button>
         </div>
       </div>
       <div
         ref={canvasRef}
-        className="min-h-0 flex-1 overflow-auto overflow-x-hidden rounded-xl border border-slate-200 bg-slate-100/80 p-4 sm:p-5"
+        dir="ltr"
+        className="min-h-0 flex-1 overflow-auto overflow-x-hidden rounded-3xl border border-slate-200/70 bg-gradient-to-br from-slate-100 via-slate-100/70 to-blue-50/60 p-4 shadow-[inset_0_2px_8px_rgb(15_23_42/0.04)] sm:p-6"
       >
         <div
           className="mx-auto max-w-full"
           style={{ width: layoutWidth, height: layoutHeight }}
         >
           <div
-            className="relative overflow-hidden shadow-lg ring-1 ring-slate-200/80"
+            className="relative overflow-hidden rounded-sm shadow-[0_30px_60px_-24px_rgb(15_23_42/0.4)] ring-1 ring-slate-900/5"
             style={{ width: layoutWidth, height: layoutHeight }}
           >
             <div
               ref={docRef}
-              className="absolute left-0 top-0 origin-top-left"
+              className="absolute start-0 top-0 origin-top-left"
               style={{
                 width: docSize.width,
                 transform: `scale(${scale})`,

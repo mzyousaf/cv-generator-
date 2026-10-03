@@ -113,25 +113,23 @@ const VARIANT_STYLES: Record<HtmlTemplateVariant, VariantStyles> = {
   },
 };
 
-function sectionTitle(variant: HtmlTemplateVariant, sectionId: ManageableSectionId): string {
-  if (variant === "modern" && sectionId === "summary") {
-    return "Summary";
-  }
-  if (variant === "modern" && sectionId === "workExperience") {
-    return "Experience";
-  }
+function sectionTitle(
+  variant: HtmlTemplateVariant,
+  sectionId: ManageableSectionId,
+  labels: CvDocumentView["labels"],
+): string {
   if (variant === "classic" && sectionId === "workExperience") {
-    return "Professional Experience";
+    return labels.professionalExperience;
   }
 
   const titles: Record<ManageableSectionId, string> = {
-    summary: "Professional Summary",
-    workExperience: "Work Experience",
-    education: "Education",
-    skills: "Skills",
-    projects: "Projects",
-    certifications: "Certifications",
-    languages: "Languages",
+    summary: labels.summary,
+    workExperience: labels.workExperience,
+    education: labels.education,
+    skills: labels.skills,
+    projects: labels.projects,
+    certifications: labels.certifications,
+    languages: labels.languages,
   };
 
   return titles[sectionId];
@@ -150,7 +148,7 @@ function renderSection(
       }
       return (
         <CvSection
-          title={sectionTitle(variant, sectionId)}
+          title={sectionTitle(variant, sectionId, view.labels)}
           headingClassName={styles.sectionHeading}
           bodyClassName={styles.sectionBody}
         >
@@ -163,7 +161,7 @@ function renderSection(
       }
       return (
         <CvSection
-          title={sectionTitle(variant, sectionId)}
+          title={sectionTitle(variant, sectionId, view.labels)}
           headingClassName={styles.sectionHeading}
           bodyClassName={styles.sectionBody}
         >
@@ -182,7 +180,7 @@ function renderSection(
       }
       return (
         <CvSection
-          title={sectionTitle(variant, sectionId)}
+          title={sectionTitle(variant, sectionId, view.labels)}
           headingClassName={styles.sectionHeading}
           bodyClassName={styles.sectionBody}
         >
@@ -201,7 +199,7 @@ function renderSection(
       }
       return (
         <CvSection
-          title={sectionTitle(variant, sectionId)}
+          title={sectionTitle(variant, sectionId, view.labels)}
           headingClassName={styles.sectionHeading}
           bodyClassName={styles.sectionBody}
         >
@@ -214,7 +212,7 @@ function renderSection(
       }
       return (
         <CvSection
-          title={sectionTitle(variant, sectionId)}
+          title={sectionTitle(variant, sectionId, view.labels)}
           headingClassName={styles.sectionHeading}
           bodyClassName={styles.sectionBody}
         >
@@ -232,7 +230,7 @@ function renderSection(
       }
       return (
         <CvSection
-          title={sectionTitle(variant, sectionId)}
+          title={sectionTitle(variant, sectionId, view.labels)}
           headingClassName={styles.sectionHeading}
           bodyClassName={styles.sectionBody}
         >
@@ -250,7 +248,7 @@ function renderSection(
       }
       return (
         <CvSection
-          title={sectionTitle(variant, sectionId)}
+          title={sectionTitle(variant, sectionId, view.labels)}
           headingClassName={styles.sectionHeading}
           bodyClassName={styles.sectionBody}
         >

@@ -25,7 +25,7 @@ export function FormMessage({
     <p
       role={variant === "error" ? "alert" : "status"}
       className={cn(
-        "rounded-lg border px-3 py-2 text-sm",
+        "rounded-xl border px-3.5 py-2.5 text-sm",
         variantClasses[variant],
         className,
       )}

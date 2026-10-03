@@ -1,6 +1,8 @@
 import { sanitizeSectionSettings, sectionSettingsToStored } from "@/lib/cv/section-settings";
 import { resolveTemplateId } from "@/lib/cv/template-registry";
 import type { CVContent } from "@/types/cv";
+import { sanitizePhoto } from "@/lib/cv/photo";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/lib/i18n/preferences";
 import {
   createEmptyBuilderState,
   type CertificationEntry,
@@ -141,6 +143,9 @@ export function cvRecordToBuilderState(
     location: asString(personalRaw.location),
     website: asString(personalRaw.website),
     linkedIn: asString(personalRaw.linkedIn ?? personalRaw.linkedin),
+    dateOfBirth: asString(personalRaw.dateOfBirth),
+    nationality: asString(personalRaw.nationality),
+    photo: sanitizePhoto(personalRaw.photo),
   };
 
   base.summary = asString(content.summary);
@@ -162,6 +167,7 @@ export function cvRecordToBuilderState(
   base.languages = (content.languages ?? []).map(mapLanguageEntry);
   base.customSections = (content.customSections ?? []).map(mapCustomSectionEntry);
   base.sectionSettings = sanitizeSectionSettings(content.sectionSettings);
+  base.documentLocale = resolveDocumentLocale(content.documentLocale);
 
   return base;
 }
@@ -220,7 +226,14 @@ export function builderStateToContentPatch(
       content,
     })),
     sectionSettings: sectionSettingsToStored(state.sectionSettings),
+    documentLocale: state.documentLocale,
   };
+}
+
+export function resolveDocumentLocale(value: unknown): Locale {
+  return (LOCALES as readonly unknown[]).includes(value)
+    ? (value as Locale)
+    : DEFAULT_LOCALE;
 }
 
 export function serializeBuilderState(state: CvBuilderFormState): string {

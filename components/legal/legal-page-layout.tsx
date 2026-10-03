@@ -1,11 +1,14 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { AuthModal } from "@/components/auth/auth-modal";
 import { AuthModalProvider } from "@/components/landing/auth-modal-context";
 import { LandingFooter } from "@/components/landing/footer";
-import { siteConfig } from "@/lib/constants";
+import { Logo } from "@/components/ui/logo";
+import { PreferencesMenu } from "@/components/preferences/preferences-menu";
 
 type LegalPageLayoutProps = {
   title: string;
@@ -13,27 +16,49 @@ type LegalPageLayoutProps = {
 };
 
 export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
+  const { t, locale } = useI18n();
   return (
     <AuthModalProvider>
-      <div className="flex min-h-full flex-col bg-slate-50/80 text-slate-900">
-        <header className="border-b border-slate-200 bg-white/95">
-          <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4 sm:px-6">
+      <div className="flex min-h-full flex-col bg-background text-slate-900">
+        <header className="scheme-light relative isolate overflow-hidden bg-ink-mesh text-white">
+          <div
+            className="absolute inset-0 -z-10 bg-grid-faint [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_75%)]"
+            aria-hidden="true"
+          />
+          <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5 sm:px-6">
             <Link
               href="/"
-              className="cursor-pointer text-sm font-semibold text-blue-700 transition-colors hover:text-blue-800 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              className="rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             >
-              ← Back to {siteConfig.name}
+              <Logo tone="light" />
             </Link>
+            <div className="flex items-center gap-2">
+              <PreferencesMenu tone="dark" />
+              <Link
+                href="/"
+                className="rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-slate-200 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              >
+                {t.legal.backHome}
+              </Link>
+            </div>
+          </div>
+          <div className="mx-auto max-w-3xl px-4 pb-24 pt-10 sm:px-6">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">{t.legal.eyebrow}</p>
+            <h1 className="mt-3 text-4xl font-bold tracking-[-0.03em] sm:text-5xl">
+              {title}
+            </h1>
+            <p className="mt-3 text-sm text-slate-400">
+              {t.legal.lastUpdated}
+            </p>
           </div>
         </header>
-        <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-12 sm:px-6">
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-            {title}
-          </h1>
-          <p className="mt-2 text-sm text-slate-500">
-            Last updated: [PLACEHOLDER: insert date]
-          </p>
-          <article className="legal-content mt-8 space-y-6 text-base leading-relaxed text-slate-700 [&_a]:font-medium [&_a]:text-blue-700 [&_a]:underline-offset-2 hover:[&_a]:text-blue-800 hover:[&_a]:underline [&_h2]:mt-10 [&_h2]:border-b [&_h2]:border-slate-200 [&_h2]:pb-2 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-slate-900 [&_li]:mt-1 [&_p]:mt-3 [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:pl-6">
+        <main className="relative z-10 mx-auto -mt-14 w-full max-w-3xl flex-1 px-4 pb-20 sm:px-6">
+          {locale !== "en" ? (
+            <p className="mb-4 rounded-2xl border border-blue-200/70 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+              {t.legal.englishOnly}
+            </p>
+          ) : null}
+          <article className="legal-content space-y-6 rounded-3xl border border-slate-200/70 bg-surface p-6 text-[0.95rem] leading-relaxed text-slate-600 shadow-lift sm:p-10 [&_a]:font-semibold [&_a]:text-blue-600 [&_a]:underline-offset-2 hover:[&_a]:text-blue-700 hover:[&_a]:underline [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-950 [&_li]:mt-1.5 [&_p]:mt-3 [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:ps-6 [&_ul]:marker:text-blue-400">
             {children}
           </article>
         </main>

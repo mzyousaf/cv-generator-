@@ -53,7 +53,7 @@ export function isValidBuilderMobilePane(value: string): value is BuilderMobileP
   return value === "edit" || value === "preview";
 }
 
-function formatMonthLabel(value: string): string {
+function formatMonthLabel(value: string, locale = "en-US"): string {
   if (!value || !/^\d{4}-\d{2}$/.test(value)) {
     return value.trim();
   }
@@ -62,62 +62,107 @@ function formatMonthLabel(value: string): string {
   if (Number.isNaN(date.getTime())) {
     return value;
   }
-  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  return date.toLocaleDateString(locale, { month: "short", year: "numeric" });
 }
 
-export function workExperienceEntrySummary(entry: WorkExperienceEntry): {
+export type EntrySummaryLabels = {
+  locale: string;
+  untitledRole: string;
+  present: string;
+  addCompanyDates: string;
+  degree: string;
+  addInstitution: string;
+  untitledProject: string;
+  addProjectDetails: string;
+  certification: string;
+  addIssuerDate: string;
+  language: string;
+  addProficiency: string;
+};
+
+export const DEFAULT_ENTRY_SUMMARY_LABELS: EntrySummaryLabels = {
+  locale: "en-US",
+  untitledRole: "Untitled role",
+  present: "Present",
+  addCompanyDates: "Add company and dates",
+  degree: "Degree",
+  addInstitution: "Add institution",
+  untitledProject: "Untitled project",
+  addProjectDetails: "Add project details",
+  certification: "Certification",
+  addIssuerDate: "Add issuer and date",
+  language: "Language",
+  addProficiency: "Add proficiency",
+};
+
+export function workExperienceEntrySummary(
+  entry: WorkExperienceEntry,
+  labels: EntrySummaryLabels = DEFAULT_ENTRY_SUMMARY_LABELS,
+): {
   title: string;
   subtitle: string;
 } {
-  const title = entry.jobTitle.trim() || "Untitled role";
+  const title = entry.jobTitle.trim() || labels.untitledRole;
   const company = entry.company.trim();
-  const start = formatMonthLabel(entry.startDate);
+  const start = formatMonthLabel(entry.startDate, labels.locale);
   const end = entry.current
-    ? "Present"
+    ? labels.present
     : entry.endDate
-      ? formatMonthLabel(entry.endDate)
+      ? formatMonthLabel(entry.endDate, labels.locale)
       : "";
   const datePart = start && end ? `${start} – ${end}` : start || end;
   const subtitle = [company, datePart].filter(Boolean).join(" · ");
-  return { title, subtitle: subtitle || "Add company and dates" };
+  return { title, subtitle: subtitle || labels.addCompanyDates };
 }
 
-export function educationEntrySummary(entry: EducationEntry): {
+export function educationEntrySummary(
+  entry: EducationEntry,
+  labels: EntrySummaryLabels = DEFAULT_ENTRY_SUMMARY_LABELS,
+): {
   title: string;
   subtitle: string;
 } {
-  const title = entry.degree.trim() || "Degree";
+  const title = entry.degree.trim() || labels.degree;
   const subtitle =
-    entry.institution.trim() || "Add institution";
+    entry.institution.trim() || labels.addInstitution;
   return { title, subtitle };
 }
 
-export function projectEntrySummary(entry: ProjectEntry): {
+export function projectEntrySummary(
+  entry: ProjectEntry,
+  labels: EntrySummaryLabels = DEFAULT_ENTRY_SUMMARY_LABELS,
+): {
   title: string;
   subtitle: string;
 } {
-  const title = entry.name.trim() || "Untitled project";
-  const subtitle = entry.url.trim() || "Add project details";
+  const title = entry.name.trim() || labels.untitledProject;
+  const subtitle = entry.url.trim() || labels.addProjectDetails;
   return { title, subtitle };
 }
 
-export function certificationEntrySummary(entry: CertificationEntry): {
+export function certificationEntrySummary(
+  entry: CertificationEntry,
+  labels: EntrySummaryLabels = DEFAULT_ENTRY_SUMMARY_LABELS,
+): {
   title: string;
   subtitle: string;
 } {
-  const title = entry.name.trim() || "Certification";
-  const subtitle = [entry.issuer.trim(), formatMonthLabel(entry.date)]
+  const title = entry.name.trim() || labels.certification;
+  const subtitle = [entry.issuer.trim(), formatMonthLabel(entry.date, labels.locale)]
     .filter(Boolean)
     .join(" · ");
-  return { title, subtitle: subtitle || "Add issuer and date" };
+  return { title, subtitle: subtitle || labels.addIssuerDate };
 }
 
-export function languageEntrySummary(entry: LanguageEntry): {
+export function languageEntrySummary(
+  entry: LanguageEntry,
+  labels: EntrySummaryLabels = DEFAULT_ENTRY_SUMMARY_LABELS,
+): {
   title: string;
   subtitle: string;
 } {
-  const title = entry.language.trim() || "Language";
-  const subtitle = entry.proficiency.trim() || "Add proficiency";
+  const title = entry.language.trim() || labels.language;
+  const subtitle = entry.proficiency.trim() || labels.addProficiency;
   return { title, subtitle };
 }
 

@@ -1,10 +1,13 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { dashboardNavItems } from "@/components/dashboard/dashboard-nav-config";
 import { SignOutButton } from "@/components/auth/sign-out-button";
-import { siteConfig } from "@/lib/constants";
+import { Logo } from "@/components/ui/logo";
+import { PreferencesMenu } from "@/components/preferences/preferences-menu";
 import { cn } from "@/lib/cn";
 
 export type DashboardSidebarUser = {
@@ -34,20 +37,24 @@ export function DashboardSidebar({
   className,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
+  const { t } = useI18n();
 
   return (
     <div className={cn("flex h-full flex-col", className)}>
-      <div className="border-b border-slate-200 px-5 py-5">
+      <div className="px-5 pb-4 pt-6">
         <Link
           href="/dashboard"
           onClick={onNavigate}
-          className="cursor-pointer text-lg font-semibold tracking-tight text-slate-900 transition-colors hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+          className="inline-flex cursor-pointer rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         >
-          {siteConfig.name}
+          <Logo tone="light" />
         </Link>
       </div>
 
-      <nav className="flex-1 px-3 py-4" aria-label="Application">
+      <nav className="flex-1 px-3 py-4" aria-label={t.dashboard.navLabel}>
+        <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">
+          {t.dashboard.workspace}
+        </p>
         <ul className="space-y-1">
           {dashboardNavItems.map((item) => {
             const active = item.isActive(pathname);
@@ -60,19 +67,19 @@ export function DashboardSidebar({
                   onClick={onNavigate}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2",
+                    "relative flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400",
                     active
-                      ? "bg-blue-50 text-blue-800 ring-1 ring-blue-100"
-                      : "text-slate-700 hover:bg-slate-50 hover:text-slate-900",
+                      ? "bg-white/10 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.08)] before:absolute before:-start-3 before:top-2 before:bottom-2 before:w-1 before:rounded-e-full before:bg-blue-400"
+                      : "text-slate-400 hover:bg-white/5 hover:text-white",
                   )}
                 >
                   <Icon
                     className={cn(
                       "shrink-0",
-                      active ? "text-blue-700" : "text-slate-500",
+                      active ? "text-blue-300" : "text-slate-500",
                     )}
                   />
-                  {item.label}
+                  {t.dashboard[item.labelKey]}
                 </Link>
               </li>
             );
@@ -80,32 +87,35 @@ export function DashboardSidebar({
         </ul>
       </nav>
 
-      <div className="border-t border-slate-200 p-4">
-        <div className="flex items-center gap-3 rounded-lg p-2">
+      <div className="p-3">
+        <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-2.5">
           {user.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={user.image}
               alt=""
-              className="size-9 shrink-0 rounded-full object-cover ring-1 ring-slate-200"
+              className="size-9 shrink-0 rounded-full object-cover ring-2 ring-white/15"
             />
           ) : (
             <span
-              className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-semibold text-blue-800 ring-1 ring-blue-200/80"
+              className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-xs font-bold text-white ring-2 ring-white/15"
               aria-hidden="true"
             >
               {getInitials(user.name) || "?"}
             </span>
           )}
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-medium text-slate-900">
+            <p className="truncate text-sm font-semibold text-white">
               {user.name}
             </p>
-            <p className="truncate text-xs text-slate-500">{user.email}</p>
+            <p className="truncate text-xs text-slate-400">{user.email}</p>
           </div>
         </div>
-        <div className="mt-2">
-          <SignOutButton />
+        <div className="mt-2 flex items-center gap-2">
+          <PreferencesMenu tone="dark" align="start" placement="top" />
+          <div className="flex-1">
+            <SignOutButton tone="dark" />
+          </div>
         </div>
       </div>
     </div>

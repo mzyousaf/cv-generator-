@@ -1,13 +1,14 @@
 import type { ReactNode } from "react";
-import { formatDateRange, formatMonth } from "@/components/cv-templates/utils/format-dates";
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
 
-export function EmptyDocumentHint({ className = "" }: { className?: string }) {
-  return (
-    <p className={`text-sm italic text-zinc-500 ${className}`}>
-      Start filling in the editor to see your CV preview here.
-    </p>
-  );
+export function EmptyDocumentHint({
+  text,
+  className = "",
+}: {
+  text: string;
+  className?: string;
+}) {
+  return <p className={`text-sm italic text-zinc-500 ${className}`}>{text}</p>;
 }
 
 export function ContactLine({
@@ -22,7 +23,14 @@ export function ContactLine({
   }
 
   return (
-    <p className={`leading-relaxed ${className}`}>{items.join(" · ")}</p>
+    <p className={`leading-relaxed ${className}`}>
+      {items.map((item, index) => (
+        <span key={`${item}-${index}`}>
+          {index > 0 ? " · " : null}
+          <bdi>{item}</bdi>
+        </span>
+      ))}
+    </p>
   );
 }
 
@@ -79,7 +87,7 @@ export function WorkExperienceList({
               </p>
             </div>
             <p className={dateClassName}>
-              {formatDateRange(entry.startDate, entry.endDate, entry.current)}
+              {entry.dates}
             </p>
           </div>
           {entry.description.trim() ? (
@@ -122,7 +130,7 @@ export function EducationList({
               </p>
             </div>
             <p className={dateClassName}>
-              {formatDateRange(entry.startDate, entry.endDate)}
+              {entry.dates}
             </p>
           </div>
           {entry.description.trim() ? (
@@ -203,7 +211,7 @@ export function CertificationsList({
         <div key={entry.id}>
           <h3 className={titleClassName}>{entry.name || "Certification"}</h3>
           <p className={metaClassName}>
-            {[entry.issuer, formatMonth(entry.date)].filter(Boolean).join(" · ")}
+            {[entry.issuer, entry.dates].filter(Boolean).join(" · ")}
           </p>
           {entry.url ? <p className={urlClassName}>{entry.url}</p> : null}
         </div>

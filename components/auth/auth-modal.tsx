@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { Suspense, useRef, useEffect } from "react";
 import { LoginForm } from "@/components/auth/login-form";
 import { SignupForm } from "@/components/auth/signup-form";
@@ -18,30 +20,31 @@ function AuthModalSwitch({
   view: AuthModalView;
   onSwitch: (view: AuthModalView) => void;
 }) {
+  const { t } = useI18n();
   const isLogin = view === "login";
 
   return (
     <p className="mt-6 border-t border-slate-100 pt-6 text-center text-sm text-slate-600">
       {isLogin ? (
         <>
-          Don&apos;t have an account?{" "}
+          {t.auth.noAccount}{" "}
           <Button
             type="button"
             variant="link"
             onClick={() => onSwitch("signup")}
           >
-            Create one
+            {t.auth.createOne}
           </Button>
         </>
       ) : (
         <>
-          Already have an account?{" "}
+          {t.auth.haveAccount}{" "}
           <Button
             type="button"
             variant="link"
             onClick={() => onSwitch("login")}
           >
-            Sign in
+            {t.common.signIn}
           </Button>
         </>
       )}
@@ -50,6 +53,7 @@ function AuthModalSwitch({
 }
 
 export function AuthModal() {
+  const { t } = useI18n();
   const { isOpen, view, closeAuthModal, setView } = useAuthModal();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const isLogin = view === "login";
@@ -65,11 +69,9 @@ export function AuthModal() {
     <Modal
       open={isOpen}
       onClose={closeAuthModal}
-      title={isLogin ? "Sign in to continue" : "Create your account"}
+      title={isLogin ? t.auth.modalLoginTitle : t.auth.modalSignupTitle}
       description={
-        isLogin
-          ? "Access your saved CVs and continue building."
-          : "Start building your professional CV."
+        isLogin ? t.auth.modalLoginDescription : t.auth.modalSignupDescription
       }
       className="sm:max-w-md"
       closeButtonRef={closeButtonRef}
@@ -79,7 +81,7 @@ export function AuthModal() {
           fallback={
             <p className="flex items-center gap-2 text-sm text-slate-500" role="status">
               <Spinner className="size-4 text-slate-400" />
-              Loading…
+              {t.common.loading}
             </p>
           }
         >
@@ -87,7 +89,7 @@ export function AuthModal() {
             idPrefix="modal-login-"
             callbackUrl="/dashboard"
             onSuccess={closeAuthModal}
-            submitLabel="Sign in"
+            submitLabel={t.common.signIn}
           />
         </Suspense>
       ) : (
@@ -96,7 +98,7 @@ export function AuthModal() {
           mode="modal"
           callbackUrl="/dashboard"
           onSuccess={closeAuthModal}
-          submitLabel="Create Your CV Free"
+          submitLabel={t.common.createCvFree}
         />
       )}
 

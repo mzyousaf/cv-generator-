@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import {
   DashboardSidebar,
@@ -15,6 +17,7 @@ type DashboardShellProps = {
 };
 
 export function DashboardShell({ user, children }: DashboardShellProps) {
+  const { t } = useI18n();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const closeMobileNav = useCallback(() => {
@@ -44,9 +47,12 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
   }, [mobileNavOpen, closeMobileNav]);
 
   return (
-    <div className="flex min-h-screen min-w-0 bg-slate-50/80">
-      <aside className="hidden w-64 shrink-0 border-r border-slate-200 bg-white lg:flex lg:flex-col">
-        <DashboardSidebar user={user} />
+    <div className="flex min-h-screen min-w-0 bg-background">
+      {/* The aside stretches to the full page height; its content stays pinned while scrolling. */}
+      <aside className="scheme-light hidden w-64 shrink-0 self-stretch border-e border-white/5 bg-ink bg-[radial-gradient(80%_40%_at_0%_0%,color-mix(in_oklab,var(--brand-600)_28%,transparent),transparent)] lg:block">
+        <div className="sticky top-0 flex h-screen flex-col">
+          <DashboardSidebar user={user} />
+        </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
@@ -62,25 +68,25 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
         <div className="fixed inset-0 z-50 lg:hidden" role="presentation">
           <button
             type="button"
-            className="absolute inset-0 bg-slate-900/50"
-            aria-label="Close navigation menu"
+            className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+            aria-label={t.dashboard.closeNavigation}
             onClick={closeMobileNav}
           />
           <div
             className={cn(
-              "relative flex h-full w-[min(100%,18rem)] flex-col bg-white shadow-xl",
+              "scheme-light relative flex h-full w-[min(100%,18rem)] flex-col bg-ink shadow-2xl",
             )}
             role="dialog"
             aria-modal="true"
-            aria-label="Navigation"
+            aria-label={t.dashboard.navigation}
           >
-            <div className="flex items-center justify-end border-b border-slate-200 px-3 py-2">
+            <div className="flex items-center justify-end px-3 pt-3">
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="min-h-9 min-w-9 px-2"
-                aria-label="Close menu"
+                className="min-h-9 min-w-9 px-2 text-slate-300 hover:bg-white/10 hover:text-white"
+                aria-label={t.common.closeMenu}
                 onClick={closeMobileNav}
               >
                 <span aria-hidden="true">×</span>

@@ -1,4 +1,11 @@
-export function formatMonth(value: string): string {
+export type CvDateFormat = {
+  /** BCP 47 locale for month names, e.g. "de-DE". */
+  locale?: string;
+  /** Word for an ongoing position, e.g. "Present" / "heute". */
+  present?: string;
+};
+
+export function formatMonth(value: string, format: CvDateFormat = {}): string {
   if (!value) {
     return "";
   }
@@ -9,16 +16,23 @@ export function formatMonth(value: string): string {
   }
 
   const date = new Date(Number(year), Number(month) - 1, 1);
-  return date.toLocaleDateString(undefined, { month: "short", year: "numeric" });
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+  return date.toLocaleDateString(format.locale ?? "en-GB", {
+    month: "short",
+    year: "numeric",
+  });
 }
 
 export function formatDateRange(
   start: string,
   end: string,
   current?: boolean,
+  format: CvDateFormat = {},
 ): string {
-  const startLabel = formatMonth(start);
-  const endLabel = current ? "Present" : formatMonth(end);
+  const startLabel = formatMonth(start, format);
+  const endLabel = current ? (format.present ?? "Present") : formatMonth(end, format);
   if (!startLabel && !endLabel) {
     return "";
   }
@@ -28,5 +42,5 @@ export function formatDateRange(
   if (!endLabel) {
     return startLabel;
   }
-  return `${startLabel} to ${endLabel}`;
+  return `${startLabel} – ${endLabel}`;
 }

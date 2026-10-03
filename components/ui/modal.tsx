@@ -1,5 +1,7 @@
 "use client";
 
+import { useI18n } from "@/components/i18n/i18n-provider";
+
 import {
   forwardRef,
   useCallback,
@@ -71,7 +73,7 @@ export function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-slate-900/50 p-4 sm:items-center"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-slate-950/55 p-4 backdrop-blur-sm sm:items-center"
       onClick={handleBackdropClick}
       role="presentation"
     >
@@ -81,7 +83,7 @@ export function Modal({
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
         className={cn(
-          "relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-slate-200 bg-white shadow-xl",
+          "relative max-h-[90vh] w-full max-w-lg animate-fade-up overflow-y-auto rounded-3xl border border-white/60 bg-surface shadow-[0_30px_80px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5",
           className,
         )}
       >
@@ -109,7 +111,7 @@ export function ModalTitle({
     <h2
       id={id}
       className={cn(
-        "pr-10 text-2xl font-semibold tracking-tight text-slate-900",
+        "pe-10 text-2xl font-bold tracking-tight text-slate-950",
         className,
       )}
     >
@@ -137,6 +139,7 @@ export const ModalClose = forwardRef<
   HTMLButtonElement,
   { onClose: () => void; className?: string }
 >(function ModalClose({ onClose, className }, ref) {
+  const { t } = useI18n();
   return (
     <Button
       ref={ref}
@@ -144,9 +147,9 @@ export const ModalClose = forwardRef<
       variant="ghost"
       size="sm"
       onClick={onClose}
-      aria-label="Close dialog"
+      aria-label={t.common.closeDialog}
       className={cn(
-        "absolute right-3 top-3 min-h-9 min-w-9 px-2 text-slate-500 hover:text-slate-800",
+        "absolute end-4 top-4 min-h-9 min-w-9 rounded-full px-2 text-slate-400 hover:bg-slate-100 hover:text-slate-800",
         className,
       )}
     >
@@ -157,10 +160,10 @@ export const ModalClose = forwardRef<
   );
 });
 
-export function ModalDivider({ children = "or continue with" }: { children?: ReactNode }) {
+export function ModalDivider({ children }: { children: ReactNode }) {
   return (
     <div className="relative py-1 text-center">
-      <span className="relative z-10 bg-white px-3 text-xs font-medium uppercase tracking-wide text-slate-500">
+      <span className="relative z-10 bg-surface px-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
         {children}
       </span>
       <div

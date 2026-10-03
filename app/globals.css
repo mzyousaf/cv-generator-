@@ -1,26 +1,132 @@
 @import "tailwindcss";
+@import "./tokens.css";
+
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --ink: #070a1a;
+}
+
+html[data-mode="dark"] {
+  --ink: #05070f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-ink: var(--ink);
+  --font-sans: var(--font-jakarta), var(--font-arabic);
+  --font-display: var(--font-instrument);
   --font-mono: var(--font-geist-mono);
+}
+
+@theme {
+  --color-gold-300: #f6d58e;
+  --color-gold-400: #f0c060;
+  --color-gold-500: #e2a63b;
+
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -4px rgb(15 23 42 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.04), 0 18px 40px -12px color-mix(in oklab, var(--brand-900) 28%, transparent);
+  --shadow-glow: 0 10px 30px -8px color-mix(in oklab, var(--brand-600) 55%, transparent);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family:
+    var(--font-jakarta), var(--font-arabic), "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: color-mix(in oklab, var(--brand-500) 22%, transparent);
 }
 
 a[href],
 button:not(:disabled),
 [role="button"]:not([aria-disabled="true"]) {
   cursor: pointer;
+}
+
+/* Latin display tracking is too tight for Arabic and CJK scripts. */
+html:is([lang="ar"], [lang="zh"]) [class*="tracking-["] {
+  letter-spacing: 0;
+}
+
+/* CV paper in Arabic or Chinese: spacing breaks joined letters and CJK rhythm. */
+.scheme-light:is([lang="ar"], [lang="zh"]) * {
+  letter-spacing: 0 !important;
+}
+
+html[lang="ar"] .font-display,
+html[lang="zh"] .font-display {
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(100deg, var(--brand-300) 0%, var(--brand-200) 45%, #f6d58e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(135deg, var(--brand-500) 0%, var(--brand-600) 45%, var(--brand-700) 100%);
+}
+
+@utility bg-ink-mesh {
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(60% 50% at 15% 0%, color-mix(in oklab, var(--brand-600) 50%, transparent) 0%, transparent 70%),
+    radial-gradient(45% 40% at 90% 15%, color-mix(in oklab, var(--brand-400) 24%, transparent) 0%, transparent 70%),
+    radial-gradient(50% 45% at 60% 100%, rgb(56 189 248 / 0.16) 0%, transparent 70%);
+}
+
+@utility bg-grid-faint {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility bg-dots-soft {
+  background-image: radial-gradient(color-mix(in oklab, var(--brand-500) 16%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

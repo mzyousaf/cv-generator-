@@ -14,6 +14,16 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Themes, dark mode and languages
+
+The globe button (navbar, auth pages, dashboard sidebar, builder header) opens the preferences menu:
+
+- **Languages:** English, Español, Français, Deutsch, العربية (right-to-left) and 中文. Strings live in `lib/i18n/dictionaries/`; `en.ts` is the source shape and every other locale is type-checked against it. `lib/i18n/dictionaries.test.ts` checks placeholders and array lengths.
+- **Themes:** Violet, Ocean, Emerald, Rose and Sunset. Brand colours are CSS variables in `app/tokens.css`.
+- **Appearance:** Light, Dark or System.
+
+Choices are stored in the `cvg-locale`, `cvg-theme` and `cvg-mode` cookies and applied on the server, so pages render without a flash. Without a cookie, the language comes from the browser's `Accept-Language`. Dark sections and the CV paper use the `scheme-light` class to keep the light palette. Legal documents and server error messages are English only.
+
 ## Scripts
 
 | Command | Purpose |

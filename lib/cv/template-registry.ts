@@ -1,4 +1,6 @@
+import { en } from "@/lib/i18n/dictionaries/en";
 import {
+  REGIONAL_TEMPLATE_IDS,
   CV_TEMPLATE_IDS,
   DEFAULT_CV_TEMPLATE,
   type CvTemplateId,
@@ -26,6 +28,8 @@ export const CV_TEMPLATE_REGISTRY: CvTemplateDefinition[] = [
     name: "Modern",
     description: "Contemporary layout with a distinct header band.",
   },
+  // Regional formats (localized names live in the UI dictionaries).
+  ...REGIONAL_TEMPLATE_IDS.map((id) => ({ id, ...en.templateMeta[id] })),
 ];
 
 export function isCvTemplateId(value: string): value is CvTemplateId {
