@@ -44,6 +44,8 @@ export function SectionCard({
   title,
   description,
   statusBadge,
+  actions,
+  muted = false,
   children,
   onAdd,
   addLabel,
@@ -51,25 +53,34 @@ export function SectionCard({
   title: string;
   description?: string;
   statusBadge?: React.ReactNode;
+  /** Header controls on the right (visibility toggle, delete…). */
+  actions?: React.ReactNode;
+  /** Dims the card, e.g. when the section is hidden from the resume. */
+  muted?: boolean;
   children: React.ReactNode;
   onAdd?: () => void;
   addLabel?: string;
 }) {
   return (
-    <Card className="rounded-3xl">
-      <CardContent className="p-5 sm:p-7">
-        <div className="mb-5 space-y-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-lg font-bold tracking-tight text-slate-950">{title}</h2>
-            {statusBadge}
+    <Card className={cn("rounded-xl transition-opacity", muted && "opacity-75")}>
+      <CardContent className="p-5 sm:p-6">
+        <div className="mb-4 flex items-start gap-3">
+          <div className="min-w-0 flex-1 space-y-0.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="break-words text-base font-bold tracking-tight text-slate-950">
+                {title}
+              </h2>
+              {statusBadge}
+            </div>
+            {description ? (
+              <p className="text-sm text-slate-500">{description}</p>
+            ) : null}
           </div>
-          {description ? (
-            <p className="text-sm text-slate-500">{description}</p>
-          ) : null}
+          {actions ? <div className="flex shrink-0 items-center gap-0.5">{actions}</div> : null}
         </div>
         <div className="space-y-4">{children}</div>
         {onAdd ? (
-          <div className="mt-5 border-t border-slate-100 pt-5">
+          <div className="mt-5 border-t border-slate-100 pt-4">
             <Button type="button" variant="outline" size="sm" onClick={onAdd}>
               {addLabel ?? "+ Add"}
             </Button>
@@ -122,7 +133,7 @@ export function CollapsibleEntryCard({
 }) {
   const { t } = useI18n();
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-50/40 transition-colors hover:border-slate-300/80">
+    <div className="overflow-hidden rounded-lg border border-slate-200/80 bg-slate-50/40 transition-colors hover:border-slate-300/80">
       <div className="flex items-start gap-2 px-4 py-3">
         <div className="min-w-0 flex-1">
           <p className="break-words text-sm font-semibold leading-snug text-slate-900">
@@ -193,5 +204,36 @@ export function SummaryTextArea({
         </p>
       )}
     </div>
+  );
+}
+
+/** Small square icon button used in section headers. */
+export function SectionIconButton({
+  label,
+  onClick,
+  children,
+  pressed,
+  danger = false,
+}: {
+  label: string;
+  onClick: () => void;
+  children: React.ReactNode;
+  pressed?: boolean;
+  danger?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      aria-pressed={pressed}
+      title={label}
+      className={cn(
+        "flex size-8 cursor-pointer items-center justify-center rounded-md text-slate-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+        danger ? "hover:bg-red-50 hover:text-red-600" : "hover:bg-slate-100 hover:text-slate-700",
+      )}
+    >
+      {children}
+    </button>
   );
 }

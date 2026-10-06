@@ -25,11 +25,22 @@ export type ResumeImportReviewPayload = {
   fileType: ResumeImportFileKind;
   fileSizeBytes: number;
   reviewState: CvBuilderFormState;
+  /** Portrait found in the document (data URL); the browser crops/compresses it. */
+  photoCandidate: string | null;
+};
+
+export type ResumeImportReadPayload = {
+  upload: ValidatedResumeUpload;
+  /** Normalized text; may be empty for scanned PDFs (AI OCR handles those). */
+  text: string;
+  photoCandidate: string | null;
 };
 
 export type ResumeImportExtractors = {
   extractPdf: (buffer: Buffer) => Promise<string>;
   extractDocx: (buffer: Buffer) => Promise<string>;
+  extractPdfPhoto?: (buffer: Buffer) => Promise<string | null>;
+  extractDocxPhoto?: (buffer: Buffer) => Promise<string | null>;
 };
 
 export function createResumeImportService(extractors: ResumeImportExtractors) {
@@ -88,5 +99,52 @@ export function createResumeImportService(extractors: ResumeImportExtractors) {
     };
   }
 
-  return { processUpload, extractTextFromValidated };
+  async function extractPhoto(upload: ValidatedResumeUpload): Promise<string | null> {
+    const extract =
+      upload.kind === "pdf" ? extractors.extractPdfPhoto : extractors.extractDocxPhoto;
+    if (!extract) {
+      return null;
+    }
+    try {
+      return await extract(upload.buffer);
+    } catch {
+      return null;
+    }
+  }
+
+  /** Validates the file and pulls out its text and photo for AI parsing. */
+  async function readUpload(input: {
+    buffer: Buffer;
+    filename: string;
+  }): Promise<ResumeImportResult<ResumeImportReadPayload>> {
+    const validated = validateResumeUploadInput(input.buffer, input.filename);
+    if (!validated.success) {
+      return validated;
+    }
+
+    const upload = validated.data;
+    let text = "";
+    try {
+      const raw =
+        upload.kind === "pdf"
+          ? await extractors.extractPdf(upload.buffer)
+          : await extractors.extractDocx(upload.buffer);
+      text = normalizeExtractedResumeText(raw);
+    } catch {
+      // A PDF can still be read by the model directly; a broken DOCX cannot.
+      if (upload.kind === "docx") {
+        return resumeImportError(
+          RESUME_IMPORT_ERROR_CODES.EXTRACTION_FAILED,
+          RESUME_IMPORT_ERROR_MESSAGES.EXTRACTION_FAILED,
+        );
+      }
+    }
+
+    return {
+      success: true,
+      data: { upload, text, photoCandidate: await extractPhoto(upload) },
+    };
+  }
+
+  return { processUpload, extractTextFromValidated, readUpload };
 }

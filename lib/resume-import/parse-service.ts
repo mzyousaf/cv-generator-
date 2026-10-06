@@ -1,4 +1,8 @@
-import { AiProviderError, type AiProvider } from "@/lib/ai/provider";
+import {
+  AiProviderError,
+  type AiCompletionRequest,
+  type AiProvider,
+} from "@/lib/ai/provider";
 import {
   RESUME_IMPORT_ERROR_CODES,
   RESUME_IMPORT_ERROR_MESSAGES,
@@ -8,12 +12,14 @@ import {
 import { RESUME_IMPORT_MIN_PARSE_TEXT_LENGTH } from "@/lib/resume-import/parse-constants";
 import { extractJsonObjectFromModelText } from "@/lib/resume-import/parse-json";
 import {
+  buildResumeImportFileParseUserPrompt,
   buildResumeImportParseUserPrompt,
   RESUME_IMPORT_PARSE_SYSTEM_PROMPT,
 } from "@/lib/resume-import/parse-prompts";
 import { sanitizeParsedResumeImport } from "@/lib/resume-import/parse-sanitize";
 import { parsedResumeToBuilderState } from "@/lib/resume-import/map-parsed-to-builder";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
+import type { Locale } from "@/lib/i18n/preferences";
 import { RESUME_IMPORT_PARSE_TIMEOUT_MS } from "@/lib/resume-import/parse-constants";
 
 export type ResumeImportParseDeps = {
@@ -38,9 +44,17 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   });
 }
 
+const PARSE_REQUEST_BASE = {
+  systemPrompt: RESUME_IMPORT_PARSE_SYSTEM_PROMPT,
+  temperature: 0.1,
+  json: true,
+  maxTokens: 12_000,
+} as const;
+
 export function createResumeImportParseService(deps: ResumeImportParseDeps) {
   async function parseExtractedText(
     extractedText: string,
+    fallbackLocale?: Locale,
   ): Promise<ResumeImportResult<CvBuilderFormState>> {
     const text = extractedText.trim();
     if (text.length < RESUME_IMPORT_MIN_PARSE_TEXT_LENGTH) {
@@ -50,6 +64,38 @@ export function createResumeImportParseService(deps: ResumeImportParseDeps) {
       );
     }
 
+    return runParse(
+      { ...PARSE_REQUEST_BASE, userPrompt: buildResumeImportParseUserPrompt(text) },
+      fallbackLocale,
+    );
+  }
+
+  /** For PDFs without a text layer: the model (with OCR) reads the file itself. */
+  async function parsePdfFile(input: {
+    filename: string;
+    buffer: Buffer;
+    fallbackLocale?: Locale;
+  }): Promise<ResumeImportResult<CvBuilderFormState>> {
+    return runParse(
+      {
+      ...PARSE_REQUEST_BASE,
+      userPrompt: buildResumeImportFileParseUserPrompt(),
+      files: [
+        {
+          filename: input.filename,
+          mimeType: "application/pdf",
+          dataBase64: input.buffer.toString("base64"),
+        },
+      ],
+      },
+      input.fallbackLocale,
+    );
+  }
+
+  async function runParse(
+    request: AiCompletionRequest,
+    fallbackLocale?: Locale,
+  ): Promise<ResumeImportResult<CvBuilderFormState>> {
     const provider = deps.getProvider();
     if (!provider) {
       return resumeImportError(
@@ -61,11 +107,7 @@ export function createResumeImportParseService(deps: ResumeImportParseDeps) {
     let rawResponse: string;
     try {
       rawResponse = await withTimeout(
-        provider.complete({
-          systemPrompt: RESUME_IMPORT_PARSE_SYSTEM_PROMPT,
-          userPrompt: buildResumeImportParseUserPrompt(text),
-          temperature: 0.1,
-        }),
+        provider.complete(request),
         RESUME_IMPORT_PARSE_TIMEOUT_MS,
       );
     } catch (error) {
@@ -107,8 +149,11 @@ export function createResumeImportParseService(deps: ResumeImportParseDeps) {
       );
     }
 
-    return { success: true, data: parsedResumeToBuilderState(sanitized.value) };
+    return {
+      success: true,
+      data: parsedResumeToBuilderState(sanitized.value, fallbackLocale),
+    };
   }
 
-  return { parseExtractedText };
+  return { parseExtractedText, parsePdfFile };
 }

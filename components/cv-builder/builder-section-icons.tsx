@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { ManageableSectionId } from "@/lib/cv/section-settings";
+import type { BuilderNavKey } from "@/lib/cv/builder-section-nav";
 
 type IconProps = { className?: string };
 
@@ -24,7 +24,7 @@ export function BuilderSectionIcon({
   sectionId,
   className,
 }: {
-  sectionId: ManageableSectionId | "personal";
+  sectionId: BuilderNavKey;
   className?: string;
 }) {
   switch (sectionId) {
@@ -82,6 +82,60 @@ export function BuilderSectionIcon({
         </IconBase>
       );
     default:
-      return null;
+      // Custom sections.
+      return (
+        <IconBase className={className}>
+          <rect x="4" y="4" width="16" height="16" rx="2" />
+          <path d="M8 9h8M8 13h8M8 17h5" />
+        </IconBase>
+      );
   }
+}
+
+export function DragHandleIcon({ className }: IconProps) {
+  return (
+    <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="9" cy="6" r="1.6" />
+      <circle cx="15" cy="6" r="1.6" />
+      <circle cx="9" cy="12" r="1.6" />
+      <circle cx="15" cy="12" r="1.6" />
+      <circle cx="9" cy="18" r="1.6" />
+      <circle cx="15" cy="18" r="1.6" />
+    </svg>
+  );
+}
+
+export function EyeIcon({ className, off = false }: IconProps & { off?: boolean }) {
+  return (
+    <IconBase className={className}>
+      <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" />
+      <circle cx="12" cy="12" r="3" />
+      {off ? <path d="M4 4l16 16" /> : null}
+    </IconBase>
+  );
+}
+
+export function SparkleIcon({ className }: IconProps) {
+  return (
+    <svg className={className} width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2l1.8 5.6L19.5 9.5l-5.7 1.9L12 17l-1.8-5.6L4.5 9.5l5.7-1.9L12 2Z" />
+      <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z" />
+    </svg>
+  );
+}
+
+export function PlusIcon({ className }: IconProps) {
+  return (
+    <IconBase className={className}>
+      <path d="M12 5v14M5 12h14" />
+    </IconBase>
+  );
+}
+
+export function TrashIcon({ className }: IconProps) {
+  return (
+    <IconBase className={className}>
+      <path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" />
+    </IconBase>
+  );
 }

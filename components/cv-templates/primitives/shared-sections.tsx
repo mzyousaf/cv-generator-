@@ -247,36 +247,6 @@ export function LanguagesList({
   );
 }
 
-export function CustomSectionsList({
-  entries,
-  headingClassName,
-  bodyClassName,
-}: {
-  entries: CvDocumentView["customSections"];
-  headingClassName: string;
-  bodyClassName: string;
-}) {
-  if (entries.length === 0) {
-    return null;
-  }
-
-  return (
-    <>
-      {entries.map((entry) => (
-        <section key={entry.id}>
-          <SectionHeading
-            title={entry.title || "Custom Section"}
-            className={headingClassName}
-          />
-          <p className={`mt-2 whitespace-pre-wrap ${bodyClassName}`}>
-            {entry.content}
-          </p>
-        </section>
-      ))}
-    </>
-  );
-}
-
 export function CvSection({
   title,
   headingClassName,

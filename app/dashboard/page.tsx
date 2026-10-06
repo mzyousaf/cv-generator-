@@ -4,6 +4,9 @@ import { ResumesWorkspace } from "@/components/dashboard/resumes-workspace";
 import { getCurrentUser } from "@/lib/auth/get-current-user";
 import { listCvsAction } from "@/lib/cv/actions";
 
+// AI resume import / writing actions can take longer than the default limit.
+export const maxDuration = 120;
+
 export default async function DashboardPage() {
   const user = await getCurrentUser();
 

@@ -3,16 +3,16 @@
 import { useEffect, useState } from "react";
 import {
   builderSectionDomId,
-  getOrderedSectionNavItems,
+  getOrderedSectionKeys,
 } from "@/lib/cv/builder-section-nav";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 
 export function useBuilderActiveSection(state: CvBuilderFormState): string {
   const [activeDomId, setActiveDomId] = useState(builderSectionDomId("personal"));
+  const idsKey = getOrderedSectionKeys(state).map(builderSectionDomId).join("|");
 
   useEffect(() => {
-    const navItems = getOrderedSectionNavItems(state.sectionSettings);
-    const ids = navItems.map((item) => builderSectionDomId(item.id));
+    const ids = idsKey.split("|");
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -34,7 +34,7 @@ export function useBuilderActiveSection(state: CvBuilderFormState): string {
     }
 
     return () => observer.disconnect();
-  }, [state.sectionSettings]);
+  }, [idsKey]);
 
   return activeDomId;
 }

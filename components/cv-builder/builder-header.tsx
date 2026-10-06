@@ -22,7 +22,6 @@ type BuilderHeaderProps = {
   onExportPdf: () => void;
   isExporting: boolean;
   onOpenTemplates: () => void;
-  onManageSections: () => void;
   mobilePane?: BuilderMobilePane;
   onMobilePaneChange?: (pane: BuilderMobilePane) => void;
   showMobilePaneToggle?: boolean;
@@ -82,7 +81,6 @@ export function BuilderHeader({
   onExportPdf,
   isExporting,
   onOpenTemplates,
-  onManageSections,
   mobilePane = "edit",
   onMobilePaneChange,
   showMobilePaneToggle = false,
@@ -151,14 +149,6 @@ export function BuilderHeader({
               </Button>
               <Button
                 type="button"
-                variant="ghost"
-                size="sm"
-                onClick={onManageSections}
-              >
-                {t.builder.manageSections}
-              </Button>
-              <Button
-                type="button"
                 variant="outline"
                 size="sm"
                 onClick={onExportPdf}
@@ -196,7 +186,6 @@ export function BuilderHeader({
               </Button>
               <BuilderHeaderMoreMenu
                 onOpenTemplates={onOpenTemplates}
-                onManageSections={onManageSections}
                 onExportPdf={onExportPdf}
                 onSave={onSave}
                 isSaving={isSaving}

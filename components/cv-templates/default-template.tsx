@@ -1,6 +1,5 @@
 import {
   ContactLine,
-  CustomSectionsList,
   EmptyDocumentHint,
 } from "@/components/cv-templates/primitives/shared-sections";
 import { OrderedHtmlBodySections } from "@/components/cv-templates/ordered-body-sections";
@@ -29,16 +28,6 @@ export function DefaultCvTemplate({ state }: { state: CvBuilderFormState }) {
       {view.isEmpty ? <EmptyDocumentHint text={view.labels.emptyHint} className="mt-8" /> : null}
 
       <OrderedHtmlBodySections view={view} variant="default" />
-
-      {view.customSections.length > 0 ? (
-        <div className="mt-5 space-y-5">
-          <CustomSectionsList
-            entries={view.customSections}
-            headingClassName="border-b border-zinc-300 pb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-700"
-            bodyClassName="text-[11px] leading-relaxed text-zinc-800"
-          />
-        </div>
-      ) : null}
     </DocumentPage>
   );
 }

@@ -13,15 +13,19 @@ import {
   workExperienceEntrySummary,
 } from "@/lib/cv/builder-ui-utils";
 import {
+  customSectionKey,
   getEditorSectionOrder,
   isSectionHidden,
-  type ManageableSectionId,
+  toggleSectionVisibility,
+  type SectionKey,
 } from "@/lib/cv/section-settings";
+import { builderSectionDomId } from "@/lib/cv/builder-section-nav";
+import { removeCustomSection } from "@/lib/cv/custom-sections";
 import {
   CollapsibleEntryCard,
-  EntryCard,
   FormField,
   SectionCard,
+  SectionIconButton,
   SummaryTextArea,
   TextArea,
   TextInput,
@@ -31,6 +35,15 @@ import { SkillsEditor } from "@/components/cv-builder/skills-editor";
 import { PhotoField } from "@/components/cv-builder/photo-field";
 import { SummaryAiControls } from "@/components/cv-builder/ai/summary-ai-controls";
 import { WorkExperienceAiControls } from "@/components/cv-builder/ai/work-experience-ai-controls";
+import { SectionAiControls } from "@/components/cv-builder/ai/section-ai-controls";
+import type { AddSectionMode } from "@/components/cv-builder/add-section-modal";
+import {
+  EyeIcon,
+  PlusIcon,
+  SparkleIcon,
+  TrashIcon,
+} from "@/components/cv-builder/builder-section-icons";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEntrySummaryLabels } from "@/components/cv-builder/use-entry-summary-labels";
 import { format } from "@/lib/i18n/format";
@@ -38,6 +51,7 @@ import { format } from "@/lib/i18n/format";
 type BuilderEditorProps = {
   state: CvBuilderFormState;
   onChange: (next: CvBuilderFormState) => void;
+  onAddSection: (mode: AddSectionMode) => void;
 };
 
 
@@ -72,7 +86,7 @@ function useExpandedEntries() {
   return { expand, toggle, isExpanded };
 }
 
-export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
+export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorProps) {
   const { t } = useI18n();
   const { expand, toggle, isExpanded } = useExpandedEntries();
   const summaryLabels = useEntrySummaryLabels();
@@ -80,26 +94,48 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
   function confirmRemove(item: string): boolean {
     return window.confirm(format(t.editor.confirmRemove, { item }));
   }
-  const sectionOrder = getEditorSectionOrder(state.sectionSettings);
+  const sectionOrder = getEditorSectionOrder(state.sectionSettings, state.customSections);
 
   function update(partial: Partial<CvBuilderFormState>) {
     onChange({ ...state, ...partial });
   }
 
-  function flexOrder(sectionId: ManageableSectionId) {
-    return { order: sectionOrder.indexOf(sectionId) + 1 };
+  /** Wrapper props placing a section card at its position in the user's order. */
+  function slot(sectionId: SectionKey) {
+    return {
+      id: builderSectionDomId(sectionId),
+      className: "scroll-mt-28",
+      style: { order: sectionOrder.indexOf(sectionId) + 1 },
+    };
   }
 
-  function hiddenBadge(sectionId: ManageableSectionId) {
-    return isSectionHidden(state.sectionSettings, sectionId) ? (
-      <Badge variant="muted">{t.editor.hiddenFromResume}</Badge>
-    ) : undefined;
+  /** Header chrome shared by every section: hidden badge + visibility toggle. */
+  function sectionChrome(sectionId: SectionKey, label: string, extraActions?: React.ReactNode) {
+    const hidden = isSectionHidden(state.sectionSettings, sectionId);
+    return {
+      muted: hidden,
+      statusBadge: hidden ? <Badge variant="muted">{t.editor.hiddenFromResume}</Badge> : undefined,
+      actions: (
+        <>
+          <SectionIconButton
+            label={format(hidden ? t.builder.showSection : t.builder.hideSection, { label })}
+            pressed={hidden}
+            onClick={() =>
+              update({ sectionSettings: toggleSectionVisibility(state.sectionSettings, sectionId) })
+            }
+          >
+            <EyeIcon className="size-4" off={hidden} />
+          </SectionIconButton>
+          {extraActions}
+        </>
+      ),
+    };
   }
 
   return (
     <div className="space-y-4">
       <div className="xl:hidden">
-        <BuilderMobileSectionsMenu state={state} />
+        <BuilderMobileSectionsMenu state={state} onChange={onChange} onAddSection={onAddSection} />
       </div>
 
       <div className="flex flex-col gap-4">
@@ -233,11 +269,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-summary" className="scroll-mt-28" style={flexOrder("summary")}>
+      <div {...slot("summary")}>
       <SectionCard
         title={t.sections.summary}
         description={t.editor.descriptions.summary}
-        statusBadge={hiddenBadge("summary")}
+        {...sectionChrome("summary", t.sections.summary)}
       >
         <FormField label={t.editor.fields.summary} htmlFor="summary">
           <SummaryTextArea
@@ -253,11 +289,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-workExperience" className="scroll-mt-28" style={flexOrder("workExperience")}>
+      <div {...slot("workExperience")}>
       <SectionCard
         title={t.sections.workExperience}
         description={t.editor.descriptions.workExperience}
-        statusBadge={hiddenBadge("workExperience")}
+        {...sectionChrome("workExperience", t.sections.workExperience)}
         addLabel={t.editor.add.workExperience}
         onAdd={() => {
           const id = createEntryId();
@@ -435,11 +471,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-education" className="scroll-mt-28" style={flexOrder("education")}>
+      <div {...slot("education")}>
       <SectionCard
         title={t.sections.education}
         description={t.editor.descriptions.education}
-        statusBadge={hiddenBadge("education")}
+        {...sectionChrome("education", t.sections.education)}
         addLabel={t.editor.add.education}
         onAdd={() => {
           const id = createEntryId();
@@ -574,6 +610,20 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                   }
                 />
               </FormField>
+              <SectionAiControls
+                className="mt-2"
+                idPrefix={`edu-${entry.id}`}
+                sectionTitle={`${t.sections.education}: ${[entry.degree, entry.institution].filter(Boolean).join(", ")}`}
+                value={entry.description}
+                state={state}
+                onApply={(description) =>
+                  update({
+                    education: state.education.map((item) =>
+                      item.id === entry.id ? { ...item, description } : item,
+                    ),
+                  })
+                }
+              />
             </div>
           </CollapsibleEntryCard>
           );
@@ -581,11 +631,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-skills" className="scroll-mt-28" style={flexOrder("skills")}>
+      <div {...slot("skills")}>
       <SectionCard
         title={t.sections.skills}
         description={t.editor.descriptions.skills}
-        statusBadge={hiddenBadge("skills")}
+        {...sectionChrome("skills", t.sections.skills)}
       >
         <SkillsEditor
           state={state}
@@ -594,11 +644,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-projects" className="scroll-mt-28" style={flexOrder("projects")}>
+      <div {...slot("projects")}>
       <SectionCard
         title={t.sections.projects}
         description={t.editor.descriptions.projects}
-        statusBadge={hiddenBadge("projects")}
+        {...sectionChrome("projects", t.sections.projects)}
         addLabel={t.editor.add.projects}
         onAdd={() => {
           const id = createEntryId();
@@ -679,6 +729,20 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
                   }
                 />
               </FormField>
+              <SectionAiControls
+                className="mt-2"
+                idPrefix={`project-${entry.id}`}
+                sectionTitle={`${t.sections.projects}: ${entry.name}`}
+                value={entry.description}
+                state={state}
+                onApply={(description) =>
+                  update({
+                    projects: state.projects.map((item) =>
+                      item.id === entry.id ? { ...item, description } : item,
+                    ),
+                  })
+                }
+              />
             </div>
           </CollapsibleEntryCard>
           );
@@ -686,11 +750,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-certifications" className="scroll-mt-28" style={flexOrder("certifications")}>
+      <div {...slot("certifications")}>
       <SectionCard
         title={t.sections.certifications}
         description={t.editor.descriptions.certifications}
-        statusBadge={hiddenBadge("certifications")}
+        {...sectionChrome("certifications", t.sections.certifications)}
         addLabel={t.editor.add.certifications}
         onAdd={() => {
           const id = createEntryId();
@@ -794,11 +858,11 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-languages" className="scroll-mt-28" style={flexOrder("languages")}>
+      <div {...slot("languages")}>
       <SectionCard
         title={t.sections.languages}
         description={t.editor.descriptions.languages}
-        statusBadge={hiddenBadge("languages")}
+        {...sectionChrome("languages", t.sections.languages)}
         addLabel={t.editor.add.languages}
         onAdd={() => {
           const id = createEntryId();
@@ -869,73 +933,91 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div className="scroll-mt-28" style={{ order: 100 }}>
-      <SectionCard
-        title={t.editor.customSections}
-        description={t.editor.customSectionsDescription}
-        addLabel={t.editor.add.custom}
-        onAdd={() =>
+      {state.customSections.map((entry) => {
+        const key = customSectionKey(entry.id);
+        const label = entry.title.trim() || t.editor.untitledSection;
+        const updateEntry = (patch: Partial<typeof entry>) =>
           update({
-            customSections: [
-              ...state.customSections,
-              { id: createEntryId(), title: "", content: "" },
-            ],
-          })
-        }
-      >
-        {state.customSections.length === 0 ? (
-          <p className="text-sm text-slate-500">{t.editor.empty.custom}</p>
-        ) : null}
-        {state.customSections.map((entry, index) => (
-          <EntryCard
-            key={entry.id}
-            title={format(t.editor.customSectionN, { n: index + 1 })}
-            onRemove={() => {
-              if (!confirmRemove(t.editor.removeItems.custom)) {
-                return;
-              }
-              update({
-                customSections: state.customSections.filter(
-                  (item) => item.id !== entry.id,
-                ),
-              });
-            }}
-          >
-            <FormField label={t.editor.fields.sectionTitle} htmlFor={`custom-title-${entry.id}`}>
-              <TextInput
-                id={`custom-title-${entry.id}`}
-                value={entry.title}
-                onChange={(event) =>
-                  update({
-                    customSections: state.customSections.map((item) =>
-                      item.id === entry.id
-                        ? { ...item, title: event.target.value }
-                        : item,
-                    ),
-                  })
-                }
-              />
-            </FormField>
-            <div className="sm:col-span-2">
+            customSections: state.customSections.map((item) =>
+              item.id === entry.id ? { ...item, ...patch } : item,
+            ),
+          });
+        return (
+          <div key={entry.id} {...slot(key)}>
+            <SectionCard
+              title={label}
+              description={t.editor.customDescription}
+              {...sectionChrome(
+                key,
+                label,
+                <SectionIconButton
+                  danger
+                  label={t.editor.deleteSection}
+                  onClick={() => {
+                    if (confirmRemove(t.editor.removeItems.custom)) {
+                      onChange(removeCustomSection(state, entry.id));
+                    }
+                  }}
+                >
+                  <TrashIcon className="size-4" />
+                </SectionIconButton>,
+              )}
+            >
+              <FormField label={t.editor.fields.sectionTitle} htmlFor={`custom-title-${entry.id}`}>
+                <TextInput
+                  id={`custom-title-${entry.id}`}
+                  value={entry.title}
+                  placeholder={t.addSection.titlePlaceholder}
+                  onChange={(event) => updateEntry({ title: event.target.value })}
+                />
+              </FormField>
               <FormField label={t.editor.fields.content} htmlFor={`custom-content-${entry.id}`}>
                 <TextArea
                   id={`custom-content-${entry.id}`}
                   value={entry.content}
-                  onChange={(event) =>
-                    update({
-                      customSections: state.customSections.map((item) =>
-                        item.id === entry.id
-                          ? { ...item, content: event.target.value }
-                          : item,
-                      ),
-                    })
-                  }
+                  rows={6}
+                  onChange={(event) => updateEntry({ content: event.target.value })}
                 />
               </FormField>
-            </div>
-          </EntryCard>
-        ))}
-      </SectionCard>
+              <SectionAiControls
+                idPrefix={`custom-${entry.id}`}
+                sectionTitle={entry.title}
+                value={entry.content}
+                state={state}
+                onApply={(content) => updateEntry({ content })}
+              />
+            </SectionCard>
+          </div>
+        );
+      })}
+
+      <div style={{ order: 1000 }}>
+        <div className="flex flex-col items-stretch gap-2 rounded-xl border border-dashed border-slate-300 bg-surface/60 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
+            <p className="text-sm font-semibold text-slate-900">{t.builder.addSectionTitle}</p>
+            <p className="text-xs text-slate-500">{t.builder.addSectionHint}</p>
+          </div>
+          <div className="flex shrink-0 flex-wrap gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              leftIcon={<PlusIcon className="size-4" />}
+              onClick={() => onAddSection("blank")}
+            >
+              {t.builder.addSection}
+            </Button>
+            <Button
+              type="button"
+              variant="ai"
+              size="sm"
+              leftIcon={<SparkleIcon className="size-3.5" />}
+              onClick={() => onAddSection("ai")}
+            >
+              {t.builder.createWithAi}
+            </Button>
+          </div>
+        </div>
       </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
-import type { CvDocumentView } from "@/components/cv-templates/view-model";
 import type { CvDocumentLabels } from "@/lib/cv/document-labels";
-import type { ManageableSectionId } from "@/lib/cv/section-settings";
+import { isCustomSectionKey, type ManageableSectionId } from "@/lib/cv/section-settings";
+import { findCustomSection, type CvDocumentView } from "@/components/cv-templates/view-model";
 import { sanitizePhoto } from "@/lib/cv/photo";
 import type { RegionalTemplateSpec } from "@/lib/cv/template-catalog";
 
@@ -152,6 +152,18 @@ export function buildRegionalDocumentModel(
 
   const sections: DocSection[] = [];
   for (const id of view.visibleSectionOrder) {
+    if (isCustomSectionKey(id)) {
+      const custom = findCustomSection(view, id);
+      if (custom) {
+        sections.push({
+          key: id,
+          title: custom.title,
+          block: { kind: "text", text: custom.content.trim() },
+          placement: "main",
+        });
+      }
+      continue;
+    }
     const block = sectionBlock(id, view);
     if (block) {
       sections.push({
@@ -162,17 +174,6 @@ export function buildRegionalDocumentModel(
       });
     }
   }
-  for (const custom of view.customSections) {
-    if (custom.content.trim()) {
-      sections.push({
-        key: `custom-${custom.id}`,
-        title: custom.title,
-        block: { kind: "text", text: custom.content.trim() },
-        placement: "main",
-      });
-    }
-  }
-
   const contacts: DocPair[] = [
     { label: labels.email, value: personal.email },
     { label: labels.phone, value: personal.phone },

@@ -9,8 +9,15 @@ import {
   SummaryBlock,
   WorkExperienceList,
 } from "@/components/cv-templates/primitives/shared-sections";
-import type { CvDocumentView } from "@/components/cv-templates/view-model";
-import type { ManageableSectionId } from "@/lib/cv/section-settings";
+import {
+  findCustomSection,
+  type CvDocumentView,
+} from "@/components/cv-templates/view-model";
+import {
+  isCustomSectionKey,
+  type ManageableSectionId,
+  type SectionKey,
+} from "@/lib/cv/section-settings";
 
 export type HtmlTemplateVariant = "default" | "classic" | "modern";
 
@@ -136,11 +143,27 @@ function sectionTitle(
 }
 
 function renderSection(
-  sectionId: ManageableSectionId,
+  sectionId: SectionKey,
   view: CvDocumentView,
   styles: VariantStyles,
   variant: HtmlTemplateVariant,
 ): ReactNode {
+  if (isCustomSectionKey(sectionId)) {
+    const custom = findCustomSection(view, sectionId);
+    if (!custom) {
+      return null;
+    }
+    return (
+      <CvSection
+        title={custom.title}
+        headingClassName={styles.sectionHeading}
+        bodyClassName={styles.sectionBody}
+      >
+        <p className={`whitespace-pre-wrap ${styles.summary}`}>{custom.content.trim()}</p>
+      </CvSection>
+    );
+  }
+
   switch (sectionId) {
     case "summary":
       if (!view.summary.trim()) {

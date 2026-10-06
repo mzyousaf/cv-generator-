@@ -17,6 +17,44 @@ type OpenAiChatResponse = {
   };
 };
 
+function buildUserContent(request: AiCompletionRequest) {
+  if (!request.files?.length) {
+    return request.userPrompt;
+  }
+  return [
+    { type: "text", text: request.userPrompt },
+    ...request.files.map((file) => ({
+      type: "file",
+      file: {
+        filename: file.filename,
+        file_data: `data:${file.mimeType};base64,${file.dataBase64}`,
+      },
+    })),
+  ];
+}
+
+export function buildRequestBody(env: AiEnv, request: AiCompletionRequest) {
+  const body: Record<string, unknown> = {
+    model: env.model,
+    temperature: request.temperature ?? 0.4,
+    messages: [
+      { role: "system", content: request.systemPrompt },
+      { role: "user", content: buildUserContent(request) },
+    ],
+  };
+  if (request.json) {
+    body.response_format = { type: "json_object" };
+  }
+  if (request.maxTokens) {
+    body.max_tokens = request.maxTokens;
+  }
+  if (request.files?.length && env.provider === "openrouter") {
+    // OCR so scanned (image-only) PDFs can be read by any model.
+    body.plugins = [{ id: "file-parser", pdf: { engine: "mistral-ocr" } }];
+  }
+  return body;
+}
+
 /**
  * OpenAI-compatible chat completions client. Works with OpenRouter, OpenAI
  * and any other provider exposing `/chat/completions`.
@@ -33,14 +71,7 @@ export function createOpenAiHttpProvider(env: AiEnv): AiProvider {
             Authorization: `Bearer ${env.apiKey}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            model: env.model,
-            temperature: request.temperature ?? 0.4,
-            messages: [
-              { role: "system", content: request.systemPrompt },
-              { role: "user", content: request.userPrompt },
-            ],
-          }),
+          body: JSON.stringify(buildRequestBody(env, request)),
           signal: AbortSignal.timeout(AI_REQUEST_TIMEOUT_MS),
         });
       } catch (error) {

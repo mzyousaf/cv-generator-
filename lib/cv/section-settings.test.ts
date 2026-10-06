@@ -8,7 +8,11 @@ import {
   createDefaultSectionSettings,
   DEFAULT_MANAGEABLE_SECTION_ORDER,
   getVisibleSectionOrder,
+  addCustomSectionToSettings,
+  getEditorSectionOrder,
   moveSection,
+  removeCustomSectionFromSettings,
+  reorderSection,
   sanitizeSectionSettings,
   toggleSectionVisibility,
 } from "@/lib/cv/section-settings";
@@ -127,5 +131,55 @@ describe("section settings", () => {
       assert.deepEqual(settings.hidden, ["skills"]);
       assert.equal(settings.order.includes("workExperience"), true);
     }
+  });
+
+  it("keeps custom section keys in the stored order", () => {
+    const sanitized = sanitizeSectionSettings({
+      order: ["custom:awards", "summary", "custom:bad key", "skills"],
+      hidden: ["custom:awards", "custom:../x"],
+    });
+    assert.deepEqual(sanitized.order.slice(0, 3), ["custom:awards", "summary", "skills"]);
+    assert.deepEqual(sanitized.hidden, ["custom:awards"]);
+  });
+
+  it("reconciles custom keys with existing custom sections", () => {
+    const settings = sanitizeSectionSettings({
+      order: ["custom:gone", "custom:a", "summary"],
+      hidden: [],
+    });
+    const order = getEditorSectionOrder(settings, [{ id: "a" }, { id: "b" }]);
+    assert.equal(order.includes("custom:gone"), false);
+    assert.equal(order[0], "custom:a");
+    assert.equal(order[order.length - 1], "custom:b");
+  });
+
+  it("reorders built-in and custom sections by drag target", () => {
+    const custom = [{ id: "awards" }];
+    let settings = addCustomSectionToSettings(createDefaultSectionSettings(), "awards", custom);
+    settings = reorderSection(settings, "custom:awards", "summary", custom);
+    assert.equal(getEditorSectionOrder(settings, custom)[0], "custom:awards");
+    settings = reorderSection(settings, "summary", "languages", custom);
+    const order = getEditorSectionOrder(settings, custom);
+    assert.equal(order[order.length - 1], "summary");
+  });
+
+  it("removes custom sections from order and hidden lists", () => {
+    const settings = removeCustomSectionFromSettings(
+      { order: ["custom:x", "summary"], hidden: ["custom:x"] },
+      "x",
+    );
+    assert.deepEqual(settings, { order: ["summary"], hidden: [] });
+  });
+
+  it("renders custom sections at their ordered position in the preview", () => {
+    const state = createEmptyBuilderState();
+    state.summary = "Summary text";
+    state.customSections = [{ id: "awards", title: "Awards", content: "Best paper 2024" }];
+    state.sectionSettings = sanitizeSectionSettings({
+      order: ["custom:awards", "summary"],
+      hidden: [],
+    });
+    const view = buildCvDocumentView(state);
+    assert.deepEqual(view.visibleSectionOrder.slice(0, 2), ["custom:awards", "summary"]);
   });
 });

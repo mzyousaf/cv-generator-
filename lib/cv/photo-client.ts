@@ -7,19 +7,18 @@ import {
 
 export class PhotoTooLargeError extends Error {}
 
-function loadImage(file: File): Promise<HTMLImageElement> {
+function loadImage(src: string, cleanup?: () => void): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
-    const url = URL.createObjectURL(file);
     const image = new Image();
     image.onload = () => {
-      URL.revokeObjectURL(url);
+      cleanup?.();
       resolve(image);
     };
     image.onerror = () => {
-      URL.revokeObjectURL(url);
+      cleanup?.();
       reject(new Error("Unreadable image"));
     };
-    image.src = url;
+    image.src = src;
   });
 }
 
@@ -32,7 +31,17 @@ export async function resizePhotoFile(file: File): Promise<string> {
     throw new PhotoTooLargeError("Image too large");
   }
 
-  const image = await loadImage(file);
+  const url = URL.createObjectURL(file);
+  const image = await loadImage(url, () => URL.revokeObjectURL(url));
+  return encodePortrait(image);
+}
+
+/** Same crop/compression for a photo found inside an imported resume. */
+export async function resizePhotoDataUrl(dataUrl: string): Promise<string> {
+  return encodePortrait(await loadImage(dataUrl));
+}
+
+function encodePortrait(image: HTMLImageElement): string {
   const targetRatio = CV_PHOTO_WIDTH / CV_PHOTO_HEIGHT;
   const sourceRatio = image.naturalWidth / image.naturalHeight;
   let sw = image.naturalWidth;

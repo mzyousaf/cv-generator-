@@ -4,6 +4,7 @@ import { builderStateToContentPatch } from "@/lib/cv/builder-mapper";
 import {
   createEmptyBuilderState,
   type CertificationEntry,
+  type CustomSectionEntry,
   type CvBuilderFormState,
   type EducationEntry,
   type LanguageEntry,
@@ -20,6 +21,8 @@ import { resolveImportResumeTitle } from "@/lib/resume-import/import-title";
 import { sanitizeSectionSettings } from "@/lib/cv/section-settings";
 import {
   RESUME_IMPORT_PARSE_MAX_CERTIFICATIONS,
+  RESUME_IMPORT_PARSE_MAX_CUSTOM_SECTIONS,
+  RESUME_IMPORT_PARSE_MAX_SECTION_TITLE_LENGTH,
   RESUME_IMPORT_PARSE_MAX_DESCRIPTION_LENGTH,
   RESUME_IMPORT_PARSE_MAX_EDUCATION_ENTRIES,
   RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH,
@@ -207,6 +210,20 @@ function sanitizeLanguageEntry(value: unknown, index: number): LanguageEntry | n
   return entry.language || entry.proficiency ? entry : null;
 }
 
+function sanitizeCustomSectionEntry(
+  value: unknown,
+  index: number,
+): CustomSectionEntry | null {
+  const record = isPlainObject(value) ? value : {};
+  const entry: CustomSectionEntry = {
+    id: trimString(record.id, 80).replace(/[^A-Za-z0-9_-]/g, "") || `custom-${index}`,
+    title: trimString(record.title, RESUME_IMPORT_PARSE_MAX_SECTION_TITLE_LENGTH),
+    content: trimString(record.content, RESUME_IMPORT_PARSE_MAX_DESCRIPTION_LENGTH),
+  };
+
+  return entry.title || entry.content ? entry : null;
+}
+
 function sanitizeSkills(value: unknown): string[] {
   if (!Array.isArray(value)) {
     return [];
@@ -306,6 +323,18 @@ export function sanitizeImportReviewState(input: unknown): ImportPrepareResult {
     }
   }
 
+  const customSections: CustomSectionEntry[] = [];
+  if (Array.isArray(input.customSections)) {
+    for (const [index, item] of input.customSections
+      .slice(0, RESUME_IMPORT_PARSE_MAX_CUSTOM_SECTIONS)
+      .entries()) {
+      const entry = sanitizeCustomSectionEntry(item, index);
+      if (entry) {
+        customSections.push(entry);
+      }
+    }
+  }
+
   const title = resolveImportResumeTitle(input.title, personal.fullName);
   const template = resolveTemplateId(
     typeof input.template === "string" ? input.template : "default",
@@ -323,7 +352,7 @@ export function sanitizeImportReviewState(input: unknown): ImportPrepareResult {
     projects,
     certifications,
     languages,
-    customSections: [],
+    customSections,
     sectionSettings: sanitizeSectionSettings(input.sectionSettings),
     documentLocale: resolveDocumentLocale(input.documentLocale),
   };

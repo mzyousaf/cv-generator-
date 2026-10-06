@@ -1,5 +1,7 @@
 import {
   RESUME_IMPORT_PARSE_MAX_CERTIFICATIONS,
+  RESUME_IMPORT_PARSE_MAX_CUSTOM_SECTIONS,
+  RESUME_IMPORT_PARSE_MAX_SECTION_TITLE_LENGTH,
   RESUME_IMPORT_PARSE_MAX_DESCRIPTION_LENGTH,
   RESUME_IMPORT_PARSE_MAX_EDUCATION_ENTRIES,
   RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH,
@@ -10,6 +12,7 @@ import {
   RESUME_IMPORT_PARSE_MAX_SUMMARY_LENGTH,
   RESUME_IMPORT_PARSE_MAX_WORK_ENTRIES,
 } from "@/lib/resume-import/parse-constants";
+import { LOCALES, type Locale } from "@/lib/i18n/preferences";
 
 const FORBIDDEN_KEYS = new Set(["__proto__", "constructor", "prototype"]);
 
@@ -22,6 +25,8 @@ export type SanitizedResumeImportParse = {
     location: string;
     website: string;
     linkedIn: string;
+    dateOfBirth: string;
+    nationality: string;
   };
   summary: string;
   workExperience: Array<{
@@ -57,6 +62,13 @@ export type SanitizedResumeImportParse = {
     language: string;
     proficiency: string;
   }>;
+  customSections: Array<{
+    title: string;
+    content: string;
+  }>;
+  /** Section keys in document order; custom sections as `custom:<index>`. */
+  sectionOrder: string[];
+  documentLanguage: Locale | null;
 };
 
 type SanitizeResult =
@@ -177,6 +189,10 @@ function hasMeaningfulContent(parsed: SanitizedResumeImportParse): boolean {
     return true;
   }
 
+  if (parsed.customSections.length > 0) {
+    return true;
+  }
+
   return false;
 }
 
@@ -197,6 +213,8 @@ function sanitizePersonal(value: unknown): SanitizedResumeImportParse["personal"
       record.linkedIn ?? record.linkedin,
       RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH,
     ),
+    dateOfBirth: trimString(record.dateOfBirth, RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH),
+    nationality: trimString(record.nationality, RESUME_IMPORT_PARSE_MAX_FIELD_LENGTH),
   };
 }
 
@@ -388,6 +406,83 @@ function sanitizeLanguages(value: unknown): SanitizedResumeImportParse["language
   return entries;
 }
 
+/** Accepts plain strings or {title, content}; keeps sections that have text. */
+function sanitizeCustomSections(value: unknown): {
+  entries: SanitizedResumeImportParse["customSections"];
+  /** Model's array index -> index in `entries` (empty sections are dropped). */
+  indexMap: Map<number, number>;
+} {
+  const entries: SanitizedResumeImportParse["customSections"] = [];
+  const indexMap = new Map<number, number>();
+  if (!Array.isArray(value)) {
+    return { entries, indexMap };
+  }
+
+  for (const [index, item] of value.slice(0, RESUME_IMPORT_PARSE_MAX_CUSTOM_SECTIONS).entries()) {
+    const record = readPlainObject(item);
+    if (!record) {
+      continue;
+    }
+
+    const rawContent = Array.isArray(record.content)
+      ? record.content.filter((line) => typeof line === "string").join("\n")
+      : record.content ?? record.text ?? record.items;
+    const entry = {
+      title: trimString(record.title ?? record.heading, RESUME_IMPORT_PARSE_MAX_SECTION_TITLE_LENGTH),
+      content: trimString(rawContent, RESUME_IMPORT_PARSE_MAX_DESCRIPTION_LENGTH),
+    };
+
+    if (entry.content) {
+      indexMap.set(index, entries.length);
+      entries.push(entry);
+    }
+  }
+
+  return { entries, indexMap };
+}
+
+const ORDERABLE_KEYS = new Set([
+  "summary",
+  "workExperience",
+  "education",
+  "skills",
+  "projects",
+  "certifications",
+  "languages",
+]);
+
+function sanitizeSectionOrder(value: unknown, customIndexMap: Map<number, number>): string[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const item of value.slice(0, 60)) {
+    if (typeof item !== "string") {
+      continue;
+    }
+    let key = item.trim();
+    const customMatch = /^custom:(\d{1,3})$/.exec(key);
+    if (customMatch) {
+      const mapped = customIndexMap.get(Number(customMatch[1]));
+      key = mapped === undefined ? "" : `custom:${mapped}`;
+    }
+    const valid = ORDERABLE_KEYS.has(key) || key.startsWith("custom:");
+    if (valid && !seen.has(key)) {
+      seen.add(key);
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+function sanitizeDocumentLanguage(value: unknown): Locale | null {
+  return typeof value === "string" && (LOCALES as readonly string[]).includes(value)
+    ? (value as Locale)
+    : null;
+}
+
 function rejectForbiddenKeys(value: Record<string, unknown>): SanitizeResult | null {
   for (const key of Object.keys(value)) {
     if (FORBIDDEN_KEYS.has(key)) {
@@ -427,7 +522,13 @@ export function sanitizeParsedResumeImport(
     projects: sanitizeProjects(root.projects),
     certifications: sanitizeCertifications(root.certifications),
     languages: sanitizeLanguages(root.languages),
+    customSections: [],
+    sectionOrder: [],
+    documentLanguage: sanitizeDocumentLanguage(root.documentLanguage),
   };
+  const custom = sanitizeCustomSections(root.customSections);
+  parsed.customSections = custom.entries;
+  parsed.sectionOrder = sanitizeSectionOrder(root.sectionOrder, custom.indexMap);
 
   if (!hasMeaningfulContent(parsed)) {
     return {

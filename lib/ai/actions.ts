@@ -40,3 +40,15 @@ export async function suggestSkillsAction(
 ): Promise<AiResult<string[]>> {
   return withAuthenticatedUser(() => aiService.suggestSkills(input));
 }
+
+export async function writeSectionAction(
+  input: unknown,
+): Promise<AiResult<string>> {
+  return withAuthenticatedUser(() => aiService.writeSection(input));
+}
+
+export async function createSectionAction(
+  input: unknown,
+): Promise<AiResult<{ title: string; content: string }>> {
+  return withAuthenticatedUser(() => aiService.createSection(input));
+}

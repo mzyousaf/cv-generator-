@@ -15,6 +15,8 @@ import type {
 import { resumeImportFinalizeService } from "@/lib/resume-import/finalize-service-instance";
 import { resumeImportParseService } from "@/lib/resume-import/parse-service-instance";
 import { resumeImportService } from "@/lib/resume-import/service-instance";
+import { RESUME_IMPORT_MIN_PARSE_TEXT_LENGTH } from "@/lib/resume-import/parse-constants";
+import { LOCALES, type Locale } from "@/lib/i18n/preferences";
 
 async function readUploadFromFormData(formData: FormData) {
   const file = formData.get("file");
@@ -52,6 +54,10 @@ export async function extractResumeImportAction(
   });
 }
 
+/**
+ * Reads an uploaded resume with AI: text (or the PDF itself when it has no
+ * text layer) is converted into builder sections, plus a photo candidate.
+ */
 export async function importResumeForReviewAction(
   formData: FormData,
 ): Promise<ResumeImportResult<ResumeImportReviewPayload>> {
@@ -66,18 +72,35 @@ export async function importResumeForReviewAction(
     return upload;
   }
 
-  const extraction = await resumeImportService.processUpload({
+  const read = await resumeImportService.readUpload({
     buffer: upload.data.buffer,
     filename: upload.data.filename,
   });
-
-  if (!extraction.success) {
-    return extraction;
+  if (!read.success) {
+    return read;
   }
 
-  const parsed = await resumeImportParseService.parseExtractedText(
-    extraction.data.extractedText,
-  );
+  const { upload: file, text, photoCandidate } = read.data;
+  const requestedLocale = formData.get("locale");
+  const fallbackLocale = (LOCALES as readonly unknown[]).includes(requestedLocale)
+    ? (requestedLocale as Locale)
+    : undefined;
+  const hasText = text.trim().length >= RESUME_IMPORT_MIN_PARSE_TEXT_LENGTH;
+
+  if (!hasText && file.kind !== "pdf") {
+    return resumeImportError(
+      RESUME_IMPORT_ERROR_CODES.TEXT_TOO_SHORT,
+      RESUME_IMPORT_ERROR_MESSAGES.TEXT_TOO_SHORT,
+    );
+  }
+
+  const parsed = hasText
+    ? await resumeImportParseService.parseExtractedText(text, fallbackLocale)
+    : await resumeImportParseService.parsePdfFile({
+        filename: file.filename,
+        buffer: file.buffer,
+        fallbackLocale,
+      });
 
   if (!parsed.success) {
     return parsed;
@@ -86,10 +109,11 @@ export async function importResumeForReviewAction(
   return {
     success: true,
     data: {
-      filename: extraction.data.filename,
-      fileType: extraction.data.fileType,
-      fileSizeBytes: extraction.data.fileSizeBytes,
+      filename: file.filename,
+      fileType: file.kind,
+      fileSizeBytes: file.sizeBytes,
       reviewState: parsed.data,
+      photoCandidate,
     },
   };
 }

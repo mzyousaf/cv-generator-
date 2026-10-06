@@ -51,3 +51,33 @@ describe("getAiEnv", () => {
     assert.deepEqual(env.headers, {});
   });
 });
+
+describe("buildRequestBody", () => {
+  it("adds JSON mode, PDF attachments and the OCR plugin for OpenRouter", async () => {
+    const { buildRequestBody } = await import("@/lib/ai/providers/openai-http");
+    const env = getAiEnv({ OPENROUTER_API_KEY: "k" })!;
+    const body = buildRequestBody(env, {
+      systemPrompt: "s",
+      userPrompt: "u",
+      json: true,
+      files: [{ filename: "cv.pdf", mimeType: "application/pdf", dataBase64: "QUJD" }],
+    }) as Record<string, unknown>;
+
+    assert.deepEqual(body.response_format, { type: "json_object" });
+    assert.deepEqual(body.plugins, [{ id: "file-parser", pdf: { engine: "mistral-ocr" } }]);
+    const messages = body.messages as Array<{ content: unknown }>;
+    assert.deepEqual(messages[1].content, [
+      { type: "text", text: "u" },
+      { type: "file", file: { filename: "cv.pdf", file_data: "data:application/pdf;base64,QUJD" } },
+    ]);
+  });
+
+  it("sends plain text prompts without plugins", async () => {
+    const { buildRequestBody } = await import("@/lib/ai/providers/openai-http");
+    const env = getAiEnv({ OPENAI_API_KEY: "k" })!;
+    const body = buildRequestBody(env, { systemPrompt: "s", userPrompt: "u" }) as Record<string, unknown>;
+    assert.equal(body.plugins, undefined);
+    assert.equal(body.response_format, undefined);
+    assert.equal((body.messages as Array<{ content: unknown }>)[1].content, "u");
+  });
+});
