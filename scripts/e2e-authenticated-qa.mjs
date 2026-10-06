@@ -62,11 +62,10 @@ const KEYS = [
 
   "AUTH_GOOGLE_SECRET",
 
-  "OPENAI_API_KEY",
+  "OPENROUTER_API_KEY",
 
   "AI_MODEL",
 
-  "AI_BASE_URL",
 
 ];
 
@@ -274,51 +273,18 @@ async function runImportFlow(page, fileName, phasePrefix) {
 
   await page.locator('input[type="file"]').first().setInputFiles(filePath);
 
-  await page.getByRole("button", { name: "Import Resume" }).click();
-
-
-
-  if (!configured.OPENAI_API_KEY) {
-
+  // Import starts automatically: AI parses the file, creates the CV and opens the editor.
+  if (!configured.OPENROUTER_API_KEY) {
     await page.waitForTimeout(4000);
-
-    const reviewVisible = await page
-
-      .getByRole("heading", { name: /Review your resume/i })
-
-      .isVisible()
-
-      .catch(() => false);
-
-    record(phasePrefix, reviewVisible ? "pass" : "blocked", {
-
-      reason: reviewVisible ? "unexpected parse without AI" : "OPENAI_API_KEY not configured",
-
+    const opened = /\/dashboard\/cv\//.test(page.url());
+    record(phasePrefix, opened ? "pass" : "blocked", {
+      reason: opened ? "unexpected parse without AI" : "OPENROUTER_API_KEY not configured",
     });
-
     return null;
-
   }
 
-
-
-  await page.getByRole("heading", { name: /Review your resume/i }).waitFor({
-
-    timeout: 120_000,
-
-  });
-
-  record(`${phasePrefix}_review`, "pass");
-
-
-
-  const marker = `QA-IMPORT-${Date.now()}`;
-
-  await page.locator("#import-resume-title").fill(`Imported ${marker}`);
-
-  await page.getByRole("button", { name: "Create Resume" }).click();
-
-  await page.waitForURL(/\/dashboard\/cv\//, { timeout: 30_000 });
+  await page.waitForURL(/\/dashboard\/cv\//, { timeout: 150_000 });
+  record(`${phasePrefix}_created`, "pass");
 
   const importCvId = page.url().split("/").pop();
 
@@ -332,7 +298,7 @@ async function runImportFlow(page, fileName, phasePrefix) {
 
   const title = await page.locator("#cv-title").inputValue();
 
-  record(phasePrefix, title.includes(marker) ? "pass" : "fail");
+  record(phasePrefix, title.trim().length > 0 ? "pass" : "fail");
 
   return importCvId;
 
@@ -728,7 +694,7 @@ try {
 
 
 
-  if (configured.OPENAI_API_KEY && cvIdA) {
+  if (configured.OPENROUTER_API_KEY && cvIdA) {
 
     record("ai_live", "skip", {
 
@@ -738,7 +704,7 @@ try {
 
   } else {
 
-    record("ai_live", "skip", { reason: "OPENAI_API_KEY not configured" });
+    record("ai_live", "skip", { reason: "OPENROUTER_API_KEY not configured" });
 
   }
 

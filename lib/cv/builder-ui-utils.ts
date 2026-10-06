@@ -4,13 +4,10 @@ import type {
   LanguageEntry,
   ProjectEntry,
   WorkExperienceEntry,
+  CvBuilderFormState,
 } from "@/lib/cv/builder-types";
-import { getOrderedSectionNavItems } from "@/lib/cv/builder-section-nav";
-import {
-  isSectionHidden,
-  type CvSectionSettings,
-  type ManageableSectionId,
-} from "@/lib/cv/section-settings";
+import { getOrderedSectionKeys, type BuilderNavKey } from "@/lib/cv/builder-section-nav";
+import { isSectionHidden, type CvSectionSettings } from "@/lib/cv/section-settings";
 
 export type BuilderMobilePane = "edit" | "preview";
 
@@ -200,7 +197,7 @@ export function removeSkillFromList(skills: string[], index: number): string[] {
 
 export function sectionNavHiddenState(
   settings: CvSectionSettings,
-  sectionId: ManageableSectionId | "personal",
+  sectionId: BuilderNavKey,
 ): boolean {
   if (sectionId === "personal") {
     return false;
@@ -208,6 +205,9 @@ export function sectionNavHiddenState(
   return isSectionHidden(settings, sectionId);
 }
 
-export function orderedSectionNavIds(settings: CvSectionSettings): string[] {
-  return getOrderedSectionNavItems(settings).map((item) => item.id);
+export function orderedSectionNavIds(
+  settings: CvSectionSettings,
+  customSections: CvBuilderFormState["customSections"] = [],
+): string[] {
+  return getOrderedSectionKeys({ sectionSettings: settings, customSections });
 }

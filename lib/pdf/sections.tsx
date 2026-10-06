@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import type { Style } from "@react-pdf/types";
 import { View } from "@react-pdf/renderer";
 import { DirText as Text, pdfDir } from "@/lib/pdf/direction";
-import type { CvDocumentView } from "@/components/cv-templates/view-model";
-import type { ManageableSectionId } from "@/lib/cv/section-settings";
+import { findCustomSection, type CvDocumentView } from "@/components/cv-templates/view-model";
+import { isCustomSectionKey, type SectionKey } from "@/lib/cv/section-settings";
 
 type SectionProps = {
   title: string;
@@ -256,34 +256,8 @@ export function PdfLanguagesSection({
   );
 }
 
-export function PdfCustomSections({
-  view,
-  headingStyle,
-}: {
-  view: CvDocumentView;
-  headingStyle: Style;
-}) {
-  if (view.customSections.length === 0) {
-    return null;
-  }
-
-  return (
-    <>
-      {view.customSections.map((entry) => (
-        <PdfSection
-          key={entry.id}
-          title={entry.title}
-          headingStyle={headingStyle}
-        >
-          <Text style={{ fontSize: 10, lineHeight: 1.45 }}>{entry.content}</Text>
-        </PdfSection>
-      ))}
-    </>
-  );
-}
-
 function renderPdfSection(
-  sectionId: ManageableSectionId,
+  sectionId: SectionKey,
   view: CvDocumentView,
   styles: {
     headingStyle: Style;
@@ -292,6 +266,15 @@ function renderPdfSection(
     dateStyle: Style;
   },
 ) {
+  if (isCustomSectionKey(sectionId)) {
+    const custom = findCustomSection(view, sectionId);
+    return custom ? (
+      <PdfSection key={sectionId} title={custom.title} headingStyle={styles.headingStyle}>
+        <Text style={{ fontSize: 10, lineHeight: 1.45 }}>{custom.content.trim()}</Text>
+      </PdfSection>
+    ) : null;
+  }
+
   switch (sectionId) {
     case "summary":
       return <PdfSummarySection key={sectionId} view={view} headingStyle={styles.headingStyle} />;
@@ -364,7 +347,6 @@ export function PdfBodySections({
       {view.visibleSectionOrder.map((sectionId) =>
         renderPdfSection(sectionId, view, styles),
       )}
-      <PdfCustomSections view={view} headingStyle={headingStyle} />
     </>
   );
 }

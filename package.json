@@ -15,8 +15,13 @@
     "qa:e2e:cleanup": "node scripts/e2e-cleanup.mjs"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@react-pdf/renderer": "^4.9.0",
     "bcryptjs": "^3.0.3",
+    "jszip": "^3.10.1",
     "mammoth": "^1.13.0",
     "mongoose": "^9.10.2",
     "next": "16.3.6",

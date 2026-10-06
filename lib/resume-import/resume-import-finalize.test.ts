@@ -29,6 +29,8 @@ function sampleParsed(): SanitizedResumeImportParse {
       location: "Boston",
       website: "https://example.com",
       linkedIn: "https://linkedin.com/in/john",
+      dateOfBirth: "",
+      nationality: "",
     },
     summary: "Experienced engineer.",
     workExperience: [
@@ -67,6 +69,9 @@ function sampleParsed(): SanitizedResumeImportParse {
       { name: "AWS Certified", issuer: "Amazon", date: "2021", url: "" },
     ],
     languages: [{ language: "English", proficiency: "Native" }],
+    customSections: [{ title: "Awards", content: "- Engineer of the year 2022" }],
+    sectionOrder: ["summary", "custom:0", "workExperience"],
+    documentLanguage: null,
   };
 }
 
@@ -294,5 +299,41 @@ describe("prepareImportForCreate", () => {
     if (prepared.ok) {
       assert.equal(prepared.value.template, "default");
     }
+  });
+});
+
+describe("resume import keeps every section", () => {
+  it("maps custom sections in document order and keeps them on create", async () => {
+    const review = reviewFromParsed();
+    assert.equal(review.customSections.length, 1);
+    const awardsKey = `custom:${review.customSections[0].id}`;
+    assert.deepEqual(review.sectionSettings.order.slice(0, 3), ["summary", awardsKey, "workExperience"]);
+
+    let created: unknown;
+    const service = createResumeImportFinalizeService({
+      createCv: async (input) => {
+        created = input;
+        return {
+          success: true,
+          data: {
+            id: CV_ID,
+            title: String(input.title),
+            template: String(input.template),
+            content: input.content as never,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+        };
+      },
+    });
+
+    const result = await service.createFromReview(review);
+    assert.equal(result.success, true);
+    const content = (created as { content: Record<string, unknown> }).content;
+    assert.deepEqual(content.customSections, [
+      { id: review.customSections[0].id, title: "Awards", content: "- Engineer of the year 2022" },
+    ]);
+    const order = (content.sectionSettings as { order: string[] }).order;
+    assert.equal(order[1], awardsKey);
   });
 });

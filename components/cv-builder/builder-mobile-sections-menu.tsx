@@ -1,51 +1,54 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
-
 import { useEffect, useRef, useState } from "react";
-import {
-  getOrderedSectionNavItems,
-  scrollToBuilderSection,
-} from "@/lib/cv/builder-section-nav";
-import {
-  isSectionHidden,
-  type ManageableSectionId,
-} from "@/lib/cv/section-settings";
+import { scrollToBuilderSection } from "@/lib/cv/builder-section-nav";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
-import { BuilderSectionIcon } from "@/components/cv-builder/builder-section-icons";
+import type { AddSectionMode } from "@/components/cv-builder/add-section-modal";
+import { SectionNavActions } from "@/components/cv-builder/section-nav-actions";
+import { SectionOrderList } from "@/components/cv-builder/section-order-list";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
 type BuilderMobileSectionsMenuProps = {
   state: CvBuilderFormState;
+  onChange: (next: CvBuilderFormState) => void;
+  onAddSection: (mode: AddSectionMode) => void;
   className?: string;
 };
 
 export function BuilderMobileSectionsMenu({
   state,
+  onChange,
+  onAddSection,
   className,
 }: BuilderMobileSectionsMenuProps) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const navItems = getOrderedSectionNavItems(state.sectionSettings);
 
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    function onPointerDown(event: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
+    function onPointerDown(event: PointerEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
         setOpen(false);
       }
     }
 
-    document.addEventListener("mousedown", onPointerDown);
-    return () => document.removeEventListener("mousedown", onPointerDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
   }, [open]);
 
   return (
@@ -55,51 +58,36 @@ export function BuilderMobileSectionsMenu({
         variant="outline"
         size="sm"
         aria-expanded={open}
-        aria-haspopup="listbox"
         onClick={() => setOpen((current) => !current)}
         className="w-full justify-between sm:w-auto"
       >
         {t.builder.sections}
-        <span aria-hidden className="text-slate-500">
+        <span aria-hidden className={cn("text-slate-500 transition-transform", open && "rotate-180")}>
           ▾
         </span>
       </Button>
       {open ? (
-        <ul
-          aria-label={t.builder.resumeSections}
-          className="absolute start-0 end-0 z-30 mt-1 max-h-72 overflow-y-auto rounded-xl border border-slate-200 bg-surface py-1 shadow-lg sm:start-0 sm:end-auto sm:min-w-[260px]"
-        >
-          {navItems.map((item) => {
-            const hidden =
-              item.id !== "personal" &&
-              isSectionHidden(
-                state.sectionSettings,
-                item.id as ManageableSectionId,
-              );
-
-            return (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  className="flex w-full cursor-pointer items-center gap-2 px-3 py-2.5 text-start text-sm text-slate-800 hover:bg-slate-50 focus:outline-none focus-visible:bg-slate-50"
-                  onClick={() => {
-                    scrollToBuilderSection(item.id);
-                    setOpen(false);
-                  }}
-                >
-                  <BuilderSectionIcon
-                    sectionId={item.id}
-                    className="shrink-0 text-slate-500"
-                  />
-                  <span className="flex-1">{t.sections[item.id]}</span>
-                  {hidden ? (
-                    <span className="text-xs text-slate-400">{t.common.hidden}</span>
-                  ) : null}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="absolute start-0 end-0 z-30 mt-1 rounded-lg border border-slate-200 bg-surface p-2 shadow-lg sm:end-auto sm:w-[300px]">
+          <p className="px-2 pb-1.5 text-[11px] leading-snug text-slate-400">{t.builder.reorderHint}</p>
+          <div className="max-h-[50vh] overflow-y-auto">
+            <SectionOrderList
+              state={state}
+              onChange={onChange}
+              onNavigate={(key) => {
+                scrollToBuilderSection(key);
+                setOpen(false);
+              }}
+            />
+          </div>
+          <div className="mt-2 border-t border-slate-100 px-1 pt-2">
+            <SectionNavActions
+              onAddSection={(mode) => {
+                setOpen(false);
+                onAddSection(mode);
+              }}
+            />
+          </div>
+        </div>
       ) : null}
     </div>
   );

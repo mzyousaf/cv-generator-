@@ -11,8 +11,10 @@ import {
 } from "@/lib/cv/document-labels";
 import {
   createDefaultSectionSettings,
+  customSectionIdFromKey,
   getVisibleSectionOrder,
-  type ManageableSectionId,
+  isCustomSectionKey,
+  type SectionKey,
 } from "@/lib/cv/section-settings";
 import { localeDirection, type Locale } from "@/lib/i18n/preferences";
 import { formatDateRange, formatMonth } from "@/components/cv-templates/utils/format-dates";
@@ -36,8 +38,22 @@ export type CvDocumentView = Omit<
   personalDetails: { label: string; value: string }[];
   skillsList: string[];
   isEmpty: boolean;
-  visibleSectionOrder: ManageableSectionId[];
+  /** Built-in and custom sections in display order, hidden ones removed. */
+  visibleSectionOrder: SectionKey[];
 };
+
+/** Resolves a `custom:<id>` key to its (non-empty) custom section, if any. */
+export function findCustomSection(
+  view: Pick<CvDocumentView, "customSections">,
+  key: SectionKey,
+): CvDocumentView["customSections"][number] | null {
+  if (!isCustomSectionKey(key)) {
+    return null;
+  }
+  const id = customSectionIdFromKey(key);
+  const entry = view.customSections.find((item) => item.id === id);
+  return entry && entry.content.trim() ? entry : null;
+}
 
 export function buildCvDocumentView(state: CvBuilderFormState): CvDocumentView {
   const locale = state.documentLocale ?? "en";
@@ -65,7 +81,7 @@ export function buildCvDocumentView(state: CvBuilderFormState): CvDocumentView {
     dir: localeDirection(locale),
     labels,
     sectionSettings,
-    visibleSectionOrder: getVisibleSectionOrder(sectionSettings),
+    visibleSectionOrder: getVisibleSectionOrder(sectionSettings, state.customSections),
     displayName: personal.fullName.trim() || labels.yourName,
     displayTitle: personal.professionalTitle.trim() || labels.professionalTitle,
     contactItems: [

@@ -2,457 +2,271 @@
 
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { localizeServerMessage } from "@/lib/i18n/server-messages";
-
-
-
-import { useId, useRef, useState } from "react";
-
+import { useEffect, useId, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { UploadIcon } from "@/components/dashboard/icons";
-
-import { ResumeImportReviewPanel } from "@/components/dashboard/resume-import-review-panel";
-
 import { Button } from "@/components/ui/button";
-
-import { Card, CardContent } from "@/components/ui/card";
-
 import { FormMessage } from "@/components/ui/form-message";
-
+import { Spinner } from "@/components/ui/spinner";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
-
+import { resizePhotoDataUrl } from "@/lib/cv/photo-client";
 import {
   RESUME_IMPORT_ACCEPT,
   RESUME_IMPORT_MAX_FILE_BYTES,
 } from "@/lib/resume-import/constants";
-
-import { importResumeForReviewAction } from "@/lib/resume-import/actions";
-
-import type { ResumeImportFileKind } from "@/lib/resume-import/constants";
-
+import {
+  createResumeFromImportAction,
+  importResumeForReviewAction,
+} from "@/lib/resume-import/actions";
 import { format } from "@/lib/i18n/format";
 import { formatFileSize, validateResumeFileClient } from "@/lib/resume-import/validation";
-
 import { cn } from "@/lib/cn";
 
+type ImportStep = "reading" | "analyzing" | "creating";
 
+const STEPS: ImportStep[] = ["reading", "analyzing", "creating"];
 
-type SelectedFile = {
+/** The read + AI parse run as one request; move the indicator on after a moment. */
+const ANALYZING_AFTER_MS = 2500;
 
-  file: File;
-
-  kindLabel: string;
-
-};
-
-
-
-type ImportReviewSession = {
-
-  filename: string;
-
-  fileType: ResumeImportFileKind;
-
-  fileSizeBytes: number;
-
-  reviewState: CvBuilderFormState;
-
-};
-
-
+async function withImportedPhoto(
+  state: CvBuilderFormState,
+  photoCandidate: string | null,
+): Promise<CvBuilderFormState> {
+  if (!photoCandidate || state.personal.photo) {
+    return state;
+  }
+  try {
+    const photo = await resizePhotoDataUrl(photoCandidate);
+    return { ...state, personal: { ...state.personal, photo } };
+  } catch {
+    return state;
+  }
+}
 
 export function ResumeUploadDropzone() {
-  const { t } = useI18n();
-
+  const { t, locale } = useI18n();
+  const router = useRouter();
   const inputId = useId();
-
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const busyRef = useRef(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+  const [step, setStep] = useState<ImportStep | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const [selected, setSelected] = useState<SelectedFile | null>(null);
-
-  const [clientError, setClientError] = useState<string | null>(null);
-
-  const [serverError, setServerError] = useState<string | null>(null);
-
-  const [isImporting, setIsImporting] = useState(false);
-
-  const [reviewSession, setReviewSession] = useState<ImportReviewSession | null>(
-
-    null,
-
-  );
-
-
-
-  function resetErrors() {
-
-    setClientError(null);
-
-    setServerError(null);
-
-  }
-
-
-
-  function clearSelection() {
-
-    setSelected(null);
-
-    setReviewSession(null);
-
-    resetErrors();
-
-  }
-
-
-
-  function selectFile(file: File) {
-
-    resetErrors();
-
-    setReviewSession(null);
-
-
-
-    const validationError = validateResumeFileClient(file);
-
-    if (validationError) {
-
-      setClientError(localizeServerMessage(t, validationError));
-
-      setSelected(null);
-
+  useEffect(() => {
+    if (step !== "reading") {
       return;
-
     }
+    const timer = setTimeout(
+      () => setStep((current) => (current === "reading" ? "analyzing" : current)),
+      ANALYZING_AFTER_MS,
+    );
+    return () => clearTimeout(timer);
+  }, [step]);
 
+  async function runImport(selected: File) {
+    if (busyRef.current) {
+      return;
+    }
+    busyRef.current = true;
+    setError(null);
+    setStep("reading");
 
+    try {
+      const formData = new FormData();
+      formData.append("file", selected);
+      formData.append("locale", locale);
+      const analyzed = await importResumeForReviewAction(formData);
+      if (!analyzed.success) {
+        setError(localizeServerMessage(t, analyzed.error.message));
+        setStep(null);
+        return;
+      }
 
-    const lower = file.name.toLowerCase();
+      setStep("creating");
+      const state = await withImportedPhoto(
+        analyzed.data.reviewState,
+        analyzed.data.photoCandidate,
+      );
 
-    const kindLabel = lower.endsWith(".pdf") ? "PDF" : "DOCX";
+      const created = await createResumeFromImportAction(state);
+      if (!created.success) {
+        setError(localizeServerMessage(t, created.error.message));
+        setStep(null);
+        return;
+      }
 
-    setSelected({ file, kindLabel });
-
+      router.push(`/dashboard/cv/${created.data.cvId}`);
+    } catch {
+      setError(t.serverErrors.importExtraction);
+      setStep(null);
+    } finally {
+      busyRef.current = false;
+    }
   }
-
-
 
   function handleFiles(files: FileList | null) {
-
-    if (!files?.length) {
-
+    const selected = files?.[0];
+    if (!selected || busyRef.current) {
       return;
-
     }
 
-    selectFile(files[0]);
-
-  }
-
-
-
-  async function runImport() {
-
-    if (!selected || isImporting) {
-
+    const validationError = validateResumeFileClient(selected);
+    if (validationError) {
+      setFile(null);
+      setError(localizeServerMessage(t, validationError));
       return;
-
     }
 
-
-
-    resetErrors();
-
-    setIsImporting(true);
-
-
-
-    const formData = new FormData();
-
-    formData.append("file", selected.file);
-
-
-
-    const result = await importResumeForReviewAction(formData);
-
-    setIsImporting(false);
-
-
-
-    if (!result.success) {
-
-      setServerError(localizeServerMessage(t, result.error.message));
-
-      return;
-
-    }
-
-
-
-    setReviewSession({
-
-      filename: result.data.filename,
-
-      fileType: result.data.fileType,
-
-      fileSizeBytes: result.data.fileSizeBytes,
-
-      reviewState: result.data.reviewState,
-
-    });
-
+    setFile(selected);
+    void runImport(selected);
   }
 
-
-
-  if (reviewSession) {
-
-    return (
-
-      <ResumeImportReviewPanel
-
-        filename={reviewSession.filename}
-
-        fileType={reviewSession.fileType}
-
-        fileSizeBytes={reviewSession.fileSizeBytes}
-
-        reviewState={reviewSession.reviewState}
-
-        onReviewStateChange={(next) =>
-
-          setReviewSession((current) =>
-
-            current ? { ...current, reviewState: next } : current,
-
-          )
-
-        }
-
-        onBack={clearSelection}
-
-      />
-
-    );
-
-  }
-
-
+  const isBusy = step !== null;
 
   return (
-
     <div className="space-y-3">
-
       <div
-
         onDragEnter={(e) => {
-
           e.preventDefault();
-
-          setIsDragging(true);
-
+          if (!isBusy) setIsDragging(true);
         }}
-
         onDragOver={(e) => {
-
           e.preventDefault();
-
-          setIsDragging(true);
-
+          if (!isBusy) setIsDragging(true);
         }}
-
         onDragLeave={(e) => {
-
           e.preventDefault();
-
           if (e.currentTarget === e.target) {
-
             setIsDragging(false);
-
           }
-
         }}
-
         onDrop={(e) => {
-
           e.preventDefault();
-
           setIsDragging(false);
-
           handleFiles(e.dataTransfer.files);
-
         }}
-
         onClick={(e) => {
           // Touch devices can't drag and drop, so the whole zone opens the picker.
-          if (e.target === inputRef.current || (e.target as HTMLElement).closest("button")) {
+          if (
+            isBusy ||
+            e.target === inputRef.current ||
+            (e.target as HTMLElement).closest("button")
+          ) {
             return;
           }
           inputRef.current?.click();
         }}
-
+        aria-busy={isBusy || undefined}
         className={cn(
-
-          "group/drop cursor-pointer rounded-3xl border-2 border-dashed bg-surface/70 p-8 text-center transition-all duration-200 sm:p-10",
-
+          "group/drop rounded-2xl border-2 border-dashed bg-surface/70 p-6 transition-all duration-200 sm:p-8",
           isDragging
-
             ? "border-blue-400 bg-blue-50/70 shadow-[0_0_0_6px_color-mix(in_oklab,var(--brand-600)_8%,transparent)]"
-
-            : "border-slate-200 hover:border-blue-300 hover:bg-surface",
-
+            : "border-slate-200",
+          !isBusy && "cursor-pointer hover:border-blue-300 hover:bg-surface",
         )}
-
       >
-
-        <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100/60 text-blue-600 shadow-[0_8px_20px_-10px_color-mix(in_oklab,var(--brand-600)_60%,transparent)] ring-1 ring-blue-100 transition-transform duration-300 group-hover/drop:-translate-y-0.5">
-
-          <UploadIcon className="size-7" />
-
-        </div>
-
-        <h2 className="mt-4 text-lg font-bold tracking-tight text-slate-950">
-
-          {t.importer.uploadTitle}
-
-        </h2>
-
-        <p className="mx-auto mt-2 max-w-md text-sm text-slate-600">
-
-          {t.importer.dropPrompt}{" "}
-
-          <button
-
-            type="button"
-
-            className="cursor-pointer font-semibold text-blue-700 underline-offset-2 hover:text-blue-800 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-
-            onClick={() => inputRef.current?.click()}
-
-          >
-
-            {t.importer.browse}
-
-          </button>
-
-        </p>
-
-        <p className="mt-1 text-xs text-slate-500">
-
-          {format(t.importer.fileHint, {
-            size: `${RESUME_IMPORT_MAX_FILE_BYTES / (1024 * 1024)} MB`,
-          })}
-
-        </p>
-
+        {isBusy && file ? (
+          <div className="mx-auto max-w-md">
+            <div className="flex items-center gap-3">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
+                <Spinner className="size-5" />
+              </div>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-slate-900">{file.name}</p>
+                <p className="text-xs text-slate-500">{formatFileSize(file.size)}</p>
+              </div>
+            </div>
+            <ol className="mt-5 space-y-2.5" aria-live="polite">
+              {STEPS.map((item, index) => {
+                const activeIndex = STEPS.indexOf(step);
+                const state =
+                  index < activeIndex ? "done" : index === activeIndex ? "active" : "todo";
+                return (
+                  <li key={item} className="flex items-center gap-3 text-sm">
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "flex size-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold",
+                        state === "done" && "bg-emerald-500 text-white",
+                        state === "active" && "bg-blue-600 text-white",
+                        state === "todo" && "bg-slate-100 text-slate-400",
+                      )}
+                    >
+                      {state === "done" ? "✓" : index + 1}
+                    </span>
+                    <span
+                      className={cn(
+                        state === "active" ? "font-semibold text-slate-900" : "text-slate-500",
+                      )}
+                    >
+                      {t.importer.steps[item]}
+                    </span>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        ) : (
+          <div className="text-center">
+            <div className="mx-auto flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/60 text-blue-600 ring-1 ring-blue-100 transition-transform duration-300 group-hover/drop:-translate-y-0.5">
+              <UploadIcon className="size-6" />
+            </div>
+            <h2 className="mt-4 text-lg font-bold tracking-tight text-slate-950">
+              {t.importer.uploadTitle}
+            </h2>
+            <p className="mx-auto mt-1.5 max-w-lg text-sm text-slate-600">
+              {t.importer.autoHint}
+            </p>
+            <p className="mx-auto mt-3 max-w-md text-sm text-slate-600">
+              {t.importer.dropPrompt}{" "}
+              <button
+                type="button"
+                className="cursor-pointer font-semibold text-blue-700 underline-offset-2 hover:text-blue-800 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+                onClick={() => inputRef.current?.click()}
+              >
+                {t.importer.browse}
+              </button>
+            </p>
+            <p className="mt-1 text-xs text-slate-500">
+              {format(t.importer.fileHint, {
+                size: `${RESUME_IMPORT_MAX_FILE_BYTES / (1024 * 1024)} MB`,
+              })}
+            </p>
+          </div>
+        )}
         <input
-
           ref={inputRef}
-
           id={inputId}
-
           type="file"
-
           accept={RESUME_IMPORT_ACCEPT}
-
           className="sr-only"
-
+          disabled={isBusy}
           onChange={(e) => {
-
             handleFiles(e.target.files);
-
             e.target.value = "";
-
           }}
-
         />
-
       </div>
 
-
-
-      {selected ? (
-
-        <Card>
-
-          <CardContent className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
-
-            <div className="min-w-0">
-
-              <p className="truncate text-sm font-semibold text-slate-900">
-
-                {selected.file.name}
-
-              </p>
-
-              <p className="mt-0.5 text-sm text-slate-600">
-
-                {selected.kindLabel}, {formatFileSize(selected.file.size)}
-
-              </p>
-
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-
-              <Button
-
-                type="button"
-
-                variant="outline"
-
-                size="sm"
-
-                disabled={isImporting}
-
-                onClick={clearSelection}
-
-              >
-
-                {t.common.remove}
-
-              </Button>
-
-              <Button
-
-                type="button"
-
-                variant="primary"
-
-                size="sm"
-
-                disabled={isImporting}
-
-                isLoading={isImporting}
-
-                loadingText={serverError ? t.importer.retrying : t.importer.importing}
-
-                onClick={() => void runImport()}
-
-              >
-
-                {serverError ? t.importer.retry : t.importer.importResume}
-
-              </Button>
-
-            </div>
-
-          </CardContent>
-
-        </Card>
-
+      {error ? (
+        <div className="space-y-2">
+          <FormMessage>{error}</FormMessage>
+          {file ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              disabled={isBusy}
+              onClick={() => void runImport(file)}
+            >
+              {t.importer.retry}
+            </Button>
+          ) : null}
+        </div>
       ) : null}
-
-
-
-      {clientError ? <FormMessage>{clientError}</FormMessage> : null}
-
-      {serverError ? <FormMessage>{serverError}</FormMessage> : null}
-
     </div>
-
   );
-
 }
-

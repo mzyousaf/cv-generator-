@@ -22,7 +22,13 @@ import {
 } from "@/components/cv-builder/builder-header";
 import { BuilderPreviewPanel } from "@/components/cv-builder/builder-preview-panel";
 import { BuilderSidebarNav } from "@/components/cv-builder/builder-sidebar-nav";
-import { ManageSectionsModal } from "@/components/cv-builder/manage-sections-modal";
+import {
+  AddSectionModal,
+  type AddSectionMode,
+} from "@/components/cv-builder/add-section-modal";
+import { addCustomSection } from "@/lib/cv/custom-sections";
+import { scrollToBuilderSection } from "@/lib/cv/builder-section-nav";
+import { customSectionKey } from "@/lib/cv/section-settings";
 import { TemplatePickerModal } from "@/components/cv-builder/template-picker-modal";
 import type { BuilderMobilePane } from "@/lib/cv/builder-ui-utils";
 import { cn } from "@/lib/cn";
@@ -53,7 +59,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const [manageOpen, setManageOpen] = useState(false);
+  const [addSectionMode, setAddSectionMode] = useState<AddSectionMode | null>(null);
   const [templatesOpen, setTemplatesOpen] = useState(false);
   const [mobilePane, setMobilePane] = useState<BuilderMobilePane>("edit");
   const autosaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -130,6 +136,15 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
     };
   }, [isDirty, persist, state]);
 
+  function handleAddSection(section: { title: string; content: string }) {
+    const added = addCustomSection(state, section);
+    setState(added.state);
+    setAddSectionMode(null);
+    setMobilePane("edit");
+    // Wait for the new card to render before scrolling to it.
+    setTimeout(() => scrollToBuilderSection(customSectionKey(added.id)), 80);
+  }
+
   function handleTemplateChange(templateId: CvTemplateId) {
     setState((current) => ({ ...current, template: templateId }));
   }
@@ -174,7 +189,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background bg-[radial-gradient(60%_40%_at_100%_0%,color-mix(in_oklab,var(--brand-600)_6%,transparent),transparent),radial-gradient(40%_30%_at_0%_100%,rgb(236_72_153/0.04),transparent)]">
+    <div className="builder-ui min-h-screen bg-background bg-[radial-gradient(60%_40%_at_100%_0%,color-mix(in_oklab,var(--brand-600)_6%,transparent),transparent),radial-gradient(40%_30%_at_0%_100%,rgb(236_72_153/0.04),transparent)]">
       <BuilderHeader
         title={state.title}
         onTitleChange={(title) => setState((current) => ({ ...current, title }))}
@@ -185,7 +200,6 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         onExportPdf={() => void handleExportPdf()}
         isExporting={isExporting}
         onOpenTemplates={() => setTemplatesOpen(true)}
-        onManageSections={() => setManageOpen(true)}
         mobilePane={mobilePane}
         onMobilePaneChange={setMobilePane}
         showMobilePaneToggle
@@ -194,7 +208,8 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
       <div className="mx-auto flex max-w-[1600px] gap-4 px-4 py-4 lg:gap-6 lg:py-6">
         <BuilderSidebarNav
           state={state}
-          onManageSections={() => setManageOpen(true)}
+          onChange={setState}
+          onAddSection={setAddSectionMode}
           className="sticky top-[5.75rem] hidden max-h-[calc(100vh-6.5rem)] self-start overflow-y-auto xl:flex"
         />
 
@@ -204,7 +219,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
             mobilePane === "preview" && "hidden xl:block",
           )}
         >
-          <BuilderEditor state={state} onChange={setState} />
+          <BuilderEditor state={state} onChange={setState} onAddSection={setAddSectionMode} />
         </div>
 
         <BuilderPreviewPanel
@@ -219,12 +234,15 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
         />
       </div>
 
-      <ManageSectionsModal
-        open={manageOpen}
-        onClose={() => setManageOpen(false)}
-        state={state}
-        onChange={setState}
-      />
+      {addSectionMode !== null ? (
+        <AddSectionModal
+          open
+          initialMode={addSectionMode}
+          state={state}
+          onClose={() => setAddSectionMode(null)}
+          onAdd={handleAddSection}
+        />
+      ) : null}
 
       <TemplatePickerModal
         open={templatesOpen}

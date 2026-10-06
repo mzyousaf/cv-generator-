@@ -8,7 +8,6 @@ import { cn } from "@/lib/cn";
 
 type BuilderHeaderMoreMenuProps = {
   onOpenTemplates: () => void;
-  onManageSections: () => void;
   onExportPdf: () => void;
   onSave: () => void;
   isSaving: boolean;
@@ -19,7 +18,6 @@ type BuilderHeaderMoreMenuProps = {
 
 export function BuilderHeaderMoreMenu({
   onOpenTemplates,
-  onManageSections,
   onExportPdf,
   onSave,
   isSaving,
@@ -90,10 +88,6 @@ export function BuilderHeaderMoreMenu({
           <MenuItem
             label={t.builder.templates}
             onClick={() => runAction(onOpenTemplates)}
-          />
-          <MenuItem
-            label={t.builder.manageSections}
-            onClick={() => runAction(onManageSections)}
           />
           <MenuItem
             label={isExporting ? t.builder.exportingPdf : t.builder.exportPdf}

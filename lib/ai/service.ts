@@ -9,7 +9,17 @@ import {
   SUMMARY_SYSTEM_PROMPT,
 } from "@/lib/ai/prompts";
 import { AiProviderError, type AiProvider } from "@/lib/ai/provider";
-import { createOpenAiHttpProvider } from "@/lib/ai/providers/openai-http";
+import { createOpenRouterProvider } from "@/lib/ai/providers/openrouter";
+import {
+  buildSectionCreateUserPrompt,
+  buildSectionWriteUserPrompt,
+  parseCreatedSection,
+  sanitizeSectionText,
+  SECTION_CREATE_SYSTEM_PROMPT,
+  SECTION_WRITE_SYSTEM_PROMPT,
+  validateSectionCreateInput,
+  validateSectionWriteInput,
+} from "@/lib/ai/section-writer";
 import {
   sanitizeExperienceOutput,
   sanitizeSuggestedSkills,
@@ -138,6 +148,57 @@ export function createAiService(deps: AiServiceDeps) {
       return { success: true, data: skills };
     },
 
+    /** Writes or improves any free-text CV section (custom, project, education…). */
+    async writeSection(input: unknown): Promise<AiResult<string>> {
+      const validated = validateSectionWriteInput(input);
+      if (!validated.ok) {
+        return aiError(AI_ERROR_CODES.INVALID_INPUT, validated.message);
+      }
+
+      const result = await runWithProvider((provider) =>
+        provider.complete({
+          systemPrompt: SECTION_WRITE_SYSTEM_PROMPT,
+          userPrompt: buildSectionWriteUserPrompt(validated.value),
+        }),
+      );
+      if (!result.success) {
+        return result;
+      }
+
+      const text = sanitizeSectionText(result.data);
+      return text ? { success: true, data: text } : mapProviderFailure();
+    },
+
+    /** Creates a whole new section (title + content) from a short request. */
+    async createSection(
+      input: unknown,
+    ): Promise<AiResult<{ title: string; content: string }>> {
+      const validated = validateSectionCreateInput(input);
+      if (!validated.ok) {
+        return aiError(AI_ERROR_CODES.INVALID_INPUT, validated.message);
+      }
+
+      const result = await runWithProvider((provider) =>
+        provider.complete({
+          systemPrompt: SECTION_CREATE_SYSTEM_PROMPT,
+          userPrompt: buildSectionCreateUserPrompt(validated.value),
+          json: true,
+        }),
+      );
+      if (!result.success) {
+        return result;
+      }
+
+      const section = parseCreatedSection(result.data);
+      if (!section) {
+        return mapProviderFailure();
+      }
+      return {
+        success: true,
+        data: { title: section.title || validated.value.request.slice(0, 60), content: section.content },
+      };
+    },
+
     validateSummaryGenerationInput,
     validateWorkExperienceImproveInput,
     validateSkillsSuggestionInput,
@@ -150,7 +211,7 @@ export function getDefaultAiProvider(): AiProvider | null {
     return null;
   }
 
-  return createOpenAiHttpProvider(env);
+  return createOpenRouterProvider(env);
 }
 
 export const aiService = createAiService({

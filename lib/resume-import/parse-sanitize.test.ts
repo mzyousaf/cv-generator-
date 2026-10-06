@@ -253,3 +253,38 @@ describe("resume import parse service", () => {
     }
   });
 });
+
+describe("sanitizeParsedResumeImport extra sections", () => {
+  it("keeps custom sections, remaps section order and reads the document language", () => {
+    const result = sanitizeParsedResumeImport({
+      documentLanguage: "de",
+      personal: { fullName: "Max Muster", dateOfBirth: "01.02.1990", nationality: "Deutsch" },
+      customSections: [
+        { title: "Empty", content: "" },
+        { title: "Ehrenamt", content: ["- Trainer", "- Kassenwart"] },
+        { title: "Hobbys", content: "Schach" },
+      ],
+      sectionOrder: ["custom:2", "workExperience", "custom:0", "custom:9", "custom:1", "bogus"],
+    });
+
+    assert.equal(result.ok, true);
+    if (!result.ok) return;
+    assert.equal(result.value.documentLanguage, "de");
+    assert.equal(result.value.personal.dateOfBirth, "01.02.1990");
+    assert.equal(result.value.personal.nationality, "Deutsch");
+    assert.deepEqual(result.value.customSections, [
+      { title: "Ehrenamt", content: "- Trainer\n- Kassenwart" },
+      { title: "Hobbys", content: "Schach" },
+    ]);
+    assert.deepEqual(result.value.sectionOrder, ["custom:1", "workExperience", "custom:0"]);
+  });
+
+  it("accepts a resume that only has custom sections", () => {
+    const result = sanitizeParsedResumeImport({
+      customSections: [{ title: "Publications", content: "Paper A (2023)" }],
+      documentLanguage: "xx",
+    });
+    assert.equal(result.ok, true);
+    if (result.ok) assert.equal(result.value.documentLanguage, null);
+  });
+});

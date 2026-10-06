@@ -5,6 +5,9 @@ import { getCurrentUser } from "@/lib/auth/get-current-user";
 import { CvBuilder } from "@/components/cv-builder/cv-builder";
 import { BuilderErrorState } from "@/components/cv-builder/builder-page-states";
 
+// AI resume import / writing actions can take longer than the default limit.
+export const maxDuration = 120;
+
 type CvBuilderPageProps = {
   params: Promise<{ id: string }>;
 };

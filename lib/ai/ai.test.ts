@@ -210,3 +210,64 @@ describe("AI actions", () => {
     assert.equal(result.success, true);
   });
 });
+
+describe("AI section writing", () => {
+  it("writes a section and strips markdown the model adds", async () => {
+    let prompt = "";
+    const service = createAiService({
+      getProvider: () => ({
+        async complete(request) {
+          prompt = request.userPrompt;
+          return "## Volunteering\n* **Coach** at youth club\n• Organised events";
+        },
+      }),
+    });
+
+    const result = await service.writeSection({
+      sectionTitle: "Volunteering",
+      instructions: "keep it short",
+      language: "de",
+      context: "Name: Max",
+    });
+
+    assert.equal(result.success, true);
+    if (result.success) {
+      assert.equal(result.data, "Volunteering\n- Coach at youth club\n- Organised events");
+    }
+    assert.match(prompt, /Write in German/);
+    assert.match(prompt, /keep it short/);
+  });
+
+  it("rejects empty section requests", async () => {
+    const service = createAiService({ getProvider: () => createMockProvider("x") });
+    const write = await service.writeSection({ language: "en" });
+    const create = await service.createSection({ request: "  " });
+    for (const result of [write, create]) {
+      assert.equal(result.success, false);
+      if (!result.success) {
+        assert.equal(result.error.code, AI_ERROR_CODES.INVALID_INPUT);
+      }
+    }
+  });
+
+  it("creates a section with title and content from JSON", async () => {
+    const service = createAiService({
+      getProvider: () =>
+        createMockProvider('```json\n{"title":"Awards","content":"- Best paper 2024"}\n```'),
+    });
+    const result = await service.createSection({ request: "add my awards", language: "en" });
+    assert.equal(result.success, true);
+    if (result.success) {
+      assert.deepEqual(result.data, { title: "Awards", content: "- Best paper 2024" });
+    }
+  });
+
+  it("fails gracefully when the model returns no usable section", async () => {
+    const service = createAiService({ getProvider: () => createMockProvider("not json") });
+    const result = await service.createSection({ request: "awards" });
+    assert.equal(result.success, false);
+    if (!result.success) {
+      assert.equal(result.error.code, AI_ERROR_CODES.PROVIDER);
+    }
+  });
+});

@@ -13,6 +13,10 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   agentRules: false,
   poweredByHeader: false,
+  experimental: {
+    // Resume uploads (up to 5 MB) are sent to a server action.
+    serverActions: { bodySizeLimit: "6mb" },
+  },
   serverExternalPackages: ["@react-pdf/renderer", "pdf-parse", "mammoth"],
   // Bundled PDF fonts are read from disk at runtime by the export route.
   outputFileTracingIncludes: {
