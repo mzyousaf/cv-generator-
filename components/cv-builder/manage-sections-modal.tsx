@@ -105,7 +105,7 @@ export function ManageSectionsModal({
                   type="button"
                   variant={hidden ? "primary" : "secondary"}
                   size="sm"
-                  className="min-h-10"
+                  className="min-h-10 min-w-28"
                   aria-pressed={hidden}
                   onClick={() =>
                     updateSettings(toggleSectionVisibility(state.sectionSettings, sectionId))

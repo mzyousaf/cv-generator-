@@ -75,15 +75,19 @@ export function BuilderSidebarNav({
                     isActive ? "text-blue-600" : "text-slate-400",
                   )}
                 />
-                <span className="min-w-0 flex-1 leading-snug">{t.sections[item.id]}</span>
-                {hidden ? (
-                  <span
-                    className="shrink-0 text-[10px] font-semibold uppercase tracking-wide text-slate-400"
-                    title={t.editor.hiddenFromResume}
-                  >
-                    {t.common.hidden}
+                <span className="flex min-w-0 flex-1 flex-col leading-snug">
+                  <span className={cn("break-words", hidden && "text-slate-500")}>
+                    {t.sections[item.id]}
                   </span>
-                ) : null}
+                  {hidden ? (
+                    <span
+                      className="text-[10px] font-semibold uppercase tracking-wide text-slate-400"
+                      title={t.editor.hiddenFromResume}
+                    >
+                      {t.common.hidden}
+                    </span>
+                  ) : null}
+                </span>
               </button>
             </li>
           );
