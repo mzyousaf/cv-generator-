@@ -1,7 +1,6 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
-import { scrollToBuilderSection } from "@/lib/cv/builder-section-nav";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import type { AddSectionMode } from "@/components/cv-builder/add-section-modal";
 import { SectionNavActions } from "@/components/cv-builder/section-nav-actions";
@@ -23,7 +22,7 @@ export function BuilderSidebarNav({
   className,
 }: BuilderSidebarNavProps) {
   const { t } = useI18n();
-  const activeDomId = useBuilderActiveSection(state);
+  const [activeDomId, navigate] = useBuilderActiveSection(state);
 
   return (
     <nav
@@ -42,7 +41,7 @@ export function BuilderSidebarNav({
       <SectionOrderList
         state={state}
         onChange={onChange}
-        onNavigate={scrollToBuilderSection}
+        onNavigate={navigate}
         activeDomId={activeDomId}
       />
       <div className="mt-2 border-t border-slate-100 px-1 pt-2">

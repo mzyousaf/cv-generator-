@@ -104,7 +104,7 @@ export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorPr
   function slot(sectionId: SectionKey) {
     return {
       id: builderSectionDomId(sectionId),
-      className: "scroll-mt-44 xl:scroll-mt-28",
+      className: "scroll-mt-[calc(var(--builder-header-h,7.5rem)+4.5rem)] xl:scroll-mt-28",
       style: { order: sectionOrder.indexOf(sectionId) + 1 },
     };
   }
@@ -134,12 +134,13 @@ export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorPr
 
   return (
     <div className="space-y-4">
-      <div className="xl:hidden">
+      {/* Pinned under the header so the section list is reachable while scrolling. */}
+      <div className="sticky top-[var(--builder-header-h,7.5rem)] z-20 -mx-4 border-b border-slate-200/60 bg-background/95 px-4 py-2 backdrop-blur xl:hidden">
         <BuilderMobileSectionsMenu state={state} onChange={onChange} onAddSection={onAddSection} />
       </div>
 
       <div className="flex flex-col gap-4">
-      <div id="builder-section-personal" className="scroll-mt-44 xl:scroll-mt-28" style={{ order: 0 }}>
+      <div id="builder-section-personal" className="scroll-mt-[calc(var(--builder-header-h,7.5rem)+4.5rem)] xl:scroll-mt-28" style={{ order: 0 }}>
       <SectionCard
         title={t.sections.personal}
         description={t.editor.descriptions.personal}
