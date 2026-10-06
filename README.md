@@ -46,9 +46,11 @@ All configuration is **server-only** (this app does not use `NEXT_PUBLIC_*` for 
 | `AUTH_URL` | Recommended in production | e.g. `https://your-app.vercel.app` |
 | `AUTH_GOOGLE_ID` | Optional | Both Google vars required to enable Google sign-in |
 | `AUTH_GOOGLE_SECRET` | Optional | OAuth client secret |
-| `OPENAI_API_KEY` | Optional | AI features disabled when unset |
-| `AI_MODEL` | Optional | Defaults to `gpt-4o-mini` |
-| `AI_BASE_URL` | Optional | OpenAI-compatible API base URL |
+| `OPENROUTER_API_KEY` | Optional | Enables AI features via [OpenRouter](https://openrouter.ai) (preferred) |
+| `OPENAI_API_KEY` | Optional | Alternative to OpenRouter; used only when `OPENROUTER_API_KEY` is unset |
+| `AI_MODEL` | Optional | Defaults to `openai/gpt-4o-mini` (OpenRouter) or `gpt-4o-mini` (OpenAI) |
+| `AI_BASE_URL` | Optional | Override the OpenAI-compatible API base URL |
+| `OPENROUTER_SITE_URL` / `OPENROUTER_APP_NAME` | Optional | OpenRouter attribution headers (site URL falls back to `AUTH_URL`) |
 
 See `.env.example` for a safe template to commit. Never commit `.env` or real credentials.
 
@@ -87,9 +89,11 @@ In [Google Cloud Console](https://console.cloud.google.com/apis/credentials):
    (Add `http://localhost:3000/api/auth/callback/google` for local dev.)
 3. Set `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET` in Vercel.
 
-### OpenAI (optional)
+### AI (optional)
 
-Set `OPENAI_API_KEY` in Vercel. Optionally override `AI_MODEL` or `AI_BASE_URL` for compatible providers.
+Set `OPENROUTER_API_KEY` (get one at https://openrouter.ai/keys) in `.env.local` or Vercel — that's the only required step. This enables AI summary generation, work-experience rewriting, skill suggestions and resume import parsing.
+
+Optionally set `AI_MODEL` to any [OpenRouter model id](https://openrouter.ai/models), e.g. `anthropic/claude-3.5-haiku` or `google/gemini-2.0-flash-001`. To use OpenAI directly instead, set `OPENAI_API_KEY` and leave `OPENROUTER_API_KEY` empty.
 
 ### Deploy on Vercel
 
@@ -114,7 +118,7 @@ Run through this checklist on the production URL:
 6. [ ] CV creation works
 7. [ ] CV editing and autosave work
 8. [ ] Template switching works
-9. [ ] AI features work (when `OPENAI_API_KEY` is set)
+9. [ ] AI features work (when `OPENROUTER_API_KEY` or `OPENAI_API_KEY` is set)
 10. [ ] PDF export downloads a valid file
 11. [ ] Unauthorized CV access is rejected (signed out or another userΓÇÖs CV id)
 12. [ ] Production build succeeded in Vercel (deploy logs)

@@ -49,11 +49,12 @@ describe("auditRuntimeEnv", () => {
     );
   });
 
-  it("treats OpenAI as optional with a warning", () => {
+  it("treats AI as optional with a warning", () => {
     const issues = auditRuntimeEnv(
       {
         ...productionBase,
         OPENAI_API_KEY: "",
+        OPENROUTER_API_KEY: "",
       },
       "production",
     );
@@ -61,7 +62,7 @@ describe("auditRuntimeEnv", () => {
     assert.ok(
       issues.some(
         (issue) =>
-          issue.variable === "OPENAI_API_KEY" && issue.level === "warning",
+          issue.variable === "OPENROUTER_API_KEY" && issue.level === "warning",
       ),
     );
   });

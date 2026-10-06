@@ -116,11 +116,15 @@ export function auditRuntimeEnv(
     });
   }
 
-  if (!readEnvValue(env, "OPENAI_API_KEY")) {
+  if (
+    !readEnvValue(env, "OPENROUTER_API_KEY") &&
+    !readEnvValue(env, "OPENAI_API_KEY")
+  ) {
     issues.push({
-      variable: "OPENAI_API_KEY",
+      variable: "OPENROUTER_API_KEY",
       level: "warning",
-      message: "Optional. AI assist features stay disabled until configured.",
+      message:
+        "Optional. AI assist features stay disabled until OPENROUTER_API_KEY (or OPENAI_API_KEY) is configured.",
     });
   }
 
