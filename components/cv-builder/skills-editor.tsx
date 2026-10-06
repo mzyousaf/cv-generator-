@@ -51,7 +51,7 @@ export function SkillsEditor({ state, onChangeSkills }: SkillsEditorProps) {
         <ul className="flex max-w-full flex-wrap gap-2" aria-label={t.sections.skills}>
           {skills.map((skill, index) => (
             <li key={`${skill}-${index}`} className="max-w-full">
-              <span className="inline-flex max-w-full items-center gap-1 rounded-full border border-blue-100 bg-gradient-to-b from-surface to-blue-50/70 py-1 ps-3 pe-1 text-sm font-medium text-blue-900 shadow-[0_1px_2px_color-mix(in_oklab,var(--brand-600)_8%,transparent)]">
+              <span className="inline-flex max-w-full items-center gap-1 rounded-md border border-blue-100 bg-gradient-to-b from-surface to-blue-50/70 py-1 ps-3 pe-1 text-sm font-medium text-blue-900 shadow-[0_1px_2px_color-mix(in_oklab,var(--brand-600)_8%,transparent)]">
                 <span className="break-words">{skill}</span>
                 <Button
                   type="button"

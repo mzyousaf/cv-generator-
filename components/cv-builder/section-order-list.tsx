@@ -82,7 +82,7 @@ function RowBody({ sectionKey, label, active, hidden, onNavigate, onToggleHidden
           sectionId={sectionKey}
           className={cn("size-4 shrink-0", active ? "text-blue-600" : "text-slate-400")}
         />
-        <span className={cn("min-w-0 flex-1 truncate", hidden && "line-through decoration-slate-300")}>
+        <span className={cn("min-w-0 flex-1 break-words leading-snug", hidden && "line-through decoration-slate-300")}>
           {label}
         </span>
       </button>
