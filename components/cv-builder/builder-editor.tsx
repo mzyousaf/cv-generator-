@@ -103,7 +103,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </div>
 
       <div className="flex flex-col gap-4">
-      <div id="builder-section-personal" className="scroll-mt-28" style={{ order: 0 }}>
+      <div id="builder-section-personal" className="scroll-mt-44 xl:scroll-mt-28" style={{ order: 0 }}>
       <SectionCard
         title={t.sections.personal}
         description={t.editor.descriptions.personal}
@@ -233,7 +233,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-summary" className="scroll-mt-28" style={flexOrder("summary")}>
+      <div id="builder-section-summary" className="scroll-mt-44 xl:scroll-mt-28" style={flexOrder("summary")}>
       <SectionCard
         title={t.sections.summary}
         description={t.editor.descriptions.summary}
@@ -253,7 +253,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-workExperience" className="scroll-mt-28" style={flexOrder("workExperience")}>
+      <div id="builder-section-workExperience" className="scroll-mt-44 xl:scroll-mt-28" style={flexOrder("workExperience")}>
       <SectionCard
         title={t.sections.workExperience}
         description={t.editor.descriptions.workExperience}
@@ -435,7 +435,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-education" className="scroll-mt-28" style={flexOrder("education")}>
+      <div id="builder-section-education" className="scroll-mt-44 xl:scroll-mt-28" style={flexOrder("education")}>
       <SectionCard
         title={t.sections.education}
         description={t.editor.descriptions.education}
@@ -581,7 +581,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-skills" className="scroll-mt-28" style={flexOrder("skills")}>
+      <div id="builder-section-skills" className="scroll-mt-44 xl:scroll-mt-28" style={flexOrder("skills")}>
       <SectionCard
         title={t.sections.skills}
         description={t.editor.descriptions.skills}
@@ -594,7 +594,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-projects" className="scroll-mt-28" style={flexOrder("projects")}>
+      <div id="builder-section-projects" className="scroll-mt-44 xl:scroll-mt-28" style={flexOrder("projects")}>
       <SectionCard
         title={t.sections.projects}
         description={t.editor.descriptions.projects}
@@ -686,7 +686,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-certifications" className="scroll-mt-28" style={flexOrder("certifications")}>
+      <div id="builder-section-certifications" className="scroll-mt-44 xl:scroll-mt-28" style={flexOrder("certifications")}>
       <SectionCard
         title={t.sections.certifications}
         description={t.editor.descriptions.certifications}
@@ -794,7 +794,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div id="builder-section-languages" className="scroll-mt-28" style={flexOrder("languages")}>
+      <div id="builder-section-languages" className="scroll-mt-44 xl:scroll-mt-28" style={flexOrder("languages")}>
       <SectionCard
         title={t.sections.languages}
         description={t.editor.descriptions.languages}
@@ -869,7 +869,7 @@ export function BuilderEditor({ state, onChange }: BuilderEditorProps) {
       </SectionCard>
       </div>
 
-      <div className="scroll-mt-28" style={{ order: 100 }}>
+      <div className="scroll-mt-44 xl:scroll-mt-28" style={{ order: 100 }}>
       <SectionCard
         title={t.editor.customSections}
         description={t.editor.customSectionsDescription}

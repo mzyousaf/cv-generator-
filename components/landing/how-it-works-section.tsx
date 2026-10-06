@@ -8,7 +8,7 @@ export function HowItWorksSection() {
   return (
     <section
       id="how-it-works"
-      className="scroll-mt-24 border-y border-slate-200/70 bg-gradient-to-b from-surface to-slate-50 py-24 sm:py-32"
+      className="scroll-mt-16 border-y border-slate-200/70 bg-gradient-to-b from-surface to-slate-50 py-24 sm:py-32"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
@@ -17,7 +17,7 @@ export function HowItWorksSection() {
           description={t.how.description}
         />
 
-        <ol className="relative mt-16 grid gap-6 md:grid-cols-3">
+        <ol className="relative mt-16 grid gap-12 md:grid-cols-3 md:gap-6">
           <div
             className="absolute left-[16.6%] right-[16.6%] top-8 hidden h-px bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200 md:block"
             aria-hidden="true"

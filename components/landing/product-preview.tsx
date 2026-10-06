@@ -13,10 +13,11 @@ function PreviewField({ label, value, clamp }: { label: string; value: string; c
       <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">{label}</p>
       <p
         className={`mt-1 rounded-lg border border-slate-200/80 bg-surface px-2.5 py-1.5 text-xs text-slate-800 shadow-[0_1px_2px_rgb(15_23_42/0.04)] ${
-          clamp ? "line-clamp-3 leading-relaxed text-slate-600" : "truncate"
+          clamp ? "leading-relaxed text-slate-600" : "truncate"
         }`}
       >
-        {value}
+        {/* Clamp an inner span: clamping the padded box lets a 4th line peek into the padding. */}
+        {clamp ? <span className="line-clamp-3">{value}</span> : value}
       </p>
     </div>
   );
@@ -49,7 +50,7 @@ export function ProductPreview() {
           </div>
 
           <div className="grid gap-0 sm:grid-cols-5">
-            <div className="hidden space-y-3 border-r border-slate-200/80 bg-slate-50/60 p-4 sm:col-span-2 sm:block">
+            <div className="hidden space-y-3 border-e border-slate-200/80 bg-slate-50/60 p-4 sm:col-span-2 sm:block">
               <div className="flex gap-1 rounded-lg bg-slate-100 p-0.5">
                 {CORE_TEMPLATE_IDS.map((id) => (
                   <span
@@ -85,7 +86,7 @@ export function ProductPreview() {
             <div className="bg-gradient-to-br from-slate-100 to-slate-200/70 p-3 sm:col-span-3">
               <div className="relative h-[280px] w-full max-w-full overflow-hidden rounded-lg bg-surface shadow-[0_12px_30px_-12px_rgb(15_23_42/0.35)] ring-1 ring-slate-200 sm:h-[320px] lg:h-[350px]">
                 <div
-                  className="pointer-events-none absolute left-1/2 top-0 w-[794px] origin-top -translate-x-1/2 select-none scale-[0.4] sm:scale-[0.34] lg:scale-[0.36]"
+                  className="pointer-events-none absolute left-1/2 top-0 w-[794px] origin-top -translate-x-1/2 select-none scale-[0.4] sm:scale-[0.34] lg:scale-[0.3] xl:scale-[0.36]"
                   aria-hidden="true"
                 >
                   <CvTemplateRenderer

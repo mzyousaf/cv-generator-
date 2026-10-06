@@ -491,6 +491,8 @@ export function RegionalCvTemplate({
         // The sidebar layout draws its own full-bleed columns.
         padding: spec.layout === "sidebar" ? 0 : spec.compact ? "36px 44px" : "40px 48px",
         overflow: "hidden",
+        // Long URLs or IDs wrap inside their column instead of being clipped.
+        overflowWrap: "anywhere",
         boxShadow: "0 10px 30px -12px rgba(15,23,42,0.25)",
       }}
     >

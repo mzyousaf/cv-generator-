@@ -78,7 +78,7 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
         {listError ? <FormMessage>{localizeServerMessage(t, listError)}</FormMessage> : null}
 
         <div className="space-y-4">
-          <div className="flex items-baseline justify-between">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h2 className="text-xl font-bold tracking-tight text-slate-950">{t.dashboard.yourResumes}</h2>
             {hasResumes ? (
               <p className="text-sm text-slate-500">{t.dashboard.sortedBy}</p>

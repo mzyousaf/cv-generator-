@@ -19,7 +19,10 @@ import { FormMessage } from "@/components/ui/form-message";
 
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 
-import { RESUME_IMPORT_ACCEPT } from "@/lib/resume-import/constants";
+import {
+  RESUME_IMPORT_ACCEPT,
+  RESUME_IMPORT_MAX_FILE_BYTES,
+} from "@/lib/resume-import/constants";
 
 import { importResumeForReviewAction } from "@/lib/resume-import/actions";
 
@@ -281,9 +284,17 @@ export function ResumeUploadDropzone() {
 
         }}
 
+        onClick={(e) => {
+          // Touch devices can't drag and drop, so the whole zone opens the picker.
+          if (e.target === inputRef.current || (e.target as HTMLElement).closest("button")) {
+            return;
+          }
+          inputRef.current?.click();
+        }}
+
         className={cn(
 
-          "group/drop rounded-3xl border-2 border-dashed bg-surface/70 p-8 text-center transition-all duration-200 sm:p-10",
+          "group/drop cursor-pointer rounded-3xl border-2 border-dashed bg-surface/70 p-8 text-center transition-all duration-200 sm:p-10",
 
           isDragging
 
@@ -329,7 +340,9 @@ export function ResumeUploadDropzone() {
 
         <p className="mt-1 text-xs text-slate-500">
 
-          {format(t.importer.fileHint, { size: formatFileSize(5 * 1024 * 1024) })}
+          {format(t.importer.fileHint, {
+            size: `${RESUME_IMPORT_MAX_FILE_BYTES / (1024 * 1024)} MB`,
+          })}
 
         </p>
 
@@ -413,13 +426,13 @@ export function ResumeUploadDropzone() {
 
                 isLoading={isImporting}
 
-                loadingText={t.importer.importing}
+                loadingText={serverError ? t.importer.retrying : t.importer.importing}
 
                 onClick={() => void runImport()}
 
               >
 
-                {t.importer.importResume}
+                {serverError ? t.importer.retry : t.importer.importResume}
 
               </Button>
 
@@ -435,41 +448,7 @@ export function ResumeUploadDropzone() {
 
       {clientError ? <FormMessage>{clientError}</FormMessage> : null}
 
-      {serverError ? (
-
-        <div className="space-y-2">
-
-          <FormMessage>{serverError}</FormMessage>
-
-          {selected ? (
-
-            <Button
-
-              type="button"
-
-              variant="outline"
-
-              size="sm"
-
-              disabled={isImporting}
-
-              isLoading={isImporting}
-
-              loadingText={t.importer.retrying}
-
-              onClick={() => void runImport()}
-
-            >
-
-              {t.importer.retry}
-
-            </Button>
-
-          ) : null}
-
-        </div>
-
-      ) : null}
+      {serverError ? <FormMessage>{serverError}</FormMessage> : null}
 
     </div>
 

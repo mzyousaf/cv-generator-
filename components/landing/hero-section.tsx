@@ -46,7 +46,7 @@ export function HeroSection() {
             {t.hero.subtitle}
           </p>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <GenerateFreeButton className="w-full sm:w-auto" />
             <Link
               href="#templates"
@@ -67,7 +67,7 @@ export function HeroSection() {
           </ul>
         </div>
 
-        <div className="relative animate-fade-up [animation-delay:150ms]">
+        <div className="relative mx-auto w-full max-w-xl animate-fade-up [animation-delay:150ms] lg:max-w-none">
           <div
             className="absolute -inset-8 -z-10 rounded-[2.5rem] bg-blue-500/25 blur-3xl"
             aria-hidden="true"
@@ -88,7 +88,7 @@ export function HeroSection() {
             </span>
           </div>
           <div
-            className="absolute -end-3 -top-5 hidden animate-float items-center gap-2 rounded-full border border-white/60 bg-surface/95 px-3.5 py-2 text-xs font-bold text-slate-900 shadow-lift [animation-delay:1.2s] sm:flex lg:-end-6"
+            className="absolute -end-3 -top-5 hidden animate-float items-center gap-2 rounded-full border border-white/60 bg-surface/95 px-3.5 py-2 text-xs font-bold text-slate-900 shadow-lift [animation-delay:1.2s] sm:flex xl:-end-6"
             aria-hidden="true"
           >
             <span className="size-2 rounded-full bg-emerald-500 shadow-[0_0_0_3px_rgb(16_185_129/0.2)]" />

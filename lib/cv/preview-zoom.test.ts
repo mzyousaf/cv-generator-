@@ -23,6 +23,9 @@ describe("preview zoom", () => {
     assert.equal(computeFitPreviewScale(400, 800, 0), 0.5);
     assert.equal(computeFitPreviewScale(848, 800, 48), 1);
     assert.equal(computeFitPreviewScale(0, 800), 0.75);
+    // Fit may go below the smallest preset so a page fits on a phone.
+    assert.equal(computeFitPreviewScale(300, 800, 0), 0.375);
+    assert.equal(resolvePreviewScale({ type: "fit" }, 0.375), 0.375);
   });
 
   it("resolves preset and fit modes", () => {
@@ -31,6 +34,13 @@ describe("preview zoom", () => {
       1,
     );
     assert.equal(resolvePreviewScale({ type: "fit" }, 0.82), 0.82);
+  });
+
+  it("steps from a phone-sized fit to the smallest preset", () => {
+    assert.deepEqual(stepPreviewZoomMode({ type: "fit" }, "in", 0.38), {
+      type: "preset",
+      level: 50,
+    });
   });
 
   it("formats zoom labels", () => {

@@ -6,7 +6,7 @@ import { siteConfig } from "@/lib/constants";
 import { Logo } from "@/components/ui/logo";
 
 const footerLinkClass =
-  "cursor-pointer text-slate-400 transition-colors hover:text-white focus:outline-none focus-visible:underline";
+  "inline-flex min-h-10 cursor-pointer items-center md:min-h-0 text-slate-400 transition-colors hover:text-white focus:outline-none focus-visible:underline";
 
 export function LandingFooter() {
   const { t } = useI18n();
@@ -24,7 +24,7 @@ export function LandingFooter() {
 
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">{t.footer.product}</p>
-          <ul className="mt-4 space-y-3 text-sm">
+          <ul className="mt-2 space-y-0 text-sm md:mt-4 md:space-y-3">
             <li>
               <Link href="#features" className={footerLinkClass}>
                 {t.nav.features}
@@ -50,7 +50,7 @@ export function LandingFooter() {
 
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">{t.footer.legal}</p>
-          <ul className="mt-4 space-y-3 text-sm">
+          <ul className="mt-2 space-y-0 text-sm md:mt-4 md:space-y-3">
             <li>
               <Link href="/privacy" className={footerLinkClass}>
                 {t.footer.privacy}
@@ -67,7 +67,7 @@ export function LandingFooter() {
 
       <div className="border-t border-white/10">
         <p className="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 sm:px-6">
-          © {year} {siteConfig.name}. {t.footer.rights}
+          <bdi>© {year} {siteConfig.name}.</bdi> {t.footer.rights}
         </p>
       </div>
     </footer>

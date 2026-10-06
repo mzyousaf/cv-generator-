@@ -38,9 +38,9 @@ function SaveStatusLabel({
   const { t } = useI18n();
   if (saveError) {
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700 ring-1 ring-red-200" role="alert">
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 px-2.5 py-1 max-sm:p-2 text-xs font-semibold text-red-700 ring-1 ring-red-200" title={t.builder.saveFailed} role="alert">
         <span className="size-1.5 rounded-full bg-red-500" />
-        {t.builder.saveFailed}
+        <span className="max-sm:sr-only">{t.builder.saveFailed}</span>
       </span>
     );
   }
@@ -48,23 +48,23 @@ function SaveStatusLabel({
   switch (saveStatus) {
     case "saving":
       return (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700 ring-1 ring-blue-100" aria-live="polite">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 max-sm:p-2 text-xs font-semibold text-blue-700 ring-1 ring-blue-100" title={t.common.saving} aria-live="polite">
           <span className="size-1.5 animate-pulse rounded-full bg-blue-500" />
-          {t.common.saving}
+          <span className="max-sm:sr-only">{t.common.saving}</span>
         </span>
       );
     case "saved":
       return (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200/70" aria-live="polite">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 max-sm:p-2 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200/70" title={t.builder.saved} aria-live="polite">
           <span className="size-1.5 rounded-full bg-emerald-500" />
-          {t.builder.saved}
+          <span className="max-sm:sr-only">{t.builder.saved}</span>
         </span>
       );
     case "unsaved":
       return (
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200/70" aria-live="polite">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 max-sm:p-2 text-xs font-semibold text-amber-700 ring-1 ring-amber-200/70" title={t.builder.unsaved} aria-live="polite">
           <span className="size-1.5 rounded-full bg-amber-500" />
-          {t.builder.unsaved}
+          <span className="max-sm:sr-only">{t.builder.unsaved}</span>
         </span>
       );
     default:
@@ -107,19 +107,20 @@ export function BuilderHeader({
           </label>
           <Input
             id="cv-title"
+            dir="auto"
             value={title}
             onChange={(event) => onTitleChange(event.target.value)}
             className="min-w-0 flex-1 border-transparent bg-transparent text-base font-bold tracking-tight text-slate-950 shadow-none hover:border-slate-200 hover:bg-surface focus:bg-surface sm:text-lg"
           />
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2 xl:justify-end xl:gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 xl:justify-end xl:gap-4">
           <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
 
           <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
             {showMobilePaneToggle && onMobilePaneChange ? (
               <div
-                className="inline-flex rounded-xl border border-slate-200 bg-slate-100/80 p-1 xl:hidden"
+                className="inline-flex rounded-xl border border-slate-200 bg-slate-100/80 p-1 max-sm:p-0.5 xl:hidden"
                 role="tablist"
                 aria-label={t.builder.editorPane}
               >
@@ -130,7 +131,7 @@ export function BuilderHeader({
                     role="tab"
                     aria-selected={mobilePane === pane}
                     className={cn(
-                      "cursor-pointer rounded-lg px-3.5 py-1.5 text-xs font-semibold capitalize transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+                      "cursor-pointer rounded-lg px-3.5 py-1.5 max-sm:px-2.5 max-sm:py-2 text-xs font-semibold capitalize transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
                       mobilePane === pane
                         ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.12)]"
                         : "text-slate-600 hover:text-slate-900",
@@ -190,7 +191,7 @@ export function BuilderHeader({
                 disabled={isExporting || isSaving}
                 isLoading={isExporting}
                 loadingText={t.builder.exporting}
-                className="hidden min-[400px]:inline-flex"
+                className="max-sm:hidden"
               >
                 {t.builder.exportPdf}
               </Button>

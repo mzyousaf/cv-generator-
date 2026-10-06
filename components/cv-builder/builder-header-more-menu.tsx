@@ -125,7 +125,7 @@ function MenuItem({
       type="button"
       role="menuitem"
       disabled={disabled}
-      className="flex w-full cursor-pointer px-3 py-2 text-start text-sm text-slate-800 hover:bg-slate-50 focus:outline-none focus-visible:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex min-h-10 w-full cursor-pointer items-center px-3 py-2 text-start text-sm text-slate-800 hover:bg-slate-50 focus:outline-none focus-visible:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
       onClick={onClick}
     >
       {label}

@@ -12,7 +12,7 @@ import {
 } from "@/lib/cv/section-settings";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/cn";
 
 type ManageSectionsModalProps = {
   open: boolean;
@@ -50,48 +50,62 @@ export function ManageSectionsModal({
           return (
             <li
               key={sectionId}
-              className="flex flex-col gap-2 rounded-lg border border-slate-200 bg-slate-50/60 p-3 sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl border border-slate-200 bg-slate-50/60 py-2.5 ps-3.5 pe-2.5"
             >
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-slate-900">{label}</p>
-                <p className="text-xs text-slate-600">
+              <div className="min-w-28 flex-1">
+                <p
+                  className={cn(
+                    "text-sm font-semibold text-slate-900 break-words",
+                    hidden && "text-slate-500 line-through decoration-slate-300",
+                  )}
+                >
+                  {label}
+                </p>
+                <p className="flex items-center gap-1.5 text-xs text-slate-600">
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "size-1.5 shrink-0 rounded-full",
+                      hidden ? "bg-slate-300" : "bg-emerald-500",
+                    )}
+                  />
                   {hidden ? t.builder.hiddenFromPdf : t.builder.visibleOnResume}
                 </p>
               </div>
-              <div className="flex flex-wrap items-center gap-2">
-                {hidden ? (
-                  <Badge variant="muted">{t.common.hidden}</Badge>
-                ) : (
-                  <Badge>{t.common.visible}</Badge>
-                )}
+              <div className="ms-auto flex shrink-0 items-center gap-1">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
+                  className="size-10 px-0"
                   aria-label={format(t.builder.moveUpLabel, { label })}
+                  title={t.builder.moveUp}
                   disabled={index === 0}
                   onClick={() =>
                     updateSettings(moveSection(state.sectionSettings, sectionId, "up"))
                   }
                 >
-                  {t.builder.moveUp}
+                  <span aria-hidden="true">↑</span>
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
+                  className="size-10 px-0"
                   aria-label={format(t.builder.moveDownLabel, { label })}
+                  title={t.builder.moveDown}
                   disabled={index === order.length - 1}
                   onClick={() =>
                     updateSettings(moveSection(state.sectionSettings, sectionId, "down"))
                   }
                 >
-                  {t.builder.moveDown}
+                  <span aria-hidden="true">↓</span>
                 </Button>
                 <Button
                   type="button"
                   variant={hidden ? "primary" : "secondary"}
                   size="sm"
+                  className="min-h-10 min-w-28"
                   aria-pressed={hidden}
                   onClick={() =>
                     updateSettings(toggleSectionVisibility(state.sectionSettings, sectionId))
