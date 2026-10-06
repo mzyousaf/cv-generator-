@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useId, useRef, useState, useTransition } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState, useTransition } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { cn } from "@/lib/cn";
 import {
@@ -57,6 +57,146 @@ function ModeIcon({ mode }: { mode: ColorMode }) {
   );
 }
 
+/** Shared state and actions for the language, theme and appearance controls. */
+function usePreferenceControls() {
+  const { locale, theme, mode } = useI18n();
+  const router = useRouter();
+  const [current, setCurrent] = useState({ theme, mode });
+  const [isPending, startTransition] = useTransition();
+
+  function chooseTheme(next: ThemeId) {
+    applyPreference(PREFERENCE_COOKIES.theme, next, { theme: next });
+    setCurrent((value) => ({ ...value, theme: next }));
+  }
+
+  function chooseMode(next: ColorMode) {
+    applyPreference(PREFERENCE_COOKIES.mode, next, { mode: next });
+    setCurrent((value) => ({ ...value, mode: next }));
+  }
+
+  function chooseLocale(next: Locale) {
+    if (next === locale) {
+      return;
+    }
+    applyPreference(PREFERENCE_COOKIES.locale, next, {
+      lang: next,
+      dir: localeDirection(next),
+    });
+    startTransition(() => router.refresh());
+  }
+
+  return { locale, current, isPending, chooseTheme, chooseMode, chooseLocale };
+}
+
+type PreferenceControls = ReturnType<typeof usePreferenceControls>;
+
+function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
+  const { t } = useI18n();
+  const { locale, current, isPending, chooseTheme, chooseMode, chooseLocale } = controls;
+
+  return (
+    <>
+      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+        {t.prefs.language}
+      </p>
+      <div className="mt-2 grid grid-cols-2 gap-1.5">
+        {LOCALES.map((code) => (
+          <button
+            key={code}
+            type="button"
+            lang={code}
+            aria-pressed={code === locale}
+            disabled={isPending}
+            onClick={() => chooseLocale(code)}
+            className={cn(
+              "flex min-w-0 items-center justify-between gap-2 rounded-xl border px-3 py-2 text-start text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-60",
+              code === locale
+                ? "border-blue-300 bg-blue-50 text-blue-700"
+                : "border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50",
+            )}
+          >
+            <span className="truncate">{LOCALE_LABELS[code]}</span>
+            <span className="text-[10px] font-bold uppercase text-slate-400">{code}</span>
+          </button>
+        ))}
+      </div>
+
+      <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+        {t.prefs.theme}
+      </p>
+      <div className="mt-2 flex justify-between gap-1">
+        {THEMES.map((id) => (
+          <button
+            key={id}
+            type="button"
+            aria-pressed={id === current.theme}
+            title={t.prefs.themes[id]}
+            onClick={() => chooseTheme(id)}
+            className={cn(
+              "group flex min-w-0 flex-1 flex-col items-center gap-1.5 rounded-xl px-0 py-2 text-[10.5px] font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+              id === current.theme ? "bg-slate-100 text-slate-900" : "text-slate-500 hover:bg-slate-50",
+            )}
+          >
+            <span
+              className={cn(
+                "size-7 rounded-full shadow-inner ring-offset-2 ring-offset-surface transition-transform group-hover:scale-110",
+                id === current.theme && "ring-2 ring-slate-900/70",
+              )}
+              style={{ background: THEME_SWATCHES[id] }}
+              aria-hidden="true"
+            />
+            <span className="max-w-full truncate">{t.prefs.themes[id]}</span>
+          </button>
+        ))}
+      </div>
+
+      <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+        {t.prefs.appearance}
+      </p>
+      <div className="mt-2 grid grid-cols-3 gap-1 rounded-xl bg-slate-100 p-1">
+        {COLOR_MODES.map((value) => (
+          <button
+            key={value}
+            type="button"
+            aria-pressed={value === current.mode}
+            onClick={() => chooseMode(value)}
+            className={cn(
+              "inline-flex min-w-0 items-center justify-center gap-1.5 rounded-lg px-1.5 py-1.5 text-xs font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+              value === current.mode
+                ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.15)]"
+                : "text-slate-500 hover:text-slate-900",
+            )}
+          >
+            <ModeIcon mode={value} />
+            <span className="truncate">{t.prefs.modes[value]}</span>
+          </button>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/** The preference controls laid out inline, e.g. inside a mobile menu. */
+export function PreferencesPanel({ className }: { className?: string }) {
+  const { t } = useI18n();
+  const controls = usePreferenceControls();
+
+  return (
+    <section
+      aria-label={t.prefs.title}
+      className={cn(
+        "rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 ring-1 ring-slate-900/5",
+        className,
+      )}
+    >
+      <PreferenceOptions controls={controls} />
+    </section>
+  );
+}
+
+/** Keep gap between a floating panel and the viewport edges. */
+const VIEWPORT_GUTTER = 12;
+
 type PreferencesMenuProps = {
   /** `dark` for placement on ink surfaces (navbar, sidebar). */
   tone?: "light" | "dark";
@@ -73,12 +213,12 @@ export function PreferencesMenu({
   placement = "bottom",
   className,
 }: PreferencesMenuProps) {
-  const { t, locale, theme, mode } = useI18n();
-  const router = useRouter();
+  const { t } = useI18n();
+  const controls = usePreferenceControls();
   const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState({ theme, mode });
-  const [isPending, startTransition] = useTransition();
+  const [shift, setShift] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const panelId = useId();
 
   useEffect(() => {
@@ -103,26 +243,32 @@ export function PreferencesMenu({
     };
   }, [open]);
 
-  function chooseTheme(next: ThemeId) {
-    applyPreference(PREFERENCE_COOKIES.theme, next, { theme: next });
-    setCurrent((value) => ({ ...value, theme: next }));
-  }
-
-  function chooseMode(next: ColorMode) {
-    applyPreference(PREFERENCE_COOKIES.mode, next, { mode: next });
-    setCurrent((value) => ({ ...value, mode: next }));
-  }
-
-  function chooseLocale(next: Locale) {
-    if (next === locale) {
+  // Nudge the panel sideways so it never runs off a narrow screen.
+  useLayoutEffect(() => {
+    if (!open) {
       return;
     }
-    applyPreference(PREFERENCE_COOKIES.locale, next, {
-      lang: next,
-      dir: localeDirection(next),
-    });
-    startTransition(() => router.refresh());
-  }
+    function fit() {
+      const panel = panelRef.current;
+      if (!panel) {
+        return;
+      }
+      panel.style.translate = "0px";
+      const rect = panel.getBoundingClientRect();
+      const viewport = document.documentElement.clientWidth;
+      let next = 0;
+      if (rect.left < VIEWPORT_GUTTER) {
+        next = VIEWPORT_GUTTER - rect.left;
+      } else if (rect.right > viewport - VIEWPORT_GUTTER) {
+        next = viewport - VIEWPORT_GUTTER - rect.right;
+      }
+      panel.style.translate = "";
+      setShift(next);
+    }
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
+  }, [open]);
 
   const triggerClass =
     tone === "dark"
@@ -147,101 +293,28 @@ export function PreferencesMenu({
           <circle cx="12" cy="12" r="9" />
           <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" />
         </svg>
-        <span>{locale}</span>
+        <span>{controls.locale}</span>
         <span
           className="size-2.5 rounded-full ring-2 ring-white/70"
-          style={{ background: THEME_SWATCHES[current.theme] }}
+          style={{ background: THEME_SWATCHES[controls.current.theme] }}
           aria-hidden="true"
         />
       </button>
 
       {open ? (
         <div
+          ref={panelRef}
           id={panelId}
           role="dialog"
           aria-label={t.prefs.title}
+          style={shift ? { translate: `${shift}px 0` } : undefined}
           className={cn(
-            "absolute z-50 w-72 animate-fade-up rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 shadow-[0_24px_60px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5 [animation-duration:0.25s]",
+            "absolute z-50 w-[min(19rem,calc(100vw-1.5rem))] animate-fade-up rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 shadow-[0_24px_60px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5 [animation-duration:0.25s]",
             align === "end" ? "end-0" : "start-0",
             placement === "bottom" ? "top-full mt-2" : "bottom-full mb-2",
           )}
         >
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
-            {t.prefs.language}
-          </p>
-          <div className="mt-2 grid grid-cols-2 gap-1.5">
-            {LOCALES.map((code) => (
-              <button
-                key={code}
-                type="button"
-                lang={code}
-                aria-pressed={code === locale}
-                disabled={isPending}
-                onClick={() => chooseLocale(code)}
-                className={cn(
-                  "flex items-center justify-between rounded-xl border px-3 py-2 text-start text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-60",
-                  code === locale
-                    ? "border-blue-300 bg-blue-50 text-blue-700"
-                    : "border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50",
-                )}
-              >
-                {LOCALE_LABELS[code]}
-                <span className="text-[10px] font-bold uppercase text-slate-400">{code}</span>
-              </button>
-            ))}
-          </div>
-
-          <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
-            {t.prefs.theme}
-          </p>
-          <div className="mt-2 flex justify-between gap-1.5">
-            {THEMES.map((id) => (
-              <button
-                key={id}
-                type="button"
-                aria-pressed={id === current.theme}
-                title={t.prefs.themes[id]}
-                onClick={() => chooseTheme(id)}
-                className={cn(
-                  "group flex flex-1 flex-col items-center gap-1.5 rounded-xl px-1 py-2 text-[11px] font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
-                  id === current.theme ? "bg-slate-100 text-slate-900" : "text-slate-500 hover:bg-slate-50",
-                )}
-              >
-                <span
-                  className={cn(
-                    "size-7 rounded-full shadow-inner ring-offset-2 ring-offset-surface transition-transform group-hover:scale-110",
-                    id === current.theme && "ring-2 ring-slate-900/70",
-                  )}
-                  style={{ background: THEME_SWATCHES[id] }}
-                  aria-hidden="true"
-                />
-                {t.prefs.themes[id]}
-              </button>
-            ))}
-          </div>
-
-          <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
-            {t.prefs.appearance}
-          </p>
-          <div className="mt-2 grid grid-cols-3 gap-1 rounded-xl bg-slate-100 p-1">
-            {COLOR_MODES.map((value) => (
-              <button
-                key={value}
-                type="button"
-                aria-pressed={value === current.mode}
-                onClick={() => chooseMode(value)}
-                className={cn(
-                  "inline-flex items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-xs font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
-                  value === current.mode
-                    ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.15)]"
-                    : "text-slate-500 hover:text-slate-900",
-                )}
-              >
-                <ModeIcon mode={value} />
-                {t.prefs.modes[value]}
-              </button>
-            ))}
-          </div>
+          <PreferenceOptions controls={controls} />
         </div>
       ) : null}
     </div>

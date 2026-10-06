@@ -39,13 +39,20 @@ export function GenerateFreeButton({
       variant={mapped.variant}
       size={mapped.size}
       className={cn(
-        variant === "nav" &&
-          "max-w-[11rem] px-3 text-center text-xs leading-tight sm:max-w-none sm:px-4 sm:text-sm",
+        variant === "nav" && "shrink-0 whitespace-nowrap px-3.5 sm:px-4",
         className,
       )}
       onClick={() => openAuthModal("signup")}
     >
-      {children ?? t.common.createCvFree}
+      {children ??
+        (variant === "nav" ? (
+          <>
+            <span className="sm:hidden">{t.common.createCvShort}</span>
+            <span className="hidden sm:inline">{t.common.createCvFree}</span>
+          </>
+        ) : (
+          t.common.createCvFree
+        ))}
     </Button>
   );
 }
