@@ -580,6 +580,10 @@ export const zh: Dictionary = {
     previewTitle: "预览，添加前可编辑",
   },
   serverErrors: {
+    aiAuth: "AI 服务拒绝了 API 密钥。网站所有者需要更新 OpenRouter API 密钥。",
+    aiCredits: "AI 服务的额度已用完。网站所有者需要为 OpenRouter 账户充值。",
+    aiModel: "所配置的 AI 模型不可用。网站所有者需要选择其他 OpenRouter 模型。",
+    aiRateLimit: "AI 服务当前繁忙。请稍等一分钟后重试。",
     photoInvalid: "照片须为小于 240 KB 的 JPEG 或 PNG 图片。",
     cvUnauthenticated: "请先登录以管理简历。",
     cvNotFound: "未找到该简历。",
