@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/components/i18n/i18n-provider";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { BuilderHeaderMoreMenu } from "@/components/cv-builder/builder-header-more-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -86,8 +87,28 @@ export function BuilderHeader({
   showMobilePaneToggle = false,
 }: BuilderHeaderProps) {
   const { t } = useI18n();
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Publish the live header height so sticky bars and section jumps clear it,
+  // even when the header wraps onto more rows.
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) {
+      return;
+    }
+    const root = document.documentElement;
+    const observer = new ResizeObserver(() => {
+      root.style.setProperty("--builder-header-h", `${header.offsetHeight}px`);
+    });
+    observer.observe(header);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--builder-header-h");
+    };
+  }, []);
+
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-surface/95 shadow-[0_1px_0_rgb(255_255_255/0.6)_inset,0_8px_24px_-18px_rgb(15_23_42/0.25)] backdrop-blur-xl">
+    <header ref={headerRef} className="sticky top-0 z-30 border-b border-slate-200/70 bg-surface/95 shadow-[0_1px_0_rgb(255_255_255/0.6)_inset,0_8px_24px_-18px_rgb(15_23_42/0.25)] backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1600px] flex-col gap-2 px-4 py-3 xl:flex-row xl:items-center xl:gap-6">
         <div className="flex min-w-0 items-center gap-2 sm:gap-3 xl:flex-1">
           <Link
