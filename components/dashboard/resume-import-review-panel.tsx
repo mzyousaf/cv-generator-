@@ -89,7 +89,7 @@ export function ResumeImportReviewPanel({
 
       <ResumeImportReviewForm state={reviewState} onChange={onReviewStateChange} />
 
-      <Card className="sticky bottom-0 z-10 border-slate-200 bg-surface/95 shadow-md backdrop-blur-sm">
+      <Card className="sticky bottom-3 z-10 sm:bottom-4 border-slate-200 bg-surface/95 shadow-md backdrop-blur-sm">
         <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
           <p className="text-xs text-slate-500">
             {t.importer.createHint}

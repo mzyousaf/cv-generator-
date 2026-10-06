@@ -22,7 +22,7 @@ export function MobileDashboardHeader({
       </Link>
       <button
         type="button"
-        className="inline-flex size-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+        className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         aria-label={t.dashboard.openNavigation}
         aria-expanded={menuOpen}
         onClick={onOpenMenu}

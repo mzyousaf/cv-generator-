@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 function StackedDocs() {
   return (
     <div className="relative h-28 w-32" aria-hidden="true">
-      <div className="absolute left-3 top-3 h-24 w-20 -rotate-12 rounded-xl border border-slate-200 bg-surface shadow-soft" />
+      <div className="absolute start-3 top-3 h-24 w-20 -rotate-12 rounded-xl border border-slate-200 bg-surface shadow-soft" />
       <div className="absolute end-3 top-3 h-24 w-20 rotate-12 rounded-xl border border-slate-200 bg-surface shadow-soft" />
       <div className="absolute left-1/2 top-0 flex h-26 w-21 -translate-x-1/2 flex-col gap-1.5 rounded-xl border border-blue-200 bg-surface p-3 shadow-lift">
         <span className="h-2 w-10 rounded-full bg-brand-gradient" />
