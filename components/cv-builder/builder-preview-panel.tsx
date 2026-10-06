@@ -16,6 +16,7 @@ import {
   stepPreviewZoomMode,
   type PreviewZoomMode,
 } from "@/lib/cv/preview-zoom";
+import { PREVIEW_ZOOM_LEVELS } from "@/lib/cv/builder-ui-utils";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
@@ -61,9 +62,10 @@ export function BuilderPreviewPanel({
       const height = doc.offsetHeight || width * 1.414;
       setDocSize({ width, height });
       if (canvas) {
-        setFitScale(
-          computeFitPreviewScale(canvas.clientWidth, width, 32),
-        );
+        const style = getComputedStyle(canvas);
+        const padding =
+          parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+        setFitScale(computeFitPreviewScale(canvas.clientWidth, width, padding));
       }
     }
   }, []);
@@ -119,7 +121,10 @@ export function BuilderPreviewPanel({
             size="sm"
             className="min-w-9 px-2"
             aria-label={t.builder.zoomOut}
-            disabled={!canStepPreviewZoomOut(zoomMode)}
+            disabled={
+              !canStepPreviewZoomOut(zoomMode) ||
+              (zoomMode.type === "fit" && scale * 100 <= PREVIEW_ZOOM_LEVELS[0])
+            }
             onClick={() =>
               setZoomMode((current) =>
                 stepPreviewZoomMode(current, "out", fitScale),
@@ -164,10 +169,10 @@ export function BuilderPreviewPanel({
       <div
         ref={canvasRef}
         dir="ltr"
-        className="min-h-0 flex-1 overflow-auto overflow-x-hidden rounded-3xl border border-slate-200/70 bg-gradient-to-br from-slate-100 via-slate-100/70 to-blue-50/60 p-4 shadow-[inset_0_2px_8px_rgb(15_23_42/0.04)] sm:p-6"
+        className="min-h-0 flex-1 overflow-auto rounded-3xl border border-slate-200/70 bg-gradient-to-br from-slate-100 via-slate-100/70 to-blue-50/60 p-4 shadow-[inset_0_2px_8px_rgb(15_23_42/0.04)] sm:p-6"
       >
         <div
-          className="mx-auto max-w-full"
+          className="mx-auto"
           style={{ width: layoutWidth, height: layoutHeight }}
         >
           <div

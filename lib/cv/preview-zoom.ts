@@ -11,6 +11,8 @@ export const PREVIEW_DOCUMENT_WIDTH_FALLBACK_PX = 794;
 
 export const PREVIEW_SCALE_MIN = 0.5;
 export const PREVIEW_SCALE_MAX = 1;
+/** Fit may shrink below the smallest preset so a whole page fits on phones. */
+export const PREVIEW_FIT_SCALE_MIN = 0.25;
 
 export type PreviewZoomMode =
   | { type: "fit" }
@@ -27,6 +29,13 @@ export function clampPreviewScale(scale: number): number {
   return Math.min(PREVIEW_SCALE_MAX, Math.max(PREVIEW_SCALE_MIN, scale));
 }
 
+function clampFitPreviewScale(scale: number): number {
+  if (!Number.isFinite(scale)) {
+    return DEFAULT_PREVIEW_ZOOM / 100;
+  }
+  return Math.min(PREVIEW_SCALE_MAX, Math.max(PREVIEW_FIT_SCALE_MIN, scale));
+}
+
 export function presetLevelToScale(level: PreviewZoomLevel): number {
   return level / 100;
 }
@@ -40,7 +49,7 @@ export function computeFitPreviewScale(
     return DEFAULT_PREVIEW_ZOOM / 100;
   }
   const available = Math.max(0, containerInnerWidth - horizontalPadding);
-  return clampPreviewScale(available / documentWidth);
+  return clampFitPreviewScale(available / documentWidth);
 }
 
 export function resolvePreviewScale(
@@ -48,7 +57,7 @@ export function resolvePreviewScale(
   fitScale: number,
 ): number {
   if (mode.type === "fit") {
-    return clampPreviewScale(fitScale);
+    return clampFitPreviewScale(fitScale);
   }
   return presetLevelToScale(mode.level);
 }
@@ -65,6 +74,16 @@ export function stepPreviewZoomMode(
   direction: "in" | "out",
   fitScale: number,
 ): PreviewZoomMode {
+  // A phone-sized fit can sit below the smallest preset; zooming in should
+  // land on that preset rather than skip past it.
+  if (
+    mode.type === "fit" &&
+    direction === "in" &&
+    fitScale * 100 < PREVIEW_ZOOM_LEVELS[0]
+  ) {
+    return { type: "preset", level: PREVIEW_ZOOM_LEVELS[0] };
+  }
+
   const currentLevel: PreviewZoomLevel =
     mode.type === "preset"
       ? mode.level
