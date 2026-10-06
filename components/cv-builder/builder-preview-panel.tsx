@@ -119,7 +119,7 @@ export function BuilderPreviewPanel({
             type="button"
             variant="ghost"
             size="sm"
-            className="min-w-9 px-2"
+            className="min-w-9 px-2 max-sm:min-h-10 max-sm:min-w-10"
             aria-label={t.builder.zoomOut}
             disabled={
               !canStepPreviewZoomOut(zoomMode) ||
@@ -140,7 +140,7 @@ export function BuilderPreviewPanel({
             type="button"
             variant="ghost"
             size="sm"
-            className="min-w-9 px-2"
+            className="min-w-9 px-2 max-sm:min-h-10 max-sm:min-w-10"
             aria-label={t.builder.zoomIn}
             disabled={!canStepPreviewZoomIn(zoomMode)}
             onClick={() =>
