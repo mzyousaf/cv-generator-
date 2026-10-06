@@ -15,9 +15,7 @@ const KEYS = [
   "AUTH_GOOGLE_ID",
   "AUTH_GOOGLE_SECRET",
   "OPENROUTER_API_KEY",
-  "OPENAI_API_KEY",
   "AI_MODEL",
-  "AI_BASE_URL",
 ];
 
 const configured = envConfigured(KEYS);
@@ -60,7 +58,7 @@ console.log(
       configured,
       mongoPing,
       googleOAuthPairConfigured: googlePairOk,
-      aiConfigured: configured.OPENROUTER_API_KEY || configured.OPENAI_API_KEY,
+      aiConfigured: configured.OPENROUTER_API_KEY,
       readyForAuthenticatedE2e: Boolean(readyForAuthenticatedE2e),
     },
     null,

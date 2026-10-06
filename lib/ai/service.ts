@@ -9,7 +9,7 @@ import {
   SUMMARY_SYSTEM_PROMPT,
 } from "@/lib/ai/prompts";
 import { AiProviderError, type AiProvider } from "@/lib/ai/provider";
-import { createOpenAiHttpProvider } from "@/lib/ai/providers/openai-http";
+import { createOpenRouterProvider } from "@/lib/ai/providers/openrouter";
 import {
   buildSectionCreateUserPrompt,
   buildSectionWriteUserPrompt,
@@ -211,7 +211,7 @@ export function getDefaultAiProvider(): AiProvider | null {
     return null;
   }
 
-  return createOpenAiHttpProvider(env);
+  return createOpenRouterProvider(env);
 }
 
 export const aiService = createAiService({

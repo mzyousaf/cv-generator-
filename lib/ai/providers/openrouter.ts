@@ -6,7 +6,7 @@ import {
   type AiProvider,
 } from "@/lib/ai/provider";
 
-type OpenAiChatResponse = {
+type ChatCompletionResponse = {
   choices?: Array<{
     message?: {
       content?: string | null;
@@ -48,18 +48,15 @@ export function buildRequestBody(env: AiEnv, request: AiCompletionRequest) {
   if (request.maxTokens) {
     body.max_tokens = request.maxTokens;
   }
-  if (request.files?.length && env.provider === "openrouter") {
+  if (request.files?.length) {
     // OCR so scanned (image-only) PDFs can be read by any model.
     body.plugins = [{ id: "file-parser", pdf: { engine: "mistral-ocr" } }];
   }
   return body;
 }
 
-/**
- * OpenAI-compatible chat completions client. Works with OpenRouter, OpenAI
- * and any other provider exposing `/chat/completions`.
- */
-export function createOpenAiHttpProvider(env: AiEnv): AiProvider {
+/** OpenRouter chat completions client. */
+export function createOpenRouterProvider(env: AiEnv): AiProvider {
   return {
     async complete(request: AiCompletionRequest): Promise<string> {
       let response: Response;
@@ -82,9 +79,9 @@ export function createOpenAiHttpProvider(env: AiEnv): AiProvider {
         );
       }
 
-      let payload: OpenAiChatResponse;
+      let payload: ChatCompletionResponse;
       try {
-        payload = (await response.json()) as OpenAiChatResponse;
+        payload = (await response.json()) as ChatCompletionResponse;
       } catch {
         throw new AiProviderError(
           `AI provider returned an invalid response (HTTP ${response.status}).`,
@@ -95,7 +92,7 @@ export function createOpenAiHttpProvider(env: AiEnv): AiProvider {
         const message =
           payload.error?.message ||
           `AI provider request failed (HTTP ${response.status}).`;
-        console.error(`[ai:${env.provider}] ${message}`);
+        console.error(`[ai:openrouter] ${message}`);
         throw new AiProviderError(message);
       }
 

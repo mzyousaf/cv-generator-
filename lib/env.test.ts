@@ -53,7 +53,6 @@ describe("auditRuntimeEnv", () => {
     const issues = auditRuntimeEnv(
       {
         ...productionBase,
-        OPENAI_API_KEY: "",
         OPENROUTER_API_KEY: "",
       },
       "production",

@@ -63,11 +63,9 @@ const KEYS = [
   "AUTH_GOOGLE_SECRET",
 
   "OPENROUTER_API_KEY",
-  "OPENAI_API_KEY",
 
   "AI_MODEL",
 
-  "AI_BASE_URL",
 
 ];
 
@@ -276,11 +274,11 @@ async function runImportFlow(page, fileName, phasePrefix) {
   await page.locator('input[type="file"]').first().setInputFiles(filePath);
 
   // Import starts automatically: AI parses the file, creates the CV and opens the editor.
-  if (!configured.OPENROUTER_API_KEY && !configured.OPENAI_API_KEY) {
+  if (!configured.OPENROUTER_API_KEY) {
     await page.waitForTimeout(4000);
     const opened = /\/dashboard\/cv\//.test(page.url());
     record(phasePrefix, opened ? "pass" : "blocked", {
-      reason: opened ? "unexpected parse without AI" : "AI API key not configured",
+      reason: opened ? "unexpected parse without AI" : "OPENROUTER_API_KEY not configured",
     });
     return null;
   }
@@ -696,7 +694,7 @@ try {
 
 
 
-  if ((configured.OPENROUTER_API_KEY || configured.OPENAI_API_KEY) && cvIdA) {
+  if (configured.OPENROUTER_API_KEY && cvIdA) {
 
     record("ai_live", "skip", {
 
@@ -706,7 +704,7 @@ try {
 
   } else {
 
-    record("ai_live", "skip", { reason: "AI API key not configured" });
+    record("ai_live", "skip", { reason: "OPENROUTER_API_KEY not configured" });
 
   }
 
