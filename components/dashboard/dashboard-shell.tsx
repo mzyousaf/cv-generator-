@@ -67,7 +67,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
         <div className="fixed inset-0 z-50 lg:hidden" role="presentation">
           <button
             type="button"
-            className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
             aria-label={t.dashboard.closeNavigation}
             onClick={closeMobileNav}
           />

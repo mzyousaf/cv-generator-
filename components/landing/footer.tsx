@@ -67,7 +67,7 @@ export function LandingFooter() {
 
       <div className="border-t border-white/10">
         <p className="mx-auto max-w-6xl px-4 py-6 text-xs text-slate-500 sm:px-6">
-          © {year} {siteConfig.name}. {t.footer.rights}
+          <bdi>© {year} {siteConfig.name}.</bdi> {t.footer.rights}
         </p>
       </div>
     </footer>

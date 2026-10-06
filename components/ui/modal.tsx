@@ -83,7 +83,7 @@ export function Modal({
         aria-labelledby={titleId}
         aria-describedby={description ? descriptionId : undefined}
         className={cn(
-          "relative max-h-[90vh] w-full max-w-lg animate-fade-up overflow-y-auto rounded-3xl border border-white/60 bg-surface dark:border-white/10 shadow-[0_30px_80px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5",
+          "relative max-h-[90dvh] w-full max-w-lg animate-fade-up overflow-y-auto rounded-3xl border border-white/60 bg-surface dark:border-white/10 shadow-[0_30px_80px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5",
           className,
         )}
       >
@@ -149,7 +149,7 @@ export const ModalClose = forwardRef<
       onClick={onClose}
       aria-label={t.common.closeDialog}
       className={cn(
-        "absolute end-4 top-4 min-h-9 min-w-9 rounded-full px-2 text-slate-400 hover:bg-slate-100 hover:text-slate-800",
+        "absolute end-3 top-3 min-h-10 min-w-10 rounded-full px-2 text-slate-400 hover:bg-slate-100 hover:text-slate-800",
         className,
       )}
     >

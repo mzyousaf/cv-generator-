@@ -285,7 +285,7 @@ export function PreferencesMenu({
         aria-label={t.prefs.open}
         onClick={() => setOpen((value) => !value)}
         className={cn(
-          "inline-flex h-9 items-center gap-1.5 rounded-xl border px-2.5 text-xs font-bold uppercase tracking-wide transition-colors focus:outline-none focus-visible:ring-2",
+          "inline-flex h-10 items-center gap-1.5 rounded-xl border px-2.5 text-xs font-bold uppercase tracking-wide transition-colors focus:outline-none focus-visible:ring-2",
           triggerClass,
         )}
       >
