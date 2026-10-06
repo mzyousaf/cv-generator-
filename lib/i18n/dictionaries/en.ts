@@ -615,6 +615,10 @@ export const en = {
     previewTitle: "Preview, edit before adding",
   },
   serverErrors: {
+    aiAuth: "The AI service rejected the API key. The site owner needs to update the OpenRouter API key.",
+    aiCredits: "The AI service has run out of credits. The site owner needs to add credits to the OpenRouter account.",
+    aiModel: "The configured AI model isn't available. The site owner needs to choose another OpenRouter model.",
+    aiRateLimit: "The AI service is busy right now. Wait a minute and try again.",
     photoInvalid: "Photo must be a JPEG or PNG image under 240 KB.",
     cvUnauthenticated: "You must be signed in to manage CVs.",
     cvNotFound: "CV not found.",

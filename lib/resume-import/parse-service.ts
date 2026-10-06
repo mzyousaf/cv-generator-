@@ -10,6 +10,7 @@ import {
   type ResumeImportResult,
 } from "@/lib/resume-import/errors";
 import { RESUME_IMPORT_MIN_PARSE_TEXT_LENGTH } from "@/lib/resume-import/parse-constants";
+import { aiFailureMessage } from "@/lib/ai/errors";
 import { extractJsonObjectFromModelText } from "@/lib/resume-import/parse-json";
 import {
   buildResumeImportFileParseUserPrompt,
@@ -48,7 +49,6 @@ const PARSE_REQUEST_BASE = {
   systemPrompt: RESUME_IMPORT_PARSE_SYSTEM_PROMPT,
   temperature: 0.1,
   json: true,
-  maxTokens: 12_000,
 } as const;
 
 export function createResumeImportParseService(deps: ResumeImportParseDeps) {
@@ -121,7 +121,7 @@ export function createResumeImportParseService(deps: ResumeImportParseDeps) {
       if (error instanceof AiProviderError) {
         return resumeImportError(
           RESUME_IMPORT_ERROR_CODES.AI_UNAVAILABLE,
-          RESUME_IMPORT_ERROR_MESSAGES.AI_UNAVAILABLE,
+          aiFailureMessage(error, RESUME_IMPORT_ERROR_MESSAGES.AI_UNAVAILABLE),
         );
       }
 

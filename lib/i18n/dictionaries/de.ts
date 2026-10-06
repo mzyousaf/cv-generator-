@@ -603,6 +603,10 @@ export const de: Dictionary = {
     previewTitle: "Vorschau, vor dem Hinzufügen bearbeitbar",
   },
   serverErrors: {
+    aiAuth: "Der KI-Dienst hat den API-Schlüssel abgelehnt. Der Betreiber der Website muss den OpenRouter-API-Schlüssel aktualisieren.",
+    aiCredits: "Der KI-Dienst hat kein Guthaben mehr. Der Betreiber der Website muss dem OpenRouter-Konto Guthaben hinzufügen.",
+    aiModel: "Das konfigurierte KI-Modell ist nicht verfügbar. Der Betreiber der Website muss ein anderes OpenRouter-Modell wählen.",
+    aiRateLimit: "Der KI-Dienst ist gerade ausgelastet. Warten Sie eine Minute und versuchen Sie es erneut.",
     photoInvalid: "Das Foto muss ein JPEG- oder PNG-Bild unter 240 KB sein.",
     cvUnauthenticated: "Sie müssen angemeldet sein, um Lebensläufe zu verwalten.",
     cvNotFound: "Lebenslauf nicht gefunden.",

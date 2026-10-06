@@ -603,6 +603,10 @@ export const fr: Dictionary = {
     previewTitle: "Aperçu, modifiable avant l’ajout",
   },
   serverErrors: {
+    aiAuth: "Le service d’IA a refusé la clé d’API. Le propriétaire du site doit mettre à jour la clé d’API OpenRouter.",
+    aiCredits: "Le service d’IA n’a plus de crédits. Le propriétaire du site doit ajouter des crédits au compte OpenRouter.",
+    aiModel: "Le modèle d’IA configuré n’est pas disponible. Le propriétaire du site doit choisir un autre modèle OpenRouter.",
+    aiRateLimit: "Le service d’IA est occupé pour le moment. Patientez une minute et réessayez.",
     photoInvalid: "La photo doit être une image JPEG ou PNG de moins de 240 Ko.",
     cvUnauthenticated: "Vous devez être connecté pour gérer vos CV.",
     cvNotFound: "CV introuvable.",

@@ -1,5 +1,11 @@
 import { getAiEnv } from "@/lib/ai/env";
-import { AI_ERROR_CODES, AI_ERROR_MESSAGES, aiError, type AiResult } from "@/lib/ai/errors";
+import {
+  AI_ERROR_CODES,
+  AI_ERROR_MESSAGES,
+  aiError,
+  aiFailureMessage,
+  type AiResult,
+} from "@/lib/ai/errors";
 import {
   buildExperienceUserPrompt,
   buildSkillsUserPrompt,
@@ -8,7 +14,7 @@ import {
   SKILLS_SYSTEM_PROMPT,
   SUMMARY_SYSTEM_PROMPT,
 } from "@/lib/ai/prompts";
-import { AiProviderError, type AiProvider } from "@/lib/ai/provider";
+import type { AiProvider } from "@/lib/ai/provider";
 import { createOpenRouterProvider } from "@/lib/ai/providers/openrouter";
 import {
   buildSectionCreateUserPrompt,
@@ -36,8 +42,11 @@ type AiServiceDeps = {
   getProvider: () => AiProvider | null;
 };
 
-function mapProviderFailure(): AiResult<never> {
-  return aiError(AI_ERROR_CODES.PROVIDER, AI_ERROR_MESSAGES.PROVIDER);
+function mapProviderFailure(error?: unknown): AiResult<never> {
+  return aiError(
+    AI_ERROR_CODES.PROVIDER,
+    aiFailureMessage(error, AI_ERROR_MESSAGES.PROVIDER),
+  );
 }
 
 export function createAiService(deps: AiServiceDeps) {
@@ -60,11 +69,7 @@ export function createAiService(deps: AiServiceDeps) {
 
       return { success: true, data: output };
     } catch (error) {
-      if (error instanceof AiProviderError) {
-        return mapProviderFailure();
-      }
-
-      return mapProviderFailure();
+      return mapProviderFailure(error);
     }
   }
 
