@@ -20,13 +20,15 @@ export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
   return (
     <AuthModalProvider>
       <div className="flex min-h-full flex-col bg-background text-slate-900">
-        {/* No overflow clipping here: the preferences panel must float over the content card. */}
-        <header className="scheme-light relative z-20 bg-ink-mesh text-white">
+        {/* No overflow clipping here: the preferences panel must float over the content card.
+            The header itself gets no z-index (so the overlapping main, e.g. the translation
+            notice, paints above its background); only the top bar is lifted above main. */}
+        <header className="scheme-light relative bg-ink-mesh text-white">
           <div
             className="pointer-events-none absolute inset-0 bg-grid-faint [mask-image:radial-gradient(ellipse_at_top,black_25%,transparent_75%)]"
             aria-hidden="true"
           />
-          <div className="relative z-10 mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-5 sm:px-6">
+          <div className="relative z-30 mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-5 sm:px-6">
             <Link
               href="/"
               className="min-w-0 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
@@ -49,7 +51,7 @@ export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
           </div>
           <div className="relative mx-auto max-w-3xl px-4 pb-24 pt-10 sm:px-6">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">{t.legal.eyebrow}</p>
-            <h1 className="mt-3 hyphens-auto text-[2rem] font-bold leading-tight tracking-[-0.03em] [overflow-wrap:anywhere] sm:text-5xl">
+            <h1 className="mt-3 hyphens-auto text-[1.75rem] font-bold leading-tight tracking-[-0.03em] [overflow-wrap:anywhere] min-[400px]:text-[2rem] sm:text-5xl">
               {title}
             </h1>
             <p className="mt-3 text-sm text-slate-400">
@@ -63,7 +65,7 @@ export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
               {t.legal.englishOnly}
             </p>
           ) : null}
-          <article className="legal-content space-y-6 rounded-3xl border border-slate-200/70 bg-surface p-6 text-[0.95rem] leading-relaxed text-slate-600 shadow-lift sm:p-10 [&_a]:font-semibold [&_a]:text-blue-600 [&_a]:underline-offset-2 hover:[&_a]:text-blue-700 hover:[&_a]:underline [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-950 [&_li]:mt-1.5 [&_p]:mt-3 [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:ps-6 [&_ul]:marker:text-blue-400">
+          <article className="legal-content space-y-6 rounded-3xl border border-slate-200/70 bg-surface p-6 text-[0.95rem] leading-relaxed text-slate-600 shadow-lift sm:p-10 [&_a]:font-semibold [&_a]:text-blue-600 [&_a]:underline-offset-2 hover:[&_a]:text-blue-700 hover:[&_a]:underline [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-950 [&_li]:mt-1.5 [&_p]:mt-3 [&_ul]:mt-3 [&_ul]:list-disc [&_ul]:ps-6 [&_ul]:marker:text-blue-400 [&>:first-child]:mt-0">
             {children}
           </article>
         </main>
