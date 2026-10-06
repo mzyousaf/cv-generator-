@@ -104,7 +104,7 @@ export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorPr
   function slot(sectionId: SectionKey) {
     return {
       id: builderSectionDomId(sectionId),
-      className: "scroll-mt-28",
+      className: "scroll-mt-44 xl:scroll-mt-28",
       style: { order: sectionOrder.indexOf(sectionId) + 1 },
     };
   }
@@ -139,7 +139,7 @@ export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorPr
       </div>
 
       <div className="flex flex-col gap-4">
-      <div id="builder-section-personal" className="scroll-mt-28" style={{ order: 0 }}>
+      <div id="builder-section-personal" className="scroll-mt-44 xl:scroll-mt-28" style={{ order: 0 }}>
       <SectionCard
         title={t.sections.personal}
         description={t.editor.descriptions.personal}

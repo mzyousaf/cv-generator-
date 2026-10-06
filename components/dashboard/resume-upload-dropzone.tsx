@@ -10,7 +10,10 @@ import { FormMessage } from "@/components/ui/form-message";
 import { Spinner } from "@/components/ui/spinner";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import { resizePhotoDataUrl } from "@/lib/cv/photo-client";
-import { RESUME_IMPORT_ACCEPT } from "@/lib/resume-import/constants";
+import {
+  RESUME_IMPORT_ACCEPT,
+  RESUME_IMPORT_MAX_FILE_BYTES,
+} from "@/lib/resume-import/constants";
 import {
   createResumeFromImportAction,
   importResumeForReviewAction,
@@ -145,13 +148,24 @@ export function ResumeUploadDropzone() {
           setIsDragging(false);
           handleFiles(e.dataTransfer.files);
         }}
+        onClick={(e) => {
+          // Touch devices can't drag and drop, so the whole zone opens the picker.
+          if (
+            isBusy ||
+            e.target === inputRef.current ||
+            (e.target as HTMLElement).closest("button")
+          ) {
+            return;
+          }
+          inputRef.current?.click();
+        }}
         aria-busy={isBusy || undefined}
         className={cn(
           "group/drop rounded-2xl border-2 border-dashed bg-surface/70 p-6 transition-all duration-200 sm:p-8",
           isDragging
             ? "border-blue-400 bg-blue-50/70 shadow-[0_0_0_6px_color-mix(in_oklab,var(--brand-600)_8%,transparent)]"
             : "border-slate-200",
-          !isBusy && "hover:border-blue-300 hover:bg-surface",
+          !isBusy && "cursor-pointer hover:border-blue-300 hover:bg-surface",
         )}
       >
         {isBusy && file ? (
@@ -217,7 +231,9 @@ export function ResumeUploadDropzone() {
               </button>
             </p>
             <p className="mt-1 text-xs text-slate-500">
-              {format(t.importer.fileHint, { size: formatFileSize(5 * 1024 * 1024) })}
+              {format(t.importer.fileHint, {
+                size: `${RESUME_IMPORT_MAX_FILE_BYTES / (1024 * 1024)} MB`,
+              })}
             </p>
           </div>
         )}

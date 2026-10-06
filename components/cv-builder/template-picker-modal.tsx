@@ -112,7 +112,7 @@ export function TemplatePickerModal({
       aria-pressed={filter === value}
       onClick={() => setFilter(value)}
       className={cn(
-        "shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+        "min-h-9 shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
         filter === value
           ? "border-blue-600 bg-blue-600 text-white"
           : "border-slate-200 bg-surface text-slate-600 hover:border-slate-300 hover:text-slate-900",
@@ -179,7 +179,7 @@ export function TemplatePickerModal({
               aria-pressed={isSelected}
               onClick={() => void handleSelect(templateId)}
               className={cn(
-                "group cursor-pointer rounded-2xl border p-3 text-start transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2",
+                "group flex cursor-pointer flex-col rounded-2xl border p-3 text-start transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2",
                 isSelected
                   ? "border-blue-600 bg-blue-50/50 ring-2 ring-blue-600/15"
                   : "border-slate-200 bg-surface hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-soft",
@@ -188,7 +188,7 @@ export function TemplatePickerModal({
             >
               <TemplateThumbnail templateId={templateId} locale={documentLocale} />
               <div className="mt-3 flex items-start justify-between gap-2">
-                <p className="text-sm font-bold text-slate-950">{t.templateMeta[templateId].name}</p>
+                <p className="min-w-0 text-sm font-bold text-slate-950 [overflow-wrap:anywhere]">{t.templateMeta[templateId].name}</p>
                 <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
                   {t.templatePicker.regions[region]}
                 </span>

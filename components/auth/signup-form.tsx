@@ -4,7 +4,7 @@ import { useI18n } from "@/components/i18n/i18n-provider";
 import { localizeServerMessage } from "@/lib/i18n/server-messages";
 
 import { signIn } from "next-auth/react";
-import { useActionState, useEffect, useRef, useState } from "react";
+import { startTransition, useActionState, useEffect, useRef, useState } from "react";
 import { registerUser, type RegisterUserState } from "@/lib/auth/actions";
 import { useRouter } from "next/navigation";
 import { GoogleSignInButton } from "@/components/auth/google-sign-in-button";
@@ -95,6 +95,15 @@ export function SignupForm({
     };
   }, [state.success, mode, router, callbackUrl, onSuccess, t]);
 
+  // Submit via onSubmit + startTransition instead of `<form action>`: React resets an
+  // action form after every submission, which wiped name/email when the server
+  // returned an error such as "account already exists".
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    startTransition(() => handleFormAction(formData));
+  }
+
   function handleFormAction(formData: FormData) {
     setSignInError(null);
     pendingCredentials.current = {
@@ -113,7 +122,7 @@ export function SignupForm({
       {state.error ? <FormMessage>{localizeServerMessage(t, state.error)}</FormMessage> : null}
       {signInError ? <FormMessage>{signInError}</FormMessage> : null}
 
-      <form action={handleFormAction} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <Field label={t.auth.name} htmlFor={nameId}>
           <Input
             id={nameId}

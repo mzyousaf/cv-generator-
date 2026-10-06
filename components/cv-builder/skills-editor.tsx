@@ -52,12 +52,12 @@ export function SkillsEditor({ state, onChangeSkills }: SkillsEditorProps) {
           {skills.map((skill, index) => (
             <li key={`${skill}-${index}`} className="max-w-full">
               <span className="inline-flex max-w-full items-center gap-1 rounded-md border border-blue-100 bg-gradient-to-b from-surface to-blue-50/70 py-1 ps-3 pe-1 text-sm font-medium text-blue-900 shadow-[0_1px_2px_color-mix(in_oklab,var(--brand-600)_8%,transparent)]">
-                <span className="break-words">{skill}</span>
+                <span dir="auto" className="min-w-0 [overflow-wrap:anywhere]">{skill}</span>
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="min-h-7 min-w-7 px-1 text-slate-500 hover:text-red-700"
+                  className="min-h-7 min-w-7 shrink-0 px-1 text-slate-500 hover:text-red-700"
                   aria-label={format(t.editor.removeSkill, { skill })}
                   onClick={() => onChangeSkills(removeSkillFromList(skills, index))}
                 >
@@ -76,6 +76,7 @@ export function SkillsEditor({ state, onChangeSkills }: SkillsEditorProps) {
         </label>
         <Input
           id="skill-add-input"
+          dir="auto"
           value={draft}
           placeholder={t.editor.addSkill}
           onChange={(event) => setDraft(event.target.value)}

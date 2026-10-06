@@ -105,10 +105,12 @@ export function DashboardSidebar({
             </span>
           )}
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-white">
+            <p className="truncate text-sm font-semibold text-white" title={user.name}>
               {user.name}
             </p>
-            <p className="truncate text-xs text-slate-400">{user.email}</p>
+            <p className="truncate text-xs text-slate-400" title={user.email}>
+              {user.email}
+            </p>
           </div>
         </div>
         <div className="mt-2 flex items-center gap-2">

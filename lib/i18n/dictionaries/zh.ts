@@ -23,6 +23,7 @@ export const zh: Dictionary = {
     cancel: "取消",
     signIn: "登录",
     createCvFree: "免费创建简历",
+    createCvShort: "免费创建",
     back: "返回",
     remove: "删除",
     dismiss: "关闭",
@@ -285,7 +286,7 @@ export const zh: Dictionary = {
   },
   legal: {
     eyebrow: "法律",
-    backHome: "← 返回首页",
+    backHome: "返回首页",
     lastUpdated: "最后更新：[PLACEHOLDER: 填写日期]",
     englishOnly: "本译文仅为方便阅读而提供。如有任何差异，以英文版本为准。",
   },

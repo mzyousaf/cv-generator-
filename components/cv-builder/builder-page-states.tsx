@@ -18,7 +18,7 @@ const CV_ERROR_KEYS = {
 export function BuilderLoadingState() {
   const { t } = useI18n();
   return (
-    <main className="flex min-h-[50vh] items-center justify-center bg-slate-50/50 px-6">
+    <main className="flex min-h-dvh items-center justify-center bg-slate-50/50 px-6">
       <p className="flex items-center gap-2 text-sm text-slate-600" role="status">
         <Spinner className="size-4 text-slate-400" />
         {t.builder.loading}
@@ -30,7 +30,7 @@ export function BuilderLoadingState() {
 export function BuilderErrorState({ code }: { code: CvErrorCode }) {
   const { t } = useI18n();
   return (
-    <main className="flex min-h-[50vh] items-center justify-center bg-slate-50/50 px-6">
+    <main className="flex min-h-dvh items-center justify-center bg-slate-50/50 px-6">
       <Card className="max-w-md">
         <CardContent className="space-y-4 py-8 text-center">
           <h1 className="text-2xl font-semibold text-slate-900">

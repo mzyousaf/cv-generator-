@@ -16,7 +16,7 @@ export function SignOutButton({ tone = "light" }: { tone?: "light" | "dark" }) {
         fullWidth
         className={
           tone === "dark"
-            ? "text-slate-400 hover:bg-white/5 hover:text-white"
+            ? "text-slate-300! hover:bg-white/8 hover:text-white!"
             : undefined
         }
       >

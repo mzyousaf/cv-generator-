@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
-import { PreferencesMenu } from "@/components/preferences/preferences-menu";
+import { PreferencesMenu, PreferencesPanel } from "@/components/preferences/preferences-menu";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/cn";
@@ -43,8 +43,23 @@ export function LandingNavbar() {
       }
     }
 
+    // The menu is a desktop-hidden overlay; close it if the screen grows past it.
+    const desktop = window.matchMedia("(min-width: 64rem)");
+    function onDesktopChange(event: MediaQueryListEvent) {
+      if (event.matches) {
+        setMobileOpen(false);
+      }
+    }
+
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
+    desktop.addEventListener("change", onDesktopChange);
+    return () => {
+      document.body.style.overflow = overflow;
+      document.removeEventListener("keydown", onKeyDown);
+      desktop.removeEventListener("change", onDesktopChange);
+    };
   }, [mobileOpen]);
 
   return (
@@ -62,9 +77,10 @@ export function LandingNavbar() {
       >
         <Link
           href="/"
-          className="cursor-pointer rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          className="min-w-0 shrink-0 cursor-pointer rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         >
-          <Logo tone="light" />
+          {/* Below 360px only the mark fits next to the CTA and burger; keep the name for screen readers. */}
+          <Logo tone="light" className="max-[359px]:[&>span+span]:sr-only" />
         </Link>
 
         <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1 lg:flex">
@@ -86,12 +102,12 @@ export function LandingNavbar() {
           <GenerateFreeButton variant="nav" />
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
-          <PreferencesMenu tone="dark" className="hidden min-[420px]:block" />
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
+          <PreferencesMenu tone="dark" className="hidden sm:block" />
           <GenerateFreeButton variant="nav" />
           <button
             type="button"
-            className="inline-flex size-9 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             aria-expanded={mobileOpen}
             aria-controls={menuId}
             aria-label={mobileOpen ? t.common.closeMenu : t.common.openMenu}
@@ -105,25 +121,33 @@ export function LandingNavbar() {
       </nav>
 
       {mobileOpen ? (
-        <div
-          id={menuId}
-          className="border-t border-white/10 px-4 py-4 lg:hidden"
-        >
-          <ul className="space-y-1">
-            {[...navLinks, { href: "/login", label: t.common.signIn }].map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="block rounded-xl px-3 py-2.5 text-sm font-medium text-slate-200 transition-colors hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <PreferencesMenu tone="dark" align="start" className="mt-3 min-[420px]:hidden" />
-        </div>
+        <>
+          {/* Overlay: floats over the page instead of pushing it down. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 top-full h-dvh animate-fade-in bg-ink/60 backdrop-blur-sm lg:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div
+            id={menuId}
+            className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] animate-fade-up overflow-y-auto border-y border-white/10 bg-ink/95 px-4 pb-5 pt-3 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.6)] backdrop-blur-xl [animation-duration:0.2s] lg:hidden"
+          >
+            <ul className="space-y-1">
+              {[...navLinks, { href: "/login", label: t.common.signIn }].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="block rounded-xl px-3 py-2.5 text-sm font-medium text-slate-200 transition-colors hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <PreferencesPanel className="mt-3 sm:hidden" />
+          </div>
+        </>
       ) : null}
     </header>
   );

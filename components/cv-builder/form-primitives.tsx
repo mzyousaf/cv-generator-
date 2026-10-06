@@ -30,14 +30,14 @@ export function TextInput({
   id,
   ...props
 }: InputHTMLAttributes<HTMLInputElement> & { id: string }) {
-  return <Input id={id} {...props} />;
+  return <Input id={id} dir="auto" {...props} />;
 }
 
 export function TextArea({
   id,
   ...props
 }: TextareaHTMLAttributes<HTMLTextAreaElement> & { id: string }) {
-  return <Textarea id={id} {...props} />;
+  return <Textarea id={id} dir="auto" {...props} />;
 }
 
 export function SectionCard({
@@ -134,8 +134,8 @@ export function CollapsibleEntryCard({
   const { t } = useI18n();
   return (
     <div className="overflow-hidden rounded-lg border border-slate-200/80 bg-slate-50/40 transition-colors hover:border-slate-300/80">
-      <div className="flex items-start gap-2 px-4 py-3">
-        <div className="min-w-0 flex-1">
+      <div className="flex flex-wrap items-start gap-x-2 gap-y-1 px-4 py-3">
+        <div className="min-w-0 flex-[1_1_12rem]">
           <p className="break-words text-sm font-semibold leading-snug text-slate-900">
             {summaryTitle}
           </p>
@@ -145,7 +145,7 @@ export function CollapsibleEntryCard({
             </p>
           ) : null}
         </div>
-        <div className="flex shrink-0 items-center gap-0.5">
+        <div className="ms-auto flex shrink-0 items-center gap-0.5">
           {!hideToggle ? (
             <Button
               type="button"
@@ -193,7 +193,7 @@ export function SummaryTextArea({
 
   return (
     <div className={cn("space-y-1", className)}>
-      <Textarea id={id} value={text} onChange={onChange} rows={8} className="min-h-[160px]" />
+      <Textarea id={id} dir="auto" value={text} onChange={onChange} rows={8} className="min-h-[160px]" />
       {maxLength ? (
         <p className="text-end text-xs text-slate-500" aria-live="polite">
           {text.length}/{maxLength}

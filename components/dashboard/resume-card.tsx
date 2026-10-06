@@ -50,9 +50,9 @@ export function ResumeCard({
         href={editHref}
         tabIndex={-1}
         aria-hidden="true"
-        className="relative block h-52 overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50/80"
+        className="relative block h-56 overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50/80"
       >
-        <div className="pointer-events-none absolute inset-x-0 top-5 flex justify-center">
+        <div className="pointer-events-none absolute inset-x-0 top-12 flex justify-center">
           <div className="w-[794px] shrink-0 origin-top scale-[0.26] rounded-sm shadow-[0_30px_60px_-20px_rgb(15_23_42/0.45)] transition-transform duration-500 group-hover:scale-[0.27]">
             <CvTemplateRenderer templateId={templateId} state={previewState} />
           </div>
@@ -68,7 +68,11 @@ export function ResumeCard({
       </Link>
       <CardContent className="flex flex-1 items-center gap-3 border-t border-slate-100 p-4 sm:p-5">
         <div className="min-w-0 flex-1 space-y-1">
-          <h3 className="truncate text-base font-bold tracking-tight text-slate-950">
+          <h3
+            dir="auto"
+            title={title}
+            className="truncate text-base font-bold tracking-tight text-slate-950 [text-align:match-parent]"
+          >
             {title}
           </h3>
           <p className="text-xs text-slate-500">

@@ -8,7 +8,6 @@ import {
   type DashboardSidebarUser,
 } from "@/components/dashboard/dashboard-sidebar";
 import { MobileDashboardHeader } from "@/components/dashboard/mobile-dashboard-header";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
 type DashboardShellProps = {
@@ -68,7 +67,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
         <div className="fixed inset-0 z-50 lg:hidden" role="presentation">
           <button
             type="button"
-            className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/60 backdrop-blur-sm"
             aria-label={t.dashboard.closeNavigation}
             onClick={closeMobileNav}
           />
@@ -80,18 +79,17 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
             aria-modal="true"
             aria-label={t.dashboard.navigation}
           >
-            <div className="flex items-center justify-end px-3 pt-3">
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                className="min-h-9 min-w-9 px-2 text-slate-300 hover:bg-white/10 hover:text-white"
-                aria-label={t.common.closeMenu}
-                onClick={closeMobileNav}
-              >
-                <span aria-hidden="true">×</span>
-              </Button>
-            </div>
+            <button
+              type="button"
+              className="absolute end-3 top-5.5 z-10 inline-flex size-10 items-center justify-center rounded-xl text-slate-300 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              aria-label={t.common.closeMenu}
+              autoFocus
+              onClick={closeMobileNav}
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
             <DashboardSidebar user={user} onNavigate={closeMobileNav} className="flex-1" />
           </div>
         </div>

@@ -30,6 +30,7 @@ export const en = {
     cancel: "Cancel",
     signIn: "Sign in",
     createCvFree: "Create Your CV Free",
+    createCvShort: "Start free",
     back: "Back",
     remove: "Remove",
     dismiss: "Dismiss",
@@ -313,7 +314,7 @@ export const en = {
   },
   legal: {
     eyebrow: "Legal",
-    backHome: "← Back home",
+    backHome: "Back home",
     lastUpdated: "Last updated: [PLACEHOLDER: insert date]",
     englishOnly:
       "This is a translation provided for your convenience. If there is any difference, the English version prevails.",

@@ -39,6 +39,15 @@ describe("PDF filename generation", () => {
     );
   });
 
+  it("truncates long titles at a word boundary", () => {
+    assert.equal(
+      buildPdfFilename(
+        "Senior Staff Software Engineer — Platform & Developer Experience CV (Berlin / Remote, 2026 applications)",
+      ),
+      "Senior-Staff-Software-Engineer-Platform-Developer-Experience-CV-Berlin-Remote.pdf",
+    );
+  });
+
   it("falls back to cv.pdf when title is empty", () => {
     assert.equal(buildPdfFilename("   "), "cv.pdf");
   });

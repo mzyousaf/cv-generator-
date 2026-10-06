@@ -24,6 +24,7 @@ export const ar: Dictionary = {
     cancel: "إلغاء",
     signIn: "تسجيل الدخول",
     createCvFree: "أنشئ سيرتك الذاتية مجانًا",
+    createCvShort: "ابدأ مجانًا",
     back: "رجوع",
     remove: "إزالة",
     dismiss: "تجاهل",
@@ -303,7 +304,7 @@ export const ar: Dictionary = {
   },
   legal: {
     eyebrow: "قانوني",
-    backHome: "→ العودة إلى الرئيسية",
+    backHome: "العودة إلى الرئيسية",
     lastUpdated: "آخر تحديث: [PLACEHOLDER: أدخل التاريخ]",
     englishOnly:
       "هذه ترجمة مقدَّمة لتيسير الاطلاع. وفي حال وجود أي اختلاف، تكون النسخة الإنجليزية هي المعتمدة.",

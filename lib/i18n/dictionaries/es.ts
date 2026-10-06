@@ -24,6 +24,7 @@ export const es: Dictionary = {
     cancel: "Cancelar",
     signIn: "Iniciar sesión",
     createCvFree: "Crea tu CV gratis",
+    createCvShort: "Empieza gratis",
     back: "Atrás",
     remove: "Eliminar",
     dismiss: "Descartar",
@@ -303,7 +304,7 @@ export const es: Dictionary = {
   },
   legal: {
     eyebrow: "Legal",
-    backHome: "← Volver al inicio",
+    backHome: "Volver al inicio",
     lastUpdated: "Última actualización: [PLACEHOLDER: insertar fecha]",
     englishOnly:
       "Esta traducción se ofrece para tu comodidad. En caso de discrepancia, prevalece la versión en inglés.",
