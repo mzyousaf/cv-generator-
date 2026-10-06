@@ -79,7 +79,8 @@ export function LandingNavbar() {
           href="/"
           className="min-w-0 shrink-0 cursor-pointer rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         >
-          <Logo tone="light" />
+          {/* Below 360px only the mark fits next to the CTA and burger; keep the name for screen readers. */}
+          <Logo tone="light" className="max-[359px]:[&>span+span]:sr-only" />
         </Link>
 
         <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1 lg:flex">
@@ -106,7 +107,7 @@ export function LandingNavbar() {
           <GenerateFreeButton variant="nav" />
           <button
             type="button"
-            className="inline-flex size-9 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             aria-expanded={mobileOpen}
             aria-controls={menuId}
             aria-label={mobileOpen ? t.common.closeMenu : t.common.openMenu}

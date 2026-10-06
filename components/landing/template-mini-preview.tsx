@@ -31,7 +31,7 @@ export function TemplateMiniPreview({
           aria-hidden="true"
         >
           <div
-            className="origin-top-left"
+            className="origin-top-left rtl:origin-top-right"
             style={{
               width: PREVIEW_PAGE_WIDTH_PX,
               transform: `scale(${scale})`,

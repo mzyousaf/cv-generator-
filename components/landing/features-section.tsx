@@ -33,7 +33,7 @@ const features: Feature[] = [
 export function FeaturesSection() {
   const { t } = useI18n();
   return (
-    <section id="features" className="relative scroll-mt-24 overflow-hidden bg-background py-24 sm:py-32">
+    <section id="features" className="relative scroll-mt-16 overflow-hidden bg-background py-24 sm:py-32">
       <div
         className="absolute inset-x-0 top-0 -z-0 h-96 bg-dots-soft [mask-image:linear-gradient(to_bottom,black,transparent)]"
         aria-hidden="true"
@@ -50,7 +50,7 @@ export function FeaturesSection() {
             <li
               key={feature.key}
               className={cn(
-                feature.featured && index === 0 && "lg:col-span-2",
+                feature.featured && index === 0 && "sm:col-span-2",
                 feature.featured && index === features.length - 1 && "sm:col-span-2 lg:col-span-3",
               )}
             >

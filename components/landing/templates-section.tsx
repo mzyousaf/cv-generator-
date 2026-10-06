@@ -11,7 +11,7 @@ import { TemplateMiniPreview } from "@/components/landing/template-mini-preview"
 export function TemplatesSection() {
   const { t } = useI18n();
   return (
-    <section id="templates" className="scroll-mt-24 bg-background py-24 sm:py-32">
+    <section id="templates" className="scroll-mt-16 bg-background py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
           eyebrow={t.templatesSection.eyebrow}
@@ -21,9 +21,12 @@ export function TemplatesSection() {
 
         <ul className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {CORE_TEMPLATE_IDS.map((templateId) => (
-            <li key={templateId}>
+            <li
+              key={templateId}
+              className="md:max-lg:last:odd:col-span-2 md:max-lg:last:odd:w-[calc(50%-0.75rem)] md:max-lg:last:odd:justify-self-center"
+            >
               <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/70 bg-surface shadow-soft transition duration-300 hover:-translate-y-1.5 hover:border-blue-200 hover:shadow-lift">
-                <div className="relative bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50/70 px-6 pt-6">
+                <div className="relative bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50/70 px-6 pt-12">
                   <span className="absolute start-4 top-4 z-10 rounded-full bg-surface/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-700 shadow-sm ring-1 ring-blue-100 backdrop-blur">
                     {t.templatesSection.tags[templateId]}
                   </span>
