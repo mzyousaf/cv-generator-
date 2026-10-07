@@ -9,7 +9,7 @@ import {
 test("resolvePreferences falls back to defaults for unknown values", () => {
   assert.deepEqual(resolvePreferences({ locale: "xx", theme: "neon", mode: "dim" }), {
     locale: "en",
-    theme: "violet",
+    theme: "coral",
     mode: "system",
   });
 });

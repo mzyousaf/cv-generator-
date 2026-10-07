@@ -30,7 +30,10 @@ export function TextInput({
   id,
   ...props
 }: InputHTMLAttributes<HTMLInputElement> & { id: string }) {
-  return <Input id={id} dir="auto" {...props} />;
+  // dir="auto" lets mixed-script text read correctly, but date/month pickers
+  // must follow the page direction or they flip to LTR inside RTL forms.
+  const freeText = !props.type || ["text", "search", "email", "url", "tel"].includes(props.type);
+  return <Input id={id} dir={freeText ? "auto" : undefined} {...props} />;
 }
 
 export function TextArea({
@@ -76,7 +79,8 @@ export function SectionCard({
               <p className="text-sm text-slate-500">{description}</p>
             ) : null}
           </div>
-          {actions ? <div className="flex shrink-0 items-center gap-0.5">{actions}</div> : null}
+          {/* -mt-1 centres the ~32px actions on the 24px title line. */}
+          {actions ? <div className="-mt-1 flex shrink-0 items-center gap-0.5">{actions}</div> : null}
         </div>
         <div className="space-y-4">{children}</div>
         {onAdd ? (

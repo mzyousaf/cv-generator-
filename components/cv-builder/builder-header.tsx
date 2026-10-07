@@ -115,7 +115,7 @@ export function BuilderHeader({
             href="/dashboard"
             className="group/back inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-xl py-1 ps-1 pe-3 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
-            <LogoMark className="size-7" />
+            <LogoMark variant="tile" className="size-7" />
             <span aria-hidden="true" className="transition-transform group-hover/back:-translate-x-0.5 rtl:rotate-180">←</span>
             <span className="hidden min-[400px]:inline">{t.builder.resumes}</span>
             <span className="min-[400px]:hidden">{t.common.back}</span>
@@ -129,12 +129,18 @@ export function BuilderHeader({
             dir="auto"
             value={title}
             onChange={(event) => onTitleChange(event.target.value)}
-            className="min-w-0 flex-1 border-transparent bg-transparent text-base font-bold tracking-tight text-slate-950 shadow-none hover:border-slate-200 hover:bg-surface focus:bg-surface sm:text-lg"
+            className="h-10! min-w-0 flex-1 border-transparent bg-transparent text-base font-bold tracking-tight text-slate-950 shadow-none hover:border-slate-200 hover:bg-surface focus:bg-surface sm:text-lg"
           />
+          {/* On phones the status collapses to a dot, so it sits beside the title it describes. */}
+          <span className="flex shrink-0 sm:hidden">
+            <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
+          </span>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 xl:justify-end xl:gap-4">
-          <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
+        <div className="flex flex-wrap items-center justify-end gap-1.5 sm:justify-between sm:gap-2 xl:justify-end xl:gap-4">
+          <span className="hidden sm:flex">
+            <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
+          </span>
 
           <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
             {showMobilePaneToggle && onMobilePaneChange ? (

@@ -17,6 +17,7 @@ html[data-mode="dark"] {
   --color-ink: var(--ink);
   --font-sans: var(--font-jakarta), var(--font-arabic);
   --font-display: var(--font-instrument);
+  --font-brand: var(--font-syne);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -109,7 +110,7 @@ html[lang="zh"] .font-display {
 }
 
 @utility bg-brand-gradient {
-  background-image: linear-gradient(135deg, var(--brand-500) 0%, var(--brand-600) 45%, var(--brand-700) 100%);
+  background-image: var(--brand-gradient, linear-gradient(135deg, var(--brand-500) 0%, var(--brand-600) 45%, var(--brand-700) 100%));
 }
 
 @utility bg-ink-mesh {
@@ -152,4 +153,37 @@ html[lang="zh"] .font-display {
   --radius-xl: 0.4375rem;
   --radius-2xl: 0.5rem;
   --radius-3xl: 0.625rem;
+}
+
+@layer base {
+  /* Even line lengths: no lone word on the last line of headings or centred copy. */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  /* Native checkboxes/radios: brand-coloured and a consistent 16px box. */
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+    cursor: pointer;
+    accent-color: var(--brand-600);
+  }
+
+  /* Month/date pickers: give the calendar icon breathing room and a pointer. */
+  input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    margin-inline-start: 0.5rem;
+    opacity: 0.6;
+  }
+  input::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
 }

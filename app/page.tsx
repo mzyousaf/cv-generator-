@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/constants";
 const siteUrl =
   process.env.AUTH_URL?.trim() || "http://localhost:3000";
 
-const title = "CV Generator | Create a Professional CV Online";
+const title = `${siteConfig.name} | Create a Professional CV Online`;
 const description =
   "Build a professional CV with templates, an easy editor, AI writing assistance, and PDF export. Create, save, and download your resume online.";
 
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title,
   description,
   keywords: [
+    "Resumivo",
     "CV generator",
     "resume builder",
     "professional CV",

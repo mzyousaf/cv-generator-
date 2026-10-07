@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
+import { FitPage } from "@/components/cv-templates/fit-page";
 import { TEMPLATE_PREVIEW_SAMPLE_STATE } from "@/components/cv-templates/sample-preview-state";
 import { CORE_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
 
@@ -85,10 +86,7 @@ export function ProductPreview() {
 
             <div className="bg-gradient-to-br from-slate-100 to-slate-200/70 p-3 sm:col-span-3">
               <div className="relative h-[280px] w-full max-w-full overflow-hidden rounded-lg bg-surface shadow-[0_12px_30px_-12px_rgb(15_23_42/0.35)] ring-1 ring-slate-200 sm:h-[320px] lg:h-[350px]">
-                <div
-                  className="pointer-events-none absolute left-1/2 top-0 w-[794px] origin-top -translate-x-1/2 select-none scale-[0.4] sm:scale-[0.34] lg:scale-[0.3] xl:scale-[0.36]"
-                  aria-hidden="true"
-                >
+                <FitPage className="absolute inset-0">
                   <CvTemplateRenderer
                     templateId={activePreviewTemplate}
                     state={{
@@ -96,7 +94,7 @@ export function ProductPreview() {
                       template: activePreviewTemplate,
                     }}
                   />
-                </div>
+                </FitPage>
               </div>
             </div>
           </div>

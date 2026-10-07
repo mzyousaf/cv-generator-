@@ -11,6 +11,7 @@ export const zh: Dictionary = {
     theme: "主题",
     appearance: "外观",
     themes: {
+      coral: "珊瑚",
       violet: "紫罗兰",
       ocean: "海洋",
       emerald: "翡翠",
@@ -18,6 +19,12 @@ export const zh: Dictionary = {
       sunset: "落日",
     },
     modes: { light: "浅色", dark: "深色", system: "跟随系统" },
+  },
+  notFound: {
+    title: "页面未找到",
+    body: "您要查找的页面不存在或已被移动。",
+    home: "返回首页",
+    dashboard: "前往我的简历",
   },
   common: {
     cancel: "取消",
@@ -58,7 +65,7 @@ export const zh: Dictionary = {
     chipPdf: "PDF 已可下载",
   },
   preview: {
-    label: "CV Generator 产品预览（演示数据）",
+    label: "Resumivo 产品预览（演示数据）",
     saved: "已保存",
     fullName: "姓名",
     title: "职位",

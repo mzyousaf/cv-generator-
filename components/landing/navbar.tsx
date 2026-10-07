@@ -77,10 +77,10 @@ export function LandingNavbar() {
       >
         <Link
           href="/"
-          className="min-w-0 shrink-0 cursor-pointer rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          className="inline-flex min-w-0 shrink-0 cursor-pointer items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         >
           {/* Below 360px only the mark fits next to the CTA and burger; keep the name for screen readers. */}
-          <Logo tone="light" className="max-[359px]:[&>span+span]:sr-only" />
+          <Logo tone="light" className="max-[359px]:[&_[data-logo-word]]:sr-only" />
         </Link>
 
         <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1 lg:flex">
@@ -94,7 +94,7 @@ export function LandingNavbar() {
         <div className="hidden items-center gap-3 lg:flex">
           <Link
             href="/login"
-            className="rounded-full px-3 py-1.5 text-sm font-semibold text-slate-200 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            className="inline-flex h-10 items-center rounded-full px-3 text-sm font-semibold text-slate-200 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
           >
             {t.common.signIn}
           </Link>

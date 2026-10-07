@@ -12,6 +12,7 @@ export const de: Dictionary = {
     theme: "Design",
     appearance: "Darstellung",
     themes: {
+      coral: "Koralle",
       violet: "Violett",
       ocean: "Ozean",
       emerald: "Smaragd",
@@ -19,6 +20,12 @@ export const de: Dictionary = {
       sunset: "Abendrot",
     },
     modes: { light: "Hell", dark: "Dunkel", system: "System" },
+  },
+  notFound: {
+    title: "Seite nicht gefunden",
+    body: "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    home: "Zur Startseite",
+    dashboard: "Zu meinen Lebensläufen",
   },
   common: {
     cancel: "Abbrechen",
@@ -63,7 +70,7 @@ export const de: Dictionary = {
     chipPdf: "PDF zum Download bereit",
   },
   preview: {
-    label: "Produktvorschau von CV Generator (Demodaten)",
+    label: "Produktvorschau von Resumivo (Demodaten)",
     saved: "Gespeichert",
     fullName: "Vollständiger Name",
     title: "Position",

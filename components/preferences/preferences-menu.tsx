@@ -124,7 +124,7 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
       <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
         {t.prefs.theme}
       </p>
-      <div className="mt-2 flex justify-between gap-1">
+      <div className="mt-2 grid grid-cols-2 gap-1.5">
         {THEMES.map((id) => (
           <button
             key={id}
@@ -133,19 +133,21 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             title={t.prefs.themes[id]}
             onClick={() => chooseTheme(id)}
             className={cn(
-              "group flex min-w-0 flex-1 flex-col items-center gap-1.5 rounded-xl px-0 py-2 text-[10.5px] font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
-              id === current.theme ? "bg-slate-100 text-slate-900" : "text-slate-500 hover:bg-slate-50",
+              "group flex min-w-0 items-center gap-2 rounded-xl border px-2 py-1.5 text-xs font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+              id === current.theme
+                ? "border-slate-300 bg-slate-100 text-slate-900"
+                : "border-transparent text-slate-600 hover:bg-slate-50",
             )}
           >
             <span
               className={cn(
-                "size-7 rounded-full shadow-inner ring-offset-2 ring-offset-surface transition-transform group-hover:scale-110",
-                id === current.theme && "ring-2 ring-slate-900/70",
+                "size-5 shrink-0 rounded-full shadow-inner ring-offset-2 ring-offset-surface transition-transform group-hover:scale-110",
+                id === current.theme && "ring-2 ring-slate-900/60",
               )}
               style={{ background: THEME_SWATCHES[id] }}
               aria-hidden="true"
             />
-            <span className="max-w-full truncate">{t.prefs.themes[id]}</span>
+            <span className="min-w-0 truncate">{t.prefs.themes[id]}</span>
           </button>
         ))}
       </div>

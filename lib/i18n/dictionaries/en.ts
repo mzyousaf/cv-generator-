@@ -14,6 +14,7 @@ export const en = {
     theme: "Theme",
     appearance: "Appearance",
     themes: {
+      coral: "Coral",
       violet: "Violet",
       ocean: "Ocean",
       emerald: "Emerald",
@@ -25,6 +26,12 @@ export const en = {
       dark: "Dark",
       system: "System",
     },
+  },
+  notFound: {
+    title: "Page not found",
+    body: "The page you're looking for doesn't exist or has moved.",
+    home: "Back to home",
+    dashboard: "Go to my CVs",
   },
   common: {
     cancel: "Cancel",
@@ -69,7 +76,7 @@ export const en = {
     chipPdf: "PDF ready to download",
   },
   preview: {
-    label: "CV Generator product preview (demo data)",
+    label: "Resumivo product preview (demo data)",
     saved: "Saved",
     fullName: "Full name",
     title: "Title",

@@ -12,6 +12,7 @@ export const ar: Dictionary = {
     theme: "السمة",
     appearance: "المظهر",
     themes: {
+      coral: "مرجاني",
       violet: "بنفسجي",
       ocean: "محيطي",
       emerald: "زمردي",
@@ -19,6 +20,12 @@ export const ar: Dictionary = {
       sunset: "غروب",
     },
     modes: { light: "فاتح", dark: "داكن", system: "النظام" },
+  },
+  notFound: {
+    title: "الصفحة غير موجودة",
+    body: "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    home: "العودة إلى الرئيسية",
+    dashboard: "الانتقال إلى سيري الذاتية",
   },
   common: {
     cancel: "إلغاء",
@@ -63,7 +70,7 @@ export const ar: Dictionary = {
     chipPdf: "ملف PDF جاهز للتنزيل",
   },
   preview: {
-    label: "معاينة منتج CV Generator (بيانات تجريبية)",
+    label: "معاينة منتج Resumivo (بيانات تجريبية)",
     saved: "تم الحفظ",
     fullName: "الاسم الكامل",
     title: "المسمى الوظيفي",

@@ -12,6 +12,7 @@ export const fr: Dictionary = {
     theme: "Thème",
     appearance: "Apparence",
     themes: {
+      coral: "Corail",
       violet: "Violet",
       ocean: "Océan",
       emerald: "Émeraude",
@@ -19,6 +20,12 @@ export const fr: Dictionary = {
       sunset: "Couchant",
     },
     modes: { light: "Clair", dark: "Sombre", system: "Système" },
+  },
+  notFound: {
+    title: "Page introuvable",
+    body: "La page que vous cherchez n'existe pas ou a été déplacée.",
+    home: "Retour à l'accueil",
+    dashboard: "Mes CV",
   },
   common: {
     cancel: "Annuler",
@@ -63,7 +70,7 @@ export const fr: Dictionary = {
     chipPdf: "PDF prêt à télécharger",
   },
   preview: {
-    label: "Aperçu du produit CV Generator (données de démonstration)",
+    label: "Aperçu du produit Resumivo (données de démonstration)",
     saved: "Enregistré",
     fullName: "Nom complet",
     title: "Poste",

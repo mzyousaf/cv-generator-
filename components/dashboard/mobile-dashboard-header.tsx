@@ -17,7 +17,7 @@ export function MobileDashboardHeader({
   const { t } = useI18n();
   return (
     <header className="scheme-light sticky top-0 z-30 flex h-16 items-center justify-between gap-3 bg-ink/95 px-4 backdrop-blur-xl lg:hidden">
-      <Link href="/dashboard" className="min-w-0 truncate rounded-lg">
+      <Link href="/dashboard" className="inline-flex min-w-0 items-center rounded-lg">
         <Logo tone="light" />
       </Link>
       <button
