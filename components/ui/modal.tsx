@@ -149,13 +149,14 @@ export const ModalClose = forwardRef<
       onClick={onClose}
       aria-label={t.common.closeDialog}
       className={cn(
-        "absolute end-3 top-3 min-h-10 min-w-10 rounded-full px-2 text-slate-400 hover:bg-slate-100 hover:text-slate-800",
+        // Centred on the title's first line (title: pt-8 + 32px line → centre at 48px).
+        "absolute end-4 top-7 min-h-10 min-w-10 rounded-full px-2 text-slate-400 hover:bg-slate-100 hover:text-slate-800 sm:end-5",
         className,
       )}
     >
-      <span aria-hidden="true" className="text-xl leading-none">
-        ×
-      </span>
+      <svg aria-hidden="true" viewBox="0 0 20 20" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <path d="M5.5 5.5l9 9M14.5 5.5l-9 9" />
+      </svg>
     </Button>
   );
 });

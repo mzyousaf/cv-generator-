@@ -67,7 +67,7 @@ export function PhotoField({ value, templateId, onChange }: PhotoFieldProps) {
           </svg>
         )}
       </div>
-      <div className="min-w-0 flex-1">
+      <div className="-mt-1 min-w-0 flex-1">
         <label htmlFor={inputId} className="text-sm font-semibold text-slate-800">
           {fields.photo}
         </label>

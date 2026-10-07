@@ -131,7 +131,9 @@ export function BuilderPreviewPanel({
               )
             }
           >
-            −
+            <svg aria-hidden="true" viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <path d="M3.5 8h9" />
+            </svg>
           </Button>
           <span className="min-w-[3.25rem] px-1 text-center text-xs font-medium text-slate-700">
             {zoomLabel}
@@ -149,7 +151,9 @@ export function BuilderPreviewPanel({
               )
             }
           >
-            +
+            <svg aria-hidden="true" viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <path d="M3.5 8h9M8 3.5v9" />
+            </svg>
           </Button>
           <Button
             type="button"

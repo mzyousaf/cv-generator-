@@ -152,7 +152,7 @@ export function TemplatePickerModal({
       </div>
 
       <div
-        className="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-2"
+        className="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pe-8 pb-2 [mask-image:linear-gradient(to_right,black_calc(100%-3rem),transparent)] rtl:[mask-image:linear-gradient(to_left,black_calc(100%-3rem),transparent)]"
         role="group"
         aria-label={t.templatePicker.region}
       >

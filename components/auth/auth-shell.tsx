@@ -44,7 +44,7 @@ export function AuthShell({
           <ul className="mt-10 space-y-6">
             {t.auth.perks.map((perk) => (
               <li key={perk.title} className="flex gap-4">
-                <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-blue-200">
+                <span className="-mt-1 flex size-8 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-blue-200">
                   <svg aria-hidden="true" viewBox="0 0 20 20" className="size-4" fill="currentColor">
                     <path
                       fillRule="evenodd"

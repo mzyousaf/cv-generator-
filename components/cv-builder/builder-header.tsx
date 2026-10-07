@@ -131,10 +131,16 @@ export function BuilderHeader({
             onChange={(event) => onTitleChange(event.target.value)}
             className="min-w-0 flex-1 border-transparent bg-transparent text-base font-bold tracking-tight text-slate-950 shadow-none hover:border-slate-200 hover:bg-surface focus:bg-surface sm:text-lg"
           />
+          {/* On phones the status collapses to a dot, so it sits beside the title it describes. */}
+          <span className="flex shrink-0 sm:hidden">
+            <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
+          </span>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 xl:justify-end xl:gap-4">
-          <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
+        <div className="flex flex-wrap items-center justify-end gap-1.5 sm:justify-between sm:gap-2 xl:justify-end xl:gap-4">
+          <span className="hidden sm:flex">
+            <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
+          </span>
 
           <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
             {showMobilePaneToggle && onMobilePaneChange ? (

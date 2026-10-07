@@ -61,7 +61,8 @@ type RowProps = {
   onToggleHidden?: () => void;
 };
 
-const rowClass = "group/row relative flex items-center gap-0.5 rounded-md border border-transparent";
+// Rows align to the first line so long (wrapped) labels keep icon, handle and toggle level with the text.
+const rowClass = "group/row relative flex items-start gap-0.5 rounded-md border border-transparent";
 
 /** Name (scrolls to the section) and visibility toggle, shared by all rows. */
 function RowBody({ sectionKey, label, active, hidden, onNavigate, onToggleHidden }: RowProps) {
@@ -73,14 +74,14 @@ function RowBody({ sectionKey, label, active, hidden, onNavigate, onToggleHidden
         onClick={onNavigate}
         aria-current={active ? "true" : undefined}
         className={cn(
-          "flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded px-1.5 py-1.5 text-start text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+          "flex min-w-0 flex-1 cursor-pointer items-start gap-2 rounded px-1.5 py-1.5 text-start text-[13px] font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
           active ? "text-blue-700" : "text-slate-700 hover:text-slate-950",
           hidden && "text-slate-400",
         )}
       >
         <BuilderSectionIcon
           sectionId={sectionKey}
-          className={cn("size-4 shrink-0", active ? "text-blue-600" : "text-slate-400")}
+          className={cn("mt-px size-4 shrink-0", active ? "text-blue-600" : "text-slate-400")}
         />
         <span className={cn("min-w-0 flex-1 break-words leading-snug", hidden && "line-through decoration-slate-300")}>
           {label}
@@ -94,7 +95,7 @@ function RowBody({ sectionKey, label, active, hidden, onNavigate, onToggleHidden
           aria-label={format(hidden ? t.builder.showSection : t.builder.hideSection, { label })}
           title={hidden ? t.builder.show : t.builder.hide}
           className={cn(
-            "flex size-7 shrink-0 cursor-pointer items-center justify-center rounded text-slate-400 transition-opacity hover:bg-slate-100 hover:text-slate-700 focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+            "mt-0.5 flex size-7 shrink-0 cursor-pointer items-center justify-center rounded text-slate-400 transition-opacity hover:bg-slate-100 hover:text-slate-700 focus:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
             hidden ? "opacity-100" : "opacity-0 group-hover/row:opacity-100 max-xl:opacity-100",
           )}
         >
