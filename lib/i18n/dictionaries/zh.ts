@@ -11,6 +11,7 @@ export const zh: Dictionary = {
     theme: "主题",
     appearance: "外观",
     themes: {
+      coral: "珊瑚",
       violet: "紫罗兰",
       ocean: "海洋",
       emerald: "翡翠",
@@ -58,7 +59,7 @@ export const zh: Dictionary = {
     chipPdf: "PDF 已可下载",
   },
   preview: {
-    label: "CV Generator 产品预览（演示数据）",
+    label: "Resumivo 产品预览（演示数据）",
     saved: "已保存",
     fullName: "姓名",
     title: "职位",

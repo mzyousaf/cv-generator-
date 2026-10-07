@@ -58,7 +58,23 @@
   --color-red-950: var(--red-950);
 }
 
+/* Resumivo brand theme (default): the Flow logo's rose-to-orange. */
 :root,
+html[data-theme="coral"] {
+  --brand-50: #fff3f1;
+  --brand-100: #ffe4df;
+  --brand-200: #ffcac0;
+  --brand-300: #ffa392;
+  --brand-400: #fd7564;
+  --brand-500: #f5464f;
+  --brand-600: #e2264a;
+  --brand-700: #be1a40;
+  --brand-800: #9f183b;
+  --brand-900: #881837;
+  --brand-950: #4c0819;
+  --brand-gradient: linear-gradient(135deg, #e11d48 0%, #f43f5e 42%, #fb923c 100%);
+}
+
 html[data-theme="violet"] {
   --brand-50: #f4f3ff;
   --brand-100: #ebe8ff;

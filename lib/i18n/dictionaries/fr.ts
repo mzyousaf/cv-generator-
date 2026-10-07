@@ -12,6 +12,7 @@ export const fr: Dictionary = {
     theme: "Thème",
     appearance: "Apparence",
     themes: {
+      coral: "Corail",
       violet: "Violet",
       ocean: "Océan",
       emerald: "Émeraude",
@@ -63,7 +64,7 @@ export const fr: Dictionary = {
     chipPdf: "PDF prêt à télécharger",
   },
   preview: {
-    label: "Aperçu du produit CV Generator (données de démonstration)",
+    label: "Aperçu du produit Resumivo (données de démonstration)",
     saved: "Enregistré",
     fullName: "Nom complet",
     title: "Poste",

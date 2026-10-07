@@ -115,7 +115,7 @@ export function BuilderHeader({
             href="/dashboard"
             className="group/back inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-xl py-1 ps-1 pe-3 text-sm font-semibold text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
-            <LogoMark className="size-7" />
+            <LogoMark variant="tile" className="size-7" />
             <span aria-hidden="true" className="transition-transform group-hover/back:-translate-x-0.5 rtl:rotate-180">←</span>
             <span className="hidden min-[400px]:inline">{t.builder.resumes}</span>
             <span className="min-[400px]:hidden">{t.common.back}</span>

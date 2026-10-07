@@ -1,5 +1,6 @@
 import { Document, Page, StyleSheet, View } from "@react-pdf/renderer";
 import { DirText as Text } from "@/lib/pdf/direction";
+import { siteConfig } from "@/lib/constants";
 import { pdfFontFamily } from "@/lib/pdf/fonts";
 import { PdfBodySections } from "@/lib/pdf/sections";
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
 
 export function ClassicPdfDocument({ view }: { view: CvDocumentView }) {
   return (
-    <Document>
+    <Document title={view.displayName} language={view.locale} creator={siteConfig.name} producer={siteConfig.name}>
       <Page size="A4" style={[styles.page, { fontFamily: pdfFontFamily(view.locale, "serif"), textAlign: view.dir === "rtl" ? "right" : "left" }]}>
         <View style={styles.header}>
           <Text style={styles.name}>{view.displayName}</Text>

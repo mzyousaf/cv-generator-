@@ -1,3 +1,4 @@
+import { siteConfig } from "@/lib/constants";
 import { Document, Image, Page, View } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
@@ -431,7 +432,7 @@ export function RegionalPdfDocument({ view, spec }: { view: CvDocumentView; spec
       body = <SingleBody model={model} />;
   }
   return (
-    <Document title={view.displayName} language={view.locale}>
+    <Document title={view.displayName} language={view.locale} creator={siteConfig.name} producer={siteConfig.name}>
       <Page size={spec.pageSize} style={page}>
         {body}
       </Page>

@@ -17,12 +17,13 @@ export function localeDirection(locale: Locale): "ltr" | "rtl" {
   return RTL_LOCALES.has(locale) ? "rtl" : "ltr";
 }
 
-export const THEMES = ["violet", "ocean", "emerald", "rose", "sunset"] as const;
+export const THEMES = ["coral", "violet", "ocean", "emerald", "rose", "sunset"] as const;
 export type ThemeId = (typeof THEMES)[number];
-export const DEFAULT_THEME: ThemeId = "violet";
+export const DEFAULT_THEME: ThemeId = "coral";
 
 /** Swatch colours for the theme picker (matches `--brand-600` per theme). */
 export const THEME_SWATCHES: Record<ThemeId, string> = {
+  coral: "linear-gradient(135deg, #e11d48, #fb923c)",
   violet: "#6542ec",
   ocean: "oklch(54.6% 0.245 262.881)",
   emerald: "oklch(56% 0.115 184.704)",

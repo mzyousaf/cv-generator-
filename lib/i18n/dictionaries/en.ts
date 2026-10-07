@@ -14,6 +14,7 @@ export const en = {
     theme: "Theme",
     appearance: "Appearance",
     themes: {
+      coral: "Coral",
       violet: "Violet",
       ocean: "Ocean",
       emerald: "Emerald",
@@ -69,7 +70,7 @@ export const en = {
     chipPdf: "PDF ready to download",
   },
   preview: {
-    label: "CV Generator product preview (demo data)",
+    label: "Resumivo product preview (demo data)",
     saved: "Saved",
     fullName: "Full name",
     title: "Title",
