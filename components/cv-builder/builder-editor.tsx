@@ -418,7 +418,7 @@ export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorPr
               />
             </FormField>
             <div className="sm:col-span-2">
-              <label className="inline-flex items-center gap-2 text-sm text-slate-700">
+              <label className="inline-flex min-h-10 cursor-pointer items-center gap-2.5 text-sm font-medium text-slate-700">
                 <input
                   type="checkbox"
                   checked={entry.current}

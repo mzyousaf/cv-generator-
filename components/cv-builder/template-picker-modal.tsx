@@ -5,6 +5,7 @@ import { useI18n } from "@/components/i18n/i18n-provider";
 import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
 import { templatePreviewSample } from "@/components/cv-templates/sample-preview-state";
 import { Modal } from "@/components/ui/modal";
+import { Select } from "@/components/ui/select";
 import { updateCvAction } from "@/lib/cv/actions";
 import { cn } from "@/lib/cn";
 import { CORE_TEMPLATE_IDS, CV_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
@@ -137,18 +138,18 @@ export function TemplatePickerModal({
           </label>
           <p className="text-xs text-slate-500">{t.templatePicker.documentLanguageHint}</p>
         </div>
-        <select
+        <Select
           id="cv-document-locale"
           value={documentLocale}
           onChange={(event) => onDocumentLocaleChange(event.target.value as Locale)}
-          className="h-10 rounded-xl border border-slate-200 bg-surface px-3 text-sm font-medium text-slate-900 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/12"
+          className="w-full sm:w-auto sm:min-w-44"
         >
           {LOCALES.map((code) => (
             <option key={code} value={code}>
               {LOCALE_LABELS[code]}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
 
       <div

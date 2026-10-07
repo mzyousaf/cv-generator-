@@ -30,7 +30,10 @@ export function TextInput({
   id,
   ...props
 }: InputHTMLAttributes<HTMLInputElement> & { id: string }) {
-  return <Input id={id} dir="auto" {...props} />;
+  // dir="auto" lets mixed-script text read correctly, but date/month pickers
+  // must follow the page direction or they flip to LTR inside RTL forms.
+  const freeText = !props.type || ["text", "search", "email", "url", "tel"].includes(props.type);
+  return <Input id={id} dir={freeText ? "auto" : undefined} {...props} />;
 }
 
 export function TextArea({
