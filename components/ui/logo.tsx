@@ -58,7 +58,7 @@ export function LogoMark({ className, variant = "stroke" }: LogoMarkProps) {
       aria-hidden="true"
       viewBox="0 0 100 100"
       fill="none"
-      className={cn("size-8 shrink-0", className)}
+      className={cn("shrink-0", className ?? "size-8")}
     >
       <path
         d={BRAND_MARK_PATH}
@@ -78,14 +78,26 @@ type LogoProps = {
   showWordmark?: boolean;
 };
 
+/**
+ * Mark + wordmark lockup, optically centred: the mark's ink and the
+ * wordmark's x-height share a centre line. Everything is sized in `em` so the
+ * proportions hold at any font size. `align-middle` + `leading-none` stop the
+ * lockup from inheriting extra line-box space (and drifting) inside links.
+ */
 export function Logo({ className, tone = "dark", showWordmark = true }: LogoProps) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
-      <LogoMark className="size-[1.85rem]" />
+    <span
+      className={cn(
+        "inline-flex items-center gap-[0.32em] align-middle font-brand text-[1.3rem] font-bold leading-none",
+        className,
+      )}
+    >
+      <LogoMark className="size-[1.42em]" />
       {showWordmark ? (
         <span
+          data-logo-word=""
           className={cn(
-            "whitespace-nowrap font-brand text-[1.3rem] font-bold lowercase leading-none tracking-[-0.02em]",
+            "whitespace-nowrap lowercase tracking-[-0.02em]",
             tone === "light" ? "text-white" : "text-slate-950",
           )}
         >

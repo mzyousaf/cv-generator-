@@ -45,7 +45,7 @@ export function DashboardSidebar({
         <Link
           href="/dashboard"
           onClick={onNavigate}
-          className="inline-flex cursor-pointer rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          className="inline-flex cursor-pointer items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         >
           <Logo tone="light" />
         </Link>

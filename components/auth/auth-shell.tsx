@@ -29,7 +29,7 @@ export function AuthShell({
         />
         <Link
           href="/"
-          className="w-fit rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+          className="inline-flex w-fit items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         >
           <Logo tone="light" />
         </Link>

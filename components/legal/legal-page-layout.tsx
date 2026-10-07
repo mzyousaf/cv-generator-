@@ -31,7 +31,7 @@ export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
           <div className="relative z-30 mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-5 sm:px-6">
             <Link
               href="/"
-              className="min-w-0 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              className="inline-flex min-w-0 items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
             >
               <Logo tone="light" />
             </Link>
