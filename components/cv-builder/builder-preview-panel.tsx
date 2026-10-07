@@ -160,7 +160,7 @@ export function BuilderPreviewPanel({
             variant="ghost"
             size="sm"
             className={cn(
-              "border-s border-slate-200 px-2.5 text-xs",
+              "border-s border-slate-200 px-2.5 text-xs max-sm:min-h-10",
               zoomMode.type === "fit" && "bg-slate-50 font-semibold text-slate-900",
             )}
             aria-pressed={zoomMode.type === "fit"}

@@ -47,7 +47,7 @@ export function TemplatesSection() {
                     </p>
                   </div>
                   <span
-                    className="mt-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-colors group-hover:border-blue-200 group-hover:bg-blue-50 group-hover:text-blue-600"
+                    className="-mt-1 inline-flex size-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-400 transition-colors group-hover:border-blue-200 group-hover:bg-blue-50 group-hover:text-blue-600"
                     aria-hidden="true"
                   >
                     <span className="rtl:rotate-180">→</span>

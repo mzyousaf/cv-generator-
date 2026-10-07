@@ -94,7 +94,7 @@ export function LandingNavbar() {
         <div className="hidden items-center gap-3 lg:flex">
           <Link
             href="/login"
-            className="rounded-full px-3 py-1.5 text-sm font-semibold text-slate-200 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            className="inline-flex h-10 items-center rounded-full px-3 text-sm font-semibold text-slate-200 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
           >
             {t.common.signIn}
           </Link>

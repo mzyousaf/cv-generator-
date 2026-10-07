@@ -27,6 +27,12 @@ export const en = {
       system: "System",
     },
   },
+  notFound: {
+    title: "Page not found",
+    body: "The page you're looking for doesn't exist or has moved.",
+    home: "Back to home",
+    dashboard: "Go to my CVs",
+  },
   common: {
     cancel: "Cancel",
     signIn: "Sign in",

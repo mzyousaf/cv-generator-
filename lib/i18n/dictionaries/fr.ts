@@ -21,6 +21,12 @@ export const fr: Dictionary = {
     },
     modes: { light: "Clair", dark: "Sombre", system: "Système" },
   },
+  notFound: {
+    title: "Page introuvable",
+    body: "La page que vous cherchez n'existe pas ou a été déplacée.",
+    home: "Retour à l'accueil",
+    dashboard: "Mes CV",
+  },
   common: {
     cancel: "Annuler",
     signIn: "Se connecter",

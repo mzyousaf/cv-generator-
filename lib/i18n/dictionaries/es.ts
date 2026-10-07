@@ -21,6 +21,12 @@ export const es: Dictionary = {
     },
     modes: { light: "Claro", dark: "Oscuro", system: "Sistema" },
   },
+  notFound: {
+    title: "Página no encontrada",
+    body: "La página que buscas no existe o se ha movido.",
+    home: "Volver al inicio",
+    dashboard: "Ir a mis CV",
+  },
   common: {
     cancel: "Cancelar",
     signIn: "Iniciar sesión",

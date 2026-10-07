@@ -20,6 +20,12 @@ export const zh: Dictionary = {
     },
     modes: { light: "浅色", dark: "深色", system: "跟随系统" },
   },
+  notFound: {
+    title: "页面未找到",
+    body: "您要查找的页面不存在或已被移动。",
+    home: "返回首页",
+    dashboard: "前往我的简历",
+  },
   common: {
     cancel: "取消",
     signIn: "登录",

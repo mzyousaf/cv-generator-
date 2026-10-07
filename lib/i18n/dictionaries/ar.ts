@@ -21,6 +21,12 @@ export const ar: Dictionary = {
     },
     modes: { light: "فاتح", dark: "داكن", system: "النظام" },
   },
+  notFound: {
+    title: "الصفحة غير موجودة",
+    body: "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
+    home: "العودة إلى الرئيسية",
+    dashboard: "الانتقال إلى سيري الذاتية",
+  },
   common: {
     cancel: "إلغاء",
     signIn: "تسجيل الدخول",

@@ -129,7 +129,7 @@ export function BuilderHeader({
             dir="auto"
             value={title}
             onChange={(event) => onTitleChange(event.target.value)}
-            className="min-w-0 flex-1 border-transparent bg-transparent text-base font-bold tracking-tight text-slate-950 shadow-none hover:border-slate-200 hover:bg-surface focus:bg-surface sm:text-lg"
+            className="h-10! min-w-0 flex-1 border-transparent bg-transparent text-base font-bold tracking-tight text-slate-950 shadow-none hover:border-slate-200 hover:bg-surface focus:bg-surface sm:text-lg"
           />
           {/* On phones the status collapses to a dot, so it sits beside the title it describes. */}
           <span className="flex shrink-0 sm:hidden">

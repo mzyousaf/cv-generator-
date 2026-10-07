@@ -40,7 +40,7 @@ export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
               <Link
                 href="/"
                 aria-label={t.legal.backHome}
-                className="inline-flex h-9 items-center gap-1.5 whitespace-nowrap rounded-xl border border-white/15 bg-white/5 px-2.5 text-xs font-semibold sm:rounded-full sm:px-3.5 text-slate-200 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-xl border border-white/15 bg-white/5 px-2.5 text-xs font-semibold sm:rounded-full sm:px-3.5 text-slate-200 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
               >
                 <svg viewBox="0 0 24 24" className="size-4 rtl:-scale-x-100" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M19 12H5M11 6l-6 6 6 6" />

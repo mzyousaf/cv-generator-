@@ -88,7 +88,8 @@ export function SkillsEditor({ state, onChangeSkills }: SkillsEditorProps) {
           }}
           className="sm:max-w-xs"
         />
-        <Button type="button" variant="outline" size="sm" onClick={commitDraft}>
+        {/* Same 44px height as the input beside it. */}
+        <Button type="button" variant="outline" size="sm" className="min-h-11!" onClick={commitDraft}>
           {t.editor.addSkill}
         </Button>
       </div>

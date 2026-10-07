@@ -21,6 +21,12 @@ export const de: Dictionary = {
     },
     modes: { light: "Hell", dark: "Dunkel", system: "System" },
   },
+  notFound: {
+    title: "Seite nicht gefunden",
+    body: "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    home: "Zur Startseite",
+    dashboard: "Zu meinen Lebensläufen",
+  },
   common: {
     cancel: "Abbrechen",
     signIn: "Anmelden",

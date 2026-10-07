@@ -41,7 +41,7 @@ export function GenerateFreeButton({
       className={cn(
         // The rolling label is clipped to one line, so the label must never wrap.
         "whitespace-nowrap",
-        variant === "nav" && "shrink-0 px-3.5 max-lg:min-h-10 sm:px-4",
+        variant === "nav" && "min-h-10! shrink-0 px-3.5 sm:px-4",
         className,
       )}
       onClick={() => openAuthModal("signup")}
