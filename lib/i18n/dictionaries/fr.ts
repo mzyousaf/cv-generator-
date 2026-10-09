@@ -609,9 +609,9 @@ export const fr: Dictionary = {
     title: "Créer un nouveau CV",
     description: "Décrivez-vous et laissez l’IA créer votre CV, importez un CV existant ou partez d’une page vierge.",
     tabs: {
-      describe: "Décrire avec l’IA",
-      import: "Importer un CV",
-      blank: "Partir de zéro",
+      describe: "Avec l’IA",
+      import: "Importer",
+      blank: "Vierge",
     },
     describeLabel: "Parlez-nous de vous, à l’écrit ou à l’oral",
     describePlaceholder: "ex. Je suis Sara Khan, développeuse frontend à Lyon (sara@example.com). Depuis 2021, je travaille chez Acme sur des applications React utilisées par 50 000 personnes. Avant, j’ai été développeuse junior chez Beta pendant deux ans. Licence d’informatique, Université Lyon 1 (2016–2020). Compétences : React, TypeScript, Next.js, Figma. Je parle français et anglais.",

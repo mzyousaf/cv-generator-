@@ -609,9 +609,9 @@ export const es: Dictionary = {
     title: "Crear un nuevo CV",
     description: "Descríbete y deja que la IA cree tu CV, importa uno existente o empieza desde una página en blanco.",
     tabs: {
-      describe: "Describir con IA",
-      import: "Importar CV",
-      blank: "Empezar en blanco",
+      describe: "Con IA",
+      import: "Importar",
+      blank: "En blanco",
     },
     describeLabel: "Cuéntanos sobre ti, escribiendo o hablando",
     describePlaceholder: "p. ej. Soy Sara Khan, desarrolladora frontend en Madrid (sara@example.com). Desde 2021 trabajo en Acme creando apps de React que usan 50.000 personas. Antes fui desarrolladora junior en Beta durante dos años. Grado en Informática por la UPM (2016–2020). Habilidades: React, TypeScript, Next.js, Figma. Hablo español e inglés.",

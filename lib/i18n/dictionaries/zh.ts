@@ -586,9 +586,9 @@ export const zh: Dictionary = {
     title: "创建新简历",
     description: "描述您自己，让 AI 生成简历；或导入现有简历；也可以从空白页开始。",
     tabs: {
-      describe: "AI 描述生成",
-      import: "导入简历",
-      blank: "空白开始",
+      describe: "AI 生成",
+      import: "导入",
+      blank: "空白",
     },
     describeLabel: "介绍一下您自己（可输入文字或语音）",
     describePlaceholder: "例如：我叫王小明，是上海的前端开发工程师（xiaoming@example.com）。2021 年起在 Acme 开发 React 应用，用户达 5 万人。此前在 Beta 担任初级开发两年。2016–2020 年就读于复旦大学计算机科学专业。技能：React、TypeScript、Next.js、Figma。会说中文和英语。",

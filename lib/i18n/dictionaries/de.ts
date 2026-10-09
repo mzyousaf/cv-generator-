@@ -609,9 +609,9 @@ export const de: Dictionary = {
     title: "Neuen Lebenslauf erstellen",
     description: "Beschreiben Sie sich und lassen Sie die KI Ihren Lebenslauf erstellen, importieren Sie einen vorhandenen oder beginnen Sie mit einer leeren Seite.",
     tabs: {
-      describe: "Mit KI beschreiben",
+      describe: "Mit KI",
       import: "Importieren",
-      blank: "Leer beginnen",
+      blank: "Leer",
     },
     describeLabel: "Erzählen Sie von sich, per Text oder Sprache",
     describePlaceholder: "z. B. Ich bin Sara Khan, Frontend-Entwicklerin in Berlin (sara@example.com). Seit 2021 arbeite ich bei Acme an React-Apps mit 50.000 Nutzern. Davor war ich zwei Jahre Junior-Entwicklerin bei Beta. B.Sc. Informatik, TU Berlin (2016–2020). Kenntnisse: React, TypeScript, Next.js, Figma. Ich spreche Deutsch und Englisch.",

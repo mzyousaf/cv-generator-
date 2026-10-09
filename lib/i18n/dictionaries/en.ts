@@ -621,9 +621,9 @@ export const en = {
     title: "Create a new resume",
     description: "Describe yourself and let AI build your resume, import an existing one, or start from a blank page.",
     tabs: {
-      describe: "Describe with AI",
-      import: "Import resume",
-      blank: "Start blank",
+      describe: "With AI",
+      import: "Import",
+      blank: "Blank",
     },
     describeLabel: "Tell us about yourself, by typing or by speaking",
     describePlaceholder: "e.g. I'm Sara Khan, a frontend developer in Lahore (sara@example.com). Since 2021 I've worked at Acme building React apps used by 50,000 people. Before that I was a junior developer at Beta for two years. I have a BS in Computer Science from FAST (2016–2020). Skills: React, TypeScript, Next.js, Figma. I speak English and Urdu.",
