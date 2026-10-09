@@ -31,6 +31,31 @@ export const TEMPLATE_REGIONS = [
 export type TemplateRegion = (typeof TEMPLATE_REGIONS)[number];
 
 /**
+ * Countries each region's templates are written for (ISO 3166-1 alpha-2), so
+ * the gallery can match a search for a country name in any UI language.
+ */
+export const REGION_COUNTRIES: Record<TemplateRegion, readonly string[]> = {
+  global: [],
+  europe: ["EU", "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"],
+  uk: ["GB", "IE"],
+  dach: ["DE", "AT", "CH", "LI"],
+  france: ["FR", "BE", "LU", "MC", "CH"],
+  nordics: ["SE", "NO", "DK", "FI", "IS"],
+  "southern-europe": ["IT", "ES", "PT", "GR", "MT", "CY"],
+  benelux: ["NL", "BE", "LU"],
+  "eastern-europe": ["PL", "CZ", "SK", "HU", "RO", "BG", "HR", "RS", "SI", "EE", "LV", "LT", "UA", "TR", "RU", "BY", "KZ", "UZ", "GE", "AM", "AZ"],
+  "north-america": ["US", "CA"],
+  latam: ["BR", "MX", "AR", "CL", "CO", "PE", "VE", "EC", "UY", "PY", "BO", "CR", "PA", "DO", "GT"],
+  "middle-east": ["SA", "AE", "QA", "KW", "BH", "OM", "JO", "LB", "EG", "MA", "TN", "DZ", "IQ"],
+  africa: ["ZA", "NG", "KE", "GH", "UG", "TZ", "ET", "RW", "ZW", "ZM", "BW"],
+  india: ["IN", "PK", "BD", "LK", "NP"],
+  "southeast-asia": ["SG", "MY", "PH", "ID", "TH", "VN"],
+  "east-asia": ["JP", "KR"],
+  china: ["CN", "HK", "TW", "MO"],
+  oceania: ["AU", "NZ"],
+};
+
+/**
  * How a regional template arranges content:
  * - single: one column, entries with dates on the end side
  * - sidebar: coloured side column for contact, details, skills, languages

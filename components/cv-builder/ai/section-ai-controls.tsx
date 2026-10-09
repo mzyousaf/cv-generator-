@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
+import { AiAssistShell } from "@/components/cv-builder/ai/ai-assist-shell";
 import { AiSuggestionPanel } from "@/components/cv-builder/ai/ai-suggestion-panel";
 import { SparkleIcon } from "@/components/cv-builder/builder-section-icons";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,6 @@ import { writeSectionAction } from "@/lib/ai/actions";
 import { buildAiCvContext } from "@/lib/ai/cv-context";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
 import { localizeServerMessage } from "@/lib/i18n/server-messages";
-import { cn } from "@/lib/cn";
 
 type SectionAiControlsProps = {
   /** What is being written, e.g. "Volunteering" or "Project: Billing app". */
@@ -60,7 +60,7 @@ export function SectionAiControls({
   }
 
   return (
-    <div className={cn("space-y-2", className)}>
+    <AiAssistShell className={className}>
       <div className="flex flex-wrap items-center gap-2">
         <Button
           type="button"
@@ -79,7 +79,7 @@ export function SectionAiControls({
           aria-expanded={showInstructions}
           aria-controls={`${idPrefix}-ai-instructions`}
           onClick={() => setShowInstructions((current) => !current)}
-          className="cursor-pointer text-xs font-medium text-slate-500 underline-offset-2 hover:text-slate-800 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="inline-flex min-h-9 cursor-pointer items-center rounded-lg px-2 text-xs font-medium text-slate-500 underline-offset-2 hover:text-slate-800 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         >
           {showInstructions ? t.ai.hideOptions : t.ai.addInstructions}
         </button>
@@ -113,6 +113,6 @@ export function SectionAiControls({
           onDismiss={() => setSuggestion(null)}
         />
       ) : null}
-    </div>
+    </AiAssistShell>
   );
 }

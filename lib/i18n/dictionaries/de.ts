@@ -699,12 +699,12 @@ export const de: Dictionary = {
       custom: "Noch keine benutzerdefinierten Abschnitte hinzugefügt.",
     },
     add: {
-      workExperience: "+ Erfahrung hinzufügen",
-      education: "+ Ausbildung hinzufügen",
-      projects: "+ Projekt hinzufügen",
-      certifications: "+ Zertifikat hinzufügen",
-      languages: "+ Sprache hinzufügen",
-      custom: "+ Abschnitt hinzufügen",
+      workExperience: "Erfahrung hinzufügen",
+      education: "Ausbildung hinzufügen",
+      projects: "Projekt hinzufügen",
+      certifications: "Zertifikat hinzufügen",
+      languages: "Sprache hinzufügen",
+      custom: "Abschnitt hinzufügen",
     },
     fields: {
       fullName: "Vollständiger Name",

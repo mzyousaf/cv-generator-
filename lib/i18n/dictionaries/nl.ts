@@ -706,12 +706,12 @@ export const nl: Dictionary = {
       custom: "Nog geen eigen secties toegevoegd.",
     },
     add: {
-      workExperience: "+ Ervaring toevoegen",
-      education: "+ Opleiding toevoegen",
-      projects: "+ Project toevoegen",
-      certifications: "+ Certificering toevoegen",
-      languages: "+ Taal toevoegen",
-      custom: "+ Sectie toevoegen",
+      workExperience: "Ervaring toevoegen",
+      education: "Opleiding toevoegen",
+      projects: "Project toevoegen",
+      certifications: "Certificering toevoegen",
+      languages: "Taal toevoegen",
+      custom: "Sectie toevoegen",
     },
     fields: {
       fullName: "Volledige naam",

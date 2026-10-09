@@ -13,6 +13,7 @@ import {
   browseTemplates,
   getRegionalTemplateSpec,
   POPULAR_THRESHOLD,
+  REGION_COUNTRIES,
   TEMPLATE_REGIONS,
   TEMPLATE_STYLES,
   templateFacets,
@@ -117,6 +118,7 @@ export function TemplatePickerModal({
 
   function resetFilters() {
     setQuery("");
+    setSort("popular");
     setRegion("all");
     setStyle("all");
     setAtsOnly(false);
@@ -129,6 +131,18 @@ export function TemplatePickerModal({
     // The clear button unmounts itself; keep keyboard focus inside the dialog.
     searchRef.current?.focus();
   }
+
+  // Country names in the UI language and in English ("polska", "poland"…).
+  const countryNames = useMemo(() => {
+    const local = new Intl.DisplayNames([locale], { type: "region" });
+    const english = new Intl.DisplayNames(["en"], { type: "region" });
+    return Object.fromEntries(
+      Object.entries(REGION_COUNTRIES).map(([region, codes]) => [
+        region,
+        codes.map((code) => `${local.of(code) ?? ""} ${english.of(code) ?? ""}`).join(" "),
+      ]),
+    ) as Record<TemplateRegion, string>;
+  }, [locale]);
 
   const visible = useMemo(
     () =>
@@ -146,6 +160,7 @@ export function TemplatePickerModal({
               t.templateMeta[id].name,
               t.templateMeta[id].description,
               copy.regions[facets.region],
+              countryNames[facets.region],
               copy.styles[facets.style],
               ...(getRegionalTemplateSpec(id)?.tags ?? []).map((tag) => copy.tags[tag]),
             ].join(" ");
@@ -153,7 +168,7 @@ export function TemplatePickerModal({
         },
         CV_TEMPLATE_IDS,
       ),
-    [deferredQuery, region, style, atsOnly, photo, columns, sort, documentLocale, locale, t, copy],
+    [deferredQuery, region, style, atsOnly, photo, columns, sort, documentLocale, locale, t, copy, countryNames],
   );
 
   async function handleSelect(templateId: CvTemplateId) {
@@ -206,7 +221,8 @@ export function TemplatePickerModal({
       onClose={onClose}
       title={t.builder.templates}
       description={`${format(t.builder.templatesCurrent, { name: t.templateMeta[selectedTemplate].name })}${isSavingTemplate ? t.builder.templatesSaving : ""}`}
-      className="sm:max-w-5xl"
+      // Fixed height: the dialog must not jump as filters change the result count.
+      className="h-[90dvh] sm:max-w-5xl"
     >
       <div className="flex flex-col gap-4 rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -229,9 +245,9 @@ export function TemplatePickerModal({
         </Select>
       </div>
 
-      {/* Search, region, sort and style: two columns on phones, one row on desktop. */}
-      <div className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
-        <div className="relative col-span-2 lg:col-span-1">
+      {/* Search, region, sort and style: stacked on the narrowest phones, two columns from 401px, one row on desktop. */}
+      <div className="mt-4 grid grid-cols-1 gap-2 min-[401px]:grid-cols-2 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
+        <div className="relative min-[401px]:col-span-2 lg:col-span-1">
           <label htmlFor="template-search" className="sr-only">
             {copy.search}
           </label>
@@ -246,7 +262,7 @@ export function TemplatePickerModal({
             className="h-10 w-full rounded-xl border border-slate-200 bg-surface ps-10 pe-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-colors placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/12"
           />
         </div>
-        <Select aria-label={copy.regionLabel} value={region} onChange={(event) => setRegion(event.target.value as TemplateRegion | "all")} className="col-span-2 w-full lg:col-span-1">
+        <Select aria-label={copy.regionLabel} value={region} onChange={(event) => setRegion(event.target.value as TemplateRegion | "all")} className="w-full min-[401px]:col-span-2 lg:col-span-1">
           <option value="all">{copy.allRegions}</option>
           {TEMPLATE_REGIONS.map((value) => (
             <option key={value} value={value}>

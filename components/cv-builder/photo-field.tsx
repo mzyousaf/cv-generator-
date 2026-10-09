@@ -49,7 +49,7 @@ export function PhotoField({ value, templateId, onChange }: PhotoFieldProps) {
         : fields.photoHidden;
 
   return (
-    <div className="flex items-start gap-4">
+    <div className="flex items-start gap-4 max-[360px]:flex-col max-[360px]:gap-3">
       <div
         className={cn(
           "flex h-[100px] w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border bg-surface",

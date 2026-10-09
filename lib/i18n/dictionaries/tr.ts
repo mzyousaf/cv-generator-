@@ -706,12 +706,12 @@ export const tr: Dictionary = {
       custom: "Henüz özel bölüm eklenmedi.",
     },
     add: {
-      workExperience: "+ Deneyim ekle",
-      education: "+ Eğitim ekle",
-      projects: "+ Proje ekle",
-      certifications: "+ Sertifika ekle",
-      languages: "+ Dil ekle",
-      custom: "+ Bölüm ekle",
+      workExperience: "Deneyim ekle",
+      education: "Eğitim ekle",
+      projects: "Proje ekle",
+      certifications: "Sertifika ekle",
+      languages: "Dil ekle",
+      custom: "Bölüm ekle",
     },
     fields: {
       fullName: "Ad soyad",

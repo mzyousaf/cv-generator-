@@ -28,7 +28,7 @@ export function BuilderSidebarNav({
     <nav
       aria-label={t.builder.resumeSections}
       className={cn(
-        "flex w-[240px] shrink-0 flex-col rounded-xl border border-slate-200/80 bg-surface p-2 shadow-soft",
+        "flex w-[256px] shrink-0 flex-col rounded-xl border border-slate-200/80 bg-surface p-2 shadow-soft",
         className,
       )}
     >

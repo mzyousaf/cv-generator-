@@ -74,9 +74,17 @@ export function BuilderHeaderMoreMenu({
         aria-expanded={open}
         aria-haspopup="menu"
         aria-controls={menuId}
+        aria-label={t.builder.more}
         onClick={() => setOpen((current) => !current)}
+        className="max-[400px]:px-2.5"
       >
-        {t.builder.more}
+        {/* Icon-only on the narrowest phones so the toolbar stays on one row. */}
+        <svg aria-hidden="true" viewBox="0 0 20 20" className="size-4 min-[401px]:hidden" fill="currentColor">
+          <circle cx="4.5" cy="10" r="1.6" />
+          <circle cx="10" cy="10" r="1.6" />
+          <circle cx="15.5" cy="10" r="1.6" />
+        </svg>
+        <span className="max-[400px]:hidden">{t.builder.more}</span>
       </Button>
       {open ? (
         <div

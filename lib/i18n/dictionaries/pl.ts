@@ -706,12 +706,12 @@ export const pl: Dictionary = {
       custom: "Nie dodano jeszcze sekcji własnych.",
     },
     add: {
-      workExperience: "+ Dodaj doświadczenie",
-      education: "+ Dodaj wykształcenie",
-      projects: "+ Dodaj projekt",
-      certifications: "+ Dodaj certyfikat",
-      languages: "+ Dodaj język",
-      custom: "+ Dodaj sekcję",
+      workExperience: "Dodaj doświadczenie",
+      education: "Dodaj wykształcenie",
+      projects: "Dodaj projekt",
+      certifications: "Dodaj certyfikat",
+      languages: "Dodaj język",
+      custom: "Dodaj sekcję",
     },
     fields: {
       fullName: "Imię i nazwisko",

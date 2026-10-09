@@ -708,12 +708,12 @@ export const en = {
       custom: "No custom sections added yet.",
     },
     add: {
-      workExperience: "+ Add experience",
-      education: "+ Add education",
-      projects: "+ Add project",
-      certifications: "+ Add certification",
-      languages: "+ Add language",
-      custom: "+ Add section",
+      workExperience: "Add experience",
+      education: "Add education",
+      projects: "Add project",
+      certifications: "Add certification",
+      languages: "Add language",
+      custom: "Add section",
     },
     fields: {
       fullName: "Full name",

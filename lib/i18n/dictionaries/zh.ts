@@ -677,12 +677,12 @@ export const zh: Dictionary = {
       custom: "尚未添加自定义板块。",
     },
     add: {
-      workExperience: "+ 添加工作经历",
-      education: "+ 添加教育经历",
-      projects: "+ 添加项目",
-      certifications: "+ 添加证书",
-      languages: "+ 添加语言",
-      custom: "+ 添加板块",
+      workExperience: "添加工作经历",
+      education: "添加教育经历",
+      projects: "添加项目",
+      certifications: "添加证书",
+      languages: "添加语言",
+      custom: "添加板块",
     },
     fields: {
       fullName: "姓名",

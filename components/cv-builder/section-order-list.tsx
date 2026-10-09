@@ -96,11 +96,11 @@ function RowBody({
         <button
           type="button"
           onClick={onNavigate}
-          className="flex min-h-14 min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-md px-2 py-2 text-start focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          className="flex min-h-14 min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-md px-2 py-2 text-start max-[360px]:gap-2 max-[360px]:px-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
         >
           <span
             className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-md",
+              "flex size-9 shrink-0 items-center justify-center rounded-md max-[360px]:size-8",
               hidden ? "bg-slate-100 text-slate-400" : "bg-blue-50 text-blue-600",
             )}
           >
@@ -109,7 +109,7 @@ function RowBody({
           <span className="min-w-0 flex-1">
             <span
               className={cn(
-                "block break-words text-[15px] font-semibold leading-snug text-slate-900",
+                "block hyphens-auto break-words text-[15px] font-semibold max-[360px]:text-sm leading-snug text-slate-900",
                 hidden && "text-slate-400 line-through decoration-slate-300",
               )}
             >
@@ -151,7 +151,7 @@ function RowBody({
           sectionId={sectionKey}
           className={cn("mt-px size-4 shrink-0", active ? "text-blue-600" : "text-slate-400")}
         />
-        <span className={cn("min-w-0 flex-1 break-words leading-snug", hidden && "line-through decoration-slate-300")}>
+        <span className={cn("min-w-0 flex-1 hyphens-auto break-words leading-snug", hidden && "line-through decoration-slate-300")}>
           {label}
         </span>
       </button>

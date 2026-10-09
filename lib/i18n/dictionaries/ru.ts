@@ -706,12 +706,12 @@ export const ru: Dictionary = {
       custom: "Свои разделы пока не добавлены.",
     },
     add: {
-      workExperience: "+ Добавить опыт",
-      education: "+ Добавить образование",
-      projects: "+ Добавить проект",
-      certifications: "+ Добавить сертификат",
-      languages: "+ Добавить язык",
-      custom: "+ Добавить раздел",
+      workExperience: "Добавить опыт",
+      education: "Добавить образование",
+      projects: "Добавить проект",
+      certifications: "Добавить сертификат",
+      languages: "Добавить язык",
+      custom: "Добавить раздел",
     },
     fields: {
       fullName: "Полное имя",

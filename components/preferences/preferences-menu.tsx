@@ -206,6 +206,8 @@ type PreferencesMenuProps = {
   align?: "start" | "end";
   /** Open the panel upwards (e.g. at the bottom of a sidebar). */
   placement?: "bottom" | "top";
+  /** `sm` matches small buttons (h-9), e.g. in the builder toolbar. */
+  size?: "sm" | "md";
   className?: string;
 };
 
@@ -213,6 +215,7 @@ export function PreferencesMenu({
   tone = "light",
   align = "end",
   placement = "bottom",
+  size = "md",
   className,
 }: PreferencesMenuProps) {
   const { t } = useI18n();
@@ -287,7 +290,8 @@ export function PreferencesMenu({
         aria-label={t.prefs.open}
         onClick={() => setOpen((value) => !value)}
         className={cn(
-          "inline-flex h-10 items-center gap-1.5 rounded-xl border px-2.5 text-xs font-bold uppercase tracking-wide transition-colors focus:outline-none focus-visible:ring-2",
+          "inline-flex items-center gap-1.5 rounded-xl border px-2.5 text-xs font-bold uppercase tracking-wide transition-colors focus:outline-none focus-visible:ring-2",
+          size === "sm" ? "h-9" : "h-10",
           triggerClass,
         )}
       >

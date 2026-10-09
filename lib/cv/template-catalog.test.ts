@@ -11,6 +11,7 @@ import {
   DEFAULT_TEMPLATE_FOR_LOCALE,
   getRegionalTemplateSpec,
   recommendedTemplateIds,
+  REGION_COUNTRIES,
   REGIONAL_TEMPLATES,
   TEMPLATE_PROFILE,
   TEMPLATE_REGIONS,
@@ -159,10 +160,23 @@ describe("template gallery", () => {
   });
 
   it("searches names, descriptions and regions ignoring case and accents", () => {
-    const text = (d: ReturnType<typeof getDictionary>) => (id: CvTemplateId) =>
-      `${d.templateMeta[id].name} ${d.templateMeta[id].description} ${d.templatePicker.regions[templateRegion(id)]}`;
-    const search = (query: string, locale: Locale, d = getDictionary(locale)) =>
-      browseTemplates({ query }, "popular", { locale, nameOf: (id) => d.templateMeta[id].name, searchTextOf: text(d) }, CV_TEMPLATE_IDS);
+    const search = (query: string, locale: Locale) => {
+      const d = getDictionary(locale);
+      const countries = new Intl.DisplayNames([locale], { type: "region" });
+      const text = (id: CvTemplateId) =>
+        [
+          d.templateMeta[id].name,
+          d.templateMeta[id].description,
+          d.templatePicker.regions[templateRegion(id)],
+          ...REGION_COUNTRIES[templateRegion(id)].map((code) => countries.of(code)),
+        ].join(" ");
+      return browseTemplates(
+        { query },
+        "popular",
+        { locale, nameOf: (id) => d.templateMeta[id].name, searchTextOf: text },
+        CV_TEMPLATE_IDS,
+      );
+    };
 
     assert.ok(search("curriculum", "es").length >= 5);
     assert.deepEqual(search("CURRÍCULUM", "es"), search("curriculum", "es"));
@@ -171,6 +185,8 @@ describe("template gallery", () => {
     assert.ok(search("italya", "tr").includes("italian-cv"));
     assert.ok(search("IRLANDA", "es").length > 0);
     assert.deepEqual(search("zzzz-nothing", "en"), []);
+    assert.ok(search("polska", "pl").includes("polish-cv"));
+    assert.ok(search("Poland", "en").includes("polish-cv"));
   });
 
   it("renders every template in every language without throwing", () => {

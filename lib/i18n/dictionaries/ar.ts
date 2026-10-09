@@ -699,12 +699,12 @@ export const ar: Dictionary = {
       custom: "لم تُضف أي أقسام مخصصة بعد.",
     },
     add: {
-      workExperience: "+ إضافة خبرة",
-      education: "+ إضافة تعليم",
-      projects: "+ إضافة مشروع",
-      certifications: "+ إضافة شهادة",
-      languages: "+ إضافة لغة",
-      custom: "+ إضافة قسم",
+      workExperience: "إضافة خبرة",
+      education: "إضافة تعليم",
+      projects: "إضافة مشروع",
+      certifications: "إضافة شهادة",
+      languages: "إضافة لغة",
+      custom: "إضافة قسم",
     },
     fields: {
       fullName: "الاسم الكامل",

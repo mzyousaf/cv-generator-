@@ -95,7 +95,8 @@ export function MobileSectionDetailBar({
         className="flex h-10 shrink-0 cursor-pointer items-center gap-1 rounded-md pe-2.5 ps-1.5 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
       >
         <Chevron className="size-4 rotate-180 rtl:rotate-0" />
-        {copy.back}
+        {/* Chevron only on the narrowest phones, leaving room for the title. */}
+        <span className="max-[360px]:sr-only">{copy.back}</span>
       </button>
       <div className="flex min-w-0 flex-1 items-center justify-center gap-1.5">
         <BuilderSectionIcon sectionId={sectionKey} className="size-4 shrink-0 text-blue-600" />

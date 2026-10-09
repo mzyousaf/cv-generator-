@@ -706,12 +706,12 @@ export const pt: Dictionary = {
       custom: "Nenhuma seção personalizada adicionada ainda.",
     },
     add: {
-      workExperience: "+ Adicionar experiência",
-      education: "+ Adicionar formação",
-      projects: "+ Adicionar projeto",
-      certifications: "+ Adicionar certificação",
-      languages: "+ Adicionar idioma",
-      custom: "+ Adicionar seção",
+      workExperience: "Adicionar experiência",
+      education: "Adicionar formação",
+      projects: "Adicionar projeto",
+      certifications: "Adicionar certificação",
+      languages: "Adicionar idioma",
+      custom: "Adicionar seção",
     },
     fields: {
       fullName: "Nome completo",

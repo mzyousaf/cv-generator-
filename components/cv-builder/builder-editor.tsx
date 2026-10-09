@@ -487,6 +487,7 @@ export function BuilderEditor({ state, onChange, onAddSection, mobile }: Builder
               </FormField>
               <WorkExperienceAiControls
                 entry={entry}
+                state={state}
                 onApplyDescription={(description) =>
                   update({
                     workExperience: state.workExperience.map((item) =>
