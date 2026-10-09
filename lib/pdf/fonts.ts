@@ -11,11 +11,25 @@ const FAMILIES = {
   Chinese: "NotoSansSC",
 } as const;
 
-let registered = false;
+const CJK = /[\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff\uff00-\uffef]/;
+/** One character plus any closing punctuation that must not start a line. */
+const CJK_UNIT = /.[，。、；：！？）」』】》〉”’,.;:!?)%]*/gu;
 
-/** Register bundled TTF fonts once per server process. */
+/**
+ * Register bundled TTF fonts once per server process. The check reads
+ * react-pdf's own (singleton) store rather than a module flag: a module
+ * re-evaluated by hot reload would otherwise register every face again,
+ * and duplicate faces garble glyph mappings in later documents.
+ */
 export function registerPdfFonts(): void {
-  if (registered) {
+  // Keep words intact; CV text should never be hyphenated mid-word. CJK
+  // text has no spaces, so allow a break after every character there, except
+  // before closing punctuation (。，、…). The empty parts stop react-pdf
+  // inserting a hyphen at the break.
+  Font.registerHyphenationCallback((word) =>
+    CJK.test(word) ? (word.match(CJK_UNIT) ?? [word]).flatMap((unit) => [unit, ""]) : [word],
+  );
+  if (Font.getRegisteredFontFamilies().includes(FAMILIES.NotoSans)) {
     return;
   }
   const file = (name: string) => path.join(FONT_DIR, `${name}.ttf`);
@@ -34,9 +48,6 @@ export function registerPdfFonts(): void {
   family(FAMILIES.NotoSerif, "NotoSerif", "NotoSerif-Italic");
   family(FAMILIES.Arabic, "IBMPlexSansArabic");
   family(FAMILIES.Chinese, "NotoSansSC");
-  // Keep words intact; CV text should never be hyphenated mid-word.
-  Font.registerHyphenationCallback((word) => [word]);
-  registered = true;
 }
 
 /**

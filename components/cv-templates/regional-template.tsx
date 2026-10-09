@@ -86,7 +86,7 @@ function Heading({
       );
     case "caps":
       return (
-        <h2 style={{ ...base, fontSize: 10, letterSpacing: "0.18em", color: onSide ? spec.accent : spec.accent }}>
+        <h2 style={{ ...base, fontSize: 10, letterSpacing: "0.18em", color: onSide ? "#ffffff" : spec.accent }}>
           {title}
         </h2>
       );

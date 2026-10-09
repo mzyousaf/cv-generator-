@@ -63,8 +63,13 @@ type DirTextProps = {
 /** Text whose bidi direction follows its content (Arabic runs right-to-left). */
 export function DirText({ style, children, ...props }: DirTextProps) {
   const language = pdfLanguage.getStore() ?? "en";
-  const base: Style = { direction: textDirection(children) };
+  const direction = textDirection(children);
+  const base: Style = { direction };
   const merged: Style[] = Array.isArray(style) ? [base, ...style] : [base, style ?? {}];
+  if (direction === "rtl") {
+    // Letter-spacing pulls joined Arabic letters apart.
+    merged.push({ letterSpacing: 0 });
+  }
   // react-pdf upper-cases with String#toUpperCase, which ignores the language;
   // do it here with the document's locale instead.
   if (typeof children === "string" && flatten(style).textTransform === "uppercase") {

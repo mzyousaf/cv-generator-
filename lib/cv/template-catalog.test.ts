@@ -139,6 +139,25 @@ describe("template gallery", () => {
     assert.equal(templateFacets(recommendedDe[0]).region, "dach");
   });
 
+  it("gives every template a distinct look", () => {
+    const seen = new Map<string, string>();
+    for (const spec of REGIONAL_TEMPLATES) {
+      const look = JSON.stringify([
+        spec.layout,
+        spec.accent,
+        spec.heading,
+        spec.headerBand ?? "",
+        spec.headerAlign ?? "",
+        spec.sidebarColor ?? "",
+        spec.font ?? "",
+        spec.photo,
+        Boolean(spec.compact),
+      ]);
+      assert.equal(seen.get(look), undefined, `${spec.id} looks identical to ${seen.get(look)}`);
+      seen.set(look, spec.id);
+    }
+  });
+
   it("searches names, descriptions and regions ignoring case and accents", () => {
     const text = (d: ReturnType<typeof getDictionary>) => (id: CvTemplateId) =>
       `${d.templateMeta[id].name} ${d.templateMeta[id].description} ${d.templatePicker.regions[templateRegion(id)]}`;

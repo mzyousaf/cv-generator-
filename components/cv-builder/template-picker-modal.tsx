@@ -61,7 +61,7 @@ const TemplateThumbnail = memo(function TemplateThumbnail({
       className="pointer-events-none relative h-44 overflow-hidden rounded-xl border border-slate-200 bg-gradient-to-br from-slate-100 to-blue-50/60"
     >
       <div
-        className="absolute left-1/2 top-3 origin-top -translate-x-1/2 scale-[0.2] shadow-[0_20px_40px_-12px_rgb(15_23_42/0.4)]"
+        className="absolute left-1/2 top-9 origin-top -translate-x-1/2 scale-[0.2] shadow-[0_20px_40px_-12px_rgb(15_23_42/0.4)]"
         style={{ width }}
       >
         <CvTemplateRenderer templateId={templateId} state={sample} />
