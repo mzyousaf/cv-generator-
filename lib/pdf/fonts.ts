@@ -1,6 +1,7 @@
 import path from "node:path";
 import { Font } from "@react-pdf/renderer";
 import type { Locale } from "@/lib/i18n/preferences";
+import { breakWord } from "@/lib/pdf/text-shaping";
 
 const FONT_DIR = path.join(process.cwd(), "lib", "pdf", "fonts");
 
@@ -11,9 +12,6 @@ const FAMILIES = {
   Chinese: "NotoSansSC",
 } as const;
 
-const CJK = /[\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff\uff00-\uffef]/;
-/** One character plus any closing punctuation that must not start a line. */
-const CJK_UNIT = /.[，。、；：！？）」』】》〉”’,.;:!?)%]*/gu;
 
 /**
  * Register bundled TTF fonts once per server process. The check reads
@@ -22,13 +20,8 @@ const CJK_UNIT = /.[，。、；：！？）」』】》〉”’,.;:!?)%]*/gu;
  * and duplicate faces garble glyph mappings in later documents.
  */
 export function registerPdfFonts(): void {
-  // Keep words intact; CV text should never be hyphenated mid-word. CJK
-  // text has no spaces, so allow a break after every character there, except
-  // before closing punctuation (。，、…). The empty parts stop react-pdf
-  // inserting a hyphen at the break.
-  Font.registerHyphenationCallback((word) =>
-    CJK.test(word) ? (word.match(CJK_UNIT) ?? [word]).flatMap((unit) => [unit, ""]) : [word],
-  );
+  // Words are never hyphenated; CJK text may break between characters.
+  Font.registerHyphenationCallback(breakWord);
   if (Font.getRegisteredFontFamilies().includes(FAMILIES.NotoSans)) {
     return;
   }

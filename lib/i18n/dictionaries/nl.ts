@@ -995,13 +995,8 @@ export const nl: Dictionary = {
     autosaveFailed: "Automatisch opslaan mislukt. Gebruik Opslaan om het opnieuw te proberen.",
   },
   templatePicker: {
-    recommended: "Aanbevolen voor jou",
-    all: "Alle templates",
-    region: "Regio",
     documentLanguage: "Taal van cv",
     documentLanguageHint: "Koppen, data en de PDF gebruiken deze taal.",
-    count: "{n} templates",
-    core: "Basis",
     regions: {
       "global": "Wereldwijd",
       "europe": "Europa",

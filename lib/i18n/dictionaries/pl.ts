@@ -995,13 +995,8 @@ export const pl: Dictionary = {
     autosaveFailed: "Autozapis nie powiódł się. Użyj przycisku Zapisz, aby spróbować ponownie.",
   },
   templatePicker: {
-    recommended: "Polecane dla Ciebie",
-    all: "Wszystkie szablony",
-    region: "Region",
     documentLanguage: "Język CV",
     documentLanguageHint: "Nagłówki, daty i plik PDF będą w tym języku.",
-    count: "Szablony: {n}",
-    core: "Podstawowe",
     regions: {
       "global": "Globalne",
       "europe": "Europa",

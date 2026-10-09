@@ -3,7 +3,7 @@
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { format } from "@/lib/i18n/format";
 import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
-import { PlusIcon } from "@/components/dashboard/icons";
+import { PlusIcon } from "@/components/cv-builder/builder-section-icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Field } from "@/components/ui/field";
@@ -63,6 +63,7 @@ export function SectionCard({
   muted?: boolean;
   children: React.ReactNode;
   onAdd?: () => void;
+  /** Required with `onAdd`: the add button's label. */
   addLabel?: string;
 }) {
   return (
@@ -87,7 +88,7 @@ export function SectionCard({
         {onAdd ? (
           <div className="mt-5 border-t border-slate-100 pt-4">
             <Button type="button" variant="outline" size="sm" onClick={onAdd} leftIcon={<PlusIcon className="size-4" />}>
-              {addLabel ?? "Add"}
+              {addLabel}
             </Button>
           </div>
         ) : null}

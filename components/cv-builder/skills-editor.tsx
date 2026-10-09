@@ -11,7 +11,7 @@ import {
 } from "@/lib/cv/builder-ui-utils";
 import { SkillsAiControls } from "@/components/cv-builder/ai/skills-ai-controls";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
-import { PlusIcon } from "@/components/dashboard/icons";
+import { PlusIcon } from "@/components/cv-builder/builder-section-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 

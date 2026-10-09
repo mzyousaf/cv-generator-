@@ -98,7 +98,7 @@ export function PhotoField({ value, templateId, onChange }: PhotoFieldProps) {
             {value ? fields.photoReplace : fields.photoUpload}
           </Button>
           {value ? (
-            <Button type="button" variant="ghost" size="sm" className="text-red-600! hover:bg-red-50! hover:text-red-700!" onClick={() => onChange("")}>
+            <Button type="button" variant="ghost-danger" size="sm" onClick={() => onChange("")}>
               {fields.photoRemove}
             </Button>
           ) : null}

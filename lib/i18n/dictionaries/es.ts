@@ -985,13 +985,8 @@ export const es: Dictionary = {
     autosaveFailed: "Falló el guardado automático. Pulsa Guardar para reintentar.",
   },
   templatePicker: {
-    recommended: "Recomendadas para ti",
-    all: "Todas las plantillas",
-    region: "Región",
     documentLanguage: "Idioma del CV",
     documentLanguageHint: "Los títulos, las fechas y el PDF usan este idioma.",
-    count: "{n} plantillas",
-    core: "Esenciales",
     regions: {
       "global": "Global",
       "europe": "Europa",

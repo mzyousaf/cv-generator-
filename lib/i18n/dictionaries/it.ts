@@ -995,13 +995,8 @@ export const it: Dictionary = {
     autosaveFailed: "Salvataggio automatico non riuscito. Usa Salva per riprovare.",
   },
   templatePicker: {
-    recommended: "Consigliati per te",
-    all: "Tutti i modelli",
-    region: "Area geografica",
     documentLanguage: "Lingua del CV",
     documentLanguageHint: "Titoli, date e PDF usano questa lingua.",
-    count: "{n} modelli",
-    core: "Essenziali",
     regions: {
       "global": "Globale",
       "europe": "Europa",

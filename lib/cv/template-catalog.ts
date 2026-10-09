@@ -829,10 +829,6 @@ export type TemplateFilter = {
 
 export type TemplateSort = "popular" | "recommended" | "name";
 
-/**
- * Filter and order the gallery. `nameOf` resolves the translated name so
- * search and A–Z sorting follow the UI language.
- */
 /** Case-, accent- and dotted/dotless-i-insensitive form used for gallery search. */
 export function foldSearchText(text: string, locale: Locale): string {
   return text
@@ -844,6 +840,7 @@ export function foldSearchText(text: string, locale: Locale): string {
     .replace(/ł/g, "l")
     .replace(/ø/g, "o")
     .replace(/æ/g, "ae")
+    .replace(/đ/g, "d")
     .trim();
 }
 
@@ -859,6 +856,10 @@ export type TemplateBrowseOptions = {
   primaryTextOf?: (id: CvTemplateId) => string;
 };
 
+/**
+ * Filter and order the gallery. `nameOf` resolves the translated name so
+ * search and A–Z sorting follow the UI language.
+ */
 export function browseTemplates(
   filter: TemplateFilter,
   sort: TemplateSort,

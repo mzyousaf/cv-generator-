@@ -995,13 +995,8 @@ export const pt: Dictionary = {
     autosaveFailed: "Falha no salvamento automático. Use Salvar para tentar de novo.",
   },
   templatePicker: {
-    recommended: "Recomendados para você",
-    all: "Todos os modelos",
-    region: "Região",
     documentLanguage: "Idioma do currículo",
     documentLanguageHint: "Títulos, datas e o PDF usam este idioma.",
-    count: "{n} modelos",
-    core: "Essenciais",
     regions: {
       "global": "Global",
       "europe": "Europa",

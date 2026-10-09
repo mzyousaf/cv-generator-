@@ -985,13 +985,8 @@ export const fr: Dictionary = {
     autosaveFailed: "L'enregistrement automatique a échoué. Cliquez sur Enregistrer pour réessayer.",
   },
   templatePicker: {
-    recommended: "Recommandés pour vous",
-    all: "Tous les modèles",
-    region: "Région",
     documentLanguage: "Langue du CV",
     documentLanguageHint: "Les titres, les dates et le PDF utilisent cette langue.",
-    count: "{n} modèles",
-    core: "Essentiels",
     regions: {
       "global": "International",
       "europe": "Europe",

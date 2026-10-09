@@ -962,13 +962,8 @@ export const zh: Dictionary = {
     autosaveFailed: "自动保存失败。请点击“保存”重试。",
   },
   templatePicker: {
-    recommended: "为你推荐",
-    all: "全部模板",
-    region: "地区",
     documentLanguage: "简历语言",
     documentLanguageHint: "标题、日期和 PDF 将使用此语言。",
-    count: "{n} 个模板",
-    core: "基础模板",
     regions: {
       "global": "通用",
       "europe": "欧洲",

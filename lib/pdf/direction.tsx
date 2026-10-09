@@ -2,6 +2,7 @@ import { AsyncLocalStorage } from "node:async_hooks";
 import type { ReactNode } from "react";
 import { Text } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
+import { upperCase } from "@/lib/pdf/text-shaping";
 
 /** Layout helpers for a document direction (react-pdf has no RTL flexbox). */
 export function pdfDir(dir: "ltr" | "rtl") {
@@ -54,16 +55,6 @@ function flatten(style: Style | Style[] | undefined): Style {
   return Array.isArray(style) ? Object.assign({}, ...style) : (style ?? {});
 }
 
-/** Brand names keep their own spelling: Turkish rules would give "LİNKEDIN". */
-const BRANDS = /\bLinkedIn\b/gi;
-
-function upperCase(text: string, language: string): string {
-  return text
-    .split(BRANDS)
-    .map((part) => part.toLocaleUpperCase(language))
-    .join("LINKEDIN");
-}
-
 type DirTextProps = {
   style?: Style | Style[];
   children?: ReactNode;
@@ -81,7 +72,9 @@ export function DirText({ style, children, ...props }: DirTextProps) {
     merged.push({ letterSpacing: 0 });
   }
   // react-pdf upper-cases with String#toUpperCase, which ignores the language;
-  // do it here with the document's locale instead.
+  // do it here with the document's locale instead. This covers a string child
+  // whose own style upper-cases it, which is how every template uses it;
+  // upper-casing inherited from a parent Text still goes through react-pdf.
   if (typeof children === "string" && flatten(style).textTransform === "uppercase") {
     return (
       <Text {...props} style={[...merged, { textTransform: "none" }]}>

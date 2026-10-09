@@ -995,13 +995,8 @@ export const ru: Dictionary = {
     autosaveFailed: "Ошибка автосохранения. Нажмите «Сохранить», чтобы повторить.",
   },
   templatePicker: {
-    recommended: "Рекомендуем вам",
-    all: "Все шаблоны",
-    region: "Регион",
     documentLanguage: "Язык резюме",
     documentLanguageHint: "Этот язык используется для заголовков, дат и PDF.",
-    count: "Шаблонов: {n}",
-    core: "Основные",
     regions: {
       "global": "Весь мир",
       "europe": "Европа",

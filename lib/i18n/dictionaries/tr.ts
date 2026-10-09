@@ -995,13 +995,8 @@ export const tr: Dictionary = {
     autosaveFailed: "Otomatik kayıt başarısız oldu. Yeniden denemek için Kaydet’i kullanın.",
   },
   templatePicker: {
-    recommended: "Size önerilenler",
-    all: "Tüm şablonlar",
-    region: "Bölge",
     documentLanguage: "CV dili",
     documentLanguageHint: "Başlıklar, tarihler ve PDF bu dili kullanır.",
-    count: "{n} şablon",
-    core: "Temel şablonlar",
     regions: {
       "global": "Küresel",
       "europe": "Avrupa",

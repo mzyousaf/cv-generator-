@@ -985,13 +985,8 @@ export const ar: Dictionary = {
     autosaveFailed: "فشل الحفظ التلقائي. استخدم زر الحفظ لإعادة المحاولة.",
   },
   templatePicker: {
-    recommended: "مقترحة لك",
-    all: "جميع القوالب",
-    region: "المنطقة",
     documentLanguage: "لغة السيرة الذاتية",
     documentLanguageHint: "تُستخدم هذه اللغة في العناوين والتواريخ وملف PDF.",
-    count: "{n} قوالب",
-    core: "الأساسية",
     regions: {
       "global": "عالمي",
       "europe": "أوروبا",

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test lib/**/*.test.ts",
+    "test": "tsx --test \"lib/**/*.test.ts\"",
     "qa:env": "node scripts/env-audit.mjs",
     "qa:public": "node scripts/public-pages-qa.mjs",
     "qa:e2e": "node scripts/e2e-authenticated-qa.mjs",

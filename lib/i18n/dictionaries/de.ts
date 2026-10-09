@@ -985,13 +985,8 @@ export const de: Dictionary = {
     autosaveFailed: "Automatisches Speichern fehlgeschlagen. Klicken Sie auf Speichern, um es erneut zu versuchen.",
   },
   templatePicker: {
-    recommended: "Für Sie empfohlen",
-    all: "Alle Vorlagen",
-    region: "Region",
     documentLanguage: "Sprache des Lebenslaufs",
     documentLanguageHint: "Überschriften, Datumsangaben und das PDF verwenden diese Sprache.",
-    count: "{n} Vorlagen",
-    core: "Grundlagen",
     regions: {
       "global": "International",
       "europe": "Europa",

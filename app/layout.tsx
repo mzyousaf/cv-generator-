@@ -35,7 +35,8 @@ const notoCyrillic = Noto_Sans({
 
 const instrument = Instrument_Serif({
   variable: "--font-instrument",
-  subsets: ["latin"],
+  // latin-ext: Polish and Turkish highlight words (ę, ś, ş, ı) stay in one typeface.
+  subsets: ["latin", "latin-ext"],
   weight: "400",
   style: ["normal", "italic"],
 });

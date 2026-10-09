@@ -44,8 +44,15 @@ export function WorkExperienceAiControls({
     setSuggestion(result.data);
   }
 
-  // Nothing to improve yet: offer to write the description, like other sections.
-  if (!entry.description.trim()) {
+  // With no description yet, offer to write one like other sections. That mode
+  // sticks once chosen (it improves text itself), so typing never unmounts a
+  // pending request or a suggestion; an emptied description returns to it.
+  const isEmpty = !entry.description.trim();
+  const [writeMode, setWriteMode] = useState(isEmpty);
+  if (isEmpty && !writeMode) {
+    setWriteMode(true);
+  }
+  if (writeMode) {
     return (
       <SectionAiControls
         className="sm:col-span-2"

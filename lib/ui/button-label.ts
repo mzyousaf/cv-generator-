@@ -9,9 +9,9 @@ export type ButtonLabelVariant =
   | "inverse"
   | "ai"
   | "link"
-  | "link-danger";
+  | "ghost-danger";
 
-const textLinkVariants: ButtonLabelVariant[] = ["link", "link-danger"];
+const textLinkVariants: ButtonLabelVariant[] = ["link"];
 
 export function isButtonPlainText(
   children: ReactNode,

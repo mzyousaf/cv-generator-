@@ -997,13 +997,8 @@ export const en = {
     autosaveFailed: "Autosave failed. Use Save to retry.",
   },
   templatePicker: {
-    recommended: "Recommended for you",
-    all: "All templates",
-    region: "Region",
     documentLanguage: "CV language",
     documentLanguageHint: "Headings, dates and the PDF use this language.",
-    count: "{n} templates",
-    core: "Essentials",
     regions: {
       "global": "Global",
       "europe": "Europe",
