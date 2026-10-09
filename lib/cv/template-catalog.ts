@@ -573,6 +573,7 @@ const BASE_REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     id: "creative-sidebar",
     region: "global",
     layout: "sidebar",
+    sidebarPosition: "end",
     accent: "#8b5cf6",
     sidebarColor: "#2e1065",
     font: "sans",

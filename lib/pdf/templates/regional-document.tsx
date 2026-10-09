@@ -58,7 +58,7 @@ function Heading({ title, model, tone = "page" }: { title: string; model: Region
         </View>
       );
     case "caps":
-      return <Text style={{ ...base, fontSize: 8.5, ...caps(model, 1.6), color: side ? "#ffffff" : spec.accent }}>{title}</Text>;
+      return <Text style={{ ...base, fontSize: 8.5, ...caps(model, 1), color: side ? "#ffffff" : spec.accent }}>{title}</Text>;
     case "rule":
     default:
       return (

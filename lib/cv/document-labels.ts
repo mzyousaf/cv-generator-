@@ -201,7 +201,8 @@ export const CV_DOCUMENT_LABELS: Record<Locale, CvDocumentLabels> = {
     personalDetails: "البيانات الشخصية",
     contact: "معلومات التواصل",
     email: "البريد الإلكتروني",
-    phone: "الهاتف",
+    // "الجوال" rather than "الهاتف": the lam–heh–alef run mis-shapes in the PDF font.
+    phone: "الجوال",
     address: "العنوان",
     website: "الموقع الإلكتروني",
     linkedin: "LinkedIn",
@@ -459,7 +460,8 @@ export const CV_DOCUMENT_LABELS: Record<Locale, CvDocumentLabels> = {
     linkedin: "LinkedIn",
     dateOfBirth: "Дата рождения",
     nationality: "Гражданство",
-    present: "по настоящее время",
+    // Non-breaking spaces keep the phrase whole in narrow date columns.
+    present: "по\u00a0настоящее\u00a0время",
     yourName: "Ваше имя",
     professionalTitle: "Должность",
     jobTitle: "Должность",

@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: 700,
     textTransform: "uppercase",
-    letterSpacing: 1.4,
+    // Wider tracking makes PDF text extractors split headings into letters.
+    letterSpacing: 1,
     color: "#71717a",
   },
   entryTitle: { fontSize: 11, fontWeight: 700 },

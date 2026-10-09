@@ -49,7 +49,7 @@ export const EXTENDED_TEMPLATES: RegionalTemplateSpec[] = [
   template({ id: "executive-navy", region: "global", layout: "single", accent: "#8a6a1c", headerBand: "#0b1f3a", font: "serif", experienceLabel: "professionalExperience" }),
   template({ id: "consultant-pro", region: "global", layout: "single", accent: "#0f766e", heading: "block", experienceLabel: "professionalExperience" }),
   template({ id: "designer-portfolio", region: "global", layout: "sidebar", accent: "#be185d", sidebarColor: "#3b0764", heading: "rule", photo: "optional" }),
-  template({ id: "marketing-pop", region: "global", layout: "sidebar", accent: "#c2410c", sidebarColor: "#431407", heading: "block", photo: "optional" }),
+  template({ id: "marketing-pop", region: "global", layout: "sidebar", accent: "#c2410c", sidebarColor: "#431407", heading: "block", photo: "optional", sidebarPosition: "end", font: "serif" }),
   template({ id: "first-job", region: "global", layout: "single", accent: "#15803d", heading: "accent-rule", summaryLabel: "objective", headerAlign: "center" }),
   template({ id: "healthcare-pro", region: "global", layout: "single", accent: "#0e7490", font: "serif" }),
   template({ id: "legal-classic", region: "global", layout: "single", accent: "#1f2937", font: "serif", headerAlign: "center", heading: "caps", summaryLabel: "summary", compact: true }),
@@ -57,7 +57,7 @@ export const EXTENDED_TEMPLATES: RegionalTemplateSpec[] = [
   template({ id: "sales-impact", region: "global", layout: "single", accent: "#b91c1c", heading: "block", summaryLabel: "summary", font: "serif" }),
   template({ id: "teacher-educator", region: "global", layout: "timeline", accent: "#6d28d9" }),
   template({ id: "research-scientist", region: "global", layout: "timeline", accent: "#1e3a8a", font: "serif", heading: "rule", educationLabel: "educationTraining" }),
-  template({ id: "product-manager", region: "global", layout: "sidebar", accent: "#4f46e5", sidebarColor: "#1e1b4b", heading: "caps" }),
+  template({ id: "product-manager", region: "global", layout: "sidebar", accent: "#4f46e5", sidebarColor: "#1e1b4b", heading: "bar" }),
   template({ id: "data-analyst", region: "global", layout: "single", accent: "#075985", heading: "block", headerAlign: "center" }),
   template({ id: "hospitality-service", region: "global", layout: "sidebar", accent: "#b45309", sidebarColor: "#292524", photo: "optional", sidebarPosition: "end" }),
   template({ id: "compact-one-page", region: "global", layout: "single", accent: "#334155", heading: "rule", compact: true }),
@@ -73,7 +73,7 @@ export const EXTENDED_TEMPLATES: RegionalTemplateSpec[] = [
   template({ id: "danish-modern", region: "nordics", layout: "sidebar", accent: "#0e7490", sidebarColor: "#083344", heading: "caps", photo: "optional", sidebarPosition: "end" }),
 
   // ---- Southern Europe: photo and personal details are customary ------------
-  template({ id: "italian-cv", region: "southern-europe", layout: "europass", accent: "#166534", educationLabel: "educationTraining", personalDetails: true, photo: "optional", heading: "rule" }),
+  template({ id: "italian-cv", region: "southern-europe", layout: "europass", accent: "#166534", educationLabel: "educationTraining", personalDetails: true, photo: "optional", heading: "rule", compact: true }),
   template({ id: "spanish-cv", region: "southern-europe", layout: "single", accent: "#b91c1c", personalDetails: true, photo: "expected" }),
   template({ id: "portuguese-cv", region: "southern-europe", layout: "sidebar", accent: "#047857", sidebarColor: "#022c22", heading: "accent-rule", personalDetails: true, photo: "expected", font: "serif" }),
 
@@ -88,7 +88,7 @@ export const EXTENDED_TEMPLATES: RegionalTemplateSpec[] = [
   template({ id: "cee-modern", region: "eastern-europe", layout: "sidebar", accent: "#2563eb", sidebarColor: "#172554", heading: "bar", personalDetails: true, photo: "expected", sidebarPosition: "end" }),
 
   // ---- UK & Ireland: no photo, references line --------------------------------
-  template({ id: "uk-modern", region: "uk", layout: "sidebar", accent: "#0f766e", sidebarColor: "#134e4a", heading: "accent-rule", referencesNote: true }),
+  template({ id: "uk-modern", region: "uk", layout: "sidebar", accent: "#0f766e", sidebarColor: "#134e4a", heading: "rule", referencesNote: true }),
   template({ id: "irish-cv", region: "uk", layout: "single", accent: "#15803d", referencesNote: true, heading: "rule", font: "serif" }),
   template({ id: "uk-graduate", region: "uk", layout: "single", accent: "#6d28d9", heading: "rule", summaryLabel: "objective", referencesNote: true, headerAlign: "center" }),
 
@@ -115,7 +115,7 @@ export const EXTENDED_TEMPLATES: RegionalTemplateSpec[] = [
   // ---- Middle East & Gulf -----------------------------------------------------
   template({ id: "saudi-cv", region: "middle-east", layout: "sidebar", accent: "#15803d", sidebarColor: "#052e16", personalDetails: true, photo: "expected", heading: "rule", sidebarPosition: "end" }),
   template({ id: "uae-modern", region: "middle-east", layout: "single", accent: "#8a6a1c", headerBand: "#0f172a", heading: "bar", personalDetails: true, photo: "expected" }),
-  template({ id: "egypt-cv", region: "middle-east", layout: "single", accent: "#7c2d12", personalDetails: true, photo: "optional", heading: "block", font: "serif" }),
+  template({ id: "egypt-cv", region: "middle-east", layout: "single", accent: "#7c2d12", personalDetails: true, photo: "optional", heading: "block", font: "serif", headerAlign: "center" }),
 
   // ---- Africa ---------------------------------------------------------------
   template({ id: "south-africa-cv", region: "africa", layout: "single", accent: "#047857", personalDetails: true, photo: "optional", referencesNote: true, heading: "bar", font: "serif" }),
@@ -124,7 +124,7 @@ export const EXTENDED_TEMPLATES: RegionalTemplateSpec[] = [
 
   // ---- India & South Asia -----------------------------------------------------
   template({ id: "india-fresher", region: "india", layout: "single", accent: "#0f766e", heading: "bar", personalDetails: true, photo: "optional", summaryLabel: "objective", headerAlign: "center" }),
-  template({ id: "india-tech", region: "india", layout: "sidebar", accent: "#1d4ed8", sidebarColor: "#172554", heading: "rule" }),
+  template({ id: "india-tech", region: "india", layout: "sidebar", accent: "#1d4ed8", sidebarColor: "#172554", heading: "rule", sidebarPosition: "end" }),
   template({ id: "pakistan-cv", region: "india", layout: "single", accent: "#166534", personalDetails: true, photo: "optional", headerBand: "#14532d", heading: "caps", font: "serif" }),
 
   // ---- Southeast Asia ---------------------------------------------------------
@@ -134,10 +134,10 @@ export const EXTENDED_TEMPLATES: RegionalTemplateSpec[] = [
 
   // ---- Japan & Korea ----------------------------------------------------------
   template({ id: "japan-shokumu", region: "east-asia", layout: "single", accent: "#1f2937", heading: "block", personalDetails: true, photo: "expected", headerAlign: "center" }),
-  template({ id: "korea-resume", region: "east-asia", layout: "single", accent: "#0369a1", personalDetails: true, photo: "expected", headerBand: "#0c4a6e", heading: "bar", font: "serif" }),
+  template({ id: "korea-resume", region: "east-asia", layout: "single", accent: "#0369a1", personalDetails: true, photo: "expected", headerBand: "#0c4a6e", heading: "bar", font: "serif", headerAlign: "center" }),
 
   // ---- China ------------------------------------------------------------------
-  template({ id: "china-tech", region: "china", layout: "single", accent: "#2563eb", heading: "caps", personalDetails: true, photo: "expected", headerBand: "#1e3a8a", headerAlign: "center" }),
+  template({ id: "china-tech", region: "china", layout: "single", accent: "#2563eb", heading: "bar", personalDetails: true, photo: "expected", headerBand: "#1e3a8a", headerAlign: "center" }),
   template({ id: "hong-kong-cv", region: "china", layout: "single", accent: "#b91c1c", photo: "optional", font: "serif", heading: "rule" }),
 
   // ---- Australia & New Zealand: no photo, references line ---------------------

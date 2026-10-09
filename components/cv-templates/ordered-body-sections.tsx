@@ -97,7 +97,7 @@ const VARIANT_STYLES: Record<HtmlTemplateVariant, VariantStyles> = {
   // Meta lines and date pills mirror lib/pdf/templates/modern-document.tsx.
   modern: {
     sectionHeading:
-      "text-[11px] font-semibold uppercase tracking-[0.22em] text-zinc-500",
+      "text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-500",
     sectionBody: "mt-6",
     summary: "text-[11px] leading-relaxed text-slate-800",
     workTitle: "text-[12px] font-semibold text-slate-900",
