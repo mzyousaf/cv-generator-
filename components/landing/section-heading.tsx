@@ -25,7 +25,7 @@ export function SectionHeading({
       ) : null}
       <h2
         id={id}
-        className="mt-5 hyphens-auto break-words text-3xl font-bold max-[360px]:text-[1.6rem] tracking-[-0.025em] text-slate-950 sm:text-[2.75rem] sm:leading-[1.1]"
+        className="mt-5 hyphens-auto break-words text-balance text-3xl font-bold max-[360px]:text-[1.6rem] tracking-[-0.025em] text-slate-950 sm:text-[2.75rem] sm:leading-[1.1]"
       >
         {title}
       </h2>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { wordGap } from "@/lib/i18n/format";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { ProductPreview } from "@/components/landing/product-preview";
@@ -18,7 +19,7 @@ function CheckIcon() {
 }
 
 export function HeroSection() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   return (
     <section className="scheme-light relative isolate overflow-hidden bg-ink-mesh text-white">
       <div
@@ -35,10 +36,12 @@ export function HeroSection() {
           </p>
 
           <h1 className="mt-7 hyphens-auto break-words text-[2.6rem] font-bold leading-[1.05] tracking-[-0.03em] max-[360px]:text-[2.1rem] sm:text-6xl lg:text-[4.1rem]">
-            {t.hero.titleStart}{" "}
+            {t.hero.titleStart}
+            {wordGap(locale)}
             <span className="inline-block font-display text-[1.12em] font-normal italic tracking-[-0.01em] text-gradient">
               {t.hero.titleHighlight}
-            </span>{" "}
+            </span>
+            {wordGap(locale)}
             {t.hero.titleEnd}
           </h1>
 

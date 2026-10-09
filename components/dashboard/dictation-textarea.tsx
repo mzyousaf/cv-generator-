@@ -106,6 +106,7 @@ export function DictationTextarea({
       <div className="relative">
         <Textarea
           id={id}
+          dir="auto"
           value={value}
           rows={9}
           maxLength={maxLength}

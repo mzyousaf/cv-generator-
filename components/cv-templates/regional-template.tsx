@@ -11,9 +11,20 @@ import {
 import { bandTitleColor, type RegionalTemplateSpec } from "@/lib/cv/template-catalog";
 
 const FONT_STACK = {
-  sans: 'var(--font-cyrillic), var(--font-jakarta), var(--font-arabic), "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Helvetica, Arial, sans-serif',
+  sans: 'var(--font-jakarta), var(--font-cyrillic), var(--font-arabic), "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Helvetica, Arial, sans-serif',
   serif: 'Georgia, "Times New Roman", var(--font-cyrillic), var(--font-arabic), "Songti SC", "Noto Serif SC", serif',
 } as const;
+
+/**
+ * Russian CVs put the Cyrillic face first: Plus Jakarta Sans has no Cyrillic,
+ * and its Arial-based fallback face would otherwise claim it before Noto Sans.
+ * Other languages keep Jakarta first (next/font's Noto also declares Latin).
+ */
+function fontStack(font: keyof typeof FONT_STACK, locale: string): string {
+  return locale === "ru" && font === "sans"
+    ? `var(--font-cyrillic), ${FONT_STACK.sans}`
+    : FONT_STACK[font];
+}
 
 const PAGE_SIZE = {
   A4: { width: "210mm", minHeight: "297mm" },
@@ -487,7 +498,7 @@ export function RegionalCvTemplate({
         margin: "0 auto",
         background: "#fff",
         color: "#18181b",
-        fontFamily: FONT_STACK[spec.font],
+        fontFamily: fontStack(spec.font, state.documentLocale),
         // The sidebar layout draws its own full-bleed columns.
         padding: spec.layout === "sidebar" ? 0 : spec.compact ? "36px 44px" : "40px 48px",
         overflow: "hidden",

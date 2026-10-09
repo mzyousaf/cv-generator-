@@ -21,11 +21,8 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin", "latin-ext"],
 });
 
-// Plus Jakarta Sans has no basic Cyrillic, so Russian uses Noto Sans. It is
-// listed first in the font stacks and covers only Cyrillic code points; with
-// no Arial-based fallback face of its own, Latin text falls through to
-// Jakarta. (Listed after Jakarta, Jakarta's local Arial fallback would claim
-// Cyrillic first on machines that have Arial.)
+// Plus Jakarta Sans has no basic Cyrillic, so Russian uses Noto Sans, which
+// leads the font stack only for Russian pages and CVs (see globals.css).
 const notoCyrillic = Noto_Sans({
   variable: "--font-cyrillic",
   subsets: ["cyrillic"],

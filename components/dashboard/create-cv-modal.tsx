@@ -199,7 +199,7 @@ export function CreateCvModal({ initialMode, onClose }: CreateCvModalProps) {
             <Button
               type="button"
               variant="outline"
-              className="mt-4"
+              className="mt-4 w-full sm:w-auto"
               isLoading={busy === "blank"}
               loadingText={t.dashboard.creating}
               onClick={() => void createBlank()}

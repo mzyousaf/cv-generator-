@@ -46,28 +46,32 @@ export function ProductPreview() {
             <p className="min-w-0 flex-1 truncate text-center text-xs font-semibold text-slate-700">
               {t.preview.sampleTitle}
             </p>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200/70">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 max-[400px]:hidden text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200/70">
               <span className="size-1.5 rounded-full bg-emerald-500" />
               {t.preview.saved}
             </span>
           </div>
 
+          {/* Template switcher spans the whole window so long names never wrap or truncate. */}
+          <div className="hidden border-b border-slate-200/80 bg-slate-50/60 px-4 py-2 sm:block">
+          <div className="mx-auto flex max-w-sm gap-1 rounded-lg bg-slate-100 p-0.5">
+            {CORE_TEMPLATE_IDS.map((id) => (
+              <span
+                key={id}
+                className={`flex-1 whitespace-nowrap rounded-md px-2 py-1 text-center text-[10px] font-semibold ${
+                  id === activePreviewTemplate
+                    ? "bg-surface text-blue-700 shadow-sm"
+                    : "text-slate-500"
+                }`}
+              >
+                {t.templateMeta[id].name}
+              </span>
+            ))}
+          </div>
+          </div>
+
           <div className="grid gap-0 sm:grid-cols-5">
             <div className="hidden space-y-3 border-e border-slate-200/80 bg-slate-50/60 p-4 sm:col-span-2 sm:block">
-              <div className="flex flex-wrap gap-1 rounded-lg bg-slate-100 p-0.5">
-                {CORE_TEMPLATE_IDS.map((id) => (
-                  <span
-                    key={id}
-                    className={`flex-auto rounded-md px-1.5 py-1 text-center text-[10px] font-semibold ${
-                      id === activePreviewTemplate
-                        ? "bg-surface text-blue-700 shadow-sm"
-                        : "text-slate-500"
-                    }`}
-                  >
-                    {t.templateMeta[id].name}
-                  </span>
-                ))}
-              </div>
               <PreviewField label={t.preview.fullName} value={sample.personal.fullName ?? ""} />
               <PreviewField label={t.preview.title} value={sample.personal.professionalTitle ?? ""} />
               <PreviewField label={t.preview.summary} value={sample.summary ?? ""} clamp />

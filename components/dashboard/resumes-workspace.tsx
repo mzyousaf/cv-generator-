@@ -69,13 +69,13 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
         </div>
         <dl className="mt-8 grid max-w-md grid-cols-2 gap-3">
           <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
-            <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:tracking-wider">
               {t.dashboard.statResumes}
             </dt>
             <dd className="mt-1 text-xl font-bold sm:text-2xl">{sortedResumes.length}</dd>
           </div>
           <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
-            <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:tracking-wider">
               {t.dashboard.statLastEdited}
             </dt>
             <dd className="mt-1 whitespace-nowrap text-xl font-bold sm:text-2xl">{lastEdited}</dd>
