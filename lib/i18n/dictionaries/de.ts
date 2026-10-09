@@ -145,7 +145,7 @@ export const de: Dictionary = {
       "Drei druckfreundliche Vorlagen mit echten Beispieldaten. Jederzeit wechseln, ohne ein Wort neu zu tippen.",
     footnote:
       "Beginnen Sie im Editor mit einer beliebigen Vorlage. Sie können das Layout später ändern und Ihren Inhalt behalten.",
-    regionalTitle: "Dazu {n} regionale Formate",
+    regionalTitle: "Dazu {n} Vorlagen für jede Region und jeden Beruf",
     regionalBody: "Europass, deutscher Lebenslauf, US-Resume, britischer CV, Golf-Lebenslauf, chinesischer 简历 und mehr – jeweils nach lokalen Konventionen.",
     tags: { default: "Vielseitig", classic: "Zeitlos", modern: "Beliebt" },
   },
@@ -249,6 +249,274 @@ export const de: Dictionary = {
     "creative-sidebar": {
       name: "Kreativ-Seitenleiste",
       description: "Ausdrucksstarkes zweispaltiges Design für kreative Berufe.",
+    },
+    "minimal-mono": {
+      name: "Minimal Monochrom",
+      description: "Einfarbiges, einspaltiges Layout mit viel Weißraum.",
+    },
+    "tech-engineer": {
+      name: "Tech & Entwicklung",
+      description: "Klares, ATS-sicheres Layout für Entwickler mit markanten Abschnittsbalken.",
+    },
+    "startup-bold": {
+      name: "Start-up Markant",
+      description: "Dunkles Kopfband und selbstbewusste Typografie für dynamische Teams.",
+    },
+    "elegant-serif": {
+      name: "Elegante Serife",
+      description: "Zentrierter Serifen-Kopfbereich mit edlen, dezenten Linien.",
+    },
+    "executive-navy": {
+      name: "Executive Marineblau",
+      description: "Marineblaues Kopfband mit Goldakzenten für Führungskräfte.",
+    },
+    "consultant-pro": {
+      name: "Beratung",
+      description: "Strukturiertes Layout mit Blocküberschriften – auf einen Blick erfassbar.",
+    },
+    "designer-portfolio": {
+      name: "Design",
+      description: "Kräftige pflaumenfarbene Seitenleiste für Designer und Kreative.",
+    },
+    "marketing-pop": {
+      name: "Marketing Akzent",
+      description: "Warme Seitenleiste und prägnante Überschriften für das Marketing.",
+    },
+    "first-job": {
+      name: "Erster Job",
+      description: "Einfaches, freundliches Layout für Studierende und Absolventen.",
+    },
+    "healthcare-pro": {
+      name: "Gesundheitswesen",
+      description: "Ruhiges, klares Layout für Klinik- und Pflegeberufe.",
+    },
+    "legal-classic": {
+      name: "Recht Klassisch",
+      description: "Traditionelles zentriertes Serifen-Layout, bewährt in der Rechtsbranche.",
+    },
+    "finance-analyst": {
+      name: "Finanzanalyse",
+      description: "Konservative Serifenschrift mit klaren Versalien für die Finanzbranche.",
+    },
+    "sales-impact": {
+      name: "Vertriebsstark",
+      description: "Kontrastreiche Überschriften, die Ihre Erfolge in den Vordergrund stellen.",
+    },
+    "teacher-educator": {
+      name: "Lehrkraft",
+      description: "Zeitleiste mit Datumsspalte, die eine Lehrlaufbahn auf einen Blick zeigt.",
+    },
+    "research-scientist": {
+      name: "Forschung",
+      description: "Akademische Zeitleiste für Positionen, Publikationen und Fördermittel.",
+    },
+    "product-manager": {
+      name: "Produktmanagement",
+      description: "Indigoblaue Seitenleiste für Fähigkeiten und Tools, Erfolge rechts daneben.",
+    },
+    "data-analyst": {
+      name: "Datenanalyse",
+      description: "Aufgeräumte Versalien und blaue Akzente für analytische Rollen.",
+    },
+    "hospitality-service": {
+      name: "Gastgewerbe",
+      description: "Freundliches Layout mit Seitenleiste für Hotellerie, Tourismus und Service.",
+    },
+    "compact-one-page": {
+      name: "Kompakt (1 Seite)",
+      description: "Engere Abstände für mehr Inhalt auf einer einzigen Seite.",
+    },
+    "two-tone-modern": {
+      name: "Zweifarbig",
+      description: "Schiefergraues Kopfband mit leuchtendem Akzentbalken.",
+    },
+    "europass-compact": {
+      name: "Europass Kompakt",
+      description: "Die offizielle Europass-Struktur in kompakterem Layout.",
+    },
+    "eu-institutions": {
+      name: "EU-Institutionen",
+      description: "Formeller Lebenslauf im Europass-Stil für EU-Agenturen und -Institutionen.",
+    },
+    "nordic-clean": {
+      name: "Nordisch Klar",
+      description: "Luftiges skandinavisches Layout mit optionalem Foto.",
+    },
+    "swedish-cv": {
+      name: "Schwedischer Lebenslauf",
+      description: "Geradliniger schwedischer Lebenslauf mit dem Profil an erster Stelle.",
+    },
+    "danish-modern": {
+      name: "Dänisch Modern",
+      description: "Dunkle petrolfarbene Seitenleiste mit ruhiger, moderner Wirkung.",
+    },
+    "italian-cv": {
+      name: "Italienischer Lebenslauf",
+      description: "Curriculum Vitae im Europass-Stil, verbreitet in ganz Italien.",
+    },
+    "spanish-cv": {
+      name: "Spanischer Lebenslauf",
+      description: "Klassischer spanischer Lebenslauf mit Foto und persönlichen Daten.",
+    },
+    "portuguese-cv": {
+      name: "Portugiesischer Lebenslauf",
+      description: "Lebenslauf mit grüner Seitenleiste und Foto, beliebt in Portugal.",
+    },
+    "dutch-cv": {
+      name: "Niederländischer Lebenslauf",
+      description: "Direkter, gut strukturierter Lebenslauf im niederländischen Stil.",
+    },
+    "belgian-cv": {
+      name: "Belgischer Lebenslauf",
+      description: "Lebenslauf mit Zeitleiste und persönlichen Daten, üblich in Belgien.",
+    },
+    "polish-cv": {
+      name: "Polnischer Lebenslauf",
+      description: "Polnisches Lebenslauf-Layout mit Foto und persönlichen Daten.",
+    },
+    "cee-modern": {
+      name: "Mitteleuropa Modern",
+      description: "Moderner Lebenslauf mit Seitenleiste für Mittel- und Osteuropa.",
+    },
+    "uk-modern": {
+      name: "UK Modern",
+      description: "Zeitgemäßer zweispaltiger britischer Lebenslauf ohne Foto.",
+    },
+    "irish-cv": {
+      name: "Irischer Lebenslauf",
+      description: "Klarer irischer Lebenslauf mit Referenzhinweis.",
+    },
+    "uk-graduate": {
+      name: "UK Berufseinstieg",
+      description: "Lebenslauf mit Karriereziel für Absolventen und Praktikanten in Großbritannien.",
+    },
+    "swiss-cv": {
+      name: "Schweizer Lebenslauf",
+      description: "Präziser Schweizer Lebenslauf mit Foto und Unterschriftszeile.",
+    },
+    "austria-cv": {
+      name: "Österreichischer Lebenslauf",
+      description: "Traditioneller Serifen-Lebenslauf, üblich in Österreich.",
+    },
+    "dach-elegant": {
+      name: "DACH Elegant",
+      description: "Lebenslauf mit marineblauer Seitenleiste, Foto und persönlichen Daten.",
+    },
+    "cv-moderne": {
+      name: "CV Moderne",
+      description: "Französischer Lebenslauf mit dunklem Kopfband und Foto.",
+    },
+    "cv-classique": {
+      name: "CV Classique",
+      description: "Schlichter französischer Serifen-Lebenslauf für traditionelle Branchen.",
+    },
+    "us-modern": {
+      name: "US Modern",
+      description: "Hochwertiges einspaltiges US-Resume mit blauen Akzenten.",
+    },
+    "us-tech": {
+      name: "US Tech",
+      description: "Kompaktes, ATS-sicheres Resume für Software- und Datenrollen.",
+    },
+    "federal-resume": {
+      name: "US-Bundesbehörden",
+      description: "Ausführliches Resume im Federal-Stil für Bewerbungen bei US-Behörden.",
+    },
+    "canada-modern": {
+      name: "Kanada Modern",
+      description: "Kanadisches Resume mit klarem roten Akzent, ohne Foto.",
+    },
+    "brazil-curriculo": {
+      name: "Brasilien Currículo",
+      description: "Brasilianisches Currículo mit persönlichen Daten und optionalem Foto.",
+    },
+    "mexico-cv": {
+      name: "Mexiko-CV",
+      description: "Lebenslauf mit Seitenleiste und Foto, weit verbreitet in Mexiko.",
+    },
+    "latam-professional": {
+      name: "Lateinamerika Professionell",
+      description: "Strukturierter Lebenslauf mit Blocküberschriften für Lateinamerika.",
+    },
+    "saudi-cv": {
+      name: "Saudi-Arabien-CV",
+      description: "Lebenslauf mit grüner Seitenleiste, Foto und persönlichen Daten.",
+    },
+    "uae-modern": {
+      name: "VAE Modern",
+      description: "Dunkles Kopfband und Goldakzente, beliebt in den VAE.",
+    },
+    "egypt-cv": {
+      name: "Ägypten-CV",
+      description: "Klarer Lebenslauf mit persönlichen Daten für Ägypten und Nordafrika.",
+    },
+    "south-africa-cv": {
+      name: "Südafrika-CV",
+      description: "Südafrikanischer Lebenslauf mit persönlichen Daten und Referenzen.",
+    },
+    "nigeria-cv": {
+      name: "Nigeria-CV",
+      description: "Nigerianischer Lebenslauf mit Referenzhinweis und optionalem Foto.",
+    },
+    "kenya-cv": {
+      name: "Ostafrika Modern",
+      description: "Lebenslauf mit warmer Seitenleiste für Kenia und Ostafrika.",
+    },
+    "india-fresher": {
+      name: "Indien Berufseinstieg",
+      description: "Einfacher Lebenslauf für Berufseinsteiger, mit persönlichen Daten.",
+    },
+    "india-tech": {
+      name: "Indien Tech",
+      description: "Zweispaltiges Resume für Tech- und IT-Rollen in Indien.",
+    },
+    "pakistan-cv": {
+      name: "Pakistan-CV",
+      description: "Professioneller Lebenslauf mit persönlichen Daten für Pakistan.",
+    },
+    "singapore-resume": {
+      name: "Singapur-Resume",
+      description: "Klares Resume ohne Foto, passend für Arbeitgeber in Singapur.",
+    },
+    "philippines-resume": {
+      name: "Philippinen-Resume",
+      description: "Resume mit Foto und persönlichen Daten, üblich auf den Philippinen.",
+    },
+    "malaysia-resume": {
+      name: "Malaysia-Resume",
+      description: "Resume mit petrolfarbener Seitenleiste und Foto für Malaysia.",
+    },
+    "japan-shokumu": {
+      name: "Japan Berufsverlauf",
+      description: "Strukturierter Lebenslauf zum Berufsverlauf im japanischen Stil.",
+    },
+    "korea-resume": {
+      name: "Korea-Resume",
+      description: "Resume im koreanischen Stil mit Foto und persönlichen Daten.",
+    },
+    "china-tech": {
+      name: "China Tech",
+      description: "Modernes 简历 für Tech-Rollen, mit Foto.",
+    },
+    "hong-kong-cv": {
+      name: "Hongkong-CV",
+      description: "Zweisprachig nutzbarer Lebenslauf, beliebt in Hongkong.",
+    },
+    "nz-cv": {
+      name: "Neuseeland-CV",
+      description: "Klarer neuseeländischer Lebenslauf mit Referenzhinweis, ohne Foto.",
+    },
+    "australia-modern": {
+      name: "Australien Modern",
+      description: "Zweispaltiges australisches Resume ohne Foto.",
+    },
+    "turkish-cv": {
+      name: "Türkei-CV",
+      description: "Türkischer Lebenslauf mit Foto und persönlichen Daten.",
+    },
+    "cis-cv": {
+      name: "GUS-CV",
+      description: "Lebenslauf mit Foto und persönlichen Daten für russischsprachige Märkte.",
     },
   },
   cta: {
@@ -735,7 +1003,46 @@ export const de: Dictionary = {
       "india": "Indien & Südasien",
       "china": "China",
       "oceania": "Australien & Neuseeland",
+      "nordics": "Skandinavien",
+      "southern-europe": "Südeuropa",
+      "benelux": "Benelux",
+      "eastern-europe": "Osteuropa, Türkei & GUS",
+      "africa": "Afrika",
+      "southeast-asia": "Südostasien",
+      "east-asia": "Japan & Korea",
     },
+    styles: {
+      professional: "Professionell",
+      modern: "Modern",
+      minimal: "Minimalistisch",
+      classic: "Klassisch",
+      creative: "Kreativ",
+      executive: "Führungskräfte",
+      academic: "Akademisch",
+      simple: "Einfach",
+    },
+    search: "Vorlagen durchsuchen",
+    sortLabel: "Sortieren nach",
+    sort: {
+      popular: "Beliebteste",
+      recommended: "Für Sie empfohlen",
+      name: "Name (A–Z)",
+    },
+    regionLabel: "Region",
+    allRegions: "Alle Regionen",
+    styleLabel: "Stil",
+    allStyles: "Alle Stile",
+    filtersLabel: "Filter",
+    filterAts: "ATS-geeignet",
+    filterWithPhoto: "Mit Foto",
+    filterNoPhoto: "Ohne Foto",
+    filterOneColumn: "Einspaltig",
+    filterTwoColumns: "Zweispaltig",
+    clearFilters: "Filter zurücksetzen",
+    noResults: "Keine Vorlagen entsprechen diesen Filtern.",
+    popular: "Beliebt",
+    current: "Aktuell",
+    showing: "{n} von {total} Vorlagen",
     tags: {
       photo: "Foto",
       "ats": "ATS-geeignet",

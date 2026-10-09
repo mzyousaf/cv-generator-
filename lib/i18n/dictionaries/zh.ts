@@ -128,7 +128,7 @@ export const zh: Dictionary = {
     title: "优雅布局，同样出色的内容。",
     description: "用真实示例数据预览三套适合打印的模板。随时切换，无需重新输入。",
     footnote: "在编辑器中从任意模板开始。之后可更换布局，内容保持不变。",
-    regionalTitle: "另有 {n} 种地区格式",
+    regionalTitle: "另有 {n} 个模板，覆盖各地区和职业",
     regionalBody: "Europass、德式 Lebenslauf、美式简历、英式 CV、海湾简历、中式简历等，均符合当地惯例。",
     tags: { default: "百搭", classic: "经典", modern: "热门" },
   },
@@ -232,6 +232,274 @@ export const zh: Dictionary = {
     "creative-sidebar": {
       name: "创意侧栏",
       description: "醒目的双栏设计，适合创意和设计岗位。",
+    },
+    "minimal-mono": {
+      name: "极简黑白",
+      description: "单色单栏布局，留白充足。",
+    },
+    "tech-engineer": {
+      name: "技术工程师",
+      description: "简洁且适配 ATS 的开发者布局，板块色条利落分明。",
+    },
+    "startup-bold": {
+      name: "创业醒目",
+      description: "深色页眉色带搭配自信字体，适合快节奏团队。",
+    },
+    "elegant-serif": {
+      name: "优雅衬线",
+      description: "居中衬线页眉，搭配精致低调的分隔线。",
+    },
+    "executive-navy": {
+      name: "藏青高管",
+      description: "藏青页眉色带搭配金色点缀，适合高层管理者。",
+    },
+    "consultant-pro": {
+      name: "咨询顾问",
+      description: "结构清晰的色块标题布局，一目了然。",
+    },
+    "designer-portfolio": {
+      name: "设计师",
+      description: "醒目的梅紫色侧栏，适合设计师和创意人士。",
+    },
+    "marketing-pop": {
+      name: "活力营销",
+      description: "暖色侧栏搭配有力标题，适合市场营销人员。",
+    },
+    "first-job": {
+      name: "第一份工作",
+      description: "简单友好的布局，适合在校生和应届毕业生。",
+    },
+    "healthcare-pro": {
+      name: "医疗护理",
+      description: "沉稳清晰的布局，适合临床和护理岗位。",
+    },
+    "legal-classic": {
+      name: "法律经典",
+      description: "传统居中衬线布局，法律行业的信赖之选。",
+    },
+    "finance-analyst": {
+      name: "金融分析师",
+      description: "稳重的衬线字体搭配清晰大写，适合金融行业。",
+    },
+    "sales-impact": {
+      name: "销售冲击力",
+      description: "高对比度标题，让业绩成果先声夺人。",
+    },
+    "teacher-educator": {
+      name: "教育工作者",
+      description: "日期栏时间线，教学履历一目了然。",
+    },
+    "research-scientist": {
+      name: "科研人员",
+      description: "学术时间线，展示职位、论文和科研经费。",
+    },
+    "product-manager": {
+      name: "产品经理",
+      description: "靛蓝侧栏展示技能和工具，右侧突出成果。",
+    },
+    "data-analyst": {
+      name: "数据分析师",
+      description: "整洁的大写标题和蓝色点缀，适合分析类岗位。",
+    },
+    "hospitality-service": {
+      name: "酒店服务",
+      description: "友好的侧栏布局，适合酒店、旅游和服务岗位。",
+    },
+    "compact-one-page": {
+      name: "紧凑单页",
+      description: "更紧凑的间距，一页容纳更多内容。",
+    },
+    "two-tone-modern": {
+      name: "双色调",
+      description: "石板灰页眉色带搭配亮色强调条。",
+    },
+    "europass-compact": {
+      name: "Europass 紧凑版",
+      description: "官方 Europass 结构，布局更紧凑。",
+    },
+    "eu-institutions": {
+      name: "欧盟机构",
+      description: "正式的 Europass 风格简历，适合欧盟机构和组织。",
+    },
+    "nordic-clean": {
+      name: "北欧清爽",
+      description: "通透的斯堪的纳维亚布局，照片可选。",
+    },
+    "swedish-cv": {
+      name: "瑞典简历",
+      description: "简洁直接的瑞典简历，个人简介置顶。",
+    },
+    "danish-modern": {
+      name: "丹麦现代",
+      description: "深青色侧栏，沉静而现代。",
+    },
+    "italian-cv": {
+      name: "意大利简历",
+      description: "Europass 风格的 Curriculum Vitae，在意大利广泛使用。",
+    },
+    "spanish-cv": {
+      name: "西班牙简历",
+      description: "经典西班牙简历，含照片和个人信息。",
+    },
+    "portuguese-cv": {
+      name: "葡萄牙简历",
+      description: "绿色侧栏带照片的简历，在葡萄牙很受欢迎。",
+    },
+    "dutch-cv": {
+      name: "荷兰简历",
+      description: "直接明了、结构清晰的荷兰风格简历。",
+    },
+    "belgian-cv": {
+      name: "比利时简历",
+      description: "含个人信息的时间线简历，在比利时很常见。",
+    },
+    "polish-cv": {
+      name: "波兰简历",
+      description: "波兰简历布局，含照片和个人信息。",
+    },
+    "cee-modern": {
+      name: "中欧现代",
+      description: "适用于中东欧的现代侧栏简历。",
+    },
+    "uk-modern": {
+      name: "英式现代",
+      description: "无照片的现代双栏英式 CV。",
+    },
+    "irish-cv": {
+      name: "爱尔兰简历",
+      description: "清晰的爱尔兰简历，含推荐人说明。",
+    },
+    "uk-graduate": {
+      name: "英国毕业生",
+      description: "以求职目标开篇，适合英国毕业生和实习生。",
+    },
+    "swiss-cv": {
+      name: "瑞士简历",
+      description: "严谨的瑞士 Lebenslauf，含照片和签名栏。",
+    },
+    "austria-cv": {
+      name: "奥地利简历",
+      description: "奥地利常用的传统衬线 Lebenslauf。",
+    },
+    "dach-elegant": {
+      name: "DACH 优雅",
+      description: "藏青侧栏 Lebenslauf，含照片和个人信息。",
+    },
+    "cv-moderne": {
+      name: "法式现代",
+      description: "法式简历，带深色页眉色带和照片。",
+    },
+    "cv-classique": {
+      name: "法式经典",
+      description: "朴素的衬线法式简历，适合传统行业。",
+    },
+    "us-modern": {
+      name: "美式现代",
+      description: "精致的单栏美式简历，搭配蓝色点缀。",
+    },
+    "us-tech": {
+      name: "美式技术",
+      description: "紧凑且适配 ATS 的简历，适合软件和数据岗位。",
+    },
+    "federal-resume": {
+      name: "美国联邦",
+      description: "详尽的联邦风格简历，适合申请政府职位。",
+    },
+    "canada-modern": {
+      name: "加拿大现代",
+      description: "简洁红色点缀的加拿大简历，无照片。",
+    },
+    "brazil-curriculo": {
+      name: "巴西简历",
+      description: "巴西 currículo，含个人信息，照片可选。",
+    },
+    "mexico-cv": {
+      name: "墨西哥简历",
+      description: "带照片的侧栏简历，在墨西哥广泛使用。",
+    },
+    "latam-professional": {
+      name: "拉美专业",
+      description: "结构清晰的色块标题简历，适用于拉丁美洲。",
+    },
+    "saudi-cv": {
+      name: "沙特简历",
+      description: "绿色侧栏简历，含照片和个人信息。",
+    },
+    "uae-modern": {
+      name: "阿联酋现代",
+      description: "深色色带搭配金色点缀，在阿联酋广受欢迎。",
+    },
+    "egypt-cv": {
+      name: "埃及简历",
+      description: "含个人信息的清晰简历，适用于埃及和北非。",
+    },
+    "south-africa-cv": {
+      name: "南非简历",
+      description: "南非简历，含个人信息和推荐人。",
+    },
+    "nigeria-cv": {
+      name: "尼日利亚简历",
+      description: "尼日利亚简历，含推荐人说明，照片可选。",
+    },
+    "kenya-cv": {
+      name: "东非现代",
+      description: "暖色侧栏简历，适用于肯尼亚和东非。",
+    },
+    "india-fresher": {
+      name: "印度应届生",
+      description: "适合应届生的简洁简历，含个人信息。",
+    },
+    "india-tech": {
+      name: "印度技术",
+      description: "双栏简历，适合印度科技和 IT 岗位。",
+    },
+    "pakistan-cv": {
+      name: "巴基斯坦简历",
+      description: "含个人信息的专业简历，适用于巴基斯坦。",
+    },
+    "singapore-resume": {
+      name: "新加坡简历",
+      description: "干净利落的无照片简历，适合新加坡雇主。",
+    },
+    "philippines-resume": {
+      name: "菲律宾简历",
+      description: "含照片和个人信息的简历，在菲律宾很常见。",
+    },
+    "malaysia-resume": {
+      name: "马来西亚简历",
+      description: "青色侧栏带照片的简历，适用于马来西亚。",
+    },
+    "japan-shokumu": {
+      name: "日本职务经历书",
+      description: "日式风格的结构化职务经历简历。",
+    },
+    "korea-resume": {
+      name: "韩国简历",
+      description: "韩式风格简历，含照片和个人信息。",
+    },
+    "china-tech": {
+      name: "中国技术",
+      description: "适合技术岗位的现代简历，含照片。",
+    },
+    "hong-kong-cv": {
+      name: "香港简历",
+      description: "适合双语的简历，在香港很受欢迎。",
+    },
+    "nz-cv": {
+      name: "新西兰简历",
+      description: "清晰的新西兰简历，含推荐人说明，无照片。",
+    },
+    "australia-modern": {
+      name: "澳洲现代",
+      description: "无照片的双栏澳大利亚简历。",
+    },
+    "turkish-cv": {
+      name: "土耳其简历",
+      description: "土耳其简历，含照片和个人信息。",
+    },
+    "cis-cv": {
+      name: "独联体简历",
+      description: "含照片和个人信息的简历，适用于俄语市场。",
     },
   },
   cta: {
@@ -712,7 +980,46 @@ export const zh: Dictionary = {
       "india": "印度和南亚",
       "china": "中国",
       "oceania": "澳大利亚和新西兰",
+      "nordics": "北欧",
+      "southern-europe": "南欧",
+      "benelux": "比荷卢",
+      "eastern-europe": "东欧、土耳其和独联体",
+      "africa": "非洲",
+      "southeast-asia": "东南亚",
+      "east-asia": "日本和韩国",
     },
+    styles: {
+      professional: "专业",
+      modern: "现代",
+      minimal: "极简",
+      classic: "经典",
+      creative: "创意",
+      executive: "高管",
+      academic: "学术",
+      simple: "简约",
+    },
+    search: "搜索模板",
+    sortLabel: "排序方式",
+    sort: {
+      popular: "最受欢迎",
+      recommended: "为你推荐",
+      name: "名称（A–Z）",
+    },
+    regionLabel: "地区",
+    allRegions: "全部地区",
+    styleLabel: "风格",
+    allStyles: "全部风格",
+    filtersLabel: "筛选",
+    filterAts: "适配 ATS",
+    filterWithPhoto: "含照片",
+    filterNoPhoto: "无照片",
+    filterOneColumn: "单栏",
+    filterTwoColumns: "双栏",
+    clearFilters: "清除筛选",
+    noResults: "没有符合筛选条件的模板。",
+    popular: "热门",
+    current: "当前",
+    showing: "显示 {n} / {total} 个模板",
     tags: {
       photo: "照片",
       "ats": "适配 ATS",
