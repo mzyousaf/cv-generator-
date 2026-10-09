@@ -129,3 +129,36 @@ export async function createResumeFromImportAction(
 
   return resumeImportFinalizeService.createFromReview(reviewState);
 }
+
+/** Longest description accepted for "describe yourself" creation. */
+const DESCRIPTION_MAX_LENGTH = 20_000;
+
+/**
+ * Creates a CV from the user's own words (typed or dictated): AI turns the
+ * description into builder sections, then the CV is saved like an import.
+ */
+export async function createCvFromDescriptionAction(input: {
+  description: unknown;
+  locale?: unknown;
+}): Promise<ResumeImportResult<{ cvId: string }>> {
+  const user = await getCurrentUser();
+  const authError = resumeImportAuthError(user);
+  if (authError) {
+    return authError;
+  }
+
+  const description =
+    typeof input?.description === "string"
+      ? input.description.trim().slice(0, DESCRIPTION_MAX_LENGTH)
+      : "";
+  const fallbackLocale = (LOCALES as readonly unknown[]).includes(input?.locale)
+    ? (input.locale as Locale)
+    : undefined;
+
+  const parsed = await resumeImportParseService.parseDescription(description, fallbackLocale);
+  if (!parsed.success) {
+    return parsed;
+  }
+
+  return resumeImportFinalizeService.createFromReview(parsed.data);
+}

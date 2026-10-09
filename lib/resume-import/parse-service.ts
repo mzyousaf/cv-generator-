@@ -13,7 +13,9 @@ import { RESUME_IMPORT_MIN_PARSE_TEXT_LENGTH } from "@/lib/resume-import/parse-c
 import { aiFailureMessage } from "@/lib/ai/errors";
 import { extractJsonObjectFromModelText } from "@/lib/resume-import/parse-json";
 import {
+  buildResumeDescriptionUserPrompt,
   buildResumeImportFileParseUserPrompt,
+  RESUME_DESCRIPTION_SYSTEM_PROMPT,
   buildResumeImportParseUserPrompt,
   RESUME_IMPORT_PARSE_SYSTEM_PROMPT,
 } from "@/lib/resume-import/parse-prompts";
@@ -66,6 +68,31 @@ export function createResumeImportParseService(deps: ResumeImportParseDeps) {
 
     return runParse(
       { ...PARSE_REQUEST_BASE, userPrompt: buildResumeImportParseUserPrompt(text) },
+      fallbackLocale,
+    );
+  }
+
+  /** Builds a CV from the person's own typed or dictated description. */
+  async function parseDescription(
+    description: string,
+    fallbackLocale?: Locale,
+  ): Promise<ResumeImportResult<CvBuilderFormState>> {
+    const text = description.trim();
+    if (text.length < RESUME_IMPORT_MIN_PARSE_TEXT_LENGTH) {
+      return resumeImportError(
+        RESUME_IMPORT_ERROR_CODES.DESCRIPTION_TOO_SHORT,
+        RESUME_IMPORT_ERROR_MESSAGES.DESCRIPTION_TOO_SHORT,
+      );
+    }
+
+    return runParse(
+      {
+        ...PARSE_REQUEST_BASE,
+        systemPrompt: RESUME_DESCRIPTION_SYSTEM_PROMPT,
+        userPrompt: buildResumeDescriptionUserPrompt(text),
+        // A little more freedom to phrase things well; facts stay grounded.
+        temperature: 0.3,
+      },
       fallbackLocale,
     );
   }
@@ -155,5 +182,5 @@ export function createResumeImportParseService(deps: ResumeImportParseDeps) {
     };
   }
 
-  return { parseExtractedText, parsePdfFile };
+  return { parseExtractedText, parseDescription, parsePdfFile };
 }

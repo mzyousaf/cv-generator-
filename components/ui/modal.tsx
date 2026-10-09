@@ -11,6 +11,7 @@ import {
   type ReactNode,
   type RefObject,
 } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/button";
 
@@ -67,11 +68,13 @@ export function Modal({
     };
   }, [open, onClose]);
 
-  if (!open) {
+  if (!open || typeof document === "undefined") {
     return null;
   }
 
-  return (
+  // Portal to <body> so dialogs escape parents that clip or restyle them
+  // (overflow-hidden / isolate containers, inherited text colours).
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-end justify-center bg-ink/60 p-4 backdrop-blur-sm sm:items-center"
       onClick={handleBackdropClick}
@@ -98,7 +101,8 @@ export function Modal({
           <div className="mt-6">{children}</div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
