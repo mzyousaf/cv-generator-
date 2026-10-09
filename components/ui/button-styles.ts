@@ -26,7 +26,7 @@ export const baseClasses = cn(
 
 export const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-brand-gradient text-white shadow-[0_1px_0_rgb(255_255_255/0.25)_inset,0_6px_18px_-6px_color-mix(in_oklab,var(--brand-600)_60%,transparent)] ring-1 ring-blue-700/40 hover:shadow-[0_1px_0_rgb(255_255_255/0.25)_inset,0_10px_26px_-6px_color-mix(in_oklab,var(--brand-600)_70%,transparent)] hover:brightness-110 active:brightness-95 disabled:bg-none disabled:bg-blue-300 disabled:text-white disabled:shadow-none disabled:ring-0",
+    "bg-brand-gradient text-white shadow-[0_1px_0_rgb(255_255_255/0.25)_inset,0_6px_18px_-6px_color-mix(in_oklab,var(--brand-600)_60%,transparent)] ring-1 ring-blue-700/40 hover:shadow-[0_1px_0_rgb(255_255_255/0.25)_inset,0_10px_26px_-6px_color-mix(in_oklab,var(--brand-600)_70%,transparent)] hover:brightness-110 active:brightness-95 disabled:bg-none disabled:bg-blue-300 disabled:text-white disabled:opacity-60 disabled:shadow-none disabled:ring-0",
   secondary:
     "border border-slate-200 bg-slate-100/80 text-slate-900 hover:border-slate-300 hover:bg-slate-200/70 active:bg-slate-200 disabled:bg-slate-100 disabled:text-slate-400",
   outline:

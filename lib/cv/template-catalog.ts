@@ -886,12 +886,16 @@ export function browseTemplates(
   if (!terms.length) {
     return sorted;
   }
-  // Direct matches come first ("Poland" → Polish CV before the pan-European ones).
-  const nameMatches = (id: CvTemplateId) => {
-    const primary = foldSearchText(`${primaryTextOf(id)} ${id.replace(/-/g, " ")}`, locale);
-    return terms.every((term) => primary.includes(term));
+  // Rank: name or id match, then primary text (description, country), then the
+  // rest ("polish" → Polish CV before templates described as "polished").
+  const matchesIn = (text: string) => {
+    const folded = foldSearchText(text, locale);
+    return terms.every((term) => folded.includes(term));
   };
-  return [...sorted.filter(nameMatches), ...sorted.filter((id) => !nameMatches(id))];
+  const tier = (id: CvTemplateId) =>
+    matchesIn(`${nameOf(id)} ${id.replace(/-/g, " ")}`) ? 0 : matchesIn(primaryTextOf(id)) ? 1 : 2;
+  const tiers = new Map(sorted.map((id) => [id, tier(id)]));
+  return sorted.sort((a, b) => (tiers.get(a) ?? 2) - (tiers.get(b) ?? 2));
 }
 
 function sortTemplates(

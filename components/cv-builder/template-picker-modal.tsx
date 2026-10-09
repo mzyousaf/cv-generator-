@@ -137,7 +137,9 @@ export function TemplatePickerModal({
   const countryName = useMemo(() => {
     const local = new Intl.DisplayNames([locale], { type: "region" });
     const english = new Intl.DisplayNames(["en"], { type: "region" });
-    return (code: string) => `${local.of(code) ?? ""} ${english.of(code) ?? ""}`;
+    // Former English names people still search for.
+    const aliases: Record<string, string> = { TR: "Turkey", CZ: "Czech Republic", NL: "Holland" };
+    return (code: string) => `${local.of(code) ?? ""} ${english.of(code) ?? ""} ${aliases[code] ?? ""}`;
   }, [locale]);
   const countryNames = useMemo(() => {
     return Object.fromEntries(
@@ -301,7 +303,8 @@ export function TemplatePickerModal({
       <div
         role="group"
         aria-label={copy.filtersLabel}
-        className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1"
+        // On phones the chip row scrolls; the faded edge hints at more chips.
+        className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 max-sm:[mask-image:linear-gradient(to_right,black_85%,transparent)] max-sm:rtl:[mask-image:linear-gradient(to_left,black_85%,transparent)]"
       >
         {toggle(atsOnly, copy.filterAts, () => setAtsOnly((value) => !value))}
         {toggle(photo === "with", copy.filterWithPhoto, () => setPhoto((value) => (value === "with" ? "any" : "with")))}
