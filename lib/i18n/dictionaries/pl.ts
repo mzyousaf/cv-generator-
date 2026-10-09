@@ -17,7 +17,7 @@ export const pl: Dictionary = {
       ocean: "Ocean",
       emerald: "Szmaragd",
       rose: "Róż",
-      sunset: "Zachód słońca",
+      sunset: "Zachód",
     },
     modes: {
       light: "Jasny",
@@ -80,6 +80,7 @@ export const pl: Dictionary = {
     title: "Stanowisko",
     summary: "Podsumowanie",
     improveWithAi: "Ulepsz z AI",
+    sampleTitle: "Przykładowe CV",
   },
   features: {
     eyebrow: "Funkcje",

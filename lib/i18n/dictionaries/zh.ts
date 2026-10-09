@@ -71,6 +71,7 @@ export const zh: Dictionary = {
     title: "职位",
     summary: "摘要",
     improveWithAi: "用 AI 优化",
+    sampleTitle: "简历示例",
   },
   features: {
     eyebrow: "功能",

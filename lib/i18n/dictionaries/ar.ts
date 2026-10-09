@@ -76,6 +76,7 @@ export const ar: Dictionary = {
     title: "المسمى الوظيفي",
     summary: "الملخص",
     improveWithAi: "حسّن بالذكاء الاصطناعي",
+    sampleTitle: "سيرة ذاتية نموذجية",
   },
   features: {
     eyebrow: "المزايا",

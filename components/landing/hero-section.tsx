@@ -26,7 +26,7 @@ export function HeroSection() {
         aria-hidden="true"
       />
       <div className="mx-auto grid max-w-6xl items-center gap-14 px-4 pb-20 pt-14 sm:px-6 sm:pb-24 sm:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pb-32 lg:pt-24">
-        <div className="max-w-2xl animate-fade-up">
+        <div className="min-w-0 max-w-2xl animate-fade-up">
           <p className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.06] py-1 ps-1 pe-3.5 text-xs font-medium text-slate-200 backdrop-blur">
             <span className="rounded-full bg-brand-gradient px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
               {t.hero.badgeNew}
@@ -34,7 +34,7 @@ export function HeroSection() {
             {t.hero.badge}
           </p>
 
-          <h1 className="mt-7 text-[2.6rem] font-bold leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-[4.1rem]">
+          <h1 className="mt-7 hyphens-auto break-words text-[2.6rem] font-bold leading-[1.05] tracking-[-0.03em] max-[360px]:text-[2.1rem] sm:text-6xl lg:text-[4.1rem]">
             {t.hero.titleStart}{" "}
             <span className="inline-block font-display text-[1.12em] font-normal italic tracking-[-0.01em] text-gradient">
               {t.hero.titleHighlight}

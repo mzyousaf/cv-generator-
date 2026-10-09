@@ -80,6 +80,7 @@ export const nl: Dictionary = {
     title: "Functietitel",
     summary: "Samenvatting",
     improveWithAi: "Verbeteren met AI",
+    sampleTitle: "Voorbeeld-cv",
   },
   features: {
     eyebrow: "Functies",

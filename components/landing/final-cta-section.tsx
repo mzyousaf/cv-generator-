@@ -7,7 +7,7 @@ export function FinalCtaSection() {
   const { t } = useI18n();
   return (
     <section className="bg-background px-4 pb-24 sm:px-6 sm:pb-32">
-      <div className="scheme-light relative isolate mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-ink-mesh px-6 py-16 text-center shadow-[0_40px_100px_-40px_color-mix(in_oklab,var(--brand-900)_60%,transparent)] sm:px-12 sm:py-24">
+      <div className="scheme-light relative isolate mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-ink-mesh px-4 py-16 text-center shadow-[0_40px_100px_-40px_color-mix(in_oklab,var(--brand-900)_60%,transparent)] sm:px-12 sm:py-24">
         <div
           className="absolute inset-0 -z-10 bg-grid-faint [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]"
           aria-hidden="true"
@@ -25,7 +25,7 @@ export function FinalCtaSection() {
           {t.cta.description}
         </p>
         <div className="mt-10 flex justify-center">
-          <GenerateFreeButton variant="inverse" className="w-full max-w-xs sm:w-auto sm:max-w-none" />
+          <GenerateFreeButton variant="inverse" className="w-full sm:w-auto" />
         </div>
         <p className="mt-5 text-xs text-slate-400">{t.cta.note}</p>
       </div>

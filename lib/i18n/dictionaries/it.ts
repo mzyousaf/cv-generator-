@@ -80,6 +80,7 @@ export const it: Dictionary = {
     title: "Qualifica",
     summary: "Profilo",
     improveWithAi: "Migliora con l’IA",
+    sampleTitle: "CV di esempio",
   },
   features: {
     eyebrow: "Funzionalità",

@@ -1,9 +1,10 @@
 "use client";
 
+import { useMemo } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
 import { FitPage } from "@/components/cv-templates/fit-page";
-import { TEMPLATE_PREVIEW_SAMPLE_STATE } from "@/components/cv-templates/sample-preview-state";
+import { templatePreviewSample } from "@/components/cv-templates/sample-preview-state";
 import { CORE_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
 
 const activePreviewTemplate: CvTemplateId = "modern";
@@ -25,8 +26,9 @@ function PreviewField({ label, value, clamp }: { label: string; value: string; c
 }
 
 export function ProductPreview() {
-  const { t } = useI18n();
-  const sample = TEMPLATE_PREVIEW_SAMPLE_STATE;
+  const { t, locale } = useI18n();
+  // Demo content in the visitor's language.
+  const sample = useMemo(() => templatePreviewSample(locale), [locale]);
 
   return (
     <div
@@ -42,7 +44,7 @@ export function ProductPreview() {
               <span className="size-2.5 rounded-full bg-[#28c840]" />
             </div>
             <p className="min-w-0 flex-1 truncate text-center text-xs font-semibold text-slate-700">
-              {sample.title}
+              {t.preview.sampleTitle}
             </p>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 ring-1 ring-emerald-200/70">
               <span className="size-1.5 rounded-full bg-emerald-500" />
@@ -56,7 +58,7 @@ export function ProductPreview() {
                 {CORE_TEMPLATE_IDS.map((id) => (
                   <span
                     key={id}
-                    className={`flex-1 rounded-md py-1 text-center text-[10px] font-semibold ${
+                    className={`min-w-0 flex-1 truncate rounded-md px-1 py-1 text-center text-[10px] font-semibold ${
                       id === activePreviewTemplate
                         ? "bg-surface text-blue-700 shadow-sm"
                         : "text-slate-500"

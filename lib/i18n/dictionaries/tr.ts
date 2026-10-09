@@ -80,6 +80,7 @@ export const tr: Dictionary = {
     title: "Unvan",
     summary: "Özet",
     improveWithAi: "Yapay zekayla iyileştir",
+    sampleTitle: "Örnek CV",
   },
   features: {
     eyebrow: "Özellikler",

@@ -80,6 +80,7 @@ export const ru: Dictionary = {
     title: "Должность",
     summary: "О себе",
     improveWithAi: "Улучшить с ИИ",
+    sampleTitle: "Пример резюме",
   },
   features: {
     eyebrow: "Возможности",

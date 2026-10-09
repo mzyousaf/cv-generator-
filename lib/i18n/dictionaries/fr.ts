@@ -76,6 +76,7 @@ export const fr: Dictionary = {
     title: "Poste",
     summary: "Résumé",
     improveWithAi: "Améliorer avec l'IA",
+    sampleTitle: "CV exemple",
   },
   features: {
     eyebrow: "Fonctionnalités",

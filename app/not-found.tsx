@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LogoMark, Logo } from "@/components/ui/logo";
 import { buttonStyles } from "@/components/ui/button-styles";
+import { PreferencesMenu } from "@/components/preferences/preferences-menu";
 import { getServerDictionary } from "@/lib/i18n/server";
 
 export default async function NotFound() {
@@ -18,6 +19,10 @@ export default async function NotFound() {
       >
         <Logo tone="light" />
       </Link>
+      {/* Same language and theme switch as every other public page. */}
+      <div className="absolute end-4 top-4 text-start sm:end-6">
+        <PreferencesMenu tone="dark" />
+      </div>
 
       <LogoMark className="size-14 opacity-90" />
       <p className="mt-6 font-brand text-7xl font-bold tracking-tight text-white sm:text-8xl">404</p>

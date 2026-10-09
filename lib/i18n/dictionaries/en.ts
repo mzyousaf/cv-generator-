@@ -82,6 +82,7 @@ export const en = {
     title: "Title",
     summary: "Summary",
     improveWithAi: "Improve with AI",
+    sampleTitle: "Sample CV",
   },
   features: {
     eyebrow: "Features",

@@ -95,8 +95,10 @@ html:is([lang="ar"], [lang="zh"]) [class*="tracking-["] {
   letter-spacing: 0 !important;
 }
 
+/* The display serif has no Arabic, CJK or Cyrillic glyphs: use the bold sans instead. */
 html[lang="ar"] .font-display,
-html[lang="zh"] .font-display {
+html[lang="zh"] .font-display,
+html[lang="ru"] .font-display {
   font-style: normal;
   font-family: inherit;
   font-weight: 700;
