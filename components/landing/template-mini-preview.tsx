@@ -1,10 +1,13 @@
 import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
 import { FitPage } from "@/components/cv-templates/fit-page";
-import { TEMPLATE_PREVIEW_SAMPLE_STATE } from "@/components/cv-templates/sample-preview-state";
+import { templatePreviewSample } from "@/components/cv-templates/sample-preview-state";
 import type { CvTemplateId } from "@/lib/cv/constants";
+import type { Locale } from "@/lib/i18n/preferences";
 
 type TemplateMiniPreviewProps = {
   templateId: CvTemplateId;
+  /** Language of the sample CV shown in the preview. */
+  locale: Locale;
   /** Tailwind height class for the viewport window */
   heightClass?: string;
   scale?: number;
@@ -13,6 +16,7 @@ type TemplateMiniPreviewProps = {
 
 export function TemplateMiniPreview({
   templateId,
+  locale,
   heightClass = "h-[340px]",
   scale = 0.36,
   className = "",
@@ -29,7 +33,7 @@ export function TemplateMiniPreview({
         <CvTemplateRenderer
           templateId={templateId}
           state={{
-            ...TEMPLATE_PREVIEW_SAMPLE_STATE,
+            ...templatePreviewSample(locale),
             template: templateId,
           }}
         />

@@ -9,7 +9,7 @@ import { SectionHeading } from "@/components/landing/section-heading";
 import { TemplateMiniPreview } from "@/components/landing/template-mini-preview";
 
 export function TemplatesSection() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   return (
     <section id="templates" className="scroll-mt-16 bg-background py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -31,6 +31,7 @@ export function TemplatesSection() {
                     {t.templatesSection.tags[templateId]}
                   </span>
                   <TemplateMiniPreview
+                    locale={locale}
                     templateId={templateId}
                     className="transition-transform duration-500 group-hover:scale-[1.02]"
                     heightClass="h-[260px] sm:h-[290px] lg:h-[300px]"

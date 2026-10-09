@@ -39,7 +39,7 @@ export function ResumeEmptyState() {
         <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-slate-500">
           {t.dashboard.emptyBody}
         </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-2.5">
+        <div className="mx-auto mt-8 grid max-w-sm grid-cols-1 gap-2.5 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center [&_button]:w-full sm:[&_button]:w-auto">
           <CreateCvForm
             buttonLabel={t.dashboard.createFirst}
             size="lg"

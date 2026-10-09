@@ -54,11 +54,11 @@ export function ProductPreview() {
 
           <div className="grid gap-0 sm:grid-cols-5">
             <div className="hidden space-y-3 border-e border-slate-200/80 bg-slate-50/60 p-4 sm:col-span-2 sm:block">
-              <div className="flex gap-1 rounded-lg bg-slate-100 p-0.5">
+              <div className="flex flex-wrap gap-1 rounded-lg bg-slate-100 p-0.5">
                 {CORE_TEMPLATE_IDS.map((id) => (
                   <span
                     key={id}
-                    className={`min-w-0 flex-1 truncate rounded-md px-1 py-1 text-center text-[10px] font-semibold ${
+                    className={`flex-auto rounded-md px-1.5 py-1 text-center text-[10px] font-semibold ${
                       id === activePreviewTemplate
                         ? "bg-surface text-blue-700 shadow-sm"
                         : "text-slate-500"

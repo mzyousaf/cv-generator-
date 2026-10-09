@@ -22,8 +22,10 @@ export type ResumeCardProps = {
 
 function formatUpdatedAt(iso: string, locale: string): string {
   try {
-    return new Date(iso).toLocaleDateString(locale, {
-      year: "numeric",
+    const date = new Date(iso);
+    // The year only when it is not this year, so the line fits on small phones.
+    return date.toLocaleDateString(locale, {
+      ...(date.getFullYear() === new Date().getFullYear() ? {} : { year: "numeric" }),
       month: "short",
       day: "numeric",
     });

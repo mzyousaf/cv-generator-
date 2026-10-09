@@ -51,7 +51,7 @@ export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
           </div>
           <div className="relative mx-auto max-w-3xl px-4 pb-24 pt-10 sm:px-6">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">{t.legal.eyebrow}</p>
-            <h1 className="mt-3 hyphens-auto text-[1.75rem] font-bold leading-tight tracking-[-0.03em] [overflow-wrap:anywhere] min-[400px]:text-[2rem] sm:text-5xl">
+            <h1 className="mt-3 hyphens-auto text-[1.75rem] font-bold max-[360px]:text-[1.45rem] leading-tight tracking-[-0.03em] [overflow-wrap:anywhere] min-[400px]:text-[2rem] sm:text-5xl">
               {title}
             </h1>
             <p className="mt-3 text-sm text-slate-400">

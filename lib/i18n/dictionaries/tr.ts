@@ -594,7 +594,7 @@ export const tr: Dictionary = {
       "Bu çeviri size kolaylık sağlamak amacıyla sunulmuştur. Herhangi bir farklılık olması durumunda İngilizce sürüm geçerlidir.",
   },
   dashboard: {
-    importCv: "CV İçe Aktar",
+    importCv: "CV içe aktar",
     untitled: "Adsız CV",
     navLabel: "Uygulama",
     workspace: "Çalışma alanı",
@@ -611,7 +611,7 @@ export const tr: Dictionary = {
     emptyTitle: "İlk CV’nizi oluşturun",
     emptyBody:
       "Sıfırdan başlayın ve düzenleyici, şablonlar ve yapay zeka desteğiyle profesyonel bir CV oluşturun.",
-    createFirst: "İlk CV’nizi Oluşturun",
+    createFirst: "İlk CV’nizi oluşturun",
     edited: "Düzenlendi: {date}",
     edit: "Düzenle",
     openEditor: "Düzenleyiciyi aç →",

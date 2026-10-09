@@ -6,7 +6,6 @@ import { useAuthModal } from "@/components/landing/auth-modal-context";
 import { Button, type ButtonSize, type ButtonVariant } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
-export const LANDING_PRIMARY_CTA = "Create Your CV Free";
 
 type GenerateFreeButtonProps = {
   className?: string;

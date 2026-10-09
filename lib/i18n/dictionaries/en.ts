@@ -36,7 +36,7 @@ export const en = {
   common: {
     cancel: "Cancel",
     signIn: "Sign in",
-    createCvFree: "Create Your CV Free",
+    createCvFree: "Create your CV free",
     createCvShort: "Start free",
     back: "Back",
     remove: "Remove",
@@ -54,7 +54,7 @@ export const en = {
   nav: {
     main: "Main",
     features: "Features",
-    howItWorks: "How It Works",
+    howItWorks: "How it works",
     templates: "Templates",
   },
   hero: {

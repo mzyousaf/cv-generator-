@@ -67,21 +67,23 @@ export function AuthShell({
         <p className="text-xs text-slate-500">{t.auth.shellNote}</p>
       </aside>
 
-      <div className="relative flex flex-col items-center justify-center px-4 py-12 sm:px-6">
+      {/* Phones: logo and preferences share a top row and the form starts below it,
+          so login and signup line up. Desktop: the form is centred. */}
+      <div className="relative flex flex-col items-center px-4 py-6 sm:px-6 lg:justify-center lg:py-12">
         <div
           className="absolute inset-x-0 top-0 h-72 bg-dots-soft [mask-image:linear-gradient(to_bottom,black,transparent)]"
           aria-hidden="true"
         />
-        <div className="absolute end-4 top-4 z-20 sm:end-6 sm:top-6">
-          <PreferencesMenu />
-        </div>
-        <div className="relative w-full max-w-md">
+        <div className="relative z-20 mb-10 flex w-full max-w-md items-center justify-between gap-3 lg:absolute lg:end-6 lg:top-6 lg:mb-0 lg:w-auto lg:max-w-none">
           <Link
             href="/"
-            className="mb-10 flex w-fit rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 lg:hidden"
+            className="flex w-fit rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 lg:hidden"
           >
             <Logo />
           </Link>
+          <PreferencesMenu />
+        </div>
+        <div className="relative w-full max-w-md">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-[-0.025em] text-slate-950">
               {title}

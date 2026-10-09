@@ -108,7 +108,7 @@ export function DashboardSidebar({
             <p className="truncate text-sm font-semibold text-white" title={user.name}>
               {user.name}
             </p>
-            <p className="truncate text-xs text-slate-400" title={user.email}>
+            <p className="truncate text-xs text-slate-400 [direction:ltr] rtl:text-right" title={user.email}>
               {user.email}
             </p>
           </div>

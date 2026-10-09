@@ -37,7 +37,7 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
           className="absolute inset-0 -z-10 bg-grid-faint [mask-image:radial-gradient(ellipse_at_top_right,black_20%,transparent_70%)]"
           aria-hidden="true"
         />
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
           <div className="min-w-0 max-w-2xl">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
               {t.dashboard.eyebrow}
@@ -68,17 +68,17 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
           </div>
         </div>
         <dl className="mt-8 grid max-w-md grid-cols-2 gap-3">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+          <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
             <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
               {t.dashboard.statResumes}
             </dt>
-            <dd className="mt-1 text-2xl font-bold">{sortedResumes.length}</dd>
+            <dd className="mt-1 text-xl font-bold sm:text-2xl">{sortedResumes.length}</dd>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+          <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
             <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
               {t.dashboard.statLastEdited}
             </dt>
-            <dd className="mt-1 whitespace-nowrap text-2xl font-bold">{lastEdited}</dd>
+            <dd className="mt-1 whitespace-nowrap text-xl font-bold sm:text-2xl">{lastEdited}</dd>
           </div>
         </dl>
       </header>

@@ -25,7 +25,7 @@ export function FinalCtaSection() {
           {t.cta.description}
         </p>
         <div className="mt-10 flex justify-center">
-          <GenerateFreeButton variant="inverse" className="w-full sm:w-auto" />
+          <GenerateFreeButton variant="inverse" className="w-full max-[360px]:px-4 sm:w-auto" />
         </div>
         <p className="mt-5 text-xs text-slate-400">{t.cta.note}</p>
       </div>

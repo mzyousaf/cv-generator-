@@ -28,7 +28,7 @@ export default async function NotFound() {
       <p className="mt-6 font-brand text-7xl font-bold tracking-tight text-white sm:text-8xl">404</p>
       <h1 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">{t.notFound.title}</h1>
       <p className="mt-3 max-w-md text-base text-slate-300">{t.notFound.body}</p>
-      <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+      <div className="mt-8 flex w-full flex-wrap items-center justify-center gap-3 max-[360px]:max-w-xs max-[360px]:flex-col max-[360px]:items-stretch">
         <Link href="/" className={buttonStyles({ variant: "primary", size: "md", className: "min-h-11" })}>
           {t.notFound.home}
         </Link>
