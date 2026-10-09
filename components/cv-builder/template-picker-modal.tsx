@@ -192,9 +192,9 @@ export function TemplatePickerModal({
         </Select>
       </div>
 
-      {/* Search, sort and the two dropdown facets. */}
-      <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
-        <div className="relative sm:col-span-2 lg:col-span-1">
+      {/* Search, region, sort and style: two columns on phones, one row on desktop. */}
+      <div className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
+        <div className="relative col-span-2 lg:col-span-1">
           <label htmlFor="template-search" className="sr-only">
             {copy.search}
           </label>
@@ -208,18 +208,18 @@ export function TemplatePickerModal({
             className="h-10 w-full rounded-xl border border-slate-200 bg-surface ps-10 pe-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-colors placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/12"
           />
         </div>
-        <Select aria-label={copy.sortLabel} value={sort} onChange={(event) => setSort(event.target.value as TemplateSort)} className="w-full">
-          {(["popular", "recommended", "name"] as const).map((value) => (
-            <option key={value} value={value}>
-              {copy.sort[value]}
-            </option>
-          ))}
-        </Select>
-        <Select aria-label={copy.regionLabel} value={region} onChange={(event) => setRegion(event.target.value as TemplateRegion | "all")} className="w-full">
+        <Select aria-label={copy.regionLabel} value={region} onChange={(event) => setRegion(event.target.value as TemplateRegion | "all")} className="col-span-2 w-full lg:col-span-1">
           <option value="all">{copy.allRegions}</option>
           {TEMPLATE_REGIONS.map((value) => (
             <option key={value} value={value}>
               {copy.regions[value]}
+            </option>
+          ))}
+        </Select>
+        <Select aria-label={copy.sortLabel} value={sort} onChange={(event) => setSort(event.target.value as TemplateSort)} className="w-full">
+          {(["popular", "recommended", "name"] as const).map((value) => (
+            <option key={value} value={value}>
+              {copy.sort[value]}
             </option>
           ))}
         </Select>
@@ -273,7 +273,7 @@ export function TemplatePickerModal({
           </button>
         </div>
       ) : (
-        <div className="mt-2 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((templateId) => {
             const isSelected = templateId === selectedTemplate;
             const spec = getRegionalTemplateSpec(templateId);
