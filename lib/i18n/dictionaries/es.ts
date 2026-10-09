@@ -145,7 +145,7 @@ export const es: Dictionary = {
       "Mira tres plantillas listas para imprimir con datos reales de ejemplo. Cambia cuando quieras sin reescribir nada.",
     footnote:
       "Empieza con cualquier plantilla en el editor. Puedes cambiar el diseño después y conservar tu contenido.",
-    regionalTitle: "Y {n} formatos regionales",
+    regionalTitle: "Y {n} plantillas más para cada región y perfil",
     regionalBody: "Europass, Lebenslauf alemán, currículum de EE. UU., CV británico, del Golfo, chino 简历 y más, cada uno con sus convenciones locales.",
     tags: { default: "Versátil", classic: "Atemporal", modern: "Popular" },
   },
@@ -249,6 +249,274 @@ export const es: Dictionary = {
     "creative-sidebar": {
       name: "Lateral Creativo",
       description: "Diseño audaz a dos columnas para perfiles creativos y de diseño.",
+    },
+    "minimal-mono": {
+      name: "Mono Minimal",
+      description: "Diseño monocromo a una columna con mucho espacio en blanco.",
+    },
+    "tech-engineer": {
+      name: "Ingeniería Tech",
+      description: "Diseño limpio y apto para ATS para desarrolladores, con barras de sección nítidas.",
+    },
+    "startup-bold": {
+      name: "Startup Audaz",
+      description: "Banda de cabecera oscura y tipografía segura para equipos que se mueven rápido.",
+    },
+    "elegant-serif": {
+      name: "Serif Elegante",
+      description: "Cabecera serif centrada con líneas refinadas y discretas.",
+    },
+    "executive-navy": {
+      name: "Ejecutivo Marino",
+      description: "Banda de cabecera azul marino con acentos dorados para altos directivos.",
+    },
+    "consultant-pro": {
+      name: "Consultoría",
+      description: "Diseño estructurado por bloques que se lee de un vistazo.",
+    },
+    "designer-portfolio": {
+      name: "Diseño",
+      description: "Barra lateral ciruela y audaz para diseñadores y creativos.",
+    },
+    "marketing-pop": {
+      name: "Marketing Pop",
+      description: "Barra lateral cálida y títulos con garra para profesionales del marketing.",
+    },
+    "first-job": {
+      name: "Primer Empleo",
+      description: "Diseño sencillo y cercano para estudiantes y recién titulados.",
+    },
+    "healthcare-pro": {
+      name: "Sanidad",
+      description: "Diseño sereno y claro para puestos clínicos y asistenciales.",
+    },
+    "legal-classic": {
+      name: "Jurídico Clásico",
+      description: "Diseño serif centrado y tradicional, de confianza en el sector legal.",
+    },
+    "finance-analyst": {
+      name: "Analista Financiero",
+      description: "Tipografía serif sobria con mayúsculas nítidas para finanzas.",
+    },
+    "sales-impact": {
+      name: "Ventas Impacto",
+      description: "Títulos de alto contraste que ponen tus resultados primero.",
+    },
+    "teacher-educator": {
+      name: "Docente",
+      description: "Cronología con columna de fechas que muestra tu carrera docente de un vistazo.",
+    },
+    "research-scientist": {
+      name: "Investigación Científica",
+      description: "Cronología académica para puestos, publicaciones y becas.",
+    },
+    "product-manager": {
+      name: "Product Manager",
+      description: "Barra lateral índigo para habilidades y herramientas, con el impacto a la derecha.",
+    },
+    "data-analyst": {
+      name: "Analista de Datos",
+      description: "Mayúsculas ordenadas y acentos azules para perfiles analíticos.",
+    },
+    "hospitality-service": {
+      name: "Hostelería",
+      description: "Diseño cercano con barra lateral para hostelería, turismo y atención al cliente.",
+    },
+    "compact-one-page": {
+      name: "Compacto 1 Página",
+      description: "Espaciado más ajustado para que quepa más en una sola página.",
+    },
+    "two-tone-modern": {
+      name: "Bicolor",
+      description: "Banda de cabecera pizarra con una barra de acento brillante.",
+    },
+    "europass-compact": {
+      name: "Europass Compacto",
+      description: "La estructura oficial de Europass en un diseño más compacto.",
+    },
+    "eu-institutions": {
+      name: "Instituciones UE",
+      description: "CV formal estilo Europass para agencias e instituciones de la UE.",
+    },
+    "nordic-clean": {
+      name: "Nórdico Limpio",
+      description: "Diseño escandinavo espacioso con foto opcional.",
+    },
+    "swedish-cv": {
+      name: "CV Sueco",
+      description: "CV sueco directo, con tu perfil en primer lugar.",
+    },
+    "danish-modern": {
+      name: "Danés Moderno",
+      description: "Barra lateral verde azulado intenso con un aire sereno y moderno.",
+    },
+    "italian-cv": {
+      name: "CV Italiano",
+      description: "Curriculum Vitae estilo Europass, habitual en toda Italia.",
+    },
+    "spanish-cv": {
+      name: "CV Español",
+      description: "CV español clásico con foto y datos personales.",
+    },
+    "portuguese-cv": {
+      name: "CV Portugués",
+      description: "CV con barra lateral verde y foto, muy popular en Portugal.",
+    },
+    "dutch-cv": {
+      name: "CV Neerlandés",
+      description: "CV directo y bien estructurado al estilo neerlandés.",
+    },
+    "belgian-cv": {
+      name: "CV Belga",
+      description: "CV cronológico con datos personales, habitual en Bélgica.",
+    },
+    "polish-cv": {
+      name: "CV Polaco",
+      description: "Diseño de CV polaco con foto y datos personales.",
+    },
+    "cee-modern": {
+      name: "Europa Central Moderno",
+      description: "CV moderno con barra lateral para Europa Central y del Este.",
+    },
+    "uk-modern": {
+      name: "Reino Unido Moderno",
+      description: "CV británico contemporáneo a dos columnas, sin foto.",
+    },
+    "irish-cv": {
+      name: "CV Irlandés",
+      description: "CV irlandés claro con línea de referencias.",
+    },
+    "uk-graduate": {
+      name: "Reino Unido Recién Titulado",
+      description: "CV centrado en el objetivo para recién titulados y becarios en Reino Unido.",
+    },
+    "swiss-cv": {
+      name: "CV Suizo",
+      description: "Lebenslauf suizo preciso con foto y línea de firma.",
+    },
+    "austria-cv": {
+      name: "CV Austriaco",
+      description: "Lebenslauf tradicional con tipografía serif, habitual en Austria.",
+    },
+    "dach-elegant": {
+      name: "DACH Elegante",
+      description: "Lebenslauf con barra lateral azul marino, foto y datos personales.",
+    },
+    "cv-moderne": {
+      name: "CV Francés Moderno",
+      description: "CV francés con banda de cabecera oscura y foto.",
+    },
+    "cv-classique": {
+      name: "CV Francés Clásico",
+      description: "CV francés sobrio con tipografía serif para sectores tradicionales.",
+    },
+    "us-modern": {
+      name: "EE. UU. Moderno",
+      description: "Currículum estadounidense a una columna, cuidado, con acentos azules.",
+    },
+    "us-tech": {
+      name: "EE. UU. Tech",
+      description: "Currículum compacto y apto para ATS para puestos de software y datos.",
+    },
+    "federal-resume": {
+      name: "EE. UU. Federal",
+      description: "Currículum detallado de estilo federal para candidaturas al gobierno.",
+    },
+    "canada-modern": {
+      name: "Canadá Moderno",
+      description: "Currículum canadiense con un acento rojo limpio y sin foto.",
+    },
+    "brazil-curriculo": {
+      name: "Currículo Brasil",
+      description: "Currículo brasileño con datos personales y foto opcional.",
+    },
+    "mexico-cv": {
+      name: "CV México",
+      description: "CV con barra lateral y foto, muy utilizado en México.",
+    },
+    "latam-professional": {
+      name: "Latinoamérica Profesional",
+      description: "CV estructurado por bloques para Latinoamérica.",
+    },
+    "saudi-cv": {
+      name: "CV Arabia Saudí",
+      description: "CV con barra lateral verde, foto y datos personales.",
+    },
+    "uae-modern": {
+      name: "EAU Moderno",
+      description: "Banda oscura y acentos dorados, muy popular en los Emiratos.",
+    },
+    "egypt-cv": {
+      name: "CV Egipto",
+      description: "CV claro con datos personales para Egipto y el norte de África.",
+    },
+    "south-africa-cv": {
+      name: "CV Sudáfrica",
+      description: "CV sudafricano con datos personales y referencias.",
+    },
+    "nigeria-cv": {
+      name: "CV Nigeria",
+      description: "CV nigeriano con línea de referencias y foto opcional.",
+    },
+    "kenya-cv": {
+      name: "África Oriental Moderno",
+      description: "CV con barra lateral cálida para Kenia y África Oriental.",
+    },
+    "india-fresher": {
+      name: "India Recién Titulado",
+      description: "CV sencillo para recién titulados, con datos personales.",
+    },
+    "india-tech": {
+      name: "India Tech",
+      description: "Currículum a dos columnas para puestos de tecnología e IT en la India.",
+    },
+    "pakistan-cv": {
+      name: "CV Pakistán",
+      description: "CV profesional con datos personales para Pakistán.",
+    },
+    "singapore-resume": {
+      name: "Currículum Singapur",
+      description: "Currículum nítido y sin foto, ideal para empresas de Singapur.",
+    },
+    "philippines-resume": {
+      name: "Currículum Filipinas",
+      description: "Currículum con foto y datos personales, habitual en Filipinas.",
+    },
+    "malaysia-resume": {
+      name: "Currículum Malasia",
+      description: "Currículum con barra lateral verde azulado y foto para Malasia.",
+    },
+    "japan-shokumu": {
+      name: "Japón Historial Profesional",
+      description: "CV estructurado de historial profesional al estilo japonés.",
+    },
+    "korea-resume": {
+      name: "Currículum Corea",
+      description: "Currículum al estilo coreano con foto y datos personales.",
+    },
+    "china-tech": {
+      name: "China Tech",
+      description: "简历 moderno para puestos de tecnología, con foto.",
+    },
+    "hong-kong-cv": {
+      name: "CV Hong Kong",
+      description: "CV adaptable a dos idiomas, popular en Hong Kong.",
+    },
+    "nz-cv": {
+      name: "CV Nueva Zelanda",
+      description: "CV neozelandés claro con línea de referencias y sin foto.",
+    },
+    "australia-modern": {
+      name: "Australia Moderno",
+      description: "Currículum australiano a dos columnas, sin foto.",
+    },
+    "turkish-cv": {
+      name: "CV Turco",
+      description: "CV turco con foto y datos personales.",
+    },
+    "cis-cv": {
+      name: "CV CEI",
+      description: "Currículum con foto y datos personales para mercados de habla rusa.",
     },
   },
   cta: {
@@ -735,7 +1003,46 @@ export const es: Dictionary = {
       "india": "India y Asia del Sur",
       "china": "China",
       "oceania": "Australia y Nueva Zelanda",
+      "nordics": "Países nórdicos",
+      "southern-europe": "Sur de Europa",
+      "benelux": "Benelux",
+      "eastern-europe": "Europa del Este, Turquía y CEI",
+      "africa": "África",
+      "southeast-asia": "Sudeste asiático",
+      "east-asia": "Japón y Corea",
     },
+    styles: {
+      professional: "Profesional",
+      modern: "Moderno",
+      minimal: "Minimalista",
+      classic: "Clásico",
+      creative: "Creativo",
+      executive: "Ejecutivo",
+      academic: "Académico",
+      simple: "Sencillo",
+    },
+    search: "Buscar plantillas",
+    sortLabel: "Ordenar por",
+    sort: {
+      popular: "Más populares",
+      recommended: "Recomendadas para ti",
+      name: "Nombre (A–Z)",
+    },
+    regionLabel: "Región",
+    allRegions: "Todas las regiones",
+    styleLabel: "Estilo",
+    allStyles: "Todos los estilos",
+    filtersLabel: "Filtros",
+    filterAts: "Apto para ATS",
+    filterWithPhoto: "Con foto",
+    filterNoPhoto: "Sin foto",
+    filterOneColumn: "Una columna",
+    filterTwoColumns: "Dos columnas",
+    clearFilters: "Borrar filtros",
+    noResults: "Ninguna plantilla coincide con estos filtros.",
+    popular: "Popular",
+    current: "Actual",
+    showing: "{n} de {total} plantillas",
     tags: {
       photo: "Foto",
       "ats": "Apto para ATS",
