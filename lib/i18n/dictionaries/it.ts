@@ -1055,6 +1055,7 @@ export const it: Dictionary = {
     showing: "{n} di {total} modelli",
     tags: {
       photo: "Foto",
+      photoOptional: "Foto facoltativa",
       "ats": "Compatibile ATS",
       "europass": "Europass",
       "two-column": "Due colonne",

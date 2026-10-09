@@ -1045,6 +1045,7 @@ export const ar: Dictionary = {
     showing: "{n} من أصل {total} قالب",
     tags: {
       photo: "صورة",
+      photoOptional: "صورة اختيارية",
       "ats": "متوافق مع ATS",
       "europass": "Europass",
       "two-column": "عمودان",

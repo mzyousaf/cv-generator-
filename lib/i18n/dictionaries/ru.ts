@@ -1055,6 +1055,7 @@ export const ru: Dictionary = {
     showing: "Шаблонов: {n} из {total}",
     tags: {
       photo: "Фото",
+      photoOptional: "Фото по желанию",
       "ats": "Подходит для ATS",
       "europass": "Europass",
       "two-column": "Две колонки",

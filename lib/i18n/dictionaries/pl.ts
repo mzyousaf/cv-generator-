@@ -1055,6 +1055,7 @@ export const pl: Dictionary = {
     showing: "Szablony: {n} z {total}",
     tags: {
       photo: "Zdjęcie",
+      photoOptional: "Zdjęcie opcjonalne",
       "ats": "Przyjazny dla ATS",
       "europass": "Europass",
       "two-column": "Dwie kolumny",

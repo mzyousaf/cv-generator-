@@ -11,7 +11,7 @@ import {
   type RegionalDocumentModel,
 } from "@/lib/cv/document-model";
 import { bandTitleColor, type RegionalTemplateSpec } from "@/lib/cv/template-catalog";
-import { DirText as Text, pdfDir } from "@/lib/pdf/direction";
+import { DirText as Text, PdfLanguage, pdfDir } from "@/lib/pdf/direction";
 import { pdfFontFamily } from "@/lib/pdf/fonts";
 
 type Tone = "page" | "side";
@@ -432,10 +432,12 @@ export function RegionalPdfDocument({ view, spec }: { view: CvDocumentView; spec
       body = <SingleBody model={model} />;
   }
   return (
-    <Document title={view.displayName} language={view.locale} creator={siteConfig.name} producer={siteConfig.name}>
-      <Page size={spec.pageSize} style={page}>
-        {body}
-      </Page>
-    </Document>
+    <PdfLanguage value={view.locale}>
+      <Document title={view.displayName} language={view.locale} creator={siteConfig.name} producer={siteConfig.name}>
+        <Page size={spec.pageSize} style={page}>
+          {body}
+        </Page>
+      </Document>
+    </PdfLanguage>
   );
 }

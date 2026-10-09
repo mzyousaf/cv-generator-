@@ -1057,6 +1057,7 @@ export const en = {
     showing: "{n} of {total} templates",
     tags: {
       photo: "Photo",
+      photoOptional: "Photo optional",
       "ats": "ATS-friendly",
       "europass": "Europass",
       "two-column": "Two columns",

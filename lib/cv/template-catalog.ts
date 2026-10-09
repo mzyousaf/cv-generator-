@@ -747,14 +747,37 @@ export type TemplateSort = "popular" | "recommended" | "name";
  * Filter and order the gallery. `nameOf` resolves the translated name so
  * search and A–Z sorting follow the UI language.
  */
+/** Case-, accent- and dotted/dotless-i-insensitive form used for gallery search. */
+export function foldSearchText(text: string, locale: Locale): string {
+  return text
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLocaleLowerCase(locale)
+    .replace(/ı/g, "i")
+    .replace(/ß/g, "ss")
+    .replace(/ł/g, "l")
+    .replace(/ø/g, "o")
+    .replace(/æ/g, "ae")
+    .trim();
+}
+
+export type TemplateBrowseOptions = {
+  /** UI language: used for names, search and alphabetical sort. */
+  locale: Locale;
+  /** CV language: drives the "recommended" sort. Defaults to `locale`. */
+  recommendFor?: Locale;
+  nameOf: (id: CvTemplateId) => string;
+  /** Everything a query may match (name, description, region…). Defaults to the name. */
+  searchTextOf?: (id: CvTemplateId) => string;
+};
+
 export function browseTemplates(
   filter: TemplateFilter,
   sort: TemplateSort,
-  locale: Locale,
-  nameOf: (id: CvTemplateId) => string,
+  { locale, recommendFor = locale, nameOf, searchTextOf = nameOf }: TemplateBrowseOptions,
   ids: readonly CvTemplateId[],
 ): CvTemplateId[] {
-  const query = filter.query?.trim().toLocaleLowerCase(locale) ?? "";
+  const terms = foldSearchText(filter.query ?? "", locale).split(/\s+/).filter(Boolean);
   const matches = ids.filter((id) => {
     const facets = templateFacets(id);
     if (filter.region && filter.region !== "all" && facets.region !== filter.region) return false;
@@ -763,7 +786,10 @@ export function browseTemplates(
     if (filter.photo === "with" && facets.photo === "none") return false;
     if (filter.photo === "without" && facets.photo === "expected") return false;
     if (filter.columns && filter.columns !== "any" && facets.columns !== filter.columns) return false;
-    if (query && !nameOf(id).toLocaleLowerCase(locale).includes(query) && !id.includes(query)) return false;
+    if (terms.length) {
+      const haystack = foldSearchText(`${searchTextOf(id)} ${id.replace(/-/g, " ")}`, locale);
+      if (!terms.every((term) => haystack.includes(term))) return false;
+    }
     return true;
   });
 
@@ -771,7 +797,7 @@ export function browseTemplates(
     return matches.sort((a, b) => nameOf(a).localeCompare(nameOf(b), locale));
   }
   if (sort === "recommended") {
-    const regions = REGIONS_FOR_LOCALE[locale];
+    const regions = REGIONS_FOR_LOCALE[recommendFor];
     const rank = (id: CvTemplateId) => {
       const index = regions.indexOf(templateRegion(id));
       return index === -1 ? regions.length : index;

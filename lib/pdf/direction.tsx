@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import { Text } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
 
@@ -39,6 +39,14 @@ export function textDirection(children: ReactNode): "ltr" | "rtl" {
   return "ltr";
 }
 
+/** Document language, so upper-casing follows its rules (Turkish i → İ, not I). */
+const PdfLanguageContext = createContext("en");
+export const PdfLanguage = PdfLanguageContext.Provider;
+
+function flatten(style: Style | Style[] | undefined): Style {
+  return Array.isArray(style) ? Object.assign({}, ...style) : (style ?? {});
+}
+
 type DirTextProps = {
   style?: Style | Style[];
   children?: ReactNode;
@@ -47,8 +55,18 @@ type DirTextProps = {
 
 /** Text whose bidi direction follows its content (Arabic runs right-to-left). */
 export function DirText({ style, children, ...props }: DirTextProps) {
+  const language = useContext(PdfLanguageContext);
   const base: Style = { direction: textDirection(children) };
   const merged: Style[] = Array.isArray(style) ? [base, ...style] : [base, style ?? {}];
+  // react-pdf upper-cases with String#toUpperCase, which ignores the language;
+  // do it here with the document's locale instead.
+  if (typeof children === "string" && flatten(style).textTransform === "uppercase") {
+    return (
+      <Text {...props} style={[...merged, { textTransform: "none" }]}>
+        {children.toLocaleUpperCase(language)}
+      </Text>
+    );
+  }
   return (
     <Text {...props} style={merged}>
       {children}

@@ -1,5 +1,5 @@
 import { Document, Page, StyleSheet, View } from "@react-pdf/renderer";
-import { DirText as Text } from "@/lib/pdf/direction";
+import { DirText as Text, PdfLanguage } from "@/lib/pdf/direction";
 import { siteConfig } from "@/lib/constants";
 import { pdfFontFamily } from "@/lib/pdf/fonts";
 import { PdfBodySections } from "@/lib/pdf/sections";
@@ -46,23 +46,25 @@ const styles = StyleSheet.create({
 
 export function ClassicPdfDocument({ view }: { view: CvDocumentView }) {
   return (
-    <Document title={view.displayName} language={view.locale} creator={siteConfig.name} producer={siteConfig.name}>
-      <Page size="A4" style={[styles.page, { fontFamily: pdfFontFamily(view.locale, "serif"), textAlign: view.dir === "rtl" ? "right" : "left" }]}>
-        <View style={styles.header}>
-          <Text style={styles.name}>{view.displayName}</Text>
-          <Text style={styles.title}>{view.displayTitle}</Text>
-          {view.contactItems.length > 0 ? (
-            <Text style={styles.contact}>{view.contactItems.join(" · ")}</Text>
-          ) : null}
-        </View>
-        <PdfBodySections
-          view={view}
-          headingStyle={styles.sectionHeading}
-          titleStyle={styles.entryTitle}
-          metaStyle={styles.entryMeta}
-          dateStyle={styles.entryDate}
-        />
-      </Page>
-    </Document>
+    <PdfLanguage value={view.locale}>
+      <Document title={view.displayName} language={view.locale} creator={siteConfig.name} producer={siteConfig.name}>
+        <Page size="A4" style={[styles.page, { fontFamily: pdfFontFamily(view.locale, "serif"), textAlign: view.dir === "rtl" ? "right" : "left" }]}>
+          <View style={styles.header}>
+            <Text style={styles.name}>{view.displayName}</Text>
+            <Text style={styles.title}>{view.displayTitle}</Text>
+            {view.contactItems.length > 0 ? (
+              <Text style={styles.contact}>{view.contactItems.join(" · ")}</Text>
+            ) : null}
+          </View>
+          <PdfBodySections
+            view={view}
+            headingStyle={styles.sectionHeading}
+            titleStyle={styles.entryTitle}
+            metaStyle={styles.entryMeta}
+            dateStyle={styles.entryDate}
+          />
+        </Page>
+      </Document>
+    </PdfLanguage>
   );
 }

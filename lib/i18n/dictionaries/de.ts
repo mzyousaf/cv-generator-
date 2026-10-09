@@ -1045,6 +1045,7 @@ export const de: Dictionary = {
     showing: "{n} von {total} Vorlagen",
     tags: {
       photo: "Foto",
+      photoOptional: "Foto optional",
       "ats": "ATS-geeignet",
       "europass": "Europass",
       "two-column": "Zweispaltig",

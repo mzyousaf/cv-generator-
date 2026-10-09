@@ -1022,6 +1022,7 @@ export const zh: Dictionary = {
     showing: "显示 {n} / {total} 个模板",
     tags: {
       photo: "照片",
+      photoOptional: "照片可选",
       "ats": "适配 ATS",
       "europass": "Europass",
       "two-column": "双栏",

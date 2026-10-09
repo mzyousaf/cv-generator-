@@ -3,7 +3,7 @@ import { describe, it } from "node:test";
 import { buildCvDocumentView } from "@/components/cv-templates/view-model";
 import { templatePreviewSample } from "@/components/cv-templates/sample-preview-state";
 import { formatDateRange } from "@/components/cv-templates/utils/format-dates";
-import { CV_TEMPLATE_IDS, REGIONAL_TEMPLATE_IDS } from "@/lib/cv/constants";
+import { CV_TEMPLATE_IDS, REGIONAL_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
 import { CV_DOCUMENT_LABELS } from "@/lib/cv/document-labels";
 import { buildRegionalDocumentModel } from "@/lib/cv/document-model";
 import {
@@ -16,8 +16,10 @@ import {
   TEMPLATE_REGIONS,
   TEMPLATE_STYLES,
   templateFacets,
+  templateRegion,
 } from "@/lib/cv/template-catalog";
-import { LOCALES } from "@/lib/i18n/preferences";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { LOCALES, type Locale } from "@/lib/i18n/preferences";
 
 describe("regional template catalog", () => {
   it("has exactly one spec per regional template id", () => {
@@ -113,28 +115,43 @@ describe("template gallery", () => {
 
   it("filters and sorts the gallery", () => {
     const name = (id: string) => id;
-    const all = browseTemplates({}, "popular", "en", name, CV_TEMPLATE_IDS);
+    const all = browseTemplates({}, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
     assert.equal(all.length, CV_TEMPLATE_IDS.length);
     for (let i = 1; i < all.length; i += 1) {
       assert.ok(TEMPLATE_PROFILE[all[i - 1]].popularity >= TEMPLATE_PROFILE[all[i]].popularity);
     }
 
-    const ats = browseTemplates({ ats: true }, "popular", "en", name, CV_TEMPLATE_IDS);
+    const ats = browseTemplates({ ats: true }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
     assert.ok(ats.length > 10 && ats.every((id) => templateFacets(id).ats));
 
-    const withPhoto = browseTemplates({ photo: "with" }, "popular", "en", name, CV_TEMPLATE_IDS);
+    const withPhoto = browseTemplates({ photo: "with" }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
     assert.ok(withPhoto.every((id) => templateFacets(id).photo !== "none"));
 
-    const twoCol = browseTemplates({ columns: "two" }, "popular", "en", name, CV_TEMPLATE_IDS);
+    const twoCol = browseTemplates({ columns: "two" }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
     assert.ok(twoCol.length > 5 && twoCol.every((id) => templateFacets(id).columns === "two"));
 
-    const dach = browseTemplates({ region: "dach" }, "popular", "en", name, CV_TEMPLATE_IDS);
+    const dach = browseTemplates({ region: "dach" }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
     assert.ok(dach.includes("lebenslauf") && dach.includes("swiss-cv"));
 
-    assert.deepEqual(browseTemplates({ query: "swiss" }, "popular", "en", name, CV_TEMPLATE_IDS), ["swiss-cv"]);
+    assert.deepEqual(browseTemplates({ query: "swiss" }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS), ["swiss-cv"]);
 
-    const recommendedDe = browseTemplates({}, "recommended", "de", name, CV_TEMPLATE_IDS);
+    const recommendedDe = browseTemplates({}, "recommended", { locale: "en", recommendFor: "de", nameOf: name }, CV_TEMPLATE_IDS);
     assert.equal(templateFacets(recommendedDe[0]).region, "dach");
+  });
+
+  it("searches names, descriptions and regions ignoring case and accents", () => {
+    const text = (d: ReturnType<typeof getDictionary>) => (id: CvTemplateId) =>
+      `${d.templateMeta[id].name} ${d.templateMeta[id].description} ${d.templatePicker.regions[templateRegion(id)]}`;
+    const search = (query: string, locale: Locale, d = getDictionary(locale)) =>
+      browseTemplates({ query }, "popular", { locale, nameOf: (id) => d.templateMeta[id].name, searchTextOf: text(d) }, CV_TEMPLATE_IDS);
+
+    assert.ok(search("curriculum", "es").length >= 5);
+    assert.deepEqual(search("CURRÍCULUM", "es"), search("curriculum", "es"));
+    assert.ok(search("osterreich", "de").includes("austria-cv"));
+    assert.ok(search("germany", "en").includes("lebenslauf"));
+    assert.ok(search("italya", "tr").includes("italian-cv"));
+    assert.ok(search("IRLANDA", "es").length > 0);
+    assert.deepEqual(search("zzzz-nothing", "en"), []);
   });
 
   it("renders every template in every language without throwing", () => {

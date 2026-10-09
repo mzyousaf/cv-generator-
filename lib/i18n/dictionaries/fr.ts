@@ -1045,6 +1045,7 @@ export const fr: Dictionary = {
     showing: "{n} modèles sur {total}",
     tags: {
       photo: "Photo",
+      photoOptional: "Photo facultative",
       "ats": "Compatible ATS",
       "europass": "Europass",
       "two-column": "Deux colonnes",

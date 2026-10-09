@@ -1055,6 +1055,7 @@ export const tr: Dictionary = {
     showing: "{n} / {total} şablon",
     tags: {
       photo: "Fotoğraf",
+      photoOptional: "Fotoğraf isteğe bağlı",
       "ats": "ATS uyumlu",
       "europass": "Europass",
       "two-column": "İki sütun",

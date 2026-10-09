@@ -1055,6 +1055,7 @@ export const nl: Dictionary = {
     showing: "{n} van {total} templates",
     tags: {
       photo: "Foto",
+      photoOptional: "Foto optioneel",
       "ats": "ATS-vriendelijk",
       "europass": "Europass",
       "two-column": "Twee kolommen",

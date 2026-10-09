@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { memo, useDeferredValue, useMemo, useRef, useState } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { CvTemplateRenderer } from "@/components/cv-templates/cv-template-renderer";
 import { templatePreviewSample } from "@/components/cv-templates/sample-preview-state";
@@ -41,7 +41,14 @@ const PAGE_WIDTH_PX = { A4: 794, LETTER: 816 } as const;
 type PhotoFilter = "any" | "with" | "without";
 type ColumnsFilter = "any" | "one" | "two";
 
-function TemplateThumbnail({ templateId, locale }: { templateId: CvTemplateId; locale: Locale }) {
+// Memoised: typing in the search box must not re-render 90 full CV previews.
+const TemplateThumbnail = memo(function TemplateThumbnail({
+  templateId,
+  locale,
+}: {
+  templateId: CvTemplateId;
+  locale: Locale;
+}) {
   const sample = useMemo(
     () => ({ ...templatePreviewSample(locale), template: templateId }),
     [locale, templateId],
@@ -61,7 +68,7 @@ function TemplateThumbnail({ templateId, locale }: { templateId: CvTemplateId; l
       </div>
     </div>
   );
-}
+});
 
 function SearchIcon() {
   return (
@@ -93,11 +100,22 @@ export function TemplatePickerModal({
   const [atsOnly, setAtsOnly] = useState(false);
   const [photo, setPhoto] = useState<PhotoFilter>("any");
   const [columns, setColumns] = useState<ColumnsFilter>("any");
+  const searchRef = useRef<HTMLInputElement>(null);
+  const deferredQuery = useDeferredValue(query);
+
+  // Each opening starts from the full collection, not the last session's filters.
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) {
+      resetFilters();
+    }
+  }
 
   const filtersActive =
     query.trim() !== "" || region !== "all" || style !== "all" || atsOnly || photo !== "any" || columns !== "any";
 
-  function clearFilters() {
+  function resetFilters() {
     setQuery("");
     setRegion("all");
     setStyle("all");
@@ -106,17 +124,36 @@ export function TemplatePickerModal({
     setColumns("any");
   }
 
+  function clearFilters() {
+    resetFilters();
+    // The clear button unmounts itself; keep keyboard focus inside the dialog.
+    searchRef.current?.focus();
+  }
+
   const visible = useMemo(
     () =>
       browseTemplates(
-        { query, region, style, ats: atsOnly, photo, columns },
+        { query: deferredQuery, region, style, ats: atsOnly, photo, columns },
         sort,
-        // Recommendations follow the CV's language; names and search the UI language.
-        sort === "recommended" ? documentLocale : locale,
-        (id) => t.templateMeta[id].name,
+        {
+          // Names and search use the UI language; recommendations follow the CV's language.
+          locale,
+          recommendFor: documentLocale,
+          nameOf: (id) => t.templateMeta[id].name,
+          searchTextOf: (id) => {
+            const facets = templateFacets(id);
+            return [
+              t.templateMeta[id].name,
+              t.templateMeta[id].description,
+              copy.regions[facets.region],
+              copy.styles[facets.style],
+              ...(getRegionalTemplateSpec(id)?.tags ?? []).map((tag) => copy.tags[tag]),
+            ].join(" ");
+          },
+        },
         CV_TEMPLATE_IDS,
       ),
-    [query, region, style, atsOnly, photo, columns, sort, documentLocale, locale, t],
+    [deferredQuery, region, style, atsOnly, photo, columns, sort, documentLocale, locale, t, copy],
   );
 
   async function handleSelect(templateId: CvTemplateId) {
@@ -200,6 +237,7 @@ export function TemplatePickerModal({
           </label>
           <SearchIcon />
           <input
+            ref={searchRef}
             id="template-search"
             type="search"
             value={query}
@@ -311,8 +349,12 @@ export function TemplatePickerModal({
                   ) : null}
                 </div>
                 <div className="mt-3 flex items-start justify-between gap-2">
-                  <p className="min-w-0 text-sm font-bold text-slate-950 [overflow-wrap:anywhere]">{t.templateMeta[templateId].name}</p>
-                  <span className="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
+                  <p className="min-w-0 text-sm font-bold text-slate-950 [overflow-wrap:break-word]">{t.templateMeta[templateId].name}</p>
+                  {/* Long region names truncate rather than squeeze the template name. */}
+                  <span
+                    title={copy.regions[facets.region]}
+                    className="mt-px max-w-[50%] min-w-0 truncate rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600"
+                  >
                     {copy.regions[facets.region]}
                   </span>
                 </div>
@@ -323,7 +365,7 @@ export function TemplatePickerModal({
                   <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold text-slate-600">
                     {copy.styles[facets.style]}
                   </span>
-                  {(spec ? [...spec.tags, ...(spec.photo === "expected" ? (["photo"] as const) : [])] : facets.ats ? (["ats"] as const) : []).map((tag) => (
+                  {(spec ? [...spec.tags, ...(spec.photo === "expected" ? (["photo"] as const) : spec.photo === "optional" ? (["photoOptional"] as const) : [])] : facets.ats ? (["ats"] as const) : []).map((tag) => (
                     <span
                       key={tag}
                       className="rounded-md bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-blue-100"
