@@ -41,7 +41,6 @@ export function registerPdfFonts(): void {
         { src: file(`${base}-Regular`) },
         { src: file(`${base}-Bold`), fontWeight: 700 },
         { src: file(italic), fontStyle: "italic" },
-        { src: file(italic), fontStyle: "italic", fontWeight: 700 },
       ],
     });
   family(FAMILIES.NotoSans, "NotoSans", "NotoSans-Italic");

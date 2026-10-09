@@ -415,7 +415,7 @@ function SidebarLayout({ model }: { model: RegionalDocumentModel }) {
   );
 
   return (
-    <div style={{ display: "flex", minHeight: "inherit" }}>
+    <div style={{ display: "flex", flexDirection: spec.sidebarPosition === "end" ? "row-reverse" : "row", minHeight: "inherit" }}>
       <aside style={{ width: "33%", background: spec.sidebarColor, color: "#fff", padding: "40px 24px", display: "grid", alignContent: "start", gap: 20 }}>
         {model.photo ? (
           <div style={{ display: "flex", justifyContent: "center" }}>

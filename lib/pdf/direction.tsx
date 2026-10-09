@@ -54,6 +54,16 @@ function flatten(style: Style | Style[] | undefined): Style {
   return Array.isArray(style) ? Object.assign({}, ...style) : (style ?? {});
 }
 
+/** Brand names keep their own spelling: Turkish rules would give "LİNKEDIN". */
+const BRANDS = /\bLinkedIn\b/gi;
+
+function upperCase(text: string, language: string): string {
+  return text
+    .split(BRANDS)
+    .map((part) => part.toLocaleUpperCase(language))
+    .join("LINKEDIN");
+}
+
 type DirTextProps = {
   style?: Style | Style[];
   children?: ReactNode;
@@ -75,7 +85,7 @@ export function DirText({ style, children, ...props }: DirTextProps) {
   if (typeof children === "string" && flatten(style).textTransform === "uppercase") {
     return (
       <Text {...props} style={[...merged, { textTransform: "none" }]}>
-        {children.toLocaleUpperCase(language)}
+        {upperCase(children, language)}
       </Text>
     );
   }

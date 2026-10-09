@@ -76,6 +76,8 @@ export type RegionalTemplateSpec = {
   accent: string;
   /** Side column background for the sidebar layout. */
   sidebarColor?: string;
+  /** Which side the sidebar sits on (mirrors in right-to-left documents). Default start. */
+  sidebarPosition?: "start" | "end";
   /** Dark header band behind name and contact details. */
   headerBand?: string;
   font: "sans" | "serif";
@@ -243,9 +245,9 @@ const BASE_REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     layout: "sidebar",
     accent: "#2563eb",
     sidebarColor: "#1e2a4a",
-    font: "sans",
+    font: "serif",
     headerAlign: "start",
-    heading: "caps",
+    heading: "bar",
     summaryLabel: "profile",
     experienceLabel: "professionalExperience",
     educationLabel: "education",
@@ -466,16 +468,17 @@ const BASE_REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     signature: false,
     referencesNote: true,
     pageSize: "A4",
-    compact: false,
+    compact: true,
     tags: ["ats", "a4"],
   },
   {
     id: "latam-cv",
     region: "latam",
     layout: "sidebar",
+    sidebarPosition: "end",
     accent: "#b45309",
     sidebarColor: "#1e3a8a",
-    font: "sans",
+    font: "serif",
     headerAlign: "start",
     heading: "caps",
     summaryLabel: "profile",
@@ -516,12 +519,12 @@ const BASE_REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     sidebarColor: "#2e1065",
     font: "sans",
     headerAlign: "start",
-    heading: "caps",
+    heading: "bar",
     summaryLabel: "profile",
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: false,
-    photo: "optional",
+    photo: "none",
     signature: false,
     referencesNote: false,
     pageSize: "A4",

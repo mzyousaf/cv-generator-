@@ -387,7 +387,7 @@ export const CV_DOCUMENT_LABELS: Record<Locale, CvDocumentLabels> = {
     linkedin: "LinkedIn",
     dateOfBirth: "Data urodzenia",
     nationality: "Obywatelstwo",
-    present: "Obecnie",
+    present: "obecnie",
     yourName: "Imię i nazwisko",
     professionalTitle: "Stanowisko",
     jobTitle: "Stanowisko",
