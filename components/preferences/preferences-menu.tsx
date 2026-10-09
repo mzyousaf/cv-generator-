@@ -311,7 +311,7 @@ export function PreferencesMenu({
           aria-label={t.prefs.title}
           style={shift ? { translate: `${shift}px 0` } : undefined}
           className={cn(
-            "absolute z-50 w-[min(19rem,calc(100vw-1.5rem))] animate-fade-up rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 shadow-[0_24px_60px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5 [animation-duration:0.25s]",
+            "scheme-follow absolute z-50 w-[min(19rem,calc(100vw-1.5rem))] animate-fade-up rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 shadow-[0_24px_60px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5 [animation-duration:0.25s]",
             align === "end" ? "end-0" : "start-0",
             placement === "bottom" ? "top-full mt-2" : "bottom-full mb-2",
           )}

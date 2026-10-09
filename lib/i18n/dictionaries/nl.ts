@@ -601,7 +601,7 @@ export const nl: Dictionary = {
     eyebrow: "Jouw werkruimte",
     title: "Cv’s",
     subtitle: "Maak een nieuw cv of werk verder aan een bestaand cv.",
-    createNew: "+ Nieuw cv maken",
+    createNew: "Nieuw cv maken",
     creating: "Aanmaken…",
     statResumes: "Cv’s",
     statLastEdited: "Laatst bewerkt",

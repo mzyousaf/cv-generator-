@@ -601,7 +601,7 @@ export const tr: Dictionary = {
     eyebrow: "Çalışma alanınız",
     title: "CV’ler",
     subtitle: "Yeni bir CV oluşturun veya mevcut bir CV üzerinde çalışmaya devam edin.",
-    createNew: "+ Yeni CV Oluştur",
+    createNew: "Yeni CV oluştur",
     creating: "Oluşturuluyor…",
     statResumes: "CV’ler",
     statLastEdited: "Son düzenleme",

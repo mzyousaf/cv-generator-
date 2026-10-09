@@ -574,7 +574,7 @@ export const zh: Dictionary = {
     eyebrow: "你的工作区",
     title: "简历",
     subtitle: "新建一份简历，或继续编辑已有简历。",
-    createNew: "+ 新建简历",
+    createNew: "新建简历",
     creating: "创建中…",
     statResumes: "简历",
     statLastEdited: "最近编辑",

@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { CreateCvForm } from "@/components/cv-builder/create-cv-form";
-import { UploadIcon } from "@/components/dashboard/icons";
+import { PlusIcon, UploadIcon } from "@/components/dashboard/icons";
 import { Card, CardContent } from "@/components/ui/card";
 
 function StackedDocs() {
@@ -43,6 +43,7 @@ export function ResumeEmptyState() {
           <CreateCvForm
             buttonLabel={t.dashboard.createFirst}
             size="lg"
+            leftIcon={<PlusIcon className="size-4" />}
           />
           <CreateCvForm
             buttonLabel={t.dashboard.importCv}

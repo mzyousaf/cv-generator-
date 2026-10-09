@@ -127,7 +127,7 @@ export function CreateCvModal({ initialMode, onClose }: CreateCvModalProps) {
               setError(null);
             }}
             className={cn(
-              "flex min-h-10 min-w-0 flex-auto cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-1.5 py-2 text-sm font-semibold sm:px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed",
+              "flex min-h-10 min-w-0 flex-auto cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-1.5 py-2 text-sm font-semibold sm:px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed",
               mode === item
                 ? "bg-surface text-slate-950 shadow-sm"
                 : "text-slate-600 hover:text-slate-900",

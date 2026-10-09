@@ -593,7 +593,7 @@ export const de: Dictionary = {
     eyebrow: "Ihr Arbeitsbereich",
     title: "Lebensläufe",
     subtitle: "Erstellen Sie einen neuen Lebenslauf oder arbeiten Sie an einem bestehenden weiter.",
-    createNew: "+ Neuer Lebenslauf",
+    createNew: "Neuer Lebenslauf",
     creating: "Wird erstellt…",
     statResumes: "Lebensläufe",
     statLastEdited: "Zuletzt bearbeitet",

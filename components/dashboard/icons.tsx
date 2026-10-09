@@ -34,3 +34,11 @@ export function UploadIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function PlusIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <path d="M10 4.5v11M4.5 10h11" />
+    </svg>
+  );
+}

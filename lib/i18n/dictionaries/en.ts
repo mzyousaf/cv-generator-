@@ -595,7 +595,7 @@ export const en = {
       "This is a translation provided for your convenience. If there is any difference, the English version prevails.",
   },
   dashboard: {
-    importCv: "Import Resume",
+    importCv: "Import resume",
     untitled: "Untitled CV",
     navLabel: "Application",
     workspace: "Workspace",
@@ -603,7 +603,7 @@ export const en = {
     eyebrow: "Your workspace",
     title: "Resumes",
     subtitle: "Create a new resume or continue working on an existing one.",
-    createNew: "+ Create New Resume",
+    createNew: "Create new resume",
     creating: "Creating…",
     statResumes: "Resumes",
     statLastEdited: "Last edited",
@@ -612,7 +612,7 @@ export const en = {
     emptyTitle: "Create your first resume",
     emptyBody:
       "Start from scratch and build a professional resume with the editor, templates, and AI assistance.",
-    createFirst: "Create Your First Resume",
+    createFirst: "Create your first resume",
     edited: "Edited {date}",
     edit: "Edit",
     openEditor: "Open editor →",

@@ -75,7 +75,7 @@ export function ResumeCard({
           >
             {title}
           </h3>
-          <p className="text-xs text-slate-500">
+          <p className="truncate text-xs text-slate-500">
             {format(t.dashboard.edited, { date: formatUpdatedAt(updatedAt, locale) })}
           </p>
         </div>

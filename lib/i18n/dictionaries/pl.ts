@@ -601,7 +601,7 @@ export const pl: Dictionary = {
     eyebrow: "Twój obszar roboczy",
     title: "Moje CV",
     subtitle: "Utwórz nowe CV lub kontynuuj pracę nad istniejącym.",
-    createNew: "+ Utwórz nowe CV",
+    createNew: "Utwórz nowe CV",
     creating: "Tworzenie…",
     statResumes: "Liczba CV",
     statLastEdited: "Ostatnia edycja",

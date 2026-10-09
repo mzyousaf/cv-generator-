@@ -118,14 +118,15 @@ export function DictationTextarea({
             listening && "border-rose-300 ring-4 ring-rose-500/10",
           )}
         />
-        <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-2">
+        {/* Opaque footer strip, so long text scrolls under it rather than showing through. */}
+        <div className="absolute inset-x-px bottom-px flex items-center justify-between gap-2 rounded-b-[11px] bg-surface px-3 pb-2.5 pt-2">
           <button
             type="button"
             onClick={() => void toggle()}
             disabled={disabled || !browserSupportsSpeechRecognition}
             aria-pressed={listening}
             className={cn(
-              "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-md px-3.5 py-1.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50",
+              "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50",
               listening
                 ? "bg-rose-600 text-white hover:bg-rose-700"
                 : "border border-slate-200 bg-surface text-slate-800 hover:bg-slate-50",

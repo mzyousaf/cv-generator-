@@ -6,7 +6,7 @@ import { CreateCvForm } from "@/components/cv-builder/create-cv-form";
 import { ResumeCard } from "@/components/dashboard/resume-card";
 import { ResumeEmptyState } from "@/components/dashboard/resume-empty-state";
 import { ResumeUploadDropzone } from "@/components/dashboard/resume-upload-dropzone";
-import { UploadIcon } from "@/components/dashboard/icons";
+import { PlusIcon, UploadIcon } from "@/components/dashboard/icons";
 import { FormMessage } from "@/components/ui/form-message";
 import type { CvRecord } from "@/lib/cv/serialize";
 
@@ -49,11 +49,13 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
               {t.dashboard.subtitle}
             </p>
           </div>
-          <div className="flex shrink-0 flex-wrap gap-2.5">
+          {/* Full-width, equal buttons on phones; side by side from sm. */}
+          <div className="grid shrink-0 grid-cols-1 gap-2.5 sm:flex sm:flex-wrap [&_button]:w-full sm:[&_button]:w-auto">
             <CreateCvForm
               buttonLabel={t.dashboard.createNew}
               size="lg"
               variant="inverse"
+              leftIcon={<PlusIcon className="size-4" />}
             />
             <CreateCvForm
               buttonLabel={t.dashboard.importCv}
@@ -76,13 +78,14 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
             <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
               {t.dashboard.statLastEdited}
             </dt>
-            <dd className="mt-1 text-2xl font-bold">{lastEdited}</dd>
+            <dd className="mt-1 whitespace-nowrap text-2xl font-bold">{lastEdited}</dd>
           </div>
         </dl>
       </header>
 
       <section className="mt-8 space-y-8">
-        <ResumeUploadDropzone />
+        {/* With no resumes yet, the empty state below carries the import action. */}
+        {hasResumes ? <ResumeUploadDropzone /> : null}
 
         {listError ? <FormMessage>{localizeServerMessage(t, listError)}</FormMessage> : null}
 

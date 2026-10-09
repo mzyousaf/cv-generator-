@@ -601,7 +601,7 @@ export const pt: Dictionary = {
     eyebrow: "Seu espaço de trabalho",
     title: "Currículos",
     subtitle: "Crie um novo currículo ou continue trabalhando em um existente.",
-    createNew: "+ Criar novo currículo",
+    createNew: "Criar novo currículo",
     creating: "Criando…",
     statResumes: "Currículos",
     statLastEdited: "Última edição",

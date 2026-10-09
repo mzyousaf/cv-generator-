@@ -601,7 +601,7 @@ export const ru: Dictionary = {
     eyebrow: "Ваша рабочая область",
     title: "Резюме",
     subtitle: "Создайте новое резюме или продолжите работу над существующим.",
-    createNew: "+ Создать резюме",
+    createNew: "Создать резюме",
     creating: "Создание…",
     statResumes: "Резюме",
     statLastEdited: "Последнее изменение",
