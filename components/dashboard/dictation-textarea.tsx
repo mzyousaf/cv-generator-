@@ -16,6 +16,12 @@ const SPEECH_LANGUAGE: Record<Locale, string> = {
   de: "de-DE",
   ar: "ar-SA",
   zh: "zh-CN",
+  pt: "pt-BR",
+  it: "it-IT",
+  nl: "nl-NL",
+  pl: "pl-PL",
+  tr: "tr-TR",
+  ru: "ru-RU",
 };
 
 function joinText(base: string, spoken: string): string {

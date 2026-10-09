@@ -15,7 +15,7 @@ html[data-mode="dark"] {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-ink: var(--ink);
-  --font-sans: var(--font-jakarta), var(--font-arabic);
+  --font-sans: var(--font-jakarta), var(--font-cyrillic), var(--font-arabic);
   --font-display: var(--font-instrument);
   --font-brand: var(--font-syne);
   --font-mono: var(--font-geist-mono);
