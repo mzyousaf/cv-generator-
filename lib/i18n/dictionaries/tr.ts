@@ -65,7 +65,7 @@ export const tr: Dictionary = {
       "Dakikalar içinde işverenlerin ilgisini çekecek, özenli bir CV hazırlayın. Odaklı bir düzenleyici, her satırı güçlendiren yapay zeka ve kusursuz PDF’ye dönüşen şık şablonlar.",
     browseTemplates: "Şablonlara göz atın",
     highlights: [
-      "İşverenlere hazır 3 şablon",
+      "90’dan fazla işe alımcı dostu şablon",
       "Yapay zeka yazım desteği",
       "Tek tıkla PDF dışa aktarma",
     ],
@@ -100,7 +100,7 @@ export const tr: Dictionary = {
       templates: {
         title: "Profesyonel şablonlar",
         description:
-          "Okunaklı ve baskıya hazır CV’ler için tasarlanmış Varsayılan, Klasik ve Modern düzenler.",
+          "Her bölge ve meslek için 90’dan fazla düzen; okunaklı ve baskıya hazır CV’ler için.",
       },
       pdf: {
         title: "Kusursuz PDF",
@@ -549,7 +549,7 @@ export const tr: Dictionary = {
     perks: [
       {
         title: "İşverenlere hazır şablonlar",
-        body: "İstediğiniz zaman aralarında geçiş yapabileceğiniz, baskıya kusursuz uyan üç şık düzen.",
+        body: "Her bölge ve meslek için 90’dan fazla baskıya hazır düzen. İstediğiniz zaman değiştirin.",
       },
       {
         title: "Her satırı güçlendiren yapay zeka",
@@ -677,7 +677,7 @@ export const tr: Dictionary = {
     deleteSection: "Bölümü sil",
     customDescription: "Size özel bir bölüm. Kendiniz yazın veya yapay zekadan yardım alın.",
     hiddenFromResume: "CV’de gizli",
-    confirmRemove: "Bu {item} kaldırılsın mı? Kaydedene kadar bu işlem geri alınamaz.",
+    confirmRemove: "Bu {item} kaldırılsın mı? Bu işlem geri alınamaz.",
     removeItems: {
       work: "iş deneyimi kaydı",
       education: "eğitim kaydı",

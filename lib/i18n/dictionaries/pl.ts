@@ -65,7 +65,7 @@ export const pl: Dictionary = {
       "Przygotuj dopracowane CV, gotowe dla rekruterów, w kilka minut. Przejrzysty edytor, AI, które szlifuje każdą linijkę, i eleganckie szablony eksportowane do nienagannego PDF.",
     browseTemplates: "Przeglądaj szablony",
     highlights: [
-      "3 szablony gotowe dla rekruterów",
+      "Ponad 90 szablonów gotowych dla rekruterów",
       "Wsparcie AI w pisaniu",
       "Eksport do PDF jednym kliknięciem",
     ],
@@ -100,7 +100,7 @@ export const pl: Dictionary = {
       templates: {
         title: "Profesjonalne szablony",
         description:
-          "Układy Domyślny, Klasyczny i Nowoczesny stworzone z myślą o czytelnych CV gotowych do druku.",
+          "Ponad 90 układów dla każdego regionu i zawodu – czytelnych i gotowych do druku.",
       },
       pdf: {
         title: "PDF co do piksela",
@@ -549,7 +549,7 @@ export const pl: Dictionary = {
     perks: [
       {
         title: "Szablony gotowe dla rekruterów",
-        body: "Trzy eleganckie układy, idealne do druku, między którymi przełączysz się w każdej chwili.",
+        body: "Ponad 90 dopracowanych układów dla każdego regionu i zawodu. Zmieniaj w dowolnej chwili.",
       },
       {
         title: "AI, które szlifuje każdą linijkę",
@@ -677,7 +677,7 @@ export const pl: Dictionary = {
     deleteSection: "Usuń sekcję",
     customDescription: "Twoja własna sekcja. Napisz ją samodzielnie lub poproś o pomoc AI.",
     hiddenFromResume: "Ukryta w CV",
-    confirmRemove: "Usunąć element: {item}? Do momentu zapisu tego nie da się cofnąć.",
+    confirmRemove: "Usunąć element: {item}? Tej operacji nie można cofnąć.",
     removeItems: {
       work: "doświadczenie zawodowe",
       education: "wykształcenie",

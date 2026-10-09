@@ -65,7 +65,7 @@ export const nl: Dictionary = {
       "Maak in een paar minuten een verzorgd cv waar recruiters op letten. Een overzichtelijke editor, AI die elke zin aanscherpt en stijlvolle templates die je als foutloze PDF exporteert.",
     browseTemplates: "Bekijk templates",
     highlights: [
-      "3 templates klaar voor recruiters",
+      "Ruim 90 templates waar recruiters blij van worden",
       "AI-schrijfhulp",
       "PDF-export met één klik",
     ],
@@ -100,7 +100,7 @@ export const nl: Dictionary = {
       templates: {
         title: "Professionele templates",
         description:
-          "Standaard, Klassiek en Modern: opmaken voor goed leesbare cv’s die klaar zijn om te printen.",
+          "Ruim 90 lay-outs voor elke regio en elk beroep, allemaal overzichtelijk en klaar om te printen.",
       },
       pdf: {
         title: "Pixelperfecte PDF",
@@ -549,7 +549,7 @@ export const nl: Dictionary = {
     perks: [
       {
         title: "Templates klaar voor recruiters",
-        body: "Drie stijlvolle, printklare opmaken waartussen je altijd kunt wisselen.",
+        body: "Ruim 90 printklare lay-outs voor elke regio en elk beroep. Wissel wanneer je wilt.",
       },
       {
         title: "AI die elke zin aanscherpt",
@@ -677,7 +677,7 @@ export const nl: Dictionary = {
     deleteSection: "Sectie verwijderen",
     customDescription: "Je eigen sectie. Schrijf hem zelf of laat AI je helpen.",
     hiddenFromResume: "Verborgen op cv",
-    confirmRemove: "Wil je {item} verwijderen? Dit is definitief zodra je opslaat.",
+    confirmRemove: "Wil je {item} verwijderen? Dit kan niet ongedaan worden gemaakt.",
     removeItems: {
       work: "deze werkervaring",
       education: "deze opleiding",

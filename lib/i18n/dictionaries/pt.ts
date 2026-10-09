@@ -65,7 +65,7 @@ export const pt: Dictionary = {
       "Crie em minutos um currículo impecável, pronto para recrutadores. Um editor focado, IA que aprimora cada linha e modelos elegantes que exportam um PDF perfeito.",
     browseTemplates: "Ver modelos",
     highlights: [
-      "3 modelos prontos para recrutadores",
+      "Mais de 90 modelos prontos para recrutadores",
       "Escrita com ajuda da IA",
       "Exportação em PDF com um clique",
     ],
@@ -100,7 +100,7 @@ export const pt: Dictionary = {
       templates: {
         title: "Modelos profissionais",
         description:
-          "Layouts Padrão, Clássico e Moderno, feitos para currículos legíveis e prontos para imprimir.",
+          "Mais de 90 layouts para cada região e profissão, feitos para currículos legíveis e prontos para impressão.",
       },
       pdf: {
         title: "PDF perfeito em cada detalhe",
@@ -549,7 +549,7 @@ export const pt: Dictionary = {
     perks: [
       {
         title: "Modelos prontos para recrutadores",
-        body: "Três layouts elegantes e perfeitos para impressão, que você pode trocar quando quiser.",
+        body: "Mais de 90 layouts prontos para impressão, para cada região e profissão. Troque quando quiser.",
       },
       {
         title: "IA que aprimora cada linha",
@@ -677,7 +677,7 @@ export const pt: Dictionary = {
     deleteSection: "Excluir seção",
     customDescription: "Sua própria seção. Escreva você mesmo ou peça ajuda à IA.",
     hiddenFromResume: "Oculta no currículo",
-    confirmRemove: "Remover {item}? Só será possível desfazer até você salvar.",
+    confirmRemove: "Remover {item}? Essa ação não pode ser desfeita.",
     removeItems: {
       work: "esta experiência profissional",
       education: "esta formação",

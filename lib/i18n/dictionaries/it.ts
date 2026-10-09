@@ -65,7 +65,7 @@ export const it: Dictionary = {
       "Crea in pochi minuti un CV curato e pronto per i recruiter. Un editor essenziale, un’IA che rende incisiva ogni riga e modelli eleganti da esportare in un PDF impeccabile.",
     browseTemplates: "Sfoglia i modelli",
     highlights: [
-      "3 modelli pronti per i recruiter",
+      "Oltre 90 modelli pronti per i selezionatori",
       "Scrittura assistita dall’IA",
       "Esportazione PDF in un clic",
     ],
@@ -100,7 +100,7 @@ export const it: Dictionary = {
       templates: {
         title: "Modelli professionali",
         description:
-          "Layout Predefinito, Classico e Moderno, pensati per CV leggibili e pronti per la stampa.",
+          "Oltre 90 layout per ogni paese e professione, pensati per CV leggibili e pronti da stampare.",
       },
       pdf: {
         title: "PDF perfetto al pixel",
@@ -549,7 +549,7 @@ export const it: Dictionary = {
     perks: [
       {
         title: "Modelli pronti per i recruiter",
-        body: "Tre layout eleganti e perfetti per la stampa, tra cui puoi passare quando vuoi.",
+        body: "Oltre 90 layout perfetti per la stampa, per ogni paese e professione. Cambia quando vuoi.",
       },
       {
         title: "Un’IA che rende incisiva ogni riga",
@@ -677,7 +677,7 @@ export const it: Dictionary = {
     deleteSection: "Elimina sezione",
     customDescription: "Una sezione tutta tua. Scrivila tu o fatti aiutare dall’IA.",
     hiddenFromResume: "Nascosta nel CV",
-    confirmRemove: "Rimuovere {item}? Non potrai annullare l’operazione dopo il salvataggio.",
+    confirmRemove: "Rimuovere {item}? L’operazione non può essere annullata.",
     removeItems: {
       work: "questa esperienza lavorativa",
       education: "questa voce di formazione",

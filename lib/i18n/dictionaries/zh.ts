@@ -59,7 +59,7 @@ export const zh: Dictionary = {
     subtitle:
       "几分钟内打造一份精致、可直接投递的简历。专注的编辑器、逐行优化的 AI，以及可导出为完美 PDF 的优雅模板。",
     browseTemplates: "浏览模板",
-    highlights: ["3 套招聘官青睐的模板", "AI 写作辅助", "一键导出 PDF"],
+    highlights: ["90+ 款招聘方青睐的模板", "AI 写作辅助", "一键导出 PDF"],
     chipAiTitle: "摘要已优化",
     chipAiMeta: "AI 助手 · 刚刚",
     chipPdf: "PDF 已可下载",
@@ -88,7 +88,7 @@ export const zh: Dictionary = {
       },
       templates: {
         title: "专业模板",
-        description: "默认、经典和现代三种布局，清晰易读，可直接打印。",
+        description: "90+ 款版式，覆盖各地区和职业，清晰易读、可直接打印。",
       },
       pdf: {
         title: "像素级完美 PDF",
@@ -524,7 +524,7 @@ export const zh: Dictionary = {
     perks: [
       {
         title: "招聘官青睐的模板",
-        body: "三套优雅、适合打印的布局，随时自由切换。",
+        body: "90+ 款精美可打印的版式，覆盖各地区和职业，随时切换。",
       },
       {
         title: "逐行优化的 AI",
@@ -648,7 +648,7 @@ export const zh: Dictionary = {
     deleteSection: "删除板块",
     customDescription: "您的自定义板块。可以自己填写，也可以让 AI 帮您撰写。",
     hiddenFromResume: "已在简历中隐藏",
-    confirmRemove: "确定删除此{item}吗？保存前无法撤销。",
+    confirmRemove: "确定删除此{item}吗？此操作无法撤销。",
     removeItems: {
       work: "工作经历",
       education: "教育经历",

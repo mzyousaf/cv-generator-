@@ -61,7 +61,7 @@ export const es: Dictionary = {
       "Crea un CV pulido y listo para reclutadores en minutos. Un editor enfocado, una IA que mejora cada línea y plantillas elegantes que se exportan a un PDF impecable.",
     browseTemplates: "Ver plantillas",
     highlights: [
-      "3 plantillas listas para reclutadores",
+      "Más de 90 plantillas profesionales",
       "Asistente de redacción con IA",
       "Exportación a PDF en un clic",
     ],
@@ -96,7 +96,7 @@ export const es: Dictionary = {
       templates: {
         title: "Plantillas profesionales",
         description:
-          "Diseños Predeterminado, Clásico y Moderno, legibles y listos para imprimir.",
+          "Más de 90 diseños para cada región y perfil, pensados para CV legibles y listos para imprimir.",
       },
       pdf: {
         title: "PDF perfecto",
@@ -541,7 +541,7 @@ export const es: Dictionary = {
     perks: [
       {
         title: "Plantillas listas para reclutadores",
-        body: "Tres diseños elegantes y perfectos para imprimir, intercambiables en cualquier momento.",
+        body: "Más de 90 diseños listos para imprimir, para cada región y perfil. Cambia cuando quieras.",
       },
       {
         title: "IA que mejora cada línea",
@@ -670,7 +670,7 @@ export const es: Dictionary = {
     deleteSection: "Eliminar sección",
     customDescription: "Tu propia sección. Escríbela tú o deja que la IA te ayude.",
     hiddenFromResume: "Oculta en el currículum",
-    confirmRemove: "¿Eliminar este elemento ({item})? No se puede deshacer hasta que guardes.",
+    confirmRemove: "¿Eliminar este elemento ({item})? No se puede deshacer.",
     removeItems: {
       work: "experiencia laboral",
       education: "formación",

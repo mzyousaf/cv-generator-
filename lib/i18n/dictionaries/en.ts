@@ -67,7 +67,7 @@ export const en = {
       "Craft a polished, recruiter-ready CV in minutes. A focused editor, AI that sharpens every line, and elegant templates that export to a flawless PDF.",
     browseTemplates: "Browse templates",
     highlights: [
-      "3 recruiter-ready templates",
+      "90+ recruiter-ready templates",
       "AI writing assist",
       "One-click PDF export",
     ],
@@ -102,7 +102,7 @@ export const en = {
       templates: {
         title: "Professional templates",
         description:
-          "Default, Classic, and Modern layouts built for readable, print-ready CVs.",
+          "90+ layouts for every region and role, all built for readable, print-ready CVs.",
       },
       pdf: {
         title: "Pixel-perfect PDF",
@@ -551,7 +551,7 @@ export const en = {
     perks: [
       {
         title: "Recruiter-ready templates",
-        body: "Three elegant, print-perfect layouts you can switch between anytime.",
+        body: "90+ print-perfect layouts for every region and role. Switch anytime.",
       },
       {
         title: "AI that sharpens every line",
@@ -679,7 +679,7 @@ export const en = {
     deleteSection: "Delete section",
     customDescription: "Your own section. Write it yourself or let AI help.",
     hiddenFromResume: "Hidden from resume",
-    confirmRemove: "Remove this {item}? This cannot be undone until you save.",
+    confirmRemove: "Remove this {item}? This can’t be undone.",
     removeItems: {
       work: "work experience entry",
       education: "education entry",

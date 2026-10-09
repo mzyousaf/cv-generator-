@@ -61,7 +61,7 @@ export const de: Dictionary = {
       "Erstellen Sie in wenigen Minuten einen ausgefeilten, recruiterfertigen Lebenslauf. Ein fokussierter Editor, eine KI, die jede Zeile schärft, und elegante Vorlagen, die als makelloses PDF exportiert werden.",
     browseTemplates: "Vorlagen ansehen",
     highlights: [
-      "3 recruiterfertige Vorlagen",
+      "Über 90 recruiterfertige Vorlagen",
       "KI-Schreibhilfe",
       "PDF-Export mit einem Klick",
     ],
@@ -96,7 +96,7 @@ export const de: Dictionary = {
       templates: {
         title: "Professionelle Vorlagen",
         description:
-          "Die Layouts Standard, Klassisch und Modern – gut lesbar und druckfertig.",
+          "Über 90 Layouts für jede Region und jeden Beruf – gut lesbar und druckfertig.",
       },
       pdf: {
         title: "Pixelgenaues PDF",
@@ -541,7 +541,7 @@ export const de: Dictionary = {
     perks: [
       {
         title: "Recruiterfertige Vorlagen",
-        body: "Drei elegante, druckfertige Layouts, zwischen denen Sie jederzeit wechseln können.",
+        body: "Über 90 druckfertige Layouts für jede Region und jeden Beruf. Jederzeit wechselbar.",
       },
       {
         title: "KI, die jede Zeile schärft",
@@ -670,7 +670,7 @@ export const de: Dictionary = {
     deleteSection: "Abschnitt löschen",
     customDescription: "Ihr eigener Abschnitt. Schreiben Sie ihn selbst oder lassen Sie sich von der KI helfen.",
     hiddenFromResume: "Im Lebenslauf ausgeblendet",
-    confirmRemove: "Diesen Eintrag ({item}) entfernen? Dies lässt sich bis zum Speichern nicht rückgängig machen.",
+    confirmRemove: "Diesen Eintrag ({item}) entfernen? Dies lässt sich nicht rückgängig machen.",
     removeItems: {
       work: "Berufserfahrung",
       education: "Ausbildung",

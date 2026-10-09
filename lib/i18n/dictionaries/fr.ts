@@ -61,7 +61,7 @@ export const fr: Dictionary = {
       "Rédigez en quelques minutes un CV soigné, prêt pour les recruteurs. Un éditeur épuré, une IA qui affine chaque ligne et des modèles élégants exportés en un PDF impeccable.",
     browseTemplates: "Voir les modèles",
     highlights: [
-      "3 modèles prêts pour les recruteurs",
+      "Plus de 90 modèles prêts à l’emploi",
       "Aide à la rédaction par IA",
       "Export PDF en un clic",
     ],
@@ -96,7 +96,7 @@ export const fr: Dictionary = {
       templates: {
         title: "Modèles professionnels",
         description:
-          "Mises en page Par défaut, Classique et Moderne, lisibles et prêtes à imprimer.",
+          "Plus de 90 mises en page pour chaque région et chaque métier, conçues pour des CV lisibles et prêts à imprimer.",
       },
       pdf: {
         title: "PDF parfait au pixel près",
@@ -541,7 +541,7 @@ export const fr: Dictionary = {
     perks: [
       {
         title: "Modèles prêts pour les recruteurs",
-        body: "Trois mises en page élégantes et parfaites à l'impression, interchangeables à tout moment.",
+        body: "Plus de 90 mises en page impeccables pour chaque région et chaque métier. Changez à tout moment.",
       },
       {
         title: "Une IA qui affine chaque ligne",
@@ -670,7 +670,7 @@ export const fr: Dictionary = {
     deleteSection: "Supprimer la section",
     customDescription: "Votre propre section. Rédigez-la vous-même ou laissez l’IA vous aider.",
     hiddenFromResume: "Masquée sur le CV",
-    confirmRemove: "Supprimer cet élément ({item}) ? Action irréversible jusqu'à l'enregistrement.",
+    confirmRemove: "Supprimer cet élément ({item}) ? Cette action est irréversible.",
     removeItems: {
       work: "expérience professionnelle",
       education: "formation",
