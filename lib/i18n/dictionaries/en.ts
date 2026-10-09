@@ -515,6 +515,18 @@ export const en = {
     },
   },
   builder: {
+    mobile: {
+      title: "Your resume",
+      hint: "Tap a section to edit it. Drag the handles to reorder.",
+      items: "{n} items",
+      oneItem: "1 item",
+      filled: "Filled in",
+      empty: "Not started",
+      back: "Sections",
+      previous: "Previous section",
+      next: "Next section",
+      position: "{n} of {total}",
+    },
     addSection: "Add section",
     createWithAi: "Create with AI",
     addSectionTitle: "Need another section?",

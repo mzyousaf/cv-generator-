@@ -506,6 +506,18 @@ export const fr: Dictionary = {
     },
   },
   builder: {
+    mobile: {
+      title: "Votre CV",
+      hint: "Touchez une section pour la modifier. Faites glisser les poignées pour réorganiser.",
+      items: "{n} éléments",
+      oneItem: "1 élément",
+      filled: "Rempli",
+      empty: "Pas commencé",
+      back: "Sections",
+      previous: "Section précédente",
+      next: "Section suivante",
+      position: "{n} sur {total}",
+    },
     addSection: "Ajouter une section",
     createWithAi: "Créer avec l’IA",
     addSectionTitle: "Besoin d’une autre section ?",

@@ -483,6 +483,18 @@ export const zh: Dictionary = {
     },
   },
   builder: {
+    mobile: {
+      title: "您的简历",
+      hint: "点击板块即可编辑。拖动手柄可调整顺序。",
+      items: "{n} 项",
+      oneItem: "1 项",
+      filled: "已填写",
+      empty: "未开始",
+      back: "板块",
+      previous: "上一个板块",
+      next: "下一个板块",
+      position: "第 {n} / {total} 个",
+    },
     addSection: "添加板块",
     createWithAi: "用 AI 创建",
     addSectionTitle: "还需要其他板块？",

@@ -506,6 +506,18 @@ export const ar: Dictionary = {
     },
   },
   builder: {
+    mobile: {
+      title: "سيرتك الذاتية",
+      hint: "اضغط على قسم لتعديله. اسحب المقابض لإعادة الترتيب.",
+      items: "{n} عناصر",
+      oneItem: "عنصر واحد",
+      filled: "مكتمل",
+      empty: "لم يبدأ",
+      back: "الأقسام",
+      previous: "القسم السابق",
+      next: "القسم التالي",
+      position: "{n} من {total}",
+    },
     addSection: "إضافة قسم",
     createWithAi: "إنشاء بالذكاء الاصطناعي",
     addSectionTitle: "هل تحتاج إلى قسم آخر؟",

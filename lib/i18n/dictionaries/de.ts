@@ -506,6 +506,18 @@ export const de: Dictionary = {
     },
   },
   builder: {
+    mobile: {
+      title: "Ihr Lebenslauf",
+      hint: "Tippen Sie auf einen Abschnitt, um ihn zu bearbeiten. Zum Sortieren an den Griffen ziehen.",
+      items: "{n} Einträge",
+      oneItem: "1 Eintrag",
+      filled: "Ausgefüllt",
+      empty: "Noch leer",
+      back: "Abschnitte",
+      previous: "Vorheriger Abschnitt",
+      next: "Nächster Abschnitt",
+      position: "{n} von {total}",
+    },
     addSection: "Abschnitt hinzufügen",
     createWithAi: "Mit KI erstellen",
     addSectionTitle: "Weiteren Abschnitt benötigt?",

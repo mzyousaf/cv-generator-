@@ -506,6 +506,18 @@ export const es: Dictionary = {
     },
   },
   builder: {
+    mobile: {
+      title: "Tu currículum",
+      hint: "Toca una sección para editarla. Arrastra los controles para reordenar.",
+      items: "{n} elementos",
+      oneItem: "1 elemento",
+      filled: "Completado",
+      empty: "Sin empezar",
+      back: "Secciones",
+      previous: "Sección anterior",
+      next: "Sección siguiente",
+      position: "{n} de {total}",
+    },
     addSection: "Añadir sección",
     createWithAi: "Crear con IA",
     addSectionTitle: "¿Necesitas otra sección?",
