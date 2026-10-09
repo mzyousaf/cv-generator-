@@ -11,6 +11,7 @@ import {
 } from "@/lib/cv/builder-ui-utils";
 import { SkillsAiControls } from "@/components/cv-builder/ai/skills-ai-controls";
 import type { CvBuilderFormState } from "@/lib/cv/builder-types";
+import { PlusIcon } from "@/components/dashboard/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -89,7 +90,7 @@ export function SkillsEditor({ state, onChangeSkills }: SkillsEditorProps) {
           className="sm:max-w-xs"
         />
         {/* Same 44px height as the input beside it. */}
-        <Button type="button" variant="outline" size="sm" className="min-h-11!" onClick={commitDraft}>
+        <Button type="button" variant="outline" size="sm" className="min-h-11!" leftIcon={<PlusIcon className="size-4" />} onClick={commitDraft}>
           {t.editor.addSkill}
         </Button>
       </div>

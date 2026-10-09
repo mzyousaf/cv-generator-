@@ -30,6 +30,64 @@ export const TEMPLATE_REGIONS = [
 
 export type TemplateRegion = (typeof TEMPLATE_REGIONS)[number];
 
+/** The country a template is specifically made for, so searching "Poland" ranks the Polish CV first. */
+export const TEMPLATE_COUNTRIES: Partial<Record<CvTemplateId, readonly string[]>> = {
+  "polish-cv": ["PL"],
+  "turkish-cv": ["TR"],
+  "swiss-cv": ["CH"],
+  "austria-cv": ["AT"],
+  "lebenslauf": ["DE"],
+  "dach-modern": ["DE"],
+  "dutch-cv": ["NL"],
+  "belgian-cv": ["BE"],
+  "italian-cv": ["IT"],
+  "spanish-cv": ["ES"],
+  "portuguese-cv": ["PT"],
+  "swedish-cv": ["SE"],
+  "danish-modern": ["DK"],
+  "irish-cv": ["IE"],
+  "uk-classic": ["GB"],
+  "uk-professional": ["GB"],
+  "uk-modern": ["GB"],
+  "uk-graduate": ["GB"],
+  "cv-francais": ["FR"],
+  "cv-moderne": ["FR"],
+  "cv-classique": ["FR"],
+  "france-elegant": ["FR"],
+  "us-resume": ["US"],
+  "us-executive": ["US"],
+  "us-modern": ["US"],
+  "us-tech": ["US"],
+  "federal-resume": ["US"],
+  "canada-resume": ["CA"],
+  "canada-modern": ["CA"],
+  "brazil-curriculo": ["BR"],
+  "mexico-cv": ["MX"],
+  "saudi-cv": ["SA"],
+  "uae-modern": ["AE"],
+  "egypt-cv": ["EG"],
+  "south-africa-cv": ["ZA"],
+  "nigeria-cv": ["NG"],
+  "kenya-cv": ["KE"],
+  "india-resume": ["IN"],
+  "india-fresher": ["IN"],
+  "india-tech": ["IN"],
+  "pakistan-cv": ["PK"],
+  "singapore-resume": ["SG"],
+  "philippines-resume": ["PH"],
+  "malaysia-resume": ["MY"],
+  "japan-shokumu": ["JP"],
+  "korea-resume": ["KR"],
+  "china-jianli": ["CN"],
+  "china-modern": ["CN"],
+  "china-tech": ["CN"],
+  "hong-kong-cv": ["HK"],
+  "nz-cv": ["NZ"],
+  "australia-resume": ["AU"],
+  "australia-modern": ["AU"],
+  "cis-cv": ["RU"],
+};
+
 /**
  * Countries each region's templates are written for (ISO 3166-1 alpha-2), so
  * the gallery can match a search for a country name in any UI language.
@@ -797,12 +855,14 @@ export type TemplateBrowseOptions = {
   nameOf: (id: CvTemplateId) => string;
   /** Everything a query may match (name, description, region…). Defaults to the name. */
   searchTextOf?: (id: CvTemplateId) => string;
+  /** Text whose matches rank first (e.g. name and description). Defaults to the name. */
+  primaryTextOf?: (id: CvTemplateId) => string;
 };
 
 export function browseTemplates(
   filter: TemplateFilter,
   sort: TemplateSort,
-  { locale, recommendFor = locale, nameOf, searchTextOf = nameOf }: TemplateBrowseOptions,
+  { locale, recommendFor = locale, nameOf, searchTextOf = nameOf, primaryTextOf = nameOf }: TemplateBrowseOptions,
   ids: readonly CvTemplateId[],
 ): CvTemplateId[] {
   const terms = foldSearchText(filter.query ?? "", locale).split(/\s+/).filter(Boolean);
@@ -821,6 +881,25 @@ export function browseTemplates(
     return true;
   });
 
+  const sorted = sortTemplates(matches, sort, locale, recommendFor, nameOf);
+  if (!terms.length) {
+    return sorted;
+  }
+  // Direct matches come first ("Poland" → Polish CV before the pan-European ones).
+  const nameMatches = (id: CvTemplateId) => {
+    const primary = foldSearchText(`${primaryTextOf(id)} ${id.replace(/-/g, " ")}`, locale);
+    return terms.every((term) => primary.includes(term));
+  };
+  return [...sorted.filter(nameMatches), ...sorted.filter((id) => !nameMatches(id))];
+}
+
+function sortTemplates(
+  matches: CvTemplateId[],
+  sort: TemplateSort,
+  locale: Locale,
+  recommendFor: Locale,
+  nameOf: (id: CvTemplateId) => string,
+): CvTemplateId[] {
   if (sort === "name") {
     return matches.sort((a, b) => nameOf(a).localeCompare(nameOf(b), locale));
   }

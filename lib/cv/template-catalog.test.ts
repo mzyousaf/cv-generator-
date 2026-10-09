@@ -12,6 +12,7 @@ import {
   getRegionalTemplateSpec,
   recommendedTemplateIds,
   REGION_COUNTRIES,
+  TEMPLATE_COUNTRIES,
   REGIONAL_TEMPLATES,
   TEMPLATE_PROFILE,
   TEMPLATE_REGIONS,
@@ -176,7 +177,13 @@ describe("template gallery", () => {
       return browseTemplates(
         { query },
         "popular",
-        { locale, nameOf: (id) => d.templateMeta[id].name, searchTextOf: text },
+        {
+          locale,
+          nameOf: (id) => d.templateMeta[id].name,
+          searchTextOf: text,
+          primaryTextOf: (id) =>
+            [d.templateMeta[id].name, ...(TEMPLATE_COUNTRIES[id] ?? []).map((code) => countries.of(code))].join(" "),
+        },
         CV_TEMPLATE_IDS,
       );
     };
@@ -190,6 +197,9 @@ describe("template gallery", () => {
     assert.deepEqual(search("zzzz-nothing", "en"), []);
     assert.ok(search("polska", "pl").includes("polish-cv"));
     assert.ok(search("Poland", "en").includes("polish-cv"));
+    // Direct matches rank before region-wide ones.
+    assert.equal(search("Poland", "en")[0], "polish-cv");
+    assert.equal(search("Türkiye", "tr")[0], "turkish-cv");
   });
 
   it("renders every template in every language without throwing", () => {

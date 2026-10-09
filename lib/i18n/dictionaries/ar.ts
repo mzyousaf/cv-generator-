@@ -778,7 +778,7 @@ export const ar: Dictionary = {
     mobile: {
       title: "سيرتك الذاتية",
       hint: "اضغط على قسم لتعديله. اسحب المقابض لإعادة الترتيب.",
-      items: "{n} عناصر",
+      items: "العناصر: {n}",
       oneItem: "عنصر واحد",
       filled: "مكتمل",
       empty: "لم يبدأ",

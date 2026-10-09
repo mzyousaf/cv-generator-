@@ -131,7 +131,10 @@ function RowBody({
           >
             <EyeIcon className="size-[18px]" off={hidden} />
           </button>
-        ) : null}
+        ) : (
+          // Rows that cannot be hidden keep the same slot, so chevrons line up.
+          <span aria-hidden="true" className="size-10 shrink-0" />
+        )}
       </>
     );
   }

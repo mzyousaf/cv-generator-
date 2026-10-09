@@ -870,7 +870,7 @@ export const ru: Dictionary = {
     addSelected: "Добавить выбранные",
     generating: "Создание…",
     generateSummary: "Создать описание",
-    improveSummary: "Улучшить описание",
+    improveSummary: "Улучшить текст «О себе»",
     options: "Параметры",
     hideOptions: "Скрыть параметры",
     careerGoals: "Карьерные цели (необязательно)",

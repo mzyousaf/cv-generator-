@@ -14,6 +14,7 @@ import {
   getRegionalTemplateSpec,
   POPULAR_THRESHOLD,
   REGION_COUNTRIES,
+  TEMPLATE_COUNTRIES,
   TEMPLATE_REGIONS,
   TEMPLATE_STYLES,
   templateFacets,
@@ -133,16 +134,19 @@ export function TemplatePickerModal({
   }
 
   // Country names in the UI language and in English ("polska", "poland"…).
-  const countryNames = useMemo(() => {
+  const countryName = useMemo(() => {
     const local = new Intl.DisplayNames([locale], { type: "region" });
     const english = new Intl.DisplayNames(["en"], { type: "region" });
+    return (code: string) => `${local.of(code) ?? ""} ${english.of(code) ?? ""}`;
+  }, [locale]);
+  const countryNames = useMemo(() => {
     return Object.fromEntries(
       Object.entries(REGION_COUNTRIES).map(([region, codes]) => [
         region,
-        codes.map((code) => `${local.of(code) ?? ""} ${english.of(code) ?? ""}`).join(" "),
+        codes.map(countryName).join(" "),
       ]),
     ) as Record<TemplateRegion, string>;
-  }, [locale]);
+  }, [countryName]);
 
   const visible = useMemo(
     () =>
@@ -154,6 +158,12 @@ export function TemplatePickerModal({
           locale,
           recommendFor: documentLocale,
           nameOf: (id) => t.templateMeta[id].name,
+          primaryTextOf: (id) =>
+            [
+              t.templateMeta[id].name,
+              t.templateMeta[id].description,
+              ...(TEMPLATE_COUNTRIES[id] ?? []).map(countryName),
+            ].join(" "),
           searchTextOf: (id) => {
             const facets = templateFacets(id);
             return [
@@ -168,7 +178,7 @@ export function TemplatePickerModal({
         },
         CV_TEMPLATE_IDS,
       ),
-    [deferredQuery, region, style, atsOnly, photo, columns, sort, documentLocale, locale, t, copy, countryNames],
+    [deferredQuery, region, style, atsOnly, photo, columns, sort, documentLocale, locale, t, copy, countryName, countryNames],
   );
 
   async function handleSelect(templateId: CvTemplateId) {
@@ -246,7 +256,7 @@ export function TemplatePickerModal({
       </div>
 
       {/* Search, region, sort and style: stacked on the narrowest phones, two columns from 401px, one row on desktop. */}
-      <div className="mt-4 grid grid-cols-1 gap-2 min-[401px]:grid-cols-2 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
+      <div className="mt-4 grid grid-cols-1 gap-2 min-[401px]:grid-cols-2 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1.5fr)_repeat(2,minmax(0,1fr))]">
         <div className="relative min-[401px]:col-span-2 lg:col-span-1">
           <label htmlFor="template-search" className="sr-only">
             {copy.search}
@@ -262,7 +272,7 @@ export function TemplatePickerModal({
             className="h-10 w-full rounded-xl border border-slate-200 bg-surface ps-10 pe-3.5 text-sm text-slate-900 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-colors placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/12"
           />
         </div>
-        <Select aria-label={copy.regionLabel} value={region} onChange={(event) => setRegion(event.target.value as TemplateRegion | "all")} className="w-full min-[401px]:col-span-2 lg:col-span-1">
+        <Select aria-label={copy.regionLabel} title={region === "all" ? undefined : copy.regions[region]} value={region} onChange={(event) => setRegion(event.target.value as TemplateRegion | "all")} className="w-full min-[401px]:col-span-2 lg:col-span-1">
           <option value="all">{copy.allRegions}</option>
           {TEMPLATE_REGIONS.map((value) => (
             <option key={value} value={value}>
@@ -300,15 +310,15 @@ export function TemplatePickerModal({
         {toggle(columns === "two", copy.filterTwoColumns, () => setColumns((value) => (value === "two" ? "any" : "two")))}
       </div>
 
-      <div className="mt-3 flex min-h-8 items-center justify-between gap-3">
-        <p className="text-xs font-medium text-slate-500" aria-live="polite">
+      <div className="mt-3 flex min-h-8 flex-wrap items-center justify-between gap-x-3">
+        <p className="whitespace-nowrap text-xs font-medium text-slate-500" aria-live="polite">
           {format(copy.showing, { n: visible.length, total: CV_TEMPLATE_IDS.length })}
         </p>
         {filtersActive ? (
           <button
             type="button"
             onClick={clearFilters}
-            className="min-h-8 cursor-pointer rounded-lg px-2 text-xs font-semibold text-blue-700 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            className="min-h-8 cursor-pointer whitespace-nowrap rounded-lg px-2 text-xs font-semibold text-blue-700 hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
             {copy.clearFilters}
           </button>
