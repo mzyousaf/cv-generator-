@@ -2,6 +2,7 @@
 
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { CreateCvForm } from "@/components/cv-builder/create-cv-form";
+import { UploadIcon } from "@/components/dashboard/icons";
 import { Card, CardContent } from "@/components/ui/card";
 
 function StackedDocs() {
@@ -38,10 +39,17 @@ export function ResumeEmptyState() {
         <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-slate-500">
           {t.dashboard.emptyBody}
         </p>
-        <div className="mt-8">
+        <div className="mt-8 flex flex-wrap justify-center gap-2.5">
           <CreateCvForm
             buttonLabel={t.dashboard.createFirst}
             size="lg"
+          />
+          <CreateCvForm
+            buttonLabel={t.dashboard.importCv}
+            size="lg"
+            variant="outline"
+            initialMode="import"
+            leftIcon={<UploadIcon className="size-4" />}
           />
         </div>
       </CardContent>

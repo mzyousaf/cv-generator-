@@ -1,70 +1,47 @@
 "use client";
 
+import { useState, type ReactNode } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
-import { localizeServerMessage } from "@/lib/i18n/server-messages";
-
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { createCvAction } from "@/lib/cv/actions";
-import { DEFAULT_TEMPLATE_FOR_LOCALE } from "@/lib/cv/template-catalog";
+import {
+  CreateCvModal,
+  type CreateCvMode,
+} from "@/components/dashboard/create-cv-modal";
 import { Button, type ButtonSize, type ButtonVariant } from "@/components/ui/button";
-import { FormMessage } from "@/components/ui/form-message";
 
 type CreateCvFormProps = {
   buttonLabel?: string;
-  loadingText?: string;
   size?: ButtonSize;
   variant?: ButtonVariant;
   className?: string;
+  /** Which option the create dialog opens on. */
+  initialMode?: CreateCvMode;
+  leftIcon?: ReactNode;
 };
 
+/** Button that opens the "Create a new CV" dialog (describe with AI, import, blank). */
 export function CreateCvForm({
   buttonLabel,
-  loadingText,
   size = "md",
   variant = "primary",
   className,
+  initialMode = "describe",
+  leftIcon,
 }: CreateCvFormProps) {
-  const { t, locale } = useI18n();
-  const router = useRouter();
-  const [isCreating, setIsCreating] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  async function handleCreate() {
-    if (isCreating) {
-      return;
-    }
-    setIsCreating(true);
-    setError(null);
-
-    const result = await createCvAction({
-      title: t.dashboard.untitled,
-      template: DEFAULT_TEMPLATE_FOR_LOCALE[locale],
-      content: { documentLocale: locale },
-    });
-    setIsCreating(false);
-
-    if (!result.success) {
-      setError(localizeServerMessage(t, result.error.message));
-      return;
-    }
-
-    router.push(`/dashboard/cv/${result.data.id}`);
-  }
+  const { t } = useI18n();
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className={`space-y-2 ${className ?? ""}`.trim()}>
+    <div className={className}>
       <Button
         type="button"
         variant={variant}
         size={size}
-        onClick={() => void handleCreate()}
-        isLoading={isCreating}
-        loadingText={loadingText ?? t.dashboard.creating}
+        leftIcon={leftIcon}
+        onClick={() => setOpen(true)}
       >
         {buttonLabel ?? t.dashboard.createNew}
       </Button>
-      {error ? <FormMessage>{error}</FormMessage> : null}
+      {open ? <CreateCvModal initialMode={initialMode} onClose={() => setOpen(false)} /> : null}
     </div>
   );
 }

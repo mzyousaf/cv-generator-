@@ -27,6 +27,7 @@ import {
   type AddSectionMode,
 } from "@/components/cv-builder/add-section-modal";
 import { addCustomSection } from "@/lib/cv/custom-sections";
+import { useMobileSectionRoute } from "@/components/cv-builder/use-mobile-section-route";
 import { scrollToBuilderSection } from "@/lib/cv/builder-section-nav";
 import { customSectionKey } from "@/lib/cv/section-settings";
 import { TemplatePickerModal } from "@/components/cv-builder/template-picker-modal";
@@ -60,6 +61,7 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
   const [isExporting, setIsExporting] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [addSectionMode, setAddSectionMode] = useState<AddSectionMode | null>(null);
+  const mobileRoute = useMobileSectionRoute(state);
   const [templatesOpen, setTemplatesOpen] = useState(false);
   const [mobilePane, setMobilePane] = useState<BuilderMobilePane>("edit");
   const autosaveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -141,8 +143,16 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
     setState(added.state);
     setAddSectionMode(null);
     setMobilePane("edit");
-    // Wait for the new card to render before scrolling to it.
-    setTimeout(() => scrollToBuilderSection(customSectionKey(added.id)), 80);
+    const key = customSectionKey(added.id);
+    // Wait for the new card to render, then show it: phones/tablets open its
+    // detail screen, desktop scrolls to it.
+    setTimeout(() => {
+      if (window.matchMedia("(max-width: 1279.98px)").matches) {
+        mobileRoute.open(key);
+      } else {
+        scrollToBuilderSection(key);
+      }
+    }, 80);
   }
 
   function handleTemplateChange(templateId: CvTemplateId) {
@@ -219,7 +229,12 @@ export function CvBuilder({ cvId, initialCv }: CvBuilderProps) {
             mobilePane === "preview" && "hidden xl:block",
           )}
         >
-          <BuilderEditor state={state} onChange={setState} onAddSection={setAddSectionMode} />
+          <BuilderEditor
+            state={state}
+            onChange={setState}
+            onAddSection={setAddSectionMode}
+            mobile={mobileRoute}
+          />
         </div>
 
         <BuilderPreviewPanel

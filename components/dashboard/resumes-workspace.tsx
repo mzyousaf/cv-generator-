@@ -6,6 +6,7 @@ import { CreateCvForm } from "@/components/cv-builder/create-cv-form";
 import { ResumeCard } from "@/components/dashboard/resume-card";
 import { ResumeEmptyState } from "@/components/dashboard/resume-empty-state";
 import { ResumeUploadDropzone } from "@/components/dashboard/resume-upload-dropzone";
+import { UploadIcon } from "@/components/dashboard/icons";
 import { FormMessage } from "@/components/ui/form-message";
 import type { CvRecord } from "@/lib/cv/serialize";
 
@@ -48,11 +49,19 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
               {t.dashboard.subtitle}
             </p>
           </div>
-          <div className="shrink-0">
+          <div className="flex shrink-0 flex-wrap gap-2.5">
             <CreateCvForm
               buttonLabel={t.dashboard.createNew}
               size="lg"
               variant="inverse"
+            />
+            <CreateCvForm
+              buttonLabel={t.dashboard.importCv}
+              size="lg"
+              variant="outline"
+              initialMode="import"
+              leftIcon={<UploadIcon className="size-4" />}
+              className="[&_button]:border-white/25 [&_button]:bg-white/10 [&_button]:text-white [&_button]:hover:bg-white/20"
             />
           </div>
         </div>

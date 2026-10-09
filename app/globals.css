@@ -147,7 +147,8 @@ html[lang="zh"] .font-display {
  * read these variables, so overriding them here tones down every card, input,
  * button and dialog inside the editor without touching the rest of the site.
  */
-.builder-ui {
+.builder-ui,
+body:has(.builder-ui) [role="dialog"] {
   --radius-md: 0.3125rem;
   --radius-lg: 0.375rem;
   --radius-xl: 0.4375rem;

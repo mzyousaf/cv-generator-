@@ -19,7 +19,7 @@ import {
   toggleSectionVisibility,
   type SectionKey,
 } from "@/lib/cv/section-settings";
-import { builderSectionDomId } from "@/lib/cv/builder-section-nav";
+import { builderSectionDomId, type BuilderNavKey } from "@/lib/cv/builder-section-nav";
 import { removeCustomSection } from "@/lib/cv/custom-sections";
 import {
   CollapsibleEntryCard,
@@ -30,7 +30,10 @@ import {
   TextArea,
   TextInput,
 } from "@/components/cv-builder/form-primitives";
-import { BuilderMobileSectionsMenu } from "@/components/cv-builder/builder-mobile-sections-menu";
+import {
+  MobileSectionDetailBar,
+  MobileSectionList,
+} from "@/components/cv-builder/mobile-section-nav";
 import { SkillsEditor } from "@/components/cv-builder/skills-editor";
 import { PhotoField } from "@/components/cv-builder/photo-field";
 import { SummaryAiControls } from "@/components/cv-builder/ai/summary-ai-controls";
@@ -47,11 +50,19 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEntrySummaryLabels } from "@/components/cv-builder/use-entry-summary-labels";
 import { format } from "@/lib/i18n/format";
+import { cn } from "@/lib/cn";
 
 type BuilderEditorProps = {
   state: CvBuilderFormState;
   onChange: (next: CvBuilderFormState) => void;
   onAddSection: (mode: AddSectionMode) => void;
+  /** Phones/tablets show one section at a time; null shows the section list. */
+  mobile: {
+    current: BuilderNavKey | null;
+    open: (key: BuilderNavKey) => void;
+    go: (key: BuilderNavKey) => void;
+    back: () => void;
+  };
 };
 
 
@@ -86,7 +97,7 @@ function useExpandedEntries() {
   return { expand, toggle, isExpanded };
 }
 
-export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorProps) {
+export function BuilderEditor({ state, onChange, onAddSection, mobile }: BuilderEditorProps) {
   const { t } = useI18n();
   const { expand, toggle, isExpanded } = useExpandedEntries();
   const summaryLabels = useEntrySummaryLabels();
@@ -101,11 +112,14 @@ export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorPr
   }
 
   /** Wrapper props placing a section card at its position in the user's order. */
-  function slot(sectionId: SectionKey) {
+  function slot(sectionId: SectionKey | "personal") {
     return {
       id: builderSectionDomId(sectionId),
-      className: "scroll-mt-[calc(var(--builder-header-h,7.5rem)+4.5rem)] xl:scroll-mt-28",
-      style: { order: sectionOrder.indexOf(sectionId) + 1 },
+      className: cn(
+        "scroll-mt-[calc(var(--builder-header-h,7.5rem)+4.5rem)] xl:scroll-mt-28",
+        mobile.current !== sectionId && "max-xl:hidden",
+      ),
+      style: { order: sectionId === "personal" ? 0 : sectionOrder.indexOf(sectionId) + 1 },
     };
   }
 
@@ -134,13 +148,29 @@ export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorPr
 
   return (
     <div className="space-y-4">
-      {/* Pinned under the header so the section list is reachable while scrolling. */}
-      <div className="sticky top-[var(--builder-header-h,7.5rem)] z-20 -mx-4 border-b border-slate-200/60 bg-background/95 px-4 py-2 backdrop-blur xl:hidden">
-        <BuilderMobileSectionsMenu state={state} onChange={onChange} onAddSection={onAddSection} />
-      </div>
+      {/* Phones/tablets: section list first, then one section per screen. */}
+      {mobile.current === null ? (
+        <div className="xl:hidden">
+          <MobileSectionList
+            state={state}
+            onChange={onChange}
+            onOpen={mobile.open}
+            onAddSection={onAddSection}
+          />
+        </div>
+      ) : (
+        <div className="sticky top-[var(--builder-header-h,7.5rem)] z-20 -mx-4 border-b border-slate-200/60 bg-background/95 px-4 py-2 backdrop-blur xl:hidden">
+          <MobileSectionDetailBar
+            state={state}
+            sectionKey={mobile.current}
+            onBack={mobile.back}
+            onGo={mobile.go}
+          />
+        </div>
+      )}
 
       <div className="flex flex-col gap-4">
-      <div id="builder-section-personal" className="scroll-mt-[calc(var(--builder-header-h,7.5rem)+4.5rem)] xl:scroll-mt-28" style={{ order: 0 }}>
+      <div {...slot("personal")}>
       <SectionCard
         title={t.sections.personal}
         description={t.editor.descriptions.personal}
@@ -992,7 +1022,7 @@ export function BuilderEditor({ state, onChange, onAddSection }: BuilderEditorPr
         );
       })}
 
-      <div style={{ order: 1000 }}>
+      <div style={{ order: 1000 }} className="max-xl:hidden">
         <div className="flex flex-col items-stretch gap-2 rounded-xl border border-dashed border-slate-300 bg-surface/60 p-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
             <p className="text-sm font-semibold text-slate-900">{t.builder.addSectionTitle}</p>

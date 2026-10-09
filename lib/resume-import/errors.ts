@@ -9,6 +9,7 @@ export const RESUME_IMPORT_ERROR_CODES = {
   AI_NOT_CONFIGURED: "AI_NOT_CONFIGURED",
   AI_UNAVAILABLE: "AI_UNAVAILABLE",
   TEXT_TOO_SHORT: "TEXT_TOO_SHORT",
+  DESCRIPTION_TOO_SHORT: "DESCRIPTION_TOO_SHORT",
   MALFORMED_PARSE: "MALFORMED_PARSE",
   PARSING_FAILED: "PARSING_FAILED",
   PARSING_TIMEOUT: "PARSING_TIMEOUT",
@@ -56,6 +57,8 @@ export const RESUME_IMPORT_ERROR_MESSAGES: Record<
     "We couldn't reach the parsing service. Wait a moment and try again.",
   TEXT_TOO_SHORT:
     "This file did not contain enough text to import. Try a text-based PDF or DOCX file.",
+  DESCRIPTION_TOO_SHORT:
+    "Tell us a bit more about yourself (a few sentences at least) so AI can build your resume.",
   MALFORMED_PARSE:
     "We couldn't read the parsed resume data. Try importing again or choose another file.",
   PARSING_FAILED:

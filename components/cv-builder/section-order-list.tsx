@@ -45,11 +45,17 @@ import {
 import { format } from "@/lib/i18n/format";
 import { cn } from "@/lib/cn";
 
+export type SectionListVariant = "compact" | "cards";
+
 type SectionOrderListProps = {
   state: CvBuilderFormState;
   onChange: (next: CvBuilderFormState) => void;
   onNavigate: (key: BuilderNavKey) => void;
   activeDomId?: string;
+  /** "cards": large touch rows with a status line and chevron (mobile list). */
+  variant?: SectionListVariant;
+  /** Short status under each name in the cards variant (e.g. "3 entries"). */
+  subtitleOf?: (key: BuilderNavKey) => string;
 };
 
 type RowProps = {
@@ -59,14 +65,76 @@ type RowProps = {
   hidden: boolean;
   onNavigate: () => void;
   onToggleHidden?: () => void;
+  variant: SectionListVariant;
+  subtitle?: string;
 };
 
 // Rows align to the first line so long (wrapped) labels keep icon, handle and toggle level with the text.
 const rowClass = "group/row relative flex items-start gap-0.5 rounded-md border border-transparent";
+const cardRowClass =
+  "group/row relative flex items-center gap-1 rounded-lg border border-slate-200/80 bg-surface py-1 pe-1 ps-1 shadow-[0_1px_2px_rgb(15_23_42/0.04)]";
+
+function rowClasses(variant: SectionListVariant) {
+  return variant === "cards" ? cardRowClass : rowClass;
+}
 
 /** Name (scrolls to the section) and visibility toggle, shared by all rows. */
-function RowBody({ sectionKey, label, active, hidden, onNavigate, onToggleHidden }: RowProps) {
+function RowBody({
+  sectionKey,
+  label,
+  active,
+  hidden,
+  onNavigate,
+  onToggleHidden,
+  variant,
+  subtitle,
+}: RowProps) {
   const { t } = useI18n();
+  if (variant === "cards") {
+    return (
+      <>
+        <button
+          type="button"
+          onClick={onNavigate}
+          className="flex min-h-14 min-w-0 flex-1 cursor-pointer items-center gap-3 rounded-md px-2 py-2 text-start focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        >
+          <span
+            className={cn(
+              "flex size-9 shrink-0 items-center justify-center rounded-md",
+              hidden ? "bg-slate-100 text-slate-400" : "bg-blue-50 text-blue-600",
+            )}
+          >
+            <BuilderSectionIcon sectionId={sectionKey} className="size-[18px]" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span
+              className={cn(
+                "block break-words text-[15px] font-semibold leading-snug text-slate-900",
+                hidden && "text-slate-400 line-through decoration-slate-300",
+              )}
+            >
+              {label}
+            </span>
+            {subtitle ? (
+              <span className="mt-0.5 block truncate text-xs text-slate-500">{subtitle}</span>
+            ) : null}
+          </span>
+          <ChevronIcon className="size-4 shrink-0 text-slate-400 rtl:-scale-x-100" />
+        </button>
+        {onToggleHidden ? (
+          <button
+            type="button"
+            onClick={onToggleHidden}
+            aria-pressed={hidden}
+            aria-label={format(hidden ? t.builder.showSection : t.builder.hideSection, { label })}
+            className="flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-md text-slate-400 hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+          >
+            <EyeIcon className="size-[18px]" off={hidden} />
+          </button>
+        ) : null}
+      </>
+    );
+  }
   return (
     <>
       <button
@@ -106,10 +174,19 @@ function RowBody({ sectionKey, label, active, hidden, onNavigate, onToggleHidden
   );
 }
 
-function PinnedSectionRow(props: RowProps) {
+function ChevronIcon({ className }: { className?: string }) {
   return (
-    <li className={cn(rowClass, props.active && "bg-blue-50/80")}>
-      <span className="w-6 shrink-0" aria-hidden="true" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="m9 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+function PinnedSectionRow(props: RowProps) {
+  const cards = props.variant === "cards";
+  return (
+    <li className={cn(rowClasses(props.variant), !cards && props.active && "bg-blue-50/80")}>
+      <span className={cards ? "w-8 shrink-0" : "w-6 shrink-0"} aria-hidden="true" />
       <RowBody {...props} />
     </li>
   );
@@ -125,10 +202,10 @@ function SortableSectionRow(props: RowProps & { sectionKey: SectionKey }) {
       ref={setNodeRef}
       style={{ transform: CSS.Translate.toString(transform), transition }}
       className={cn(
-        rowClass,
+        rowClasses(props.variant),
         isDragging &&
           "z-10 border-slate-200 bg-surface shadow-[0_8px_24px_-8px_rgb(15_23_42/0.25)]",
-        props.active && !isDragging && "bg-blue-50/80",
+        props.variant === "compact" && props.active && !isDragging && "bg-blue-50/80",
       )}
     >
       <button
@@ -139,7 +216,8 @@ function SortableSectionRow(props: RowProps & { sectionKey: SectionKey }) {
         aria-label={format(t.builder.dragLabel, { label: props.label })}
         title={t.builder.dragToReorder}
         className={cn(
-          "flex h-8 w-6 shrink-0 cursor-grab touch-none items-center justify-center rounded text-slate-300 transition-colors hover:bg-slate-100 hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:cursor-grabbing",
+          props.variant === "cards" ? "flex h-11 w-8 shrink-0 cursor-grab touch-none" : "flex h-8 w-6 shrink-0 cursor-grab touch-none",
+          "items-center justify-center rounded text-slate-300 transition-colors hover:bg-slate-100 hover:text-slate-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 active:cursor-grabbing",
           isDragging && "cursor-grabbing text-slate-600",
         )}
       >
@@ -156,6 +234,8 @@ export function SectionOrderList({
   onChange,
   onNavigate,
   activeDomId,
+  variant = "compact",
+  subtitleOf,
 }: SectionOrderListProps) {
   const { t } = useI18n();
   const dndId = useId();
@@ -215,12 +295,14 @@ export function SectionOrderList({
       }}
     >
       <SortableContext items={sortableKeys} strategy={verticalListSortingStrategy}>
-        <ul className="relative space-y-0.5">
+        <ul className={cn("relative", variant === "cards" ? "space-y-2" : "space-y-0.5")}>
           {keys.map((key) => {
             const common = {
               label: labelOf(key),
               active: activeDomId === builderSectionDomId(key),
               onNavigate: () => onNavigate(key),
+              variant,
+              subtitle: subtitleOf?.(key),
             };
             if (key === "personal") {
               return <PinnedSectionRow key={key} sectionKey={key} hidden={false} {...common} />;
