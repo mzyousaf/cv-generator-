@@ -11,8 +11,8 @@ import {
 import { bandTitleColor, type RegionalTemplateSpec } from "@/lib/cv/template-catalog";
 
 const FONT_STACK = {
-  sans: 'var(--font-jakarta), var(--font-arabic), "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Helvetica, Arial, sans-serif',
-  serif: 'Georgia, "Times New Roman", var(--font-arabic), "Songti SC", "Noto Serif SC", serif',
+  sans: 'var(--font-jakarta), var(--font-cyrillic), var(--font-arabic), "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Helvetica, Arial, sans-serif',
+  serif: 'Georgia, "Times New Roman", var(--font-cyrillic), var(--font-arabic), "Songti SC", "Noto Serif SC", serif',
 } as const;
 
 const PAGE_SIZE = {
