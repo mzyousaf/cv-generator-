@@ -21,7 +21,7 @@ export function AuthShell({
 }: AuthShellProps) {
   const { t } = useI18n();
   return (
-    <main className="grid flex-1 bg-background lg:grid-cols-[1fr_1.1fr]">
+    <main className="grid flex-1 grid-cols-[minmax(0,1fr)] bg-background lg:grid-cols-[1fr_1.1fr]">
       <aside className="scheme-light relative isolate hidden overflow-hidden bg-ink-mesh px-12 py-12 text-white lg:flex lg:flex-col">
         <div
           className="absolute inset-0 -z-10 bg-grid-faint [mask-image:radial-gradient(ellipse_at_top_left,black_25%,transparent_70%)]"
@@ -67,28 +67,31 @@ export function AuthShell({
         <p className="text-xs text-slate-500">{t.auth.shellNote}</p>
       </aside>
 
-      <div className="relative flex flex-col items-center justify-center px-4 py-12 sm:px-6">
+      {/* Phones: logo and preferences share a top row and the form starts below it,
+          so login and signup line up. Desktop: a fixed top offset keeps both
+          headings at the same height (centring would move them). */}
+      <div className="relative flex flex-col items-center px-4 py-6 sm:px-6 lg:py-12 lg:pt-[16vh]">
         <div
           className="absolute inset-x-0 top-0 h-72 bg-dots-soft [mask-image:linear-gradient(to_bottom,black,transparent)]"
           aria-hidden="true"
         />
-        <div className="absolute end-4 top-4 z-20 sm:end-6 sm:top-6">
-          <PreferencesMenu />
-        </div>
-        <div className="relative w-full max-w-md">
+        <div className="relative z-20 mb-10 flex w-full max-w-md items-center justify-between gap-3 lg:absolute lg:end-6 lg:top-6 lg:mb-0 lg:w-auto lg:max-w-none">
           <Link
             href="/"
-            className="mb-10 flex w-fit rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 lg:hidden"
+            className="flex w-fit rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 lg:hidden"
           >
             <Logo />
           </Link>
+          <PreferencesMenu />
+        </div>
+        <div className="relative w-full max-w-md">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-[-0.025em] text-slate-950">
               {title}
             </h1>
             <p className="text-slate-500">{description}</p>
           </div>
-          <div className="mt-8 rounded-3xl border border-slate-200/70 bg-surface p-6 shadow-lift sm:p-8">
+          <div className="mt-8 rounded-3xl border border-slate-200/70 bg-surface p-5 shadow-lift sm:p-8">
             {children}
           </div>
           <div className="mt-6 text-center text-sm text-slate-500">{footer}</div>

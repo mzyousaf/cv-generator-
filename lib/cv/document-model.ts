@@ -49,11 +49,9 @@ export type RegionalDocumentModel = {
   sections: DocSection[];
 };
 
-const SIDE_SECTIONS: ReadonlySet<ManageableSectionId> = new Set([
-  "skills",
-  "languages",
-  "certifications",
-]);
+// Certifications stay in the main column: they read like dated entries, and
+// keeping them there balances the main column against the sidebar.
+const SIDE_SECTIONS: ReadonlySet<ManageableSectionId> = new Set(["skills", "languages"]);
 
 function sectionTitle(
   id: ManageableSectionId,

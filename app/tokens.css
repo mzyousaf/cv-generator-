@@ -208,7 +208,10 @@ html[data-theme="sunset"] {
   --red-950: oklch(25.8% 0.092 26.042);
 }
 
-html[data-mode="dark"] {
+/* `.scheme-follow` re-applies the page mode inside a `.scheme-light` island,
+   e.g. a popover opened from the always-dark sidebar. */
+html[data-mode="dark"],
+html[data-mode="dark"] .scheme-follow {
   color-scheme: dark;
   --surface: #11152a;
   --background: #090c1a;

@@ -1,6 +1,7 @@
 import path from "node:path";
 import { Font } from "@react-pdf/renderer";
 import type { Locale } from "@/lib/i18n/preferences";
+import { breakWord } from "@/lib/pdf/text-shaping";
 
 const FONT_DIR = path.join(process.cwd(), "lib", "pdf", "fonts");
 
@@ -11,11 +12,17 @@ const FAMILIES = {
   Chinese: "NotoSansSC",
 } as const;
 
-let registered = false;
 
-/** Register bundled TTF fonts once per server process. */
+/**
+ * Register bundled TTF fonts once per server process. The check reads
+ * react-pdf's own (singleton) store rather than a module flag: a module
+ * re-evaluated by hot reload would otherwise register every face again,
+ * and duplicate faces garble glyph mappings in later documents.
+ */
 export function registerPdfFonts(): void {
-  if (registered) {
+  // Words are never hyphenated; CJK text may break between characters.
+  Font.registerHyphenationCallback(breakWord);
+  if (Font.getRegisteredFontFamilies().includes(FAMILIES.NotoSans)) {
     return;
   }
   const file = (name: string) => path.join(FONT_DIR, `${name}.ttf`);
@@ -27,16 +34,12 @@ export function registerPdfFonts(): void {
         { src: file(`${base}-Regular`) },
         { src: file(`${base}-Bold`), fontWeight: 700 },
         { src: file(italic), fontStyle: "italic" },
-        { src: file(italic), fontStyle: "italic", fontWeight: 700 },
       ],
     });
   family(FAMILIES.NotoSans, "NotoSans", "NotoSans-Italic");
   family(FAMILIES.NotoSerif, "NotoSerif", "NotoSerif-Italic");
   family(FAMILIES.Arabic, "IBMPlexSansArabic");
   family(FAMILIES.Chinese, "NotoSansSC");
-  // Keep words intact; CV text should never be hyphenated mid-word.
-  Font.registerHyphenationCallback((word) => [word]);
-  registered = true;
 }
 
 /**

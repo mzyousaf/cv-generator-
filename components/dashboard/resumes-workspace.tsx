@@ -6,7 +6,7 @@ import { CreateCvForm } from "@/components/cv-builder/create-cv-form";
 import { ResumeCard } from "@/components/dashboard/resume-card";
 import { ResumeEmptyState } from "@/components/dashboard/resume-empty-state";
 import { ResumeUploadDropzone } from "@/components/dashboard/resume-upload-dropzone";
-import { UploadIcon } from "@/components/dashboard/icons";
+import { PlusIcon, UploadIcon } from "@/components/dashboard/icons";
 import { FormMessage } from "@/components/ui/form-message";
 import type { CvRecord } from "@/lib/cv/serialize";
 
@@ -37,7 +37,7 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
           className="absolute inset-0 -z-10 bg-grid-faint [mask-image:radial-gradient(ellipse_at_top_right,black_20%,transparent_70%)]"
           aria-hidden="true"
         />
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
           <div className="min-w-0 max-w-2xl">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
               {t.dashboard.eyebrow}
@@ -49,11 +49,13 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
               {t.dashboard.subtitle}
             </p>
           </div>
-          <div className="flex shrink-0 flex-wrap gap-2.5">
+          {/* Full-width, equal buttons on phones; side by side from sm. */}
+          <div className="grid shrink-0 grid-cols-1 gap-2.5 sm:flex sm:flex-wrap [&_button]:w-full sm:[&_button]:w-auto">
             <CreateCvForm
               buttonLabel={t.dashboard.createNew}
               size="lg"
               variant="inverse"
+              leftIcon={<PlusIcon className="size-4" />}
             />
             <CreateCvForm
               buttonLabel={t.dashboard.importCv}
@@ -66,23 +68,24 @@ export function ResumesWorkspace({ resumes, listError }: ResumesWorkspaceProps) 
           </div>
         </div>
         <dl className="mt-8 grid max-w-md grid-cols-2 gap-3">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
-            <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+          <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:tracking-wider">
               {t.dashboard.statResumes}
             </dt>
-            <dd className="mt-1 text-2xl font-bold">{sortedResumes.length}</dd>
+            <dd className="mt-1 text-xl font-bold sm:text-2xl">{sortedResumes.length}</dd>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
-            <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+          <div className="flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 backdrop-blur">
+            <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:tracking-wider">
               {t.dashboard.statLastEdited}
             </dt>
-            <dd className="mt-1 text-2xl font-bold">{lastEdited}</dd>
+            <dd className="mt-1 whitespace-nowrap text-xl font-bold sm:text-2xl">{lastEdited}</dd>
           </div>
         </dl>
       </header>
 
       <section className="mt-8 space-y-8">
-        <ResumeUploadDropzone />
+        {/* With no resumes yet, the empty state below carries the import action. */}
+        {hasResumes ? <ResumeUploadDropzone /> : null}
 
         {listError ? <FormMessage>{localizeServerMessage(t, listError)}</FormMessage> : null}
 

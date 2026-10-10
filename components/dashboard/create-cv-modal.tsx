@@ -19,6 +19,31 @@ import { cn } from "@/lib/cn";
 export type CreateCvMode = "describe" | "import" | "blank";
 
 const MODES: CreateCvMode[] = ["describe", "import", "blank"];
+
+/** One icon per tab so the three labels stay short and visually balanced. */
+function CreateModeIcon({ mode, active }: { mode: CreateCvMode; active: boolean }) {
+  // Phones show text-only tabs so every label fits on one line in every language.
+  const className = cn("hidden size-4 shrink-0 sm:block", active ? "text-blue-600" : "text-slate-400");
+  if (mode === "describe") {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 20 20" className={className} fill="currentColor">
+        <path d="M10 2l1.6 4.4L16 8l-4.4 1.6L10 14l-1.6-4.4L4 8l4.4-1.6zM15.5 12.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z" />
+      </svg>
+    );
+  }
+  if (mode === "import") {
+    return (
+      <svg aria-hidden="true" viewBox="0 0 20 20" className={className} fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 13V3M6 7l4-4 4 4M4 13v2.5A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5V13" />
+      </svg>
+    );
+  }
+  return (
+    <svg aria-hidden="true" viewBox="0 0 20 20" className={className} fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M11.5 2.5H6A1.5 1.5 0 0 0 4.5 4v12A1.5 1.5 0 0 0 6 17.5h8a1.5 1.5 0 0 0 1.5-1.5V6.5zM11.5 2.5v4h4" />
+    </svg>
+  );
+}
 const DESCRIPTION_MAX_LENGTH = 20_000;
 
 type CreateCvModalProps = {
@@ -88,7 +113,7 @@ export function CreateCvModal({ initialMode, onClose }: CreateCvModalProps) {
       <div
         role="tablist"
         aria-label={copy.title}
-        className="mb-5 grid grid-cols-3 gap-1 rounded-lg bg-slate-100 p-1"
+        className="mb-5 flex gap-1 rounded-lg bg-slate-100 p-1"
       >
         {MODES.map((item) => (
           <button
@@ -102,18 +127,14 @@ export function CreateCvModal({ initialMode, onClose }: CreateCvModalProps) {
               setError(null);
             }}
             className={cn(
-              "flex min-h-10 cursor-pointer items-center justify-center gap-1.5 rounded-md px-2 py-2 text-center text-xs font-semibold leading-tight transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed sm:text-sm",
+              "flex min-h-10 min-w-0 flex-auto cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-1.5 py-2 text-sm font-semibold sm:px-3 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:cursor-not-allowed",
               mode === item
                 ? "bg-surface text-slate-950 shadow-sm"
                 : "text-slate-600 hover:text-slate-900",
             )}
           >
-            {item === "describe" ? (
-              <span aria-hidden="true" className="text-blue-600">
-                ✦
-              </span>
-            ) : null}
-            {copy.tabs[item]}
+            <CreateModeIcon mode={item} active={mode === item} />
+            <span className="truncate">{copy.tabs[item]}</span>
           </button>
         ))}
       </div>
@@ -178,7 +199,7 @@ export function CreateCvModal({ initialMode, onClose }: CreateCvModalProps) {
             <Button
               type="button"
               variant="outline"
-              className="mt-4"
+              className="mt-4 w-full sm:w-auto"
               isLoading={busy === "blank"}
               loadingText={t.dashboard.creating}
               onClick={() => void createBlank()}

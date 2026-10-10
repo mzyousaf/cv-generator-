@@ -1,6 +1,8 @@
+import { AsyncLocalStorage } from "node:async_hooks";
 import type { ReactNode } from "react";
 import { Text } from "@react-pdf/renderer";
 import type { Style } from "@react-pdf/types";
+import { upperCase } from "@/lib/pdf/text-shaping";
 
 /** Layout helpers for a document direction (react-pdf has no RTL flexbox). */
 export function pdfDir(dir: "ltr" | "rtl") {
@@ -39,6 +41,20 @@ export function textDirection(children: ReactNode): "ltr" | "rtl" {
   return "ltr";
 }
 
+/**
+ * Language of the PDF being rendered, so upper-casing follows its rules
+ * (Turkish i → İ, not I). Set per render by `withPdfLanguage`.
+ */
+const pdfLanguage = new AsyncLocalStorage<string>();
+
+export function withPdfLanguage<T>(language: string, render: () => T): T {
+  return pdfLanguage.run(language, render);
+}
+
+function flatten(style: Style | Style[] | undefined): Style {
+  return Array.isArray(style) ? Object.assign({}, ...style) : (style ?? {});
+}
+
 type DirTextProps = {
   style?: Style | Style[];
   children?: ReactNode;
@@ -47,8 +63,25 @@ type DirTextProps = {
 
 /** Text whose bidi direction follows its content (Arabic runs right-to-left). */
 export function DirText({ style, children, ...props }: DirTextProps) {
-  const base: Style = { direction: textDirection(children) };
+  const language = pdfLanguage.getStore() ?? "en";
+  const direction = textDirection(children);
+  const base: Style = { direction };
   const merged: Style[] = Array.isArray(style) ? [base, ...style] : [base, style ?? {}];
+  if (direction === "rtl") {
+    // Letter-spacing pulls joined Arabic letters apart.
+    merged.push({ letterSpacing: 0 });
+  }
+  // react-pdf upper-cases with String#toUpperCase, which ignores the language;
+  // do it here with the document's locale instead. This covers a string child
+  // whose own style upper-cases it, which is how every template uses it;
+  // upper-casing inherited from a parent Text still goes through react-pdf.
+  if (typeof children === "string" && flatten(style).textTransform === "uppercase") {
+    return (
+      <Text {...props} style={[...merged, { textTransform: "none" }]}>
+        {upperCase(children, language)}
+      </Text>
+    );
+  }
   return (
     <Text {...props} style={merged}>
       {children}

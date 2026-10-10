@@ -3,16 +3,25 @@ import { describe, it } from "node:test";
 import { buildCvDocumentView } from "@/components/cv-templates/view-model";
 import { templatePreviewSample } from "@/components/cv-templates/sample-preview-state";
 import { formatDateRange } from "@/components/cv-templates/utils/format-dates";
-import { CV_TEMPLATE_IDS, REGIONAL_TEMPLATE_IDS } from "@/lib/cv/constants";
+import { CV_TEMPLATE_IDS, REGIONAL_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
 import { CV_DOCUMENT_LABELS } from "@/lib/cv/document-labels";
 import { buildRegionalDocumentModel } from "@/lib/cv/document-model";
 import {
+  browseTemplates,
   DEFAULT_TEMPLATE_FOR_LOCALE,
   getRegionalTemplateSpec,
   recommendedTemplateIds,
+  REGION_COUNTRIES,
+  TEMPLATE_COUNTRIES,
   REGIONAL_TEMPLATES,
+  TEMPLATE_PROFILE,
+  TEMPLATE_REGIONS,
+  TEMPLATE_STYLES,
+  templateFacets,
+  templateRegion,
 } from "@/lib/cv/template-catalog";
-import { LOCALES } from "@/lib/i18n/preferences";
+import { getDictionary } from "@/lib/i18n/dictionaries";
+import { LOCALES, type Locale } from "@/lib/i18n/preferences";
 
 describe("regional template catalog", () => {
   it("has exactly one spec per regional template id", () => {
@@ -69,5 +78,138 @@ describe("CV document language", () => {
     const us = buildRegionalDocumentModel(view, getRegionalTemplateSpec("us-resume")!);
     assert.deepEqual(lebenslauf.details.map((pair) => pair.label), ["Geburtsdatum", "Staatsangehörigkeit"]);
     assert.deepEqual(us.details, []);
+  });
+});
+
+describe("template gallery", () => {
+  const contrastOnWhite = (hex: string) => {
+    const channel = (value: number) => {
+      const c = value / 255;
+      return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    };
+    const n = Number.parseInt(hex.slice(1), 16);
+    const luminance =
+      0.2126 * channel((n >> 16) & 255) + 0.7152 * channel((n >> 8) & 255) + 0.0722 * channel(n & 255);
+    return 1.05 / (luminance + 0.05);
+  };
+
+  it("has a style and popularity for every template", () => {
+    for (const id of CV_TEMPLATE_IDS) {
+      const profile = TEMPLATE_PROFILE[id];
+      assert.ok(profile, `${id} has a profile`);
+      assert.ok(TEMPLATE_STYLES.includes(profile.style), `${id} style`);
+      assert.ok(profile.popularity >= 1 && profile.popularity <= 100, `${id} popularity`);
+    }
+  });
+
+  it("keeps every accent readable on the white page (3:1 or better)", () => {
+    for (const spec of REGIONAL_TEMPLATES) {
+      assert.ok(contrastOnWhite(spec.accent) >= 3, `${spec.id} accent ${spec.accent} is too light`);
+    }
+  });
+
+  it("covers every region with at least two templates", () => {
+    for (const region of TEMPLATE_REGIONS) {
+      const count = CV_TEMPLATE_IDS.filter((id) => templateFacets(id).region === region).length;
+      assert.ok(count >= 2, `${region} has ${count} templates`);
+    }
+  });
+
+  it("filters and sorts the gallery", () => {
+    const name = (id: string) => id;
+    const all = browseTemplates({}, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
+    assert.equal(all.length, CV_TEMPLATE_IDS.length);
+    for (let i = 1; i < all.length; i += 1) {
+      assert.ok(TEMPLATE_PROFILE[all[i - 1]].popularity >= TEMPLATE_PROFILE[all[i]].popularity);
+    }
+
+    const ats = browseTemplates({ ats: true }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
+    assert.ok(ats.length > 10 && ats.every((id) => templateFacets(id).ats));
+
+    const withPhoto = browseTemplates({ photo: "with" }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
+    assert.ok(withPhoto.every((id) => templateFacets(id).photo !== "none"));
+
+    const twoCol = browseTemplates({ columns: "two" }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
+    assert.ok(twoCol.length > 5 && twoCol.every((id) => templateFacets(id).columns === "two"));
+
+    const dach = browseTemplates({ region: "dach" }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS);
+    assert.ok(dach.includes("lebenslauf") && dach.includes("swiss-cv"));
+
+    assert.deepEqual(browseTemplates({ query: "swiss" }, "popular", { locale: "en", nameOf: name }, CV_TEMPLATE_IDS), ["swiss-cv"]);
+
+    const recommendedDe = browseTemplates({}, "recommended", { locale: "en", recommendFor: "de", nameOf: name }, CV_TEMPLATE_IDS);
+    assert.equal(templateFacets(recommendedDe[0]).region, "dach");
+  });
+
+  it("gives every template a distinct look, not just a different colour", () => {
+    // Only properties that change the layout count; accent colours and
+    // optional-vs-expected photo render alike, so they are left out.
+    const look = (spec: (typeof REGIONAL_TEMPLATES)[number]) => {
+      const photo = spec.photo !== "none";
+      switch (spec.layout) {
+        case "sidebar":
+          return [spec.layout, spec.heading, spec.font, spec.sidebarPosition ?? "start", photo];
+        case "europass":
+          return [spec.layout, spec.heading, spec.font, spec.compact, photo];
+        default:
+          return [spec.layout, spec.heading, Boolean(spec.headerBand), spec.headerAlign, spec.font, spec.compact, photo];
+      }
+    };
+    const seen = new Map<string, string>();
+    for (const spec of REGIONAL_TEMPLATES) {
+      const key = JSON.stringify(look(spec));
+      assert.equal(seen.get(key), undefined, `${spec.id} looks identical to ${seen.get(key)}`);
+      seen.set(key, spec.id);
+    }
+  });
+
+  it("searches names, descriptions and regions ignoring case and accents", () => {
+    const search = (query: string, locale: Locale) => {
+      const d = getDictionary(locale);
+      const countries = new Intl.DisplayNames([locale], { type: "region" });
+      const text = (id: CvTemplateId) =>
+        [
+          d.templateMeta[id].name,
+          d.templateMeta[id].description,
+          d.templatePicker.regions[templateRegion(id)],
+          ...REGION_COUNTRIES[templateRegion(id)].map((code) => countries.of(code)),
+        ].join(" ");
+      return browseTemplates(
+        { query },
+        "popular",
+        {
+          locale,
+          nameOf: (id) => d.templateMeta[id].name,
+          searchTextOf: text,
+          primaryTextOf: (id) =>
+            [d.templateMeta[id].name, ...(TEMPLATE_COUNTRIES[id] ?? []).map((code) => countries.of(code))].join(" "),
+        },
+        CV_TEMPLATE_IDS,
+      );
+    };
+
+    assert.ok(search("curriculum", "es").length >= 5);
+    assert.deepEqual(search("CURRÍCULUM", "es"), search("curriculum", "es"));
+    assert.ok(search("osterreich", "de").includes("austria-cv"));
+    assert.ok(search("germany", "en").includes("lebenslauf"));
+    assert.ok(search("italya", "tr").includes("italian-cv"));
+    assert.ok(search("IRLANDA", "es").length > 0);
+    assert.deepEqual(search("zzzz-nothing", "en"), []);
+    assert.ok(search("polska", "pl").includes("polish-cv"));
+    assert.ok(search("Poland", "en").includes("polish-cv"));
+    // Direct matches rank before region-wide ones.
+    assert.equal(search("Poland", "en")[0], "polish-cv");
+    assert.equal(search("Türkiye", "tr")[0], "turkish-cv");
+  });
+
+  it("renders every template in every language without throwing", () => {
+    for (const locale of LOCALES) {
+      const state = templatePreviewSample(locale);
+      for (const spec of REGIONAL_TEMPLATES) {
+        const view = buildCvDocumentView({ ...state, template: spec.id });
+        const model = buildRegionalDocumentModel(view, spec);
+        assert.ok(model.sections.length > 0, `${spec.id}/${locale}`);
+      }
+    }
   });
 });

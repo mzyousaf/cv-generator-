@@ -15,7 +15,7 @@ html[data-mode="dark"] {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-ink: var(--ink);
-  --font-sans: var(--font-jakarta), var(--font-arabic);
+  --font-sans: var(--font-jakarta), var(--font-cyrillic), var(--font-arabic);
   --font-display: var(--font-instrument);
   --font-brand: var(--font-syne);
   --font-mono: var(--font-geist-mono);
@@ -69,10 +69,19 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family:
-    var(--font-jakarta), var(--font-arabic), "PingFang SC", "Hiragino Sans GB",
+    var(--font-jakarta), var(--font-cyrillic), var(--font-arabic), "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
   font-feature-settings: "ss01", "cv11";
+}
+
+/* Russian UI: Plus Jakarta Sans has no Cyrillic, and its Arial-based fallback
+   face would claim Cyrillic before Noto Sans on machines with Arial. Only here
+   does Noto lead (next/font's Noto declares Latin faces too). */
+html[lang="ru"] body,
+html[lang="ru"] .font-sans {
+  font-family:
+    var(--font-cyrillic), var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 ::selection {
@@ -85,8 +94,9 @@ button:not(:disabled),
   cursor: pointer;
 }
 
-/* Latin display tracking is too tight for Arabic and CJK scripts. */
-html:is([lang="ar"], [lang="zh"]) [class*="tracking-["] {
+/* Latin display tracking is too tight for Arabic and CJK scripts. The CV paper
+   (a .scheme-light island with its own lang) follows the CV language instead. */
+html:is([lang="ar"], [lang="zh"]) [class*="tracking-["]:not(.scheme-light[lang] *) {
   letter-spacing: 0;
 }
 
@@ -95,8 +105,10 @@ html:is([lang="ar"], [lang="zh"]) [class*="tracking-["] {
   letter-spacing: 0 !important;
 }
 
+/* The display serif has no Arabic, CJK or Cyrillic glyphs: use the bold sans instead. */
 html[lang="ar"] .font-display,
-html[lang="zh"] .font-display {
+html[lang="zh"] .font-display,
+html[lang="ru"] .font-display {
   font-style: normal;
   font-family: inherit;
   font-weight: 700;

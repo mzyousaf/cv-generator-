@@ -13,6 +13,12 @@ const LANGUAGE_NAMES: Record<Locale, string> = {
   de: "German",
   ar: "Arabic",
   zh: "Simplified Chinese",
+  pt: "Portuguese",
+  it: "Italian",
+  nl: "Dutch",
+  pl: "Polish",
+  tr: "Turkish",
+  ru: "Russian",
 };
 
 type ValidationResult<T> = { ok: true; value: T } | { ok: false; message: string };

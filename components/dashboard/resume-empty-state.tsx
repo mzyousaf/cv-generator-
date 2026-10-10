@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { CreateCvForm } from "@/components/cv-builder/create-cv-form";
-import { UploadIcon } from "@/components/dashboard/icons";
+import { PlusIcon, UploadIcon } from "@/components/dashboard/icons";
 import { Card, CardContent } from "@/components/ui/card";
 
 function StackedDocs() {
@@ -39,10 +39,11 @@ export function ResumeEmptyState() {
         <p className="mt-3 max-w-md text-[0.95rem] leading-relaxed text-slate-500">
           {t.dashboard.emptyBody}
         </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-2.5">
+        <div className="mx-auto mt-8 grid max-w-sm grid-cols-1 gap-2.5 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center [&_button]:w-full sm:[&_button]:w-auto">
           <CreateCvForm
             buttonLabel={t.dashboard.createFirst}
             size="lg"
+            leftIcon={<PlusIcon className="size-4" />}
           />
           <CreateCvForm
             buttonLabel={t.dashboard.importCv}

@@ -1,5 +1,11 @@
 import type { Locale } from "@/lib/i18n/preferences";
 import type { LegalDocument } from "@/lib/legal/types";
+import * as it from "@/lib/legal/translations/it";
+import * as nl from "@/lib/legal/translations/nl";
+import * as pl from "@/lib/legal/translations/pl";
+import * as pt from "@/lib/legal/translations/pt";
+import * as ru from "@/lib/legal/translations/ru";
+import * as tr from "@/lib/legal/translations/tr";
 
 /** `{name}` is replaced with the product name when rendered. */
 export const TERMS_AND_CONDITIONS: Record<Locale, LegalDocument> = {
@@ -237,4 +243,10 @@ export const TERMS_AND_CONDITIONS: Record<Locale, LegalDocument> = {
       { p: "关于本条款的问题：[PLACEHOLDER：联系邮箱或支持渠道]。[PLACEHOLDER：如适用，填写法律实体名称及注册地址。]" },
     ],
   },
+  pt: pt.terms,
+  it: it.terms,
+  nl: nl.terms,
+  pl: pl.terms,
+  tr: tr.terms,
+  ru: ru.terms,
 };

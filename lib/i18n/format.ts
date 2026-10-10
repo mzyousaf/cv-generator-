@@ -7,3 +7,8 @@ export function format(
     key in values ? String(values[key]) : match,
   );
 }
+
+/** Space between words of a split heading: Chinese runs words together. */
+export function wordGap(locale: string): string {
+  return locale === "zh" ? "" : " ";
+}

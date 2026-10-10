@@ -5,6 +5,7 @@ import {
   type RegionalTemplateId,
 } from "@/lib/cv/constants";
 import type { Locale } from "@/lib/i18n/preferences";
+import { EXTENDED_TEMPLATES } from "@/lib/cv/template-collection";
 
 export const TEMPLATE_REGIONS = [
   "global",
@@ -12,15 +13,105 @@ export const TEMPLATE_REGIONS = [
   "uk",
   "dach",
   "france",
+  "nordics",
+  "southern-europe",
+  "benelux",
+  "eastern-europe",
   "north-america",
   "latam",
   "middle-east",
+  "africa",
   "india",
+  "southeast-asia",
+  "east-asia",
   "china",
   "oceania",
 ] as const;
 
 export type TemplateRegion = (typeof TEMPLATE_REGIONS)[number];
+
+/** The country a template is specifically made for, so searching "Poland" ranks the Polish CV first. */
+export const TEMPLATE_COUNTRIES: Partial<Record<CvTemplateId, readonly string[]>> = {
+  "polish-cv": ["PL"],
+  "turkish-cv": ["TR"],
+  "swiss-cv": ["CH"],
+  "austria-cv": ["AT"],
+  "lebenslauf": ["DE"],
+  "dach-modern": ["DE"],
+  "dutch-cv": ["NL"],
+  "belgian-cv": ["BE"],
+  "italian-cv": ["IT"],
+  "spanish-cv": ["ES"],
+  "portuguese-cv": ["PT"],
+  "swedish-cv": ["SE"],
+  "danish-modern": ["DK"],
+  "irish-cv": ["IE"],
+  "uk-classic": ["GB"],
+  "uk-professional": ["GB"],
+  "uk-modern": ["GB"],
+  "uk-graduate": ["GB"],
+  "cv-francais": ["FR"],
+  "cv-moderne": ["FR"],
+  "cv-classique": ["FR"],
+  "france-elegant": ["FR"],
+  "us-resume": ["US"],
+  "us-executive": ["US"],
+  "us-modern": ["US"],
+  "us-tech": ["US"],
+  "federal-resume": ["US"],
+  "canada-resume": ["CA"],
+  "canada-modern": ["CA"],
+  "brazil-curriculo": ["BR"],
+  "mexico-cv": ["MX"],
+  "saudi-cv": ["SA"],
+  "uae-modern": ["AE"],
+  "egypt-cv": ["EG"],
+  "south-africa-cv": ["ZA"],
+  "nigeria-cv": ["NG"],
+  "kenya-cv": ["KE"],
+  "india-resume": ["IN"],
+  "india-fresher": ["IN"],
+  "india-tech": ["IN"],
+  "pakistan-cv": ["PK"],
+  "singapore-resume": ["SG"],
+  "philippines-resume": ["PH"],
+  "malaysia-resume": ["MY"],
+  "japan-shokumu": ["JP"],
+  "korea-resume": ["KR"],
+  "china-jianli": ["CN"],
+  "china-modern": ["CN"],
+  "china-tech": ["CN"],
+  "hong-kong-cv": ["HK"],
+  "nz-cv": ["NZ"],
+  "australia-resume": ["AU"],
+  "australia-modern": ["AU"],
+  "cis-cv": ["RU"],
+};
+
+/**
+ * Countries each region's templates are written for (ISO 3166-1 alpha-2), so
+ * the gallery can match a search for a country name in any UI language.
+ */
+export const REGION_COUNTRIES: Record<TemplateRegion, readonly string[]> = {
+  global: [],
+  europe: ["EU", "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"],
+  uk: ["GB", "IE"],
+  dach: ["DE", "AT", "CH", "LI"],
+  france: ["FR", "BE", "LU", "MC", "CH"],
+  nordics: ["SE", "NO", "DK", "FI", "IS"],
+  "southern-europe": ["IT", "ES", "PT", "GR", "MT", "CY"],
+  benelux: ["NL", "BE", "LU"],
+  "eastern-europe": ["PL", "CZ", "SK", "HU", "RO", "BG", "HR", "RS", "SI", "EE", "LV", "LT", "UA", "TR", "RU", "BY", "KZ", "UZ", "GE", "AM", "AZ"],
+  "north-america": ["US", "CA"],
+  latam: ["BR", "MX", "AR", "CL", "CO", "PE", "VE", "EC", "UY", "PY", "BO", "CR", "PA", "DO", "GT"],
+  "middle-east": ["SA", "AE", "QA", "KW", "BH", "OM", "JO", "LB", "EG", "MA", "TN", "DZ", "IQ"],
+  africa: ["ZA", "NG", "KE", "GH", "UG", "TZ", "ET", "RW", "ZW", "ZM", "BW"],
+  india: ["IN", "PK", "BD", "LK", "NP"],
+  "southeast-asia": ["SG", "MY", "PH", "ID", "TH", "VN"],
+  "east-asia": ["JP", "KR"],
+  china: ["CN", "HK", "TW", "MO"],
+  oceania: ["AU", "NZ"],
+};
 
 /**
  * How a regional template arranges content:
@@ -43,6 +134,8 @@ export type RegionalTemplateSpec = {
   accent: string;
   /** Side column background for the sidebar layout. */
   sidebarColor?: string;
+  /** Which side the sidebar sits on (mirrors in right-to-left documents). Default start. */
+  sidebarPosition?: "start" | "end";
   /** Dark header band behind name and contact details. */
   headerBand?: string;
   font: "sans" | "serif";
@@ -68,7 +161,7 @@ export type RegionalTemplateSpec = {
   tags: TemplateTag[];
 };
 
-export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
+const BASE_REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
   {
     id: "europass",
     region: "europe",
@@ -110,7 +203,7 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
   },
   {
     id: "nordic-minimal",
-    region: "europe",
+    region: "nordics",
     layout: "single",
     accent: "#475569",
     font: "sans",
@@ -210,9 +303,9 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     layout: "sidebar",
     accent: "#2563eb",
     sidebarColor: "#1e2a4a",
-    font: "sans",
+    font: "serif",
     headerAlign: "start",
-    heading: "caps",
+    heading: "bar",
     summaryLabel: "profile",
     experienceLabel: "professionalExperience",
     educationLabel: "education",
@@ -433,16 +526,17 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     signature: false,
     referencesNote: true,
     pageSize: "A4",
-    compact: false,
+    compact: true,
     tags: ["ats", "a4"],
   },
   {
     id: "latam-cv",
     region: "latam",
     layout: "sidebar",
-    accent: "#f59e0b",
+    sidebarPosition: "end",
+    accent: "#b45309",
     sidebarColor: "#1e3a8a",
-    font: "sans",
+    font: "serif",
     headerAlign: "start",
     heading: "caps",
     summaryLabel: "profile",
@@ -479,22 +573,29 @@ export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
     id: "creative-sidebar",
     region: "global",
     layout: "sidebar",
+    sidebarPosition: "end",
     accent: "#8b5cf6",
     sidebarColor: "#2e1065",
     font: "sans",
     headerAlign: "start",
-    heading: "caps",
+    heading: "bar",
     summaryLabel: "profile",
     experienceLabel: "workExperience",
     educationLabel: "education",
     personalDetails: false,
-    photo: "optional",
+    photo: "none",
     signature: false,
     referencesNote: false,
     pageSize: "A4",
     compact: false,
     tags: ["two-column", "a4"],
   },
+];
+
+/** Every regional and role template: the original formats plus the extended collection. */
+export const REGIONAL_TEMPLATES: RegionalTemplateSpec[] = [
+  ...BASE_REGIONAL_TEMPLATES,
+  ...EXTENDED_TEMPLATES,
 ];
 
 const SPEC_BY_ID = new Map(REGIONAL_TEMPLATES.map((spec) => [spec.id, spec]));
@@ -516,12 +617,18 @@ export function templateRegion(id: CvTemplateId): TemplateRegion {
 
 /** Regions whose conventions suit a given language, most relevant first. */
 export const REGIONS_FOR_LOCALE: Record<Locale, TemplateRegion[]> = {
-  en: ["north-america", "uk", "oceania", "india", "global"],
-  es: ["latam", "europe", "global"],
-  fr: ["france", "europe", "global"],
+  en: ["north-america", "uk", "oceania", "india", "southeast-asia", "africa", "global"],
+  es: ["latam", "southern-europe", "europe", "global"],
+  fr: ["france", "benelux", "africa", "europe", "global"],
   de: ["dach", "europe", "global"],
-  ar: ["middle-east", "global"],
-  zh: ["china", "global"],
+  ar: ["middle-east", "africa", "global"],
+  zh: ["china", "east-asia", "global"],
+  pt: ["latam", "southern-europe", "africa", "europe", "global"],
+  it: ["southern-europe", "europe", "global"],
+  nl: ["benelux", "europe", "global"],
+  pl: ["eastern-europe", "europe", "global"],
+  tr: ["eastern-europe", "middle-east", "europe", "global"],
+  ru: ["eastern-europe", "europe", "global"],
 };
 
 /** Templates recommended for a language, ordered by region relevance. */
@@ -550,9 +657,267 @@ export const DEFAULT_TEMPLATE_FOR_LOCALE: Record<Locale, CvTemplateId> = {
   de: "lebenslauf",
   ar: "gulf-cv",
   zh: "china-jianli",
+  pt: "brazil-curriculo",
+  it: "italian-cv",
+  nl: "dutch-cv",
+  pl: "polish-cv",
+  tr: "turkish-cv",
+  ru: "cis-cv",
 };
 
 /** Photo convention for any template id (core templates never show photos). */
 export function templatePhotoPolicy(id: CvTemplateId | string): PhotoPolicy {
   return getRegionalTemplateSpec(id)?.photo ?? "none";
+}
+
+// ---------------------------------------------------------------------------
+// Browsing: style, popularity and filters for the template gallery
+// ---------------------------------------------------------------------------
+
+export const TEMPLATE_STYLES = [
+  "professional",
+  "modern",
+  "minimal",
+  "classic",
+  "creative",
+  "executive",
+  "academic",
+  "simple",
+] as const;
+
+export type TemplateStyle = (typeof TEMPLATE_STYLES)[number];
+
+/**
+ * Style family and a 1–100 popularity score for every template. Popularity
+ * reflects how widely the format is used in its market (ATS-safe one-column
+ * layouts and national standards rank highest); it orders "Most popular".
+ */
+export const TEMPLATE_PROFILE: Record<CvTemplateId, { style: TemplateStyle; popularity: number }> = {
+  default: { style: "professional", popularity: 95 },
+  classic: { style: "classic", popularity: 89 },
+  modern: { style: "modern", popularity: 92 },
+  europass: { style: "professional", popularity: 94 },
+  "euro-modern": { style: "modern", popularity: 81 },
+  "nordic-minimal": { style: "minimal", popularity: 73 },
+  "uk-classic": { style: "classic", popularity: 86 },
+  "uk-professional": { style: "professional", popularity: 88 },
+  lebenslauf: { style: "professional", popularity: 91 },
+  "dach-modern": { style: "modern", popularity: 79 },
+  "cv-francais": { style: "modern", popularity: 85 },
+  "france-elegant": { style: "classic", popularity: 70 },
+  "us-resume": { style: "professional", popularity: 93 },
+  "ats-plain": { style: "minimal", popularity: 90 },
+  "us-executive": { style: "executive", popularity: 82 },
+  "canada-resume": { style: "professional", popularity: 78 },
+  "gulf-cv": { style: "professional", popularity: 84 },
+  "middle-east-executive": { style: "executive", popularity: 74 },
+  "china-jianli": { style: "professional", popularity: 83 },
+  "china-modern": { style: "modern", popularity: 72 },
+  "india-resume": { style: "professional", popularity: 80 },
+  "australia-resume": { style: "professional", popularity: 77 },
+  "latam-cv": { style: "modern", popularity: 76 },
+  "academic-cv": { style: "academic", popularity: 69 },
+  "creative-sidebar": { style: "creative", popularity: 75 },
+  "minimal-mono": { style: "minimal", popularity: 88 },
+  "tech-engineer": { style: "modern", popularity: 90 },
+  "startup-bold": { style: "modern", popularity: 78 },
+  "elegant-serif": { style: "classic", popularity: 72 },
+  "executive-navy": { style: "executive", popularity: 80 },
+  "consultant-pro": { style: "professional", popularity: 84 },
+  "designer-portfolio": { style: "creative", popularity: 70 },
+  "marketing-pop": { style: "creative", popularity: 66 },
+  "first-job": { style: "simple", popularity: 82 },
+  "healthcare-pro": { style: "professional", popularity: 74 },
+  "legal-classic": { style: "classic", popularity: 68 },
+  "finance-analyst": { style: "classic", popularity: 73 },
+  "sales-impact": { style: "professional", popularity: 69 },
+  "teacher-educator": { style: "simple", popularity: 64 },
+  "research-scientist": { style: "academic", popularity: 60 },
+  "product-manager": { style: "modern", popularity: 79 },
+  "data-analyst": { style: "modern", popularity: 77 },
+  "hospitality-service": { style: "simple", popularity: 58 },
+  "compact-one-page": { style: "minimal", popularity: 86 },
+  "two-tone-modern": { style: "modern", popularity: 71 },
+  "europass-compact": { style: "professional", popularity: 76 },
+  "eu-institutions": { style: "classic", popularity: 62 },
+  "nordic-clean": { style: "minimal", popularity: 70 },
+  "swedish-cv": { style: "professional", popularity: 63 },
+  "danish-modern": { style: "modern", popularity: 61 },
+  "italian-cv": { style: "professional", popularity: 67 },
+  "spanish-cv": { style: "professional", popularity: 72 },
+  "portuguese-cv": { style: "modern", popularity: 60 },
+  "dutch-cv": { style: "professional", popularity: 65 },
+  "belgian-cv": { style: "classic", popularity: 55 },
+  "polish-cv": { style: "professional", popularity: 64 },
+  "cee-modern": { style: "modern", popularity: 59 },
+  "uk-modern": { style: "modern", popularity: 75 },
+  "irish-cv": { style: "professional", popularity: 63 },
+  "uk-graduate": { style: "simple", popularity: 68 },
+  "swiss-cv": { style: "professional", popularity: 66 },
+  "austria-cv": { style: "classic", popularity: 57 },
+  "dach-elegant": { style: "modern", popularity: 62 },
+  "cv-moderne": { style: "modern", popularity: 63 },
+  "cv-classique": { style: "classic", popularity: 58 },
+  "us-modern": { style: "modern", popularity: 87 },
+  "us-tech": { style: "modern", popularity: 83 },
+  "federal-resume": { style: "professional", popularity: 54 },
+  "canada-modern": { style: "modern", popularity: 65 },
+  "brazil-curriculo": { style: "professional", popularity: 71 },
+  "mexico-cv": { style: "modern", popularity: 62 },
+  "latam-professional": { style: "professional", popularity: 64 },
+  "saudi-cv": { style: "professional", popularity: 66 },
+  "uae-modern": { style: "modern", popularity: 68 },
+  "egypt-cv": { style: "professional", popularity: 57 },
+  "south-africa-cv": { style: "professional", popularity: 61 },
+  "nigeria-cv": { style: "professional", popularity: 58 },
+  "kenya-cv": { style: "modern", popularity: 55 },
+  "india-fresher": { style: "simple", popularity: 74 },
+  "india-tech": { style: "modern", popularity: 72 },
+  "pakistan-cv": { style: "professional", popularity: 60 },
+  "singapore-resume": { style: "professional", popularity: 67 },
+  "philippines-resume": { style: "professional", popularity: 63 },
+  "malaysia-resume": { style: "modern", popularity: 58 },
+  "japan-shokumu": { style: "professional", popularity: 60 },
+  "korea-resume": { style: "professional", popularity: 58 },
+  "china-tech": { style: "modern", popularity: 66 },
+  "hong-kong-cv": { style: "professional", popularity: 59 },
+  "nz-cv": { style: "professional", popularity: 62 },
+  "australia-modern": { style: "modern", popularity: 64 },
+  "turkish-cv": { style: "professional", popularity: 62 },
+  "cis-cv": { style: "professional", popularity: 61 },
+};
+
+/** Templates at or above this score get a "Popular" badge. */
+export const POPULAR_THRESHOLD = 85;
+
+export type TemplateColumns = "one" | "two";
+
+export type TemplateFacets = {
+  id: CvTemplateId;
+  region: TemplateRegion;
+  style: TemplateStyle;
+  popularity: number;
+  ats: boolean;
+  photo: PhotoPolicy;
+  columns: TemplateColumns;
+};
+
+const CORE_ATS: Record<CoreTemplateId, boolean> = { default: true, classic: true, modern: false };
+
+/** Everything the gallery filters on, for any template id. */
+export function templateFacets(id: CvTemplateId): TemplateFacets {
+  const spec = getRegionalTemplateSpec(id);
+  const profile = TEMPLATE_PROFILE[id];
+  return {
+    id,
+    region: templateRegion(id),
+    style: profile.style,
+    popularity: profile.popularity,
+    ats: spec ? spec.tags.includes("ats") : CORE_ATS[id as CoreTemplateId],
+    photo: spec?.photo ?? "none",
+    columns: spec && (spec.layout === "sidebar" || spec.layout === "europass") ? "two" : "one",
+  };
+}
+
+export type TemplateFilter = {
+  query?: string;
+  region?: TemplateRegion | "all";
+  style?: TemplateStyle | "all";
+  ats?: boolean;
+  photo?: "with" | "without" | "any";
+  columns?: TemplateColumns | "any";
+};
+
+export type TemplateSort = "popular" | "recommended" | "name";
+
+/** Case-, accent- and dotted/dotless-i-insensitive form used for gallery search. */
+export function foldSearchText(text: string, locale: Locale): string {
+  return text
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLocaleLowerCase(locale)
+    .replace(/ı/g, "i")
+    .replace(/ß/g, "ss")
+    .replace(/ł/g, "l")
+    .replace(/ø/g, "o")
+    .replace(/æ/g, "ae")
+    .replace(/đ/g, "d")
+    .trim();
+}
+
+export type TemplateBrowseOptions = {
+  /** UI language: used for names, search and alphabetical sort. */
+  locale: Locale;
+  /** CV language: drives the "recommended" sort. Defaults to `locale`. */
+  recommendFor?: Locale;
+  nameOf: (id: CvTemplateId) => string;
+  /** Everything a query may match (name, description, region…). Defaults to the name. */
+  searchTextOf?: (id: CvTemplateId) => string;
+  /** Text whose matches rank first (e.g. name and description). Defaults to the name. */
+  primaryTextOf?: (id: CvTemplateId) => string;
+};
+
+/**
+ * Filter and order the gallery. `nameOf` resolves the translated name so
+ * search and A–Z sorting follow the UI language.
+ */
+export function browseTemplates(
+  filter: TemplateFilter,
+  sort: TemplateSort,
+  { locale, recommendFor = locale, nameOf, searchTextOf = nameOf, primaryTextOf = nameOf }: TemplateBrowseOptions,
+  ids: readonly CvTemplateId[],
+): CvTemplateId[] {
+  const terms = foldSearchText(filter.query ?? "", locale).split(/\s+/).filter(Boolean);
+  const matches = ids.filter((id) => {
+    const facets = templateFacets(id);
+    if (filter.region && filter.region !== "all" && facets.region !== filter.region) return false;
+    if (filter.style && filter.style !== "all" && facets.style !== filter.style) return false;
+    if (filter.ats && !facets.ats) return false;
+    if (filter.photo === "with" && facets.photo === "none") return false;
+    if (filter.photo === "without" && facets.photo === "expected") return false;
+    if (filter.columns && filter.columns !== "any" && facets.columns !== filter.columns) return false;
+    if (terms.length) {
+      const haystack = foldSearchText(`${searchTextOf(id)} ${id.replace(/-/g, " ")}`, locale);
+      if (!terms.every((term) => haystack.includes(term))) return false;
+    }
+    return true;
+  });
+
+  const sorted = sortTemplates(matches, sort, locale, recommendFor, nameOf);
+  if (!terms.length) {
+    return sorted;
+  }
+  // Rank: name or id match, then primary text (description, country), then the
+  // rest ("polish" → Polish CV before templates described as "polished").
+  const matchesIn = (text: string) => {
+    const folded = foldSearchText(text, locale);
+    return terms.every((term) => folded.includes(term));
+  };
+  const tier = (id: CvTemplateId) =>
+    matchesIn(`${nameOf(id)} ${id.replace(/-/g, " ")}`) ? 0 : matchesIn(primaryTextOf(id)) ? 1 : 2;
+  const tiers = new Map(sorted.map((id) => [id, tier(id)]));
+  return sorted.sort((a, b) => (tiers.get(a) ?? 2) - (tiers.get(b) ?? 2));
+}
+
+function sortTemplates(
+  matches: CvTemplateId[],
+  sort: TemplateSort,
+  locale: Locale,
+  recommendFor: Locale,
+  nameOf: (id: CvTemplateId) => string,
+): CvTemplateId[] {
+  if (sort === "name") {
+    return matches.sort((a, b) => nameOf(a).localeCompare(nameOf(b), locale));
+  }
+  if (sort === "recommended") {
+    const regions = REGIONS_FOR_LOCALE[recommendFor];
+    const rank = (id: CvTemplateId) => {
+      const index = regions.indexOf(templateRegion(id));
+      return index === -1 ? regions.length : index;
+    };
+    return matches.sort(
+      (a, b) => rank(a) - rank(b) || TEMPLATE_PROFILE[b].popularity - TEMPLATE_PROFILE[a].popularity,
+    );
+  }
+  return matches.sort((a, b) => TEMPLATE_PROFILE[b].popularity - TEMPLATE_PROFILE[a].popularity);
 }

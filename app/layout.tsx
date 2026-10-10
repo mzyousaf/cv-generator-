@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import {
   Geist_Mono,
   Instrument_Serif,
+  Noto_Sans,
   Noto_Sans_Arabic,
   Plus_Jakarta_Sans,
   Syne,
@@ -14,14 +15,25 @@ import { localeDirection } from "@/lib/i18n/preferences";
 import { getPreferences } from "@/lib/i18n/server";
 import "./globals.css";
 
+// latin-ext covers Polish and Turkish letters (ł, ż, ğ, ş…) in the brand font.
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
+});
+
+// Plus Jakarta Sans has no basic Cyrillic, so Russian uses Noto Sans, which
+// leads the font stack only for Russian pages and CVs (see globals.css).
+const notoCyrillic = Noto_Sans({
+  variable: "--font-cyrillic",
+  subsets: ["cyrillic"],
+  preload: false,
+  adjustFontFallback: false,
 });
 
 const instrument = Instrument_Serif({
   variable: "--font-instrument",
-  subsets: ["latin"],
+  // latin-ext: Polish and Turkish highlight words (ę, ś, ş, ı) stay in one typeface.
+  subsets: ["latin", "latin-ext"],
   weight: "400",
   style: ["normal", "italic"],
 });
@@ -70,7 +82,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       dir={localeDirection(preferences.locale)}
       data-theme={preferences.theme}
       data-mode={preferences.mode}
-      className={`${jakarta.variable} ${instrument.variable} ${notoArabic.variable} ${syne.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${instrument.variable} ${notoArabic.variable} ${notoCyrillic.variable} ${syne.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

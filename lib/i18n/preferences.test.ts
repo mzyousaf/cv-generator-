@@ -23,9 +23,11 @@ test("resolvePreferences keeps supported values", () => {
 });
 
 test("localeFromAcceptLanguage picks the first supported base language", () => {
-  assert.equal(localeFromAcceptLanguage("pt-BR,de-DE;q=0.8,en;q=0.5"), "de");
+  assert.equal(localeFromAcceptLanguage("ja-JP,de-DE;q=0.8,en;q=0.5"), "de");
   assert.equal(localeFromAcceptLanguage("zh-CN"), "zh");
-  assert.equal(localeFromAcceptLanguage("pt-BR"), undefined);
+  assert.equal(localeFromAcceptLanguage("pt-BR"), "pt");
+  assert.equal(localeFromAcceptLanguage("tr-TR,en;q=0.5"), "tr");
+  assert.equal(localeFromAcceptLanguage("ja-JP"), undefined);
   assert.equal(localeFromAcceptLanguage(null), undefined);
 });
 

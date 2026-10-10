@@ -26,9 +26,12 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 function ButtonLabel({ text }: { text: string }) {
+  // A one-line window that slides to a duplicate on hover. The label never
+  // wraps (a second line would be clipped), and the gap keeps descenders of
+  // one copy from peeking into the window over the other.
   return (
-    <span className="inline-block h-[1.25em] overflow-hidden leading-none">
-      <span className="flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/btn:-translate-y-1/2 motion-reduce:transition-none motion-reduce:group-hover/btn:translate-y-0">
+    <span className="inline-block h-[1.25em] max-w-full overflow-hidden whitespace-nowrap leading-none">
+      <span className="flex flex-col gap-[0.5em] transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover/btn:-translate-y-[1.75em] motion-reduce:transition-none motion-reduce:group-hover/btn:translate-y-0">
         <span className="flex h-[1.25em] items-center">{text}</span>
         <span aria-hidden="true" className="flex h-[1.25em] items-center">
           {text}

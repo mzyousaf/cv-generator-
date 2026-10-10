@@ -1,3 +1,8 @@
+import { LOCALES } from "@/lib/i18n/preferences";
+
+/** Supported CV languages as listed to the model, e.g. "en", "es", … */
+const SUPPORTED_LANGUAGE_CODES = LOCALES.map((code) => `"${code}"`).join(", ");
+
 /** Output format shared by resume import and "describe yourself" creation. */
 export const RESUME_JSON_SHAPE = `{
   "documentLanguage": "en",
@@ -63,12 +68,12 @@ Rules:
 - Keep the original wording. Do not polish or summarize. Keep every bullet point: put each bullet on its own line starting with "- ".
 - Skills: list every individual skill, tool and technology (flatten grouped skill lists, split comma-separated lists). Do not include languages spoken here; those go in "languages".
 - Dates: copy them as written (e.g. "2022", "Jan 2023", "03/2021"). Do not invent months or days.
-- Set "current": true only when the role is ongoing (Present, Current, Now, heute, actuel, etc.) and leave endDate empty.
+- Set "current": true only when the role is ongoing (Present, Current, Now, heute, actuel, actualidad, atual, attuale, heden, obecnie, halen, по настоящее время, etc.) and leave endDate empty.
 - Personal: also capture dateOfBirth and nationality if present. "location" is the city/country or address. "website" is a portfolio/personal site or GitHub; "linkedIn" is the LinkedIn URL.
 - If there is no explicit summary/profile/objective section, leave summary empty.
 - Use empty strings for unknown fields and empty arrays for missing sections.
 - "sectionOrder" lists the sections in the order they appear in the document, using the keys "summary", "workExperience", "education", "skills", "projects", "certifications", "languages", and "custom:<index>" for customSections (0-based index into the customSections array). Only include sections that have content.
-- "documentLanguage" is the language the resume is written in: one of "en", "es", "fr", "de", "ar", "zh" (use "en" for any other language).
+- "documentLanguage" is the language the resume is written in: one of ${SUPPORTED_LANGUAGE_CODES} (use "en" for any other language).
 
 JSON shape:
 ${RESUME_JSON_SHAPE}`;
@@ -101,7 +106,7 @@ Rules:
 - Fix obvious dictation errors (e.g. "java script" -> "JavaScript"), but do not change facts.
 - Dates: use what they said (e.g. "2021", "March 2022"); set "current": true for roles they still have.
 - "sectionOrder" lists the sections in a sensible CV order using the keys "summary", "workExperience", "education", "skills", "projects", "certifications", "languages" and "custom:<index>". Only include sections that have content.
-- "documentLanguage" is the language the description is written in: one of "en", "es", "fr", "de", "ar", "zh" (use "en" for any other language). Write the CV in that language.
+- "documentLanguage" is the language the description is written in: one of ${SUPPORTED_LANGUAGE_CODES} (use "en" for any other language). Write the CV in that language.
 
 JSON shape:
 ${RESUME_JSON_SHAPE}`;

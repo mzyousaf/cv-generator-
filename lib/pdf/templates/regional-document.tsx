@@ -58,7 +58,7 @@ function Heading({ title, model, tone = "page" }: { title: string; model: Region
         </View>
       );
     case "caps":
-      return <Text style={{ ...base, fontSize: 8.5, ...caps(model, 1.6), color: spec.accent }}>{title}</Text>;
+      return <Text style={{ ...base, fontSize: 8.5, ...caps(model, 1), color: side ? "#ffffff" : spec.accent }}>{title}</Text>;
     case "rule":
     default:
       return (
@@ -366,8 +366,10 @@ function SidebarBody({ model }: { model: RegionalDocumentModel }) {
       ))}
     </View>
   );
+  const flip = spec.sidebarPosition === "end";
+  const direction = flip ? (row === "row" ? "row-reverse" : "row") : row;
   return (
-    <View style={{ flexDirection: row, flexGrow: 1 }}>
+    <View style={{ flexDirection: direction, flexGrow: 1 }}>
       <View style={{ width: "33%", backgroundColor: spec.sidebarColor, paddingVertical: 30, paddingHorizontal: 18 }}>
         {model.photo ? (
           <View style={{ alignItems: "center", marginBottom: 16 }}>

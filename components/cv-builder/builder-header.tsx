@@ -142,10 +142,10 @@ export function BuilderHeader({
             <SaveStatusLabel saveStatus={saveStatus} saveError={saveError} />
           </span>
 
-          <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-1.5 max-[360px]:gap-1 sm:gap-2">
             {showMobilePaneToggle && onMobilePaneChange ? (
               <div
-                className="inline-flex rounded-xl border border-slate-200 bg-slate-100/80 p-1 max-sm:p-0.5 xl:hidden"
+                className="inline-flex h-9 rounded-xl border border-slate-200 bg-slate-100/80 p-0.5 xl:hidden"
                 role="tablist"
                 aria-label={t.builder.editorPane}
               >
@@ -156,7 +156,7 @@ export function BuilderHeader({
                     role="tab"
                     aria-selected={mobilePane === pane}
                     className={cn(
-                      "cursor-pointer rounded-lg px-3.5 py-1.5 max-sm:px-2.5 max-sm:py-2 text-xs font-semibold capitalize transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+                      "cursor-pointer rounded-lg px-3.5 max-sm:px-2.5 max-[360px]:px-2 text-xs font-semibold capitalize transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
                       mobilePane === pane
                         ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.12)]"
                         : "text-slate-600 hover:text-slate-900",
@@ -169,7 +169,7 @@ export function BuilderHeader({
               </div>
             ) : null}
 
-            <PreferencesMenu />
+            <PreferencesMenu size="sm" />
 
             <div className="hidden items-center gap-2 xl:flex">
               <Button type="button" variant="ghost" size="sm" onClick={onOpenTemplates}>

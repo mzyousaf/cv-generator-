@@ -1,5 +1,11 @@
 import type { Locale } from "@/lib/i18n/preferences";
 import type { LegalDocument } from "@/lib/legal/types";
+import * as it from "@/lib/legal/translations/it";
+import * as nl from "@/lib/legal/translations/nl";
+import * as pl from "@/lib/legal/translations/pl";
+import * as pt from "@/lib/legal/translations/pt";
+import * as ru from "@/lib/legal/translations/ru";
+import * as tr from "@/lib/legal/translations/tr";
 
 /** `{name}` is replaced with the product name when rendered. */
 export const PRIVACY_POLICY: Record<Locale, LegalDocument> = {
@@ -261,4 +267,10 @@ export const PRIVACY_POLICY: Record<Locale, LegalDocument> = {
       { p: "如有隐私相关问题或请求，请联系：[PLACEHOLDER：隐私联系邮箱或网页表单]。[PLACEHOLDER：在与法律顾问确认前，请勿列出法律实体地址。]" },
     ],
   },
+  pt: pt.privacy,
+  it: it.privacy,
+  nl: nl.privacy,
+  pl: pl.privacy,
+  tr: tr.privacy,
+  ru: ru.privacy,
 };

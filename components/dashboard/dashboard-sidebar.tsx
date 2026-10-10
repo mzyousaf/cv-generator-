@@ -105,10 +105,10 @@ export function DashboardSidebar({
             </span>
           )}
           <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-white" title={user.name}>
+            <p dir="auto" className="truncate text-sm font-semibold text-white rtl:text-right" title={user.name}>
               {user.name}
             </p>
-            <p className="truncate text-xs text-slate-400" title={user.email}>
+            <p className="truncate text-xs text-slate-400 [direction:ltr] rtl:text-right" title={user.email}>
               {user.email}
             </p>
           </div>

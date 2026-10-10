@@ -36,7 +36,7 @@ export const en = {
   common: {
     cancel: "Cancel",
     signIn: "Sign in",
-    createCvFree: "Create Your CV Free",
+    createCvFree: "Create your CV free",
     createCvShort: "Start free",
     back: "Back",
     remove: "Remove",
@@ -54,7 +54,7 @@ export const en = {
   nav: {
     main: "Main",
     features: "Features",
-    howItWorks: "How It Works",
+    howItWorks: "How it works",
     templates: "Templates",
   },
   hero: {
@@ -67,7 +67,7 @@ export const en = {
       "Craft a polished, recruiter-ready CV in minutes. A focused editor, AI that sharpens every line, and elegant templates that export to a flawless PDF.",
     browseTemplates: "Browse templates",
     highlights: [
-      "3 recruiter-ready templates",
+      "90+ recruiter-ready templates",
       "AI writing assist",
       "One-click PDF export",
     ],
@@ -82,6 +82,7 @@ export const en = {
     title: "Title",
     summary: "Summary",
     improveWithAi: "Improve with AI",
+    sampleTitle: "Sample CV",
   },
   features: {
     eyebrow: "Features",
@@ -102,7 +103,7 @@ export const en = {
       templates: {
         title: "Professional templates",
         description:
-          "Default, Classic, and Modern layouts built for readable, print-ready CVs.",
+          "90+ layouts for every region and role, all built for readable, print-ready CVs.",
       },
       pdf: {
         title: "Pixel-perfect PDF",
@@ -151,7 +152,7 @@ export const en = {
       "Preview three print-friendly templates with real sample data. Switch anytime without retyping a word.",
     footnote:
       "Start with any template in the builder. You can change the layout later and keep your content.",
-    regionalTitle: "Plus {n} regional formats",
+    regionalTitle: "Plus {n} templates for every region and role",
     regionalBody: "Europass, German Lebenslauf, US resume, UK CV, Gulf, Chinese 简历 and more, each following local conventions.",
     tags: {
       default: "Versatile",
@@ -260,6 +261,274 @@ export const en = {
       name: "Creative Sidebar",
       description: "Bold two-column design for creative and design roles.",
     },
+    "minimal-mono": {
+      name: "Minimal Mono",
+      description: "Monochrome one-column layout with generous white space.",
+    },
+    "tech-engineer": {
+      name: "Tech Engineer",
+      description: "Clean, ATS-safe layout for developers, with sharp section bars.",
+    },
+    "startup-bold": {
+      name: "Startup Bold",
+      description: "Dark header band and confident type for fast-moving teams.",
+    },
+    "elegant-serif": {
+      name: "Elegant Serif",
+      description: "Centred serif header with refined, understated rules.",
+    },
+    "executive-navy": {
+      name: "Executive Navy",
+      description: "Navy header band with gold accents for senior leaders.",
+    },
+    "consultant-pro": {
+      name: "Consultant",
+      description: "Structured, block-headed layout that reads at a glance.",
+    },
+    "designer-portfolio": {
+      name: "Designer",
+      description: "Bold plum sidebar for designers and creatives.",
+    },
+    "marketing-pop": {
+      name: "Marketing Pop",
+      description: "Warm sidebar and punchy headings for marketers.",
+    },
+    "first-job": {
+      name: "First Job",
+      description: "Simple, friendly layout for students and graduates.",
+    },
+    "healthcare-pro": {
+      name: "Healthcare",
+      description: "Calm, clear layout for clinical and care roles.",
+    },
+    "legal-classic": {
+      name: "Legal Classic",
+      description: "Traditional centred serif layout trusted in law.",
+    },
+    "finance-analyst": {
+      name: "Finance Analyst",
+      description: "Conservative serif type with crisp capitals for finance.",
+    },
+    "sales-impact": {
+      name: "Sales Impact",
+      description: "High-contrast headings that put your results first.",
+    },
+    "teacher-educator": {
+      name: "Educator",
+      description: "Date-column timeline that shows a teaching career at a glance.",
+    },
+    "research-scientist": {
+      name: "Research Scientist",
+      description: "Academic timeline for positions, publications and grants.",
+    },
+    "product-manager": {
+      name: "Product Manager",
+      description: "Indigo sidebar for skills and tools, impact on the right.",
+    },
+    "data-analyst": {
+      name: "Data Analyst",
+      description: "Tidy capitals and blue accents for analytical roles.",
+    },
+    "hospitality-service": {
+      name: "Hospitality",
+      description: "Friendly sidebar layout for hotel, travel and service roles.",
+    },
+    "compact-one-page": {
+      name: "Compact One-Page",
+      description: "Tighter spacing that fits more onto a single page.",
+    },
+    "two-tone-modern": {
+      name: "Two-Tone",
+      description: "Slate header band with a bright accent bar.",
+    },
+    "europass-compact": {
+      name: "Europass Compact",
+      description: "The official Europass structure in a tighter layout.",
+    },
+    "eu-institutions": {
+      name: "EU Institutions",
+      description: "Formal Europass-style CV for EU agencies and institutions.",
+    },
+    "nordic-clean": {
+      name: "Nordic Clean",
+      description: "Airy Scandinavian layout with an optional photo.",
+    },
+    "swedish-cv": {
+      name: "Swedish CV",
+      description: "Straightforward Swedish CV with your profile first.",
+    },
+    "danish-modern": {
+      name: "Danish Modern",
+      description: "Deep teal sidebar with a calm, modern feel.",
+    },
+    "italian-cv": {
+      name: "Italian CV",
+      description: "Europass-style Curriculum Vitae used across Italy.",
+    },
+    "spanish-cv": {
+      name: "Spanish CV",
+      description: "Classic Spanish CV with photo and personal details.",
+    },
+    "portuguese-cv": {
+      name: "Portuguese CV",
+      description: "Green sidebar CV with photo, popular in Portugal.",
+    },
+    "dutch-cv": {
+      name: "Dutch CV",
+      description: "Direct, well-structured CV in the Dutch style.",
+    },
+    "belgian-cv": {
+      name: "Belgian CV",
+      description: "Timeline CV with personal details, common in Belgium.",
+    },
+    "polish-cv": {
+      name: "Polish CV",
+      description: "Polish CV layout with photo and personal details.",
+    },
+    "cee-modern": {
+      name: "Central Europe Modern",
+      description: "Modern sidebar CV for Central and Eastern Europe.",
+    },
+    "uk-modern": {
+      name: "UK Modern",
+      description: "Contemporary two-column UK CV without a photo.",
+    },
+    "irish-cv": {
+      name: "Irish CV",
+      description: "Clear Irish CV with a references line.",
+    },
+    "uk-graduate": {
+      name: "UK Graduate",
+      description: "Objective-led CV for UK graduates and interns.",
+    },
+    "swiss-cv": {
+      name: "Swiss CV",
+      description: "Precise Swiss Lebenslauf with photo and signature line.",
+    },
+    "austria-cv": {
+      name: "Austrian CV",
+      description: "Traditional serif Lebenslauf used in Austria.",
+    },
+    "dach-elegant": {
+      name: "DACH Elegant",
+      description: "Navy sidebar Lebenslauf with photo and personal data.",
+    },
+    "cv-moderne": {
+      name: "CV Moderne",
+      description: "French CV with a dark header band and photo.",
+    },
+    "cv-classique": {
+      name: "CV Classique",
+      description: "Sober serif French CV for traditional sectors.",
+    },
+    "us-modern": {
+      name: "US Modern",
+      description: "Polished one-column US resume with blue accents.",
+    },
+    "us-tech": {
+      name: "US Tech",
+      description: "Compact, ATS-safe resume for software and data roles.",
+    },
+    "federal-resume": {
+      name: "US Federal",
+      description: "Detailed federal-style resume for government applications.",
+    },
+    "canada-modern": {
+      name: "Canada Modern",
+      description: "Canadian resume with a clean red accent and no photo.",
+    },
+    "brazil-curriculo": {
+      name: "Brazil Currículo",
+      description: "Brazilian currículo with personal details and optional photo.",
+    },
+    "mexico-cv": {
+      name: "Mexico CV",
+      description: "Sidebar CV with photo, widely used in Mexico.",
+    },
+    "latam-professional": {
+      name: "LatAm Professional",
+      description: "Structured, block-headed CV for Latin America.",
+    },
+    "saudi-cv": {
+      name: "Saudi CV",
+      description: "Green sidebar CV with photo and personal details.",
+    },
+    "uae-modern": {
+      name: "UAE Modern",
+      description: "Dark band and gold accents, popular across the UAE.",
+    },
+    "egypt-cv": {
+      name: "Egypt CV",
+      description: "Clear CV with personal details for Egypt and North Africa.",
+    },
+    "south-africa-cv": {
+      name: "South Africa CV",
+      description: "South African CV with personal details and references.",
+    },
+    "nigeria-cv": {
+      name: "Nigeria CV",
+      description: "Nigerian CV with a references line and optional photo.",
+    },
+    "kenya-cv": {
+      name: "East Africa Modern",
+      description: "Warm sidebar CV for Kenya and East Africa.",
+    },
+    "india-fresher": {
+      name: "India Fresher",
+      description: "Simple CV for freshers, with personal details.",
+    },
+    "india-tech": {
+      name: "India Tech",
+      description: "Two-column resume for Indian tech and IT roles.",
+    },
+    "pakistan-cv": {
+      name: "Pakistan CV",
+      description: "Professional CV with personal details for Pakistan.",
+    },
+    "singapore-resume": {
+      name: "Singapore Resume",
+      description: "Crisp, no-photo resume suited to Singapore employers.",
+    },
+    "philippines-resume": {
+      name: "Philippines Resume",
+      description: "Resume with photo and personal details, common in the Philippines.",
+    },
+    "malaysia-resume": {
+      name: "Malaysia Resume",
+      description: "Teal sidebar resume with photo for Malaysia.",
+    },
+    "japan-shokumu": {
+      name: "Japan Career History",
+      description: "Structured career-history CV in the Japanese style.",
+    },
+    "korea-resume": {
+      name: "Korea Resume",
+      description: "Korean-style resume with photo and personal details.",
+    },
+    "china-tech": {
+      name: "China Tech",
+      description: "Modern 简历 for tech roles, with photo.",
+    },
+    "hong-kong-cv": {
+      name: "Hong Kong CV",
+      description: "Bilingual-friendly CV popular in Hong Kong.",
+    },
+    "nz-cv": {
+      name: "New Zealand CV",
+      description: "Clear NZ CV with a references line and no photo.",
+    },
+    "australia-modern": {
+      name: "Australia Modern",
+      description: "Two-column Australian resume without a photo.",
+    },
+    "turkish-cv": {
+      name: "Turkish CV",
+      description: "Turkish CV with photo and personal details.",
+    },
+    "cis-cv": {
+      name: "CIS CV",
+      description: "Résumé with photo and personal details for Russian-speaking markets.",
+    },
   },
   cta: {
     eyebrow: "Your next role starts here",
@@ -283,7 +552,7 @@ export const en = {
     perks: [
       {
         title: "Recruiter-ready templates",
-        body: "Three elegant, print-perfect layouts you can switch between anytime.",
+        body: "90+ print-perfect layouts for every region and role. Switch anytime.",
       },
       {
         title: "AI that sharpens every line",
@@ -327,7 +596,7 @@ export const en = {
       "This is a translation provided for your convenience. If there is any difference, the English version prevails.",
   },
   dashboard: {
-    importCv: "Import Resume",
+    importCv: "Import resume",
     untitled: "Untitled CV",
     navLabel: "Application",
     workspace: "Workspace",
@@ -335,7 +604,7 @@ export const en = {
     eyebrow: "Your workspace",
     title: "Resumes",
     subtitle: "Create a new resume or continue working on an existing one.",
-    createNew: "+ Create New Resume",
+    createNew: "Create new resume",
     creating: "Creating…",
     statResumes: "Resumes",
     statLastEdited: "Last edited",
@@ -344,7 +613,7 @@ export const en = {
     emptyTitle: "Create your first resume",
     emptyBody:
       "Start from scratch and build a professional resume with the editor, templates, and AI assistance.",
-    createFirst: "Create Your First Resume",
+    createFirst: "Create your first resume",
     edited: "Edited {date}",
     edit: "Edit",
     openEditor: "Open editor →",
@@ -411,7 +680,7 @@ export const en = {
     deleteSection: "Delete section",
     customDescription: "Your own section. Write it yourself or let AI help.",
     hiddenFromResume: "Hidden from resume",
-    confirmRemove: "Remove this {item}? This cannot be undone until you save.",
+    confirmRemove: "Remove this {item}? This can’t be undone.",
     removeItems: {
       work: "work experience entry",
       education: "education entry",
@@ -440,12 +709,12 @@ export const en = {
       custom: "No custom sections added yet.",
     },
     add: {
-      workExperience: "+ Add experience",
-      education: "+ Add education",
-      projects: "+ Add project",
-      certifications: "+ Add certification",
-      languages: "+ Add language",
-      custom: "+ Add section",
+      workExperience: "Add experience",
+      education: "Add education",
+      projects: "Add project",
+      certifications: "Add certification",
+      languages: "Add language",
+      custom: "Add section",
     },
     fields: {
       fullName: "Full name",
@@ -621,9 +890,9 @@ export const en = {
     title: "Create a new resume",
     description: "Describe yourself and let AI build your resume, import an existing one, or start from a blank page.",
     tabs: {
-      describe: "Describe with AI",
-      import: "Import resume",
-      blank: "Start blank",
+      describe: "With AI",
+      import: "Import",
+      blank: "Blank",
     },
     describeLabel: "Tell us about yourself, by typing or by speaking",
     describePlaceholder: "e.g. I'm Sara Khan, a frontend developer in Lahore (sara@example.com). Since 2021 I've worked at Acme building React apps used by 50,000 people. Before that I was a junior developer at Beta for two years. I have a BS in Computer Science from FAST (2016–2020). Skills: React, TypeScript, Next.js, Figma. I speak English and Urdu.",
@@ -728,13 +997,8 @@ export const en = {
     autosaveFailed: "Autosave failed. Use Save to retry.",
   },
   templatePicker: {
-    recommended: "Recommended for you",
-    all: "All templates",
-    region: "Region",
     documentLanguage: "CV language",
     documentLanguageHint: "Headings, dates and the PDF use this language.",
-    count: "{n} templates",
-    core: "Essentials",
     regions: {
       "global": "Global",
       "europe": "Europe",
@@ -747,9 +1011,49 @@ export const en = {
       "india": "India & South Asia",
       "china": "China",
       "oceania": "Australia & New Zealand",
+      "nordics": "Nordics",
+      "southern-europe": "Southern Europe",
+      "benelux": "Benelux",
+      "eastern-europe": "Eastern Europe, Turkey & CIS",
+      "africa": "Africa",
+      "southeast-asia": "Southeast Asia",
+      "east-asia": "Japan & Korea",
     },
+    styles: {
+      professional: "Professional",
+      modern: "Modern",
+      minimal: "Minimal",
+      classic: "Classic",
+      creative: "Creative",
+      executive: "Executive",
+      academic: "Academic",
+      simple: "Simple",
+    },
+    search: "Search templates",
+    sortLabel: "Sort by",
+    sort: {
+      popular: "Most popular",
+      recommended: "Recommended for you",
+      name: "Name (A–Z)",
+    },
+    regionLabel: "Region",
+    allRegions: "All regions",
+    styleLabel: "Style",
+    allStyles: "All styles",
+    filtersLabel: "Filters",
+    filterAts: "ATS-friendly",
+    filterWithPhoto: "With photo",
+    filterNoPhoto: "No photo",
+    filterOneColumn: "One column",
+    filterTwoColumns: "Two columns",
+    clearFilters: "Clear filters",
+    noResults: "No templates match these filters.",
+    popular: "Popular",
+    current: "Current",
+    showing: "{n} of {total} templates",
     tags: {
       photo: "Photo",
+      photoOptional: "Photo optional",
       "ats": "ATS-friendly",
       "europass": "Europass",
       "two-column": "Two columns",

@@ -61,7 +61,7 @@ export const fr: Dictionary = {
       "Rédigez en quelques minutes un CV soigné, prêt pour les recruteurs. Un éditeur épuré, une IA qui affine chaque ligne et des modèles élégants exportés en un PDF impeccable.",
     browseTemplates: "Voir les modèles",
     highlights: [
-      "3 modèles prêts pour les recruteurs",
+      "Plus de 90 modèles prêts à l’emploi",
       "Aide à la rédaction par IA",
       "Export PDF en un clic",
     ],
@@ -76,6 +76,7 @@ export const fr: Dictionary = {
     title: "Poste",
     summary: "Résumé",
     improveWithAi: "Améliorer avec l'IA",
+    sampleTitle: "CV exemple",
   },
   features: {
     eyebrow: "Fonctionnalités",
@@ -96,7 +97,7 @@ export const fr: Dictionary = {
       templates: {
         title: "Modèles professionnels",
         description:
-          "Mises en page Par défaut, Classique et Moderne, lisibles et prêtes à imprimer.",
+          "Plus de 90 mises en page pour chaque région et chaque métier, conçues pour des CV lisibles et prêts à imprimer.",
       },
       pdf: {
         title: "PDF parfait au pixel près",
@@ -145,7 +146,7 @@ export const fr: Dictionary = {
       "Découvrez trois modèles prêts à imprimer avec de vraies données d'exemple. Changez à tout moment sans rien ressaisir.",
     footnote:
       "Commencez avec n'importe quel modèle dans l'éditeur. Vous pourrez changer de mise en page plus tard en gardant votre contenu.",
-    regionalTitle: "Et {n} formats régionaux",
+    regionalTitle: "Et {n} modèles de plus pour chaque région et chaque métier",
     regionalBody: "Europass, Lebenslauf allemand, resume américain, CV britannique, du Golfe, chinois 简历 et plus, chacun selon les usages locaux.",
     tags: { default: "Polyvalent", classic: "Intemporel", modern: "Populaire" },
   },
@@ -250,6 +251,274 @@ export const fr: Dictionary = {
       name: "Latéral Créatif",
       description: "Design audacieux sur deux colonnes pour les métiers créatifs.",
     },
+    "minimal-mono": {
+      name: "Mono Minimal",
+      description: "Mise en page monochrome sur une colonne, avec beaucoup d'espace blanc.",
+    },
+    "tech-engineer": {
+      name: "Ingénieur Tech",
+      description: "Mise en page épurée et compatible ATS pour les développeurs, avec des bandeaux de section nets.",
+    },
+    "startup-bold": {
+      name: "Startup Audacieux",
+      description: "Bandeau d'en-tête sombre et typographie affirmée pour les équipes qui avancent vite.",
+    },
+    "elegant-serif": {
+      name: "Sérif Élégant",
+      description: "En-tête sérif centré avec des filets raffinés et discrets.",
+    },
+    "executive-navy": {
+      name: "Cadre Marine",
+      description: "Bandeau d'en-tête bleu marine et touches dorées pour les dirigeants.",
+    },
+    "consultant-pro": {
+      name: "Consultant",
+      description: "Mise en page structurée en blocs, lisible en un coup d'œil.",
+    },
+    "designer-portfolio": {
+      name: "Designer",
+      description: "Barre latérale prune audacieuse pour les designers et les créatifs.",
+    },
+    "marketing-pop": {
+      name: "Marketing Pop",
+      description: "Barre latérale chaleureuse et titres percutants pour les marketeurs.",
+    },
+    "first-job": {
+      name: "Premier Emploi",
+      description: "Mise en page simple et accueillante pour les étudiants et jeunes diplômés.",
+    },
+    "healthcare-pro": {
+      name: "Santé",
+      description: "Mise en page sereine et claire pour les métiers du soin et de la santé.",
+    },
+    "legal-classic": {
+      name: "Juridique Classique",
+      description: "Mise en page sérif centrée et traditionnelle, appréciée dans le droit.",
+    },
+    "finance-analyst": {
+      name: "Analyste Financier",
+      description: "Typographie sérif sobre et capitales nettes pour la finance.",
+    },
+    "sales-impact": {
+      name: "Commercial Impact",
+      description: "Titres très contrastés qui mettent vos résultats en avant.",
+    },
+    "teacher-educator": {
+      name: "Enseignant",
+      description: "Chronologie avec colonne de dates qui présente une carrière d'enseignant en un coup d'œil.",
+    },
+    "research-scientist": {
+      name: "Chercheur Scientifique",
+      description: "Chronologie académique pour les postes, publications et financements.",
+    },
+    "product-manager": {
+      name: "Product Manager",
+      description: "Barre latérale indigo pour compétences et outils, impact à droite.",
+    },
+    "data-analyst": {
+      name: "Data Analyst",
+      description: "Capitales soignées et touches de bleu pour les métiers de l'analyse.",
+    },
+    "hospitality-service": {
+      name: "Hôtellerie",
+      description: "Mise en page accueillante avec barre latérale pour l'hôtellerie, le tourisme et les services.",
+    },
+    "compact-one-page": {
+      name: "Compact 1 Page",
+      description: "Espacement resserré pour tenir davantage sur une seule page.",
+    },
+    "two-tone-modern": {
+      name: "Bicolore",
+      description: "Bandeau d'en-tête ardoise avec une barre d'accent vive.",
+    },
+    "europass-compact": {
+      name: "Europass Compact",
+      description: "La structure officielle Europass dans une mise en page plus resserrée.",
+    },
+    "eu-institutions": {
+      name: "Institutions UE",
+      description: "CV formel de style Europass pour les agences et institutions de l'UE.",
+    },
+    "nordic-clean": {
+      name: "Nordique Épuré",
+      description: "Mise en page scandinave aérée avec photo facultative.",
+    },
+    "swedish-cv": {
+      name: "CV Suédois",
+      description: "CV suédois direct, avec votre profil en premier.",
+    },
+    "danish-modern": {
+      name: "Danois Moderne",
+      description: "Barre latérale bleu canard profond, au style calme et moderne.",
+    },
+    "italian-cv": {
+      name: "CV Italien",
+      description: "Curriculum Vitae de style Europass utilisé dans toute l'Italie.",
+    },
+    "spanish-cv": {
+      name: "CV Espagnol",
+      description: "CV espagnol classique avec photo et informations personnelles.",
+    },
+    "portuguese-cv": {
+      name: "CV Portugais",
+      description: "CV avec barre latérale verte et photo, apprécié au Portugal.",
+    },
+    "dutch-cv": {
+      name: "CV Néerlandais",
+      description: "CV direct et bien structuré, à la néerlandaise.",
+    },
+    "belgian-cv": {
+      name: "CV Belge",
+      description: "CV chronologique avec informations personnelles, courant en Belgique.",
+    },
+    "polish-cv": {
+      name: "CV Polonais",
+      description: "Mise en page de CV polonais avec photo et informations personnelles.",
+    },
+    "cee-modern": {
+      name: "Europe centrale Moderne",
+      description: "CV moderne avec barre latérale pour l'Europe centrale et orientale.",
+    },
+    "uk-modern": {
+      name: "Royaume-Uni Moderne",
+      description: "CV britannique contemporain sur deux colonnes, sans photo.",
+    },
+    "irish-cv": {
+      name: "CV Irlandais",
+      description: "CV irlandais clair avec mention des références.",
+    },
+    "uk-graduate": {
+      name: "Royaume-Uni Jeune Diplômé",
+      description: "CV axé sur l'objectif pour les jeunes diplômés et stagiaires au Royaume-Uni.",
+    },
+    "swiss-cv": {
+      name: "CV Suisse",
+      description: "Lebenslauf suisse précis avec photo et signature.",
+    },
+    "austria-cv": {
+      name: "CV Autrichien",
+      description: "Lebenslauf traditionnel en sérif utilisé en Autriche.",
+    },
+    "dach-elegant": {
+      name: "DACH Élégant",
+      description: "Lebenslauf avec barre latérale bleu marine, photo et données personnelles.",
+    },
+    "cv-moderne": {
+      name: "CV Moderne",
+      description: "CV français avec bandeau d'en-tête sombre et photo.",
+    },
+    "cv-classique": {
+      name: "CV Classique",
+      description: "CV français sobre en sérif pour les secteurs traditionnels.",
+    },
+    "us-modern": {
+      name: "États-Unis Moderne",
+      description: "Resume américain soigné sur une colonne, avec touches de bleu.",
+    },
+    "us-tech": {
+      name: "États-Unis Tech",
+      description: "Resume compact et compatible ATS pour les métiers du logiciel et de la data.",
+    },
+    "federal-resume": {
+      name: "États-Unis Fédéral",
+      description: "Resume détaillé de style fédéral pour les candidatures dans l'administration.",
+    },
+    "canada-modern": {
+      name: "Canada Moderne",
+      description: "Resume canadien avec une touche de rouge épurée et sans photo.",
+    },
+    "brazil-curriculo": {
+      name: "Currículo Brésil",
+      description: "Currículo brésilien avec informations personnelles et photo facultative.",
+    },
+    "mexico-cv": {
+      name: "CV Mexique",
+      description: "CV avec barre latérale et photo, très répandu au Mexique.",
+    },
+    "latam-professional": {
+      name: "Amérique latine Pro",
+      description: "CV structuré en blocs pour l'Amérique latine.",
+    },
+    "saudi-cv": {
+      name: "CV Arabie saoudite",
+      description: "CV avec barre latérale verte, photo et informations personnelles.",
+    },
+    "uae-modern": {
+      name: "Émirats Moderne",
+      description: "Bandeau sombre et touches dorées, apprécié aux Émirats arabes unis.",
+    },
+    "egypt-cv": {
+      name: "CV Égypte",
+      description: "CV clair avec informations personnelles pour l'Égypte et l'Afrique du Nord.",
+    },
+    "south-africa-cv": {
+      name: "CV Afrique du Sud",
+      description: "CV sud-africain avec informations personnelles et références.",
+    },
+    "nigeria-cv": {
+      name: "CV Nigeria",
+      description: "CV nigérian avec mention des références et photo facultative.",
+    },
+    "kenya-cv": {
+      name: "Afrique de l'Est Moderne",
+      description: "CV avec barre latérale chaleureuse pour le Kenya et l'Afrique de l'Est.",
+    },
+    "india-fresher": {
+      name: "Inde Jeune Diplômé",
+      description: "CV simple pour les jeunes diplômés, avec informations personnelles.",
+    },
+    "india-tech": {
+      name: "Inde Tech",
+      description: "Resume sur deux colonnes pour les métiers de la tech et de l'IT en Inde.",
+    },
+    "pakistan-cv": {
+      name: "CV Pakistan",
+      description: "CV professionnel avec informations personnelles pour le Pakistan.",
+    },
+    "singapore-resume": {
+      name: "CV Singapour",
+      description: "Resume net et sans photo, adapté aux employeurs de Singapour.",
+    },
+    "philippines-resume": {
+      name: "CV Philippines",
+      description: "Resume avec photo et informations personnelles, courant aux Philippines.",
+    },
+    "malaysia-resume": {
+      name: "CV Malaisie",
+      description: "Resume avec barre latérale bleu canard et photo pour la Malaisie.",
+    },
+    "japan-shokumu": {
+      name: "Japon Parcours Pro",
+      description: "CV de parcours professionnel structuré, à la japonaise.",
+    },
+    "korea-resume": {
+      name: "CV Corée",
+      description: "Resume à la coréenne avec photo et informations personnelles.",
+    },
+    "china-tech": {
+      name: "Chine Tech",
+      description: "简历 moderne pour les métiers de la tech, avec photo.",
+    },
+    "hong-kong-cv": {
+      name: "CV Hong Kong",
+      description: "CV adapté au bilinguisme, apprécié à Hong Kong.",
+    },
+    "nz-cv": {
+      name: "CV Nouvelle-Zélande",
+      description: "CV néo-zélandais clair avec mention des références et sans photo.",
+    },
+    "australia-modern": {
+      name: "Australie Moderne",
+      description: "Resume australien sur deux colonnes, sans photo.",
+    },
+    "turkish-cv": {
+      name: "CV Turc",
+      description: "CV turc avec photo et informations personnelles.",
+    },
+    "cis-cv": {
+      name: "CV CEI",
+      description: "CV avec photo et informations personnelles pour les marchés russophones.",
+    },
   },
   cta: {
     eyebrow: "Votre prochain poste commence ici",
@@ -273,7 +542,7 @@ export const fr: Dictionary = {
     perks: [
       {
         title: "Modèles prêts pour les recruteurs",
-        body: "Trois mises en page élégantes et parfaites à l'impression, interchangeables à tout moment.",
+        body: "Plus de 90 mises en page impeccables pour chaque région et chaque métier. Changez à tout moment.",
       },
       {
         title: "Une IA qui affine chaque ligne",
@@ -325,7 +594,7 @@ export const fr: Dictionary = {
     eyebrow: "Votre espace de travail",
     title: "CV",
     subtitle: "Créez un nouveau CV ou continuez à travailler sur un CV existant.",
-    createNew: "+ Nouveau CV",
+    createNew: "Nouveau CV",
     creating: "Création…",
     statResumes: "CV",
     statLastEdited: "Dernière modification",
@@ -402,7 +671,7 @@ export const fr: Dictionary = {
     deleteSection: "Supprimer la section",
     customDescription: "Votre propre section. Rédigez-la vous-même ou laissez l’IA vous aider.",
     hiddenFromResume: "Masquée sur le CV",
-    confirmRemove: "Supprimer cet élément ({item}) ? Action irréversible jusqu'à l'enregistrement.",
+    confirmRemove: "Supprimer cet élément ({item}) ? Cette action est irréversible.",
     removeItems: {
       work: "expérience professionnelle",
       education: "formation",
@@ -431,12 +700,12 @@ export const fr: Dictionary = {
       custom: "Aucune section personnalisée pour l'instant.",
     },
     add: {
-      workExperience: "+ Ajouter une expérience",
-      education: "+ Ajouter une formation",
-      projects: "+ Ajouter un projet",
-      certifications: "+ Ajouter une certification",
-      languages: "+ Ajouter une langue",
-      custom: "+ Ajouter une section",
+      workExperience: "Ajouter une expérience",
+      education: "Ajouter une formation",
+      projects: "Ajouter un projet",
+      certifications: "Ajouter une certification",
+      languages: "Ajouter une langue",
+      custom: "Ajouter une section",
     },
     fields: {
       fullName: "Nom complet",
@@ -609,9 +878,9 @@ export const fr: Dictionary = {
     title: "Créer un nouveau CV",
     description: "Décrivez-vous et laissez l’IA créer votre CV, importez un CV existant ou partez d’une page vierge.",
     tabs: {
-      describe: "Décrire avec l’IA",
-      import: "Importer un CV",
-      blank: "Partir de zéro",
+      describe: "Avec l’IA",
+      import: "Importer",
+      blank: "Vierge",
     },
     describeLabel: "Parlez-nous de vous, à l’écrit ou à l’oral",
     describePlaceholder: "ex. Je suis Sara Khan, développeuse frontend à Lyon (sara@example.com). Depuis 2021, je travaille chez Acme sur des applications React utilisées par 50 000 personnes. Avant, j’ai été développeuse junior chez Beta pendant deux ans. Licence d’informatique, Université Lyon 1 (2016–2020). Compétences : React, TypeScript, Next.js, Figma. Je parle français et anglais.",
@@ -716,13 +985,8 @@ export const fr: Dictionary = {
     autosaveFailed: "L'enregistrement automatique a échoué. Cliquez sur Enregistrer pour réessayer.",
   },
   templatePicker: {
-    recommended: "Recommandés pour vous",
-    all: "Tous les modèles",
-    region: "Région",
     documentLanguage: "Langue du CV",
     documentLanguageHint: "Les titres, les dates et le PDF utilisent cette langue.",
-    count: "{n} modèles",
-    core: "Essentiels",
     regions: {
       "global": "International",
       "europe": "Europe",
@@ -735,9 +999,49 @@ export const fr: Dictionary = {
       "india": "Inde et Asie du Sud",
       "china": "Chine",
       "oceania": "Australie et Nouvelle-Zélande",
+      "nordics": "Pays nordiques",
+      "southern-europe": "Europe du Sud",
+      "benelux": "Benelux",
+      "eastern-europe": "Europe de l'Est, Turquie et CEI",
+      "africa": "Afrique",
+      "southeast-asia": "Asie du Sud-Est",
+      "east-asia": "Japon et Corée",
     },
+    styles: {
+      professional: "Professionnel",
+      modern: "Moderne",
+      minimal: "Minimaliste",
+      classic: "Classique",
+      creative: "Créatif",
+      executive: "Cadre dirigeant",
+      academic: "Académique",
+      simple: "Simple",
+    },
+    search: "Rechercher un modèle",
+    sortLabel: "Trier par",
+    sort: {
+      popular: "Les plus populaires",
+      recommended: "Recommandés pour vous",
+      name: "Nom (A–Z)",
+    },
+    regionLabel: "Région",
+    allRegions: "Toutes les régions",
+    styleLabel: "Style",
+    allStyles: "Tous les styles",
+    filtersLabel: "Filtres",
+    filterAts: "Compatible ATS",
+    filterWithPhoto: "Avec photo",
+    filterNoPhoto: "Sans photo",
+    filterOneColumn: "Une colonne",
+    filterTwoColumns: "Deux colonnes",
+    clearFilters: "Effacer les filtres",
+    noResults: "Aucun modèle ne correspond à ces filtres.",
+    popular: "Populaire",
+    current: "Actuel",
+    showing: "{n} modèles sur {total}",
     tags: {
       photo: "Photo",
+      photoOptional: "Photo facultative",
       "ats": "Compatible ATS",
       "europass": "Europass",
       "two-column": "Deux colonnes",

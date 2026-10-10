@@ -116,7 +116,7 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             )}
           >
             <span className="truncate">{LOCALE_LABELS[code]}</span>
-            <span className="text-[10px] font-bold uppercase text-slate-400">{code}</span>
+            <span className="text-[10px] font-bold uppercase text-slate-400 max-[359px]:hidden">{code}</span>
           </button>
         ))}
       </div>
@@ -163,14 +163,15 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             aria-pressed={value === current.mode}
             onClick={() => chooseMode(value)}
             className={cn(
-              "inline-flex min-w-0 items-center justify-center gap-1.5 rounded-lg px-1.5 py-1.5 text-xs font-semibold transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
+              "flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-lg px-1 py-1.5 text-[11px] font-semibold leading-tight transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
               value === current.mode
                 ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.15)]"
                 : "text-slate-500 hover:text-slate-900",
             )}
           >
             <ModeIcon mode={value} />
-            <span className="truncate">{t.prefs.modes[value]}</span>
+            {/* Icon above label: three labels side by side do not fit in Russian or Polish. */}
+            <span className="max-w-full truncate">{t.prefs.modes[value]}</span>
           </button>
         ))}
       </div>
@@ -187,7 +188,7 @@ export function PreferencesPanel({ className }: { className?: string }) {
     <section
       aria-label={t.prefs.title}
       className={cn(
-        "rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 ring-1 ring-slate-900/5",
+        "scheme-follow rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 ring-1 ring-slate-900/5",
         className,
       )}
     >
@@ -206,6 +207,8 @@ type PreferencesMenuProps = {
   align?: "start" | "end";
   /** Open the panel upwards (e.g. at the bottom of a sidebar). */
   placement?: "bottom" | "top";
+  /** `sm` matches small buttons (h-9), e.g. in the builder toolbar. */
+  size?: "sm" | "md";
   className?: string;
 };
 
@@ -213,6 +216,7 @@ export function PreferencesMenu({
   tone = "light",
   align = "end",
   placement = "bottom",
+  size = "md",
   className,
 }: PreferencesMenuProps) {
   const { t } = useI18n();
@@ -287,7 +291,8 @@ export function PreferencesMenu({
         aria-label={t.prefs.open}
         onClick={() => setOpen((value) => !value)}
         className={cn(
-          "inline-flex h-10 items-center gap-1.5 rounded-xl border px-2.5 text-xs font-bold uppercase tracking-wide transition-colors focus:outline-none focus-visible:ring-2",
+          "inline-flex items-center gap-1.5 rounded-xl border px-2.5 text-xs font-bold uppercase tracking-wide transition-colors focus:outline-none focus-visible:ring-2",
+          size === "sm" ? "h-9" : "h-10",
           triggerClass,
         )}
       >
@@ -311,7 +316,7 @@ export function PreferencesMenu({
           aria-label={t.prefs.title}
           style={shift ? { translate: `${shift}px 0` } : undefined}
           className={cn(
-            "absolute z-50 w-[min(19rem,calc(100vw-1.5rem))] animate-fade-up rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 shadow-[0_24px_60px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5 [animation-duration:0.25s]",
+            "scheme-follow absolute z-50 max-h-[calc(100dvh-5rem)] w-[min(19rem,calc(100vw-1.5rem))] overflow-y-auto overscroll-contain animate-fade-up rounded-2xl border border-slate-200/80 bg-surface p-4 text-slate-900 shadow-[0_24px_60px_-20px_rgb(7_10_26/0.45)] ring-1 ring-slate-900/5 [animation-duration:0.25s]",
             align === "end" ? "end-0" : "start-0",
             placement === "bottom" ? "top-full mt-2" : "bottom-full mb-2",
           )}

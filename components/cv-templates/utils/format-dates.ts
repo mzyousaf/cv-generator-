@@ -19,10 +19,12 @@ export function formatMonth(value: string, format: CvDateFormat = {}): string {
   if (Number.isNaN(date.getTime())) {
     return value;
   }
-  return date.toLocaleDateString(format.locale ?? "en-GB", {
+  const label = date.toLocaleDateString(format.locale ?? "en-GB", {
     month: "short",
     year: "numeric",
   });
+  // British English abbreviates September as "Sept"; keep every month at three letters.
+  return label.replace(/\bSept\b/, "Sep");
 }
 
 export function formatDateRange(
