@@ -15,6 +15,7 @@ import {
 } from "@/lib/cv/validation";
 import type { CVContent } from "@/types/cv";
 import { getCurrentUser, type CurrentUser } from "@/lib/auth/get-current-user";
+import { applyAccountPhoto, fetchAccountPhotoDataUrl } from "@/lib/cv/account-photo";
 
 export type CreateCvPayload = {
   title?: unknown;
@@ -31,6 +32,8 @@ export type UpdateCvPayload = {
 type CvServiceDeps = {
   getUser: () => Promise<CurrentUser | null>;
   repository: CvRepository;
+  /** Account profile picture as a CV photo data URL (null when unavailable). */
+  getAccountPhoto?: (user: CurrentUser) => Promise<string | null>;
 };
 
 function mapValidationFailure(message: string): CvResult<never> {
@@ -69,9 +72,23 @@ export function createCvService(deps: CvServiceDeps) {
         return authResult.result;
       }
 
-      const validated = validateCreateCvInput(input);
+      let validated = validateCreateCvInput(input);
       if (!validated.ok) {
         return mapValidationFailure(validated.message);
+      }
+
+      // New CVs (blank, imported, AI-built) always use the account's picture.
+      const accountPhoto = deps.getAccountPhoto
+        ? await deps.getAccountPhoto(authResult.user)
+        : null;
+      if (accountPhoto) {
+        const withPhoto = validateCreateCvInput({
+          ...input,
+          content: applyAccountPhoto(validated.value.content, accountPhoto),
+        });
+        if (withPhoto.ok) {
+          validated = withPhoto;
+        }
       }
 
       try {
@@ -242,6 +259,7 @@ export function createCvService(deps: CvServiceDeps) {
 export const cvService = createCvService({
   getUser: getCurrentUser,
   repository: cvRepository,
+  getAccountPhoto: (user) => fetchAccountPhotoDataUrl(user.image),
 });
 
 export type CvService = ReturnType<typeof createCvService>;
