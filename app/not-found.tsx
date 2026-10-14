@@ -24,7 +24,7 @@ export default async function NotFound() {
         <PreferencesMenu tone="dark" />
       </div>
 
-      <LogoMark className="size-14 opacity-90" />
+      <LogoMark fitted className="size-14 opacity-90" />
       <p className="mt-6 font-brand text-7xl font-bold tracking-tight text-white sm:text-8xl">404</p>
       <h1 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">{t.notFound.title}</h1>
       <p className="mt-3 max-w-md text-base text-slate-300">{t.notFound.body}</p>
