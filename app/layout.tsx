@@ -44,7 +44,7 @@ const notoArabic = Noto_Sans_Arabic({
   preload: false,
 });
 
-// Wordmark typeface for the Resumivo logo.
+// Wordmark typeface for the Resumorah logo.
 const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],

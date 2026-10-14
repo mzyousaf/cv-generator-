@@ -65,7 +65,7 @@ export const zh: Dictionary = {
     chipPdf: "PDF 已可下载",
   },
   preview: {
-    label: "Resumivo 产品预览（演示数据）",
+    label: "Resumorah 产品预览（演示数据）",
     saved: "已保存",
     fullName: "姓名",
     title: "职位",

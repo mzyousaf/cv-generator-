@@ -10,7 +10,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
   const doc = PRIVACY_POLICY[locale];
   return {
-    title: `${doc.title} | ${siteConfig.name}`,
+    // The root layout's title template appends the brand.
+    title: doc.title,
     description: format(doc.description, { name: siteConfig.name }),
   };
 }

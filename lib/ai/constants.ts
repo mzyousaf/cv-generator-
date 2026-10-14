@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/constants";
+
 export const AI_MAX_FIELD_LENGTH = 2_000;
 export const AI_MAX_SKILLS_INPUT = 50;
 export const AI_MAX_SKILL_LENGTH = 80;
@@ -7,4 +9,4 @@ export const AI_MAX_EXPERIENCE_OUTPUT = 10_000;
 export const AI_REQUEST_TIMEOUT_MS = 120_000;
 export const OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1";
 export const OPENROUTER_DEFAULT_MODEL = "openai/gpt-4o-mini";
-export const OPENROUTER_APP_TITLE = "Resumivo";
+export const OPENROUTER_APP_TITLE = siteConfig.name;

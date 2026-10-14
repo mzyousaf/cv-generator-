@@ -70,7 +70,7 @@ export const ar: Dictionary = {
     chipPdf: "ملف PDF جاهز للتنزيل",
   },
   preview: {
-    label: "معاينة منتج Resumivo (بيانات تجريبية)",
+    label: "معاينة منتج Resumorah (بيانات تجريبية)",
     saved: "تم الحفظ",
     fullName: "الاسم الكامل",
     title: "المسمى الوظيفي",

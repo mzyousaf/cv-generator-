@@ -70,7 +70,7 @@ export const es: Dictionary = {
     chipPdf: "PDF listo para descargar",
   },
   preview: {
-    label: "Vista previa del producto Resumivo (datos de ejemplo)",
+    label: "Vista previa del producto Resumorah (datos de ejemplo)",
     saved: "Guardado",
     fullName: "Nombre completo",
     title: "Puesto",

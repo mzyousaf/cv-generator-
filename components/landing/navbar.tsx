@@ -80,7 +80,7 @@ export function LandingNavbar() {
           className="inline-flex min-w-0 shrink-0 cursor-pointer items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         >
           {/* Below 360px only the mark fits next to the CTA and burger; keep the name for screen readers. */}
-          <Logo tone="light" className="max-[359px]:[&_[data-logo-word]]:sr-only" />
+          <Logo tone="light" className="max-[359px]:[&_[data-logo-word]]:sr-only max-[359px]:[&_svg]:translate-y-0" />
         </Link>
 
         <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1 lg:flex">

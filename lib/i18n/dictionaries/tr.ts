@@ -74,7 +74,7 @@ export const tr: Dictionary = {
     chipPdf: "PDF indirilmeye hazır",
   },
   preview: {
-    label: "Resumivo ürün önizlemesi (örnek veriler)",
+    label: "Resumorah ürün önizlemesi (örnek veriler)",
     saved: "Kaydedildi",
     fullName: "Ad soyad",
     title: "Unvan",

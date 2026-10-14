@@ -96,7 +96,7 @@ button:not(:disabled),
 
 /* Latin display tracking is too tight for Arabic and CJK scripts. The CV paper
    (a .scheme-light island with its own lang) follows the CV language instead. */
-html:is([lang="ar"], [lang="zh"]) [class*="tracking-["]:not(.scheme-light[lang] *) {
+html:is([lang="ar"], [lang="zh"]) [class*="tracking-["]:not(.scheme-light[lang] *, [data-logo-word]) {
   letter-spacing: 0;
 }
 

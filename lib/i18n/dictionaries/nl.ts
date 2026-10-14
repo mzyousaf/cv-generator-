@@ -74,7 +74,7 @@ export const nl: Dictionary = {
     chipPdf: "PDF klaar om te downloaden",
   },
   preview: {
-    label: "Productvoorbeeld van Resumivo (demogegevens)",
+    label: "Productvoorbeeld van Resumorah (demogegevens)",
     saved: "Opgeslagen",
     fullName: "Volledige naam",
     title: "Functietitel",

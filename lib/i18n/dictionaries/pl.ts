@@ -74,7 +74,7 @@ export const pl: Dictionary = {
     chipPdf: "PDF gotowy do pobrania",
   },
   preview: {
-    label: "Podgląd produktu Resumivo (dane przykładowe)",
+    label: "Podgląd produktu Resumorah (dane przykładowe)",
     saved: "Zapisano",
     fullName: "Imię i nazwisko",
     title: "Stanowisko",

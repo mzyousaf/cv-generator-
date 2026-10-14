@@ -1,11 +1,11 @@
-﻿# Resumivo
+﻿# Resumorah
 
-Resumivo is an AI-assisted CV builder: regional templates, six languages and PDF export, built with Next.js, MongoDB and Auth.js.
+Resumorah is an AI-assisted CV builder: regional templates, 12 languages and PDF export, built with Next.js, MongoDB and Auth.js.
 
 ## Brand
 
-- **Logo ("Flow"):** one continuous stroke draws the R and runs on into a V, which doubles as a tick. The mark lives in `components/ui/logo.tsx` (`BRAND_MARK_PATH`). Use `<Logo />` for the lockup and `<LogoMark variant="tile" />` for the app-icon tile.
-- **Wordmark:** lowercase `resumivo` in Syne Bold.
+- **Logo:** a rounded R with a four-point spark beside it ("orah" means light; the spark is also the product's AI cue). The mark lives in `components/ui/logo.tsx` (`BRAND_MARK_PATH`, `BRAND_SPARK_PATH`). Use `<Logo />` for the lockup and `<LogoMark variant="tile" />` for the app-icon tile.
+- **Wordmark:** lowercase `resumorah` in Syne Bold.
 - **Colours:** Rose `#e11d48` → Tangerine `#fb923c` (the brand gradient). The `coral` theme in `app/tokens.css` is the default site theme.
 - **Icons:** `app/icon.svg`, `app/favicon.ico`, `app/apple-icon.png`, `public/icons/*` and the web manifest in `app/manifest.ts`. The social preview is `app/opengraph-image.png` / `app/twitter-image.png`.
 

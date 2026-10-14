@@ -74,7 +74,7 @@ export const ru: Dictionary = {
     chipPdf: "PDF готов к скачиванию",
   },
   preview: {
-    label: "Предпросмотр Resumivo (демоданные)",
+    label: "Предпросмотр Resumorah (демоданные)",
     saved: "Сохранено",
     fullName: "Полное имя",
     title: "Должность",
