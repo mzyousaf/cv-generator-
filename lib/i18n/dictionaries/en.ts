@@ -76,7 +76,7 @@ export const en = {
     chipPdf: "PDF ready to download",
   },
   preview: {
-    label: "Resumivo product preview (demo data)",
+    label: "Resumorah product preview (demo data)",
     saved: "Saved",
     fullName: "Full name",
     title: "Title",

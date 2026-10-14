@@ -58,7 +58,7 @@
   --color-red-950: var(--red-950);
 }
 
-/* Resumivo brand theme (default): the Flow logo's rose-to-orange. */
+/* Resumorah brand theme (default): the logo's rose-to-orange. */
 :root,
 html[data-theme="coral"] {
   --brand-50: #fff3f1;

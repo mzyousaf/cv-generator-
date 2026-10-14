@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title,
   description,
   keywords: [
-    "Resumivo",
+    "Resumorah",
     "CV generator",
     "resume builder",
     "professional CV",

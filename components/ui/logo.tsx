@@ -1,9 +1,14 @@
 import { siteConfig } from "@/lib/constants";
 import { cn } from "@/lib/cn";
 
-/** The Flow mark: one stroke draws the R and runs on into a V / tick. */
-export const BRAND_MARK_PATH = "M22 84V18H46a17 17 0 0 1 0 34H34L55 84L84 18";
-const BRAND_GRADIENT_ID = "resumivo-brand-gradient";
+/**
+ * The Resumorah mark: a rounded R with a four-point spark beside it. "Orah"
+ * means light, and the spark doubles as the AI cue used across the product.
+ */
+export const BRAND_MARK_PATH = "M20 84V26H40a14 14 0 0 1 0 28H30L50 84";
+export const BRAND_SPARK_PATH =
+  "M74 6C78.4 21.6 78.4 21.6 94 26C78.4 30.4 78.4 30.4 74 46C69.6 30.4 69.6 30.4 54 26C69.6 21.6 69.6 21.6 74 6Z";
+const BRAND_GRADIENT_ID = "resumorah-brand-gradient";
 
 /**
  * Shared gradient for every logo on the page. Rendered once in the root layout:
@@ -40,7 +45,8 @@ export function LogoMark({ className, variant = "stroke" }: LogoMarkProps) {
         )}
         style={{ backgroundImage: "linear-gradient(135deg, #e11d48, #fb923c)" }}
       >
-        <svg viewBox="0 0 100 100" className="size-[62%]" fill="none">
+        {/* Shifted viewBox centres the ink (R + spark) optically in the tile. */}
+        <svg viewBox="4 -5 100 100" className="size-[62%]" fill="none">
           <path
             d={BRAND_MARK_PATH}
             stroke="#fff"
@@ -48,6 +54,7 @@ export function LogoMark({ className, variant = "stroke" }: LogoMarkProps) {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
+          <path d={BRAND_SPARK_PATH} fill="#fff" />
         </svg>
       </span>
     );
@@ -67,6 +74,7 @@ export function LogoMark({ className, variant = "stroke" }: LogoMarkProps) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
+      <path d={BRAND_SPARK_PATH} fill={`url(#${BRAND_GRADIENT_ID})`} />
     </svg>
   );
 }
@@ -88,11 +96,13 @@ export function Logo({ className, tone = "dark", showWordmark = true }: LogoProp
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-[0.32em] align-middle font-brand text-[1.3rem] font-bold leading-none",
+        "inline-flex items-center gap-[0.26em] align-middle font-brand text-[1.3rem] font-bold leading-none",
         className,
       )}
     >
-      <LogoMark className="size-[1.42em]" />
+      {/* Lifted so the R's foot sits on the wordmark's baseline (the spark
+          raises the mark's ink box above the letters). */}
+      <LogoMark className={cn("size-[1.3em]", showWordmark && "-translate-y-[0.2em]")} />
       {showWordmark ? (
         <span
           data-logo-word=""
