@@ -29,7 +29,8 @@ export function BrandDefs() {
         {/* On light surfaces the tangerine end is deepened to keep 3:1 contrast. */}
         <linearGradient id={BRAND_GRADIENT_ON_LIGHT_ID} gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="100">
           <stop offset="0" stopColor="#e11d48" />
-          <stop offset="1" stopColor="#ea580c" />
+          {/* Light mode only: the dark theme keeps the bright end (tokens.css). */}
+          <stop offset="1" style={{ stopColor: "var(--logo-end-on-light, #ea580c)" }} />
         </linearGradient>
       </defs>
     </svg>
@@ -113,7 +114,8 @@ export function Logo({ className, tone = "dark", showWordmark = true }: LogoProp
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-[0.2em] align-middle font-brand text-[1.3rem] font-bold leading-none",
+        // Vertical padding keeps the lifted mark inside the box (focus ring, tap area).
+        "inline-flex items-center gap-[0.2em] py-[0.2em] align-middle font-brand text-[1.3rem] font-bold leading-none",
         className,
       )}
     >
@@ -128,7 +130,7 @@ export function Logo({ className, tone = "dark", showWordmark = true }: LogoProp
           data-logo-word=""
           className={cn(
             // In LTR the spark sits over empty space after the R; pull the word in.
-            "whitespace-nowrap lowercase tracking-[-0.02em] ltr:-ms-[0.08em]",
+            "whitespace-nowrap lowercase tracking-[-0.02em] ltr:-ms-[0.2em] rtl:ms-[0.1em]",
             tone === "light" ? "text-white" : "text-slate-950",
           )}
         >
