@@ -5,9 +5,9 @@ import { cn } from "@/lib/cn";
  * The Resumorah mark: a rounded R with a four-point spark beside it. "Orah"
  * means light, and the spark doubles as the AI cue used across the product.
  */
-export const BRAND_MARK_PATH = "M20 84V26H40a14 14 0 0 1 0 28H30L50 84";
+export const BRAND_MARK_PATH = "M20 84V26H40a14 14 0 0 1 0 28H20M36 54L50 84";
 export const BRAND_SPARK_PATH =
-  "M74 6C78.4 21.6 78.4 21.6 94 26C78.4 30.4 78.4 30.4 74 46C69.6 30.4 69.6 30.4 54 26C69.6 21.6 69.6 21.6 74 6Z";
+  "M79 3C83.18 17.82 83.18 17.82 98 22C83.18 26.18 83.18 26.18 79 41C74.82 26.18 74.82 26.18 60 22C74.82 17.82 74.82 17.82 79 3Z";
 const BRAND_GRADIENT_ID = "resumorah-brand-gradient";
 
 /**
@@ -19,7 +19,9 @@ export function BrandDefs() {
   return (
     <svg aria-hidden="true" width="0" height="0" className="pointer-events-none absolute">
       <defs>
-        <linearGradient id={BRAND_GRADIENT_ID} x1="0" y1="0" x2="1" y2="1">
+        {/* User-space units: one continuous sweep across the R and the spark
+            (every mark uses a 0 0 100 100 viewBox). */}
+        <linearGradient id={BRAND_GRADIENT_ID} gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="100">
           <stop offset="0" stopColor="#e11d48" />
           <stop offset="1" stopColor="#fb923c" />
         </linearGradient>
@@ -46,7 +48,7 @@ export function LogoMark({ className, variant = "stroke" }: LogoMarkProps) {
         style={{ backgroundImage: "linear-gradient(135deg, #e11d48, #fb923c)" }}
       >
         {/* Shifted viewBox centres the ink (R + spark) optically in the tile. */}
-        <svg viewBox="4 -5 100 100" className="size-[62%]" fill="none">
+        <svg viewBox="6 -4 100 100" className="size-[62%]" fill="none">
           <path
             d={BRAND_MARK_PATH}
             stroke="#fff"
@@ -96,7 +98,7 @@ export function Logo({ className, tone = "dark", showWordmark = true }: LogoProp
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-[0.26em] align-middle font-brand text-[1.3rem] font-bold leading-none",
+        "inline-flex items-center gap-[0.2em] align-middle font-brand text-[1.3rem] font-bold leading-none",
         className,
       )}
     >
