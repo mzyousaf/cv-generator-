@@ -195,6 +195,7 @@ export const en = {
     ],
   },
   templatesPage: {
+    clearSearch: "Clear search",
     title: "Free CV and resume templates",
     description:
       "90+ recruiter-ready CV and resume templates for 18 regions. Pick one, fill it in and download a PDF. 100% free for everyone.",

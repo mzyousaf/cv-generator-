@@ -189,6 +189,7 @@ export const fr: Dictionary = {
     ],
   },
   templatesPage: {
+    clearSearch: "Effacer la recherche",
     title: "Modèles de CV gratuits",
     description: "Plus de 90 modèles de CV prêts pour les recruteurs, pour 18 régions. Choisissez-en un, remplissez-le et téléchargez un PDF. 100 % gratuit pour tous.",
     regionTitle: "Modèles de CV gratuits : {region}",

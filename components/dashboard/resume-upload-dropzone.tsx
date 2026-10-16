@@ -191,7 +191,7 @@ export function ResumeUploadDropzone() {
                       className={cn(
                         "flex size-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold",
                         state === "done" && "bg-emerald-500 text-white",
-                        state === "active" && "bg-blue-600 text-white",
+                        state === "active" && "bg-[var(--brand-600)] text-white",
                         state === "todo" && "bg-slate-100 text-slate-400",
                       )}
                     >

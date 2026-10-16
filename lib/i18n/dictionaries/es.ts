@@ -189,6 +189,7 @@ export const es: Dictionary = {
     ],
   },
   templatesPage: {
+    clearSearch: "Borrar búsqueda",
     title: "Plantillas de CV y currículum gratis",
     description: "Más de 90 plantillas de CV y currículum listas para reclutadores, para 18 regiones. Elige una, rellénala y descarga un PDF. 100 % gratis para todos.",
     regionTitle: "Plantillas de CV gratis: {region}",

@@ -3,9 +3,8 @@
 import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { CORE_TEMPLATE_IDS, CV_TEMPLATE_IDS, REGIONAL_TEMPLATE_IDS } from "@/lib/cv/constants";
-import { TEMPLATE_REGIONS } from "@/lib/cv/template-catalog";
 import { format } from "@/lib/i18n/format";
-import { regionPath } from "@/lib/seo";
+import { regionPath, regionsWithTemplates } from "@/lib/seo";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { SectionHeading } from "@/components/landing/section-heading";
 import { TemplateMiniPreview } from "@/components/landing/template-mini-preview";
@@ -80,7 +79,7 @@ export function TemplatesSection() {
             </Link>
           </div>
           <ul className="mt-5 flex flex-wrap gap-2">
-            {TEMPLATE_REGIONS.filter((region) => region !== "global").map((region) => (
+            {regionsWithTemplates().filter((region) => region !== "global").map((region) => (
               <li key={region}>
                 {/* Each region links to its indexable template page. */}
                 <Link

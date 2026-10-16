@@ -214,7 +214,7 @@ export function TemplatePickerModal({
       className={cn(
         "inline-flex min-h-9 shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-full border px-3 text-xs font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
         pressed
-          ? "border-blue-600 bg-blue-600 text-white"
+          ? "border-[var(--brand-600)] bg-[var(--brand-600)] text-white"
           : "border-slate-200 bg-surface text-slate-600 hover:border-slate-300 hover:text-slate-900",
       )}
     >
@@ -370,7 +370,7 @@ export function TemplatePickerModal({
                     <span
                       className={cn(
                         "absolute start-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide shadow-sm",
-                        isSelected ? "bg-blue-600 text-white" : "bg-surface text-blue-700 ring-1 ring-blue-200",
+                        isSelected ? "bg-[var(--brand-600)] text-white" : "bg-surface text-blue-700 ring-1 ring-blue-200",
                       )}
                     >
                       {isSelected ? copy.current : copy.popular}

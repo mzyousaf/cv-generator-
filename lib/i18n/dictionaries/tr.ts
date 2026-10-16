@@ -35,7 +35,7 @@ export const tr: Dictionary = {
   common: {
     cancel: "İptal",
     signIn: "Giriş yap",
-    createCvFree: "CV’nizi Ücretsiz Oluşturun",
+    createCvFree: "CV’nizi ücretsiz oluşturun",
     createCvShort: "Ücretsiz başla",
     back: "Geri",
     remove: "Kaldır",
@@ -193,6 +193,7 @@ export const tr: Dictionary = {
     ],
   },
   templatesPage: {
+    clearSearch: "Aramayı temizle",
     title: "Ücretsiz CV şablonları",
     description: "18 bölge için işverenlerin beğeneceği 90+ CV şablonu. Birini seçin, doldurun ve PDF olarak indirin. Herkes için %100 ücretsiz.",
     regionTitle: "Ücretsiz CV şablonları: {region}",

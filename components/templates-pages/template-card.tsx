@@ -8,7 +8,16 @@ import { getRegionalTemplateSpec, templateFacets } from "@/lib/cv/template-catal
 import { templatePath } from "@/lib/seo";
 
 /** Card linking to a template's page; the preview is optional to keep long lists light. */
-export function TemplateCard({ id, preview = false }: { id: CvTemplateId; preview?: boolean }) {
+export function TemplateCard({
+  id,
+  preview = false,
+  showRegion = true,
+}: {
+  id: CvTemplateId;
+  preview?: boolean;
+  /** Off where the surrounding list is already scoped to one region. */
+  showRegion?: boolean;
+}) {
   const { t, locale } = useI18n();
   const facets = templateFacets(id);
   const tags = getRegionalTemplateSpec(id)?.tags ?? (facets.ats ? (["ats"] as const) : []);
@@ -26,9 +35,11 @@ export function TemplateCard({ id, preview = false }: { id: CvTemplateId; previe
       <div className="flex flex-1 flex-col p-4">
         <div className="flex items-start justify-between gap-2">
           <h3 className="min-w-0 text-base font-bold text-slate-950 group-hover:text-blue-700">{t.templateMeta[id].name}</h3>
-          <span className="mt-0.5 max-w-[50%] truncate rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
-            {t.templatePicker.regions[facets.region]}
-          </span>
+          {showRegion ? (
+            <span className="mt-0.5 shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-600">
+              {t.templatePicker.regions[facets.region]}
+            </span>
+          ) : null}
         </div>
         <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{t.templateMeta[id].description}</p>
         <ul className="mt-auto flex flex-wrap gap-1 pt-3">

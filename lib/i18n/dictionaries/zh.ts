@@ -175,6 +175,7 @@ export const zh: Dictionary = {
     ],
   },
   templatesPage: {
+    clearSearch: "清除搜索",
     title: "免费简历模板",
     description: "90+ 款可直接投递的简历模板，覆盖 18 个地区。选好模板、填写内容，即可下载 PDF。对所有人 100% 免费。",
     regionTitle: "免费简历模板：{region}",

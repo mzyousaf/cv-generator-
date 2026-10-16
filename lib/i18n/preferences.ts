@@ -34,7 +34,7 @@ export const THEME_SWATCHES: Record<ThemeId, string> = {
   ocean: "oklch(54.6% 0.245 262.881)",
   emerald: "oklch(56% 0.115 184.704)",
   fuchsia: "oklch(59.1% 0.293 322.896)",
-  graphite: "oklch(37.2% 0.044 257.287)",
+  graphite: "oklch(45% 0.1 264)",
 };
 
 /** Themes that were renamed, so saved preferences keep a close match. */

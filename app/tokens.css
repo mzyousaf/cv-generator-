@@ -72,7 +72,13 @@ html[data-theme="coral"] {
   --brand-800: #9f183b;
   --brand-900: #881837;
   --brand-950: #4c0819;
-  --brand-gradient: linear-gradient(135deg, #e11d48 0%, #f43f5e 42%, #fb923c 100%);
+}
+
+/* Coral's signature button gradient. Only coral: :root would leak it into every
+   theme. The tangerine end is deepened so white button text stays legible. */
+html:not([data-theme]),
+html[data-theme="coral"] {
+  --brand-gradient: linear-gradient(135deg, #e11d48 0%, #f43f5e 45%, #ea580c 100%);
 }
 
 html[data-theme="violet"] {
@@ -133,17 +139,18 @@ html[data-theme="fuchsia"] {
 
 /* Graphite: a neutral, ink-like theme for a quiet, corporate look. */
 html[data-theme="graphite"] {
-  --brand-50: oklch(98.4% 0.003 247.858);
-  --brand-100: oklch(96.8% 0.007 247.896);
-  --brand-200: oklch(92.9% 0.013 255.508);
-  --brand-300: oklch(86.9% 0.022 252.894);
-  --brand-400: oklch(70.4% 0.04 256.788);
-  --brand-500: oklch(55.4% 0.046 257.417);
-  --brand-600: oklch(44.6% 0.043 257.281);
-  --brand-700: oklch(37.2% 0.044 257.287);
-  --brand-800: oklch(27.9% 0.041 260.031);
-  --brand-900: oklch(20.8% 0.042 265.755);
-  --brand-950: oklch(12.9% 0.042 264.695);
+  /* Slate with a hint of ink blue, so links and accents still read as accents. */
+  --brand-50: oklch(97.9% 0.008 255);
+  --brand-100: oklch(95.4% 0.016 255);
+  --brand-200: oklch(90.6% 0.03 257);
+  --brand-300: oklch(83% 0.05 258);
+  --brand-400: oklch(70% 0.075 260);
+  --brand-500: oklch(55% 0.09 262);
+  --brand-600: oklch(45% 0.1 264);
+  --brand-700: oklch(38% 0.105 265);
+  --brand-800: oklch(30% 0.09 266);
+  --brand-900: oklch(23% 0.07 267);
+  --brand-950: oklch(15% 0.05 267);
 }
 
 :root,

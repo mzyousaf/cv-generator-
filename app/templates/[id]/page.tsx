@@ -73,7 +73,7 @@ export default async function TemplatePage({ params }: Params) {
     [t.templatePicker.styleLabel, t.templatePicker.styles[facets.style]],
     [t.templatePicker.regionLabel, regionName],
   ];
-  if (facets.ats) rows.push(["ATS", t.templatePicker.tags.ats]);
+  if (facets.ats) rows.push([t.templatePicker.tags.ats, copy.included]);
 
   return (
     <PublicPage>
@@ -168,14 +168,14 @@ export default async function TemplatePage({ params }: Params) {
             <h2 id="related-title" className="text-xl font-bold tracking-tight text-slate-950">
               {copy.related}
             </h2>
-            <Link href={regionPath(facets.region)} className="shrink-0 text-sm font-semibold text-blue-700 hover:underline">
+            <Link href={regionPath(facets.region)} className="min-w-0 text-right text-sm font-semibold text-blue-700 hover:underline">
               {regionName}
             </Link>
           </div>
           <ul className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((other) => (
               <li key={other} className="min-w-0">
-                <TemplateCard id={other} />
+                <TemplateCard id={other} showRegion={false} />
               </li>
             ))}
           </ul>

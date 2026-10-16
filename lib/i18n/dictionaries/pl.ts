@@ -151,7 +151,7 @@ export const pl: Dictionary = {
     description: "Wszystko, co warto wiedzieć, zanim zaczniesz.",
     items: [
       {
-        question: "Czy Resumorah jest naprawdę za darmo?",
+        question: "Czy Resumorah jest naprawdę darmowy?",
         answer:
           "Tak. Resumorah jest w 100% darmowy dla wszystkich: wszystkie szablony, asystent pisania AI, import CV i nielimitowane pobieranie plików PDF. Bez okresu próbnego, bez płatnych funkcji, bez znaku wodnego i bez karty kredytowej.",
       },
@@ -193,10 +193,11 @@ export const pl: Dictionary = {
     ],
   },
   templatesPage: {
+    clearSearch: "Wyczyść wyszukiwanie",
     title: "Darmowe szablony CV",
     description: "Ponad 90 szablonów CV gotowych dla rekruterów, dla 18 regionów. Wybierz szablon, uzupełnij go i pobierz PDF. 100% za darmo dla wszystkich.",
     regionTitle: "Darmowe szablony CV: {region}",
-    regionDescription: "Darmowe szablony CV zgodne z lokalnymi zwyczajami (region: {region}, liczba szablonów: {n}). Dostosuj wybrany szablon online i pobierz go jako PDF.",
+    regionDescription: "{region}: {n} darmowych szablonów CV zgodnych z lokalnymi zwyczajami. Dostosuj wybrany szablon online i pobierz go jako PDF.",
     templateTitle: "{name}: darmowy szablon CV",
     templateDescription: "{description} Za darmo: dostosuj go online i pobierz PDF gotowy do druku.",
     useTemplate: "Użyj tego szablonu za darmo",

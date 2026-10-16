@@ -150,7 +150,7 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             <span
               className={cn(
                 "size-5 shrink-0 rounded-full shadow-inner ring-offset-2 ring-offset-surface transition-transform group-hover:scale-110",
-                id === current.theme && "ring-2 ring-slate-900/60",
+                id === current.theme ? "ring-2 ring-slate-900/60" : "ring-1 ring-black/10 dark:ring-white/30",
               )}
               style={{ background: THEME_SWATCHES[id] }}
               aria-hidden="true"
