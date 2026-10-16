@@ -224,6 +224,39 @@ export const tr: Dictionary = {
     notIncluded: "Dahil değil",
     related: "Bu bölge için diğer şablonlar",
     viewTemplate: "Şablonu görüntüle",
+    guide: {
+      title: "Bu şablon ne zaman kullanılmalı?",
+      layout: {
+        single:
+          "Tek sütunlu düzen okuma sırasını sade tutar; bu da CV’lere hızla göz atan işe alım uzmanlarına ve aday takip sistemlerine aynı ölçüde uyar.",
+        sidebar:
+          "İletişim bilgileri, beceriler ve diller renkli bir kenar çubuğunda yer alır; ana sütun deneyiminize ve eğitiminize kalır.",
+        europass:
+          "Europass yapısını izler: bir yanda dar bir sütunda başlıklar, hemen yanında da sizin bilgileriniz. AB genelindeki işverenlerin ve kurumların tanıdığı bir formattır.",
+        timeline:
+          "Tarihler her kaydın yanında ayrı bir sütunda yer alır; bu, Almanya, Avusturya, İsviçre ve Orta Avrupa’nın büyük bölümünde yaygın olan tablo düzenidir.",
+      },
+      photo: {
+        expected: "{region} bölgesinde profesyonel bir fotoğraf eklemek teamüldür ve düzende fotoğraf için ayrılmış bir alan bulunur.",
+        optional: "Fotoğraf isteğe bağlıdır: Alanınızda veya ülkenizde yaygınsa ekleyin, değilse hiç eklemeyin.",
+        none: "ABD, Birleşik Krallık, Kanada ve Avustralya’daki işe alım uzmanlarının beklediği ve ATS odaklı birçok başvurunun tercih ettiği gibi fotoğraf içermez.",
+      },
+      personalDetails:
+        "İşverenlerin beklediği pazarlar için bir kişisel bilgiler bölümü (doğum tarihi ve uyruk gibi) içerir.",
+      signature:
+        "Almanca konuşulan ülkelerdeki teamüle uygun olarak CV, bir yer-tarih satırı ve bir imza satırıyla biter.",
+      references:
+        "Kısa bir “referanslar talep üzerine verilir” satırı, Birleşik Krallık, İrlanda, Güney Afrika ve Avustralya’daki teamülü izler.",
+      letter: "ABD ve Kanada’da standart olan US Letter kâğıt boyutuna (8,5 × 11 inç) göre hazırlanmıştır.",
+      a4: "Kuzey Amerika dışında neredeyse her yerde standart olan A4 kâğıt boyutuna göre hazırlanmıştır.",
+      ats: "Grafik içermeyen sade yapısı, aday takip sistemleri (ATS) tarafından güvenilir şekilde okunur.",
+      stepsTitle: "Nasıl kullanılır?",
+      steps: [
+        "“Bu şablonu ücretsiz kullan” seçeneğine tıklayın ve ücretsiz hesabınızı oluşturun.",
+        "Her bölümü doldurun ya da mevcut CV’nizi bir PDF veya DOCX dosyasından içe aktarın.",
+        "Özetinizi ve deneyiminizi yapay zekanın iyileştirmesine izin verin, ardından PDF’inizi indirin.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Şablonlar",

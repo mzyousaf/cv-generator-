@@ -224,6 +224,39 @@ export const it: Dictionary = {
     notIncluded: "Non inclusi",
     related: "Altri modelli per questa regione",
     viewTemplate: "Vedi il modello",
+    guide: {
+      title: "Quando usare questo modello",
+      layout: {
+        single:
+          "Il layout a colonna singola mantiene un ordine di lettura semplice, ideale sia per i recruiter che scorrono rapidamente i CV sia per i sistemi di selezione automatica.",
+        sidebar:
+          "Contatti, competenze e lingue si trovano in una barra laterale colorata, lasciando la colonna principale alla tua esperienza e alla tua formazione.",
+        europass:
+          "Segue la struttura Europass: etichette in una colonna stretta su un lato e i tuoi dati accanto, un formato riconosciuto da aziende e istituzioni in tutta l’UE.",
+        timeline:
+          "Le date hanno una colonna propria accanto a ogni voce, lo stile tabellare diffuso in Germania, Austria, Svizzera e in gran parte dell’Europa centrale.",
+      },
+      photo: {
+        expected: "Per la regione {region} è consuetudine inserire una foto professionale, e il layout le riserva uno spazio dedicato.",
+        optional: "La foto è facoltativa: aggiungila se è comune nel tuo settore o nel tuo paese, oppure lasciala semplicemente fuori.",
+        none: "Non prevede la foto, come si aspettano i recruiter di Stati Uniti, Regno Unito, Canada e Australia e come preferiscono molte candidature pensate per gli ATS.",
+      },
+      personalDetails:
+        "Include una sezione di dati personali (come data di nascita e nazionalità) per i mercati in cui le aziende se la aspettano.",
+      signature:
+        "Una riga con luogo e data e una riga per la firma chiudono il CV, come si usa nei paesi di lingua tedesca.",
+      references:
+        "Una breve riga “referenze disponibili su richiesta” segue la consuetudine di Regno Unito, Irlanda, Sudafrica e Australia.",
+      letter: "È in formato US Letter (8,5 × 11 in), lo standard negli Stati Uniti e in Canada.",
+      a4: "È in formato A4, lo standard quasi ovunque al di fuori del Nord America.",
+      ats: "La sua struttura semplice, senza elementi grafici, viene letta senza problemi dai sistemi di selezione automatica (ATS).",
+      stepsTitle: "Come usarlo",
+      steps: [
+        "Seleziona “Usa questo modello gratis” e crea il tuo account gratuito.",
+        "Compila ogni sezione oppure importa il tuo CV attuale da un file PDF o DOCX.",
+        "Lascia che l’IA perfezioni il tuo profilo e la tua esperienza, poi scarica il PDF.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Modelli",

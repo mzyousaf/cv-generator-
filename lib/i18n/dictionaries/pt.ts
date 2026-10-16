@@ -224,6 +224,39 @@ export const pt: Dictionary = {
     notIncluded: "Não incluídos",
     related: "Mais modelos para esta região",
     viewTemplate: "Ver modelo",
+    guide: {
+      title: "Quando usar este modelo",
+      layout: {
+        single:
+          "O layout de coluna única mantém uma ordem de leitura simples, ideal tanto para recrutadores que leem na diagonal quanto para os sistemas de recrutamento.",
+        sidebar:
+          "Dados de contato, habilidades e idiomas ficam em uma barra lateral colorida, deixando a coluna principal para sua experiência e formação.",
+        europass:
+          "Segue a estrutura Europass: rótulos em uma coluna estreita de um lado e suas informações ao lado, um formato reconhecido por empregadores e instituições de toda a UE.",
+        timeline:
+          "As datas ficam em uma coluna própria ao lado de cada item, o estilo tabular comum na Alemanha, na Áustria, na Suíça e em boa parte da Europa Central.",
+      },
+      photo: {
+        expected: "Na região {region}, é comum incluir uma foto profissional, e o layout tem um espaço reservado para ela.",
+        optional: "A foto é opcional: inclua uma se for comum na sua área ou no seu país, ou simplesmente deixe de fora.",
+        none: "Não inclui foto, como esperam os recrutadores dos EUA, do Reino Unido, do Canadá e da Austrália e como preferem muitas candidaturas voltadas para ATS.",
+      },
+      personalDetails:
+        "Inclui um bloco de dados pessoais (como data de nascimento e nacionalidade) para os mercados em que os empregadores esperam essas informações.",
+      signature:
+        "Uma linha com local e data e uma linha para assinatura encerram o currículo, como é costume nos países de língua alemã.",
+      references:
+        "Uma breve linha de “referências disponíveis mediante solicitação” segue o costume do Reino Unido, da Irlanda, da África do Sul e da Austrália.",
+      letter: "Tem o tamanho US Letter (8,5 × 11 in), o padrão nos Estados Unidos e no Canadá.",
+      a4: "Tem o tamanho A4, o padrão em quase todo o mundo fora da América do Norte.",
+      ats: "Sua estrutura simples, sem elementos gráficos, é lida sem problemas pelos sistemas de recrutamento (ATS).",
+      stepsTitle: "Como usar",
+      steps: [
+        "Selecione “Usar este modelo grátis” e crie sua conta gratuita.",
+        "Preencha cada seção ou importe seu currículo atual de um arquivo PDF ou DOCX.",
+        "Deixe a IA aprimorar seu resumo e sua experiência e, depois, baixe seu PDF.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Modelos",

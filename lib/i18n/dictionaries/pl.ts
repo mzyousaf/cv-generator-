@@ -224,6 +224,39 @@ export const pl: Dictionary = {
     notIncluded: "Nieuwzględnione",
     related: "Więcej szablonów dla tego regionu",
     viewTemplate: "Zobacz szablon",
+    guide: {
+      title: "Kiedy warto wybrać ten szablon",
+      layout: {
+        single:
+          "Układ jednokolumnowy zapewnia prostą kolejność czytania, co odpowiada zarówno rekruterom, którzy przeglądają CV pobieżnie, jak i systemom ATS.",
+        sidebar:
+          "Dane kontaktowe, umiejętności i języki znajdują się w kolorowym panelu bocznym, a główna kolumna pozostaje na doświadczenie zawodowe i wykształcenie.",
+        europass:
+          "Odwzorowuje strukturę Europass: etykiety w wąskiej kolumnie po jednej stronie, a obok nich Twoje dane – format rozpoznawany przez pracodawców i instytucje w całej UE.",
+        timeline:
+          "Daty mają własną kolumnę obok każdego wpisu – to tabelaryczny styl popularny w Niemczech, Austrii, Szwajcarii i dużej części Europy Środkowej.",
+      },
+      photo: {
+        expected: "W regionie „{region}” profesjonalne zdjęcie jest standardem, a układ ma na nie wydzielone miejsce.",
+        optional: "Zdjęcie jest opcjonalne: dodaj je, jeśli jest przyjęte w Twojej branży lub kraju, albo po prostu je pomiń.",
+        none: "Nie zawiera zdjęcia, czego oczekują rekruterzy w USA, Wielkiej Brytanii, Kanadzie i Australii i co preferuje wiele aplikacji przygotowanych z myślą o ATS.",
+      },
+      personalDetails:
+        "Zawiera sekcję danych osobowych (np. data urodzenia i obywatelstwo) dla rynków, na których pracodawcy jej oczekują.",
+      signature:
+        "CV zamyka wiersz z miejscowością i datą oraz miejsce na podpis, jak przyjęło się w krajach niemieckojęzycznych.",
+      references:
+        "Krótka adnotacja „referencje dostępne na życzenie” odpowiada zwyczajom w Wielkiej Brytanii, Irlandii, RPA i Australii.",
+      letter: "Ma format US Letter (8,5 × 11 in), standardowy w Stanach Zjednoczonych i Kanadzie.",
+      a4: "Ma format A4, standardowy niemal wszędzie poza Ameryką Północną.",
+      ats: "Prosta struktura bez grafik jest niezawodnie odczytywana przez systemy ATS.",
+      stepsTitle: "Jak z niego skorzystać",
+      steps: [
+        "Wybierz „Użyj tego szablonu za darmo” i załóż darmowe konto.",
+        "Uzupełnij poszczególne sekcje lub zaimportuj obecne CV z pliku PDF albo DOCX.",
+        "Pozwól AI dopracować podsumowanie i doświadczenie, a potem pobierz PDF.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Szablony",

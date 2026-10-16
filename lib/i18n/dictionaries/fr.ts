@@ -220,6 +220,39 @@ export const fr: Dictionary = {
     notIncluded: "Non incluses",
     related: "Autres modèles pour cette région",
     viewTemplate: "Voir le modèle",
+    guide: {
+      title: "Quand utiliser ce modèle",
+      layout: {
+        single:
+          "La mise en page sur une seule colonne garde un ordre de lecture simple, idéal aussi bien pour les recruteurs qui survolent les CV que pour les logiciels de recrutement.",
+        sidebar:
+          "Les coordonnées, les compétences et les langues figurent dans une colonne latérale colorée, ce qui laisse la colonne principale à votre expérience et à votre formation.",
+        europass:
+          "Il reprend la structure Europass : des intitulés dans une colonne étroite d'un côté et vos informations en regard, un format reconnu par les employeurs et les institutions de toute l'UE.",
+        timeline:
+          "Les dates occupent leur propre colonne à côté de chaque entrée, le style tabulaire courant en Allemagne, en Autriche, en Suisse et dans une grande partie de l'Europe centrale.",
+      },
+      photo: {
+        expected: "Pour la région {region}, une photo professionnelle est d'usage, et la mise en page lui réserve un emplacement dédié.",
+        optional: "La photo est facultative : ajoutez-en une si c'est l'usage dans votre secteur ou votre pays, ou laissez-la simplement de côté.",
+        none: "Il n'inclut pas de photo, comme l'attendent les recruteurs aux États-Unis, au Royaume-Uni, au Canada et en Australie, et comme le privilégient de nombreuses candidatures pensées pour les ATS.",
+      },
+      personalDetails:
+        "Il comprend un bloc d'informations personnelles (date de naissance, nationalité, etc.) pour les marchés où les employeurs s'y attendent.",
+      signature:
+        "Une ligne lieu et date suivie d'une ligne de signature termine le CV, comme le veut l'usage dans les pays germanophones.",
+      references:
+        "Une courte mention « références disponibles sur demande » suit l'usage au Royaume-Uni, en Irlande, en Afrique du Sud et en Australie.",
+      letter: "Il est au format US Letter (8,5 × 11 in), la norme aux États-Unis et au Canada.",
+      a4: "Il est au format A4, la norme presque partout en dehors de l'Amérique du Nord.",
+      ats: "Sa structure simple, sans éléments graphiques, est lue de façon fiable par les logiciels de recrutement (ATS).",
+      stepsTitle: "Comment l'utiliser",
+      steps: [
+        "Cliquez sur « Utiliser ce modèle gratuitement » et créez votre compte gratuit.",
+        "Remplissez chaque section, ou importez votre CV actuel depuis un fichier PDF ou DOCX.",
+        "Laissez l'IA peaufiner votre résumé et votre expérience, puis téléchargez votre PDF.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Modèles",

@@ -224,6 +224,39 @@ export const nl: Dictionary = {
     notIncluded: "Niet opgenomen",
     related: "Meer templates voor deze regio",
     viewTemplate: "Template bekijken",
+    guide: {
+      title: "Wanneer gebruik je dit template",
+      layout: {
+        single:
+          "Een opmaak met één kolom houdt de leesvolgorde eenvoudig, handig voor recruiters die snel scannen én voor sollicitatiesystemen.",
+        sidebar:
+          "Contactgegevens, vaardigheden en talen staan in een gekleurde zijbalk, zodat de hoofdkolom vrij blijft voor je werkervaring en opleiding.",
+        europass:
+          "Het volgt de Europass-indeling: labels in een smalle kolom aan één kant en je gegevens ernaast, een formaat dat werkgevers en instellingen in de hele EU herkennen.",
+        timeline:
+          "Data staan in een eigen kolom naast elk item, de tabelvorm die gebruikelijk is in Duitsland, Oostenrijk, Zwitserland en een groot deel van Centraal-Europa.",
+      },
+      photo: {
+        expected: "In de regio {region} is een professionele foto gebruikelijk, en de opmaak heeft er een vaste plek voor.",
+        optional: "Een foto is optioneel: voeg er een toe als dat gebruikelijk is in je vakgebied of land, of laat hem gewoon weg.",
+        none: "Het laat de foto weg, zoals recruiters in de VS, het VK, Canada en Australië verwachten en zoals veel op ATS gerichte sollicitaties de voorkeur geven.",
+      },
+      personalDetails:
+        "Het bevat een blok met persoonlijke gegevens (zoals geboortedatum en nationaliteit) voor markten waar werkgevers dat verwachten.",
+      signature:
+        "Een regel met plaats en datum en een regel voor je handtekening sluiten het cv af, zoals gebruikelijk is in Duitstalige landen.",
+      references:
+        "Een korte regel ‘referenties op aanvraag beschikbaar’ volgt de gewoonte in het VK, Ierland, Zuid-Afrika en Australië.",
+      letter: "Het heeft het formaat US Letter (8,5 × 11 in), de standaard in de Verenigde Staten en Canada.",
+      a4: "Het heeft het formaat A4, de standaard bijna overal buiten Noord-Amerika.",
+      ats: "De eenvoudige opbouw zonder afbeeldingen wordt betrouwbaar uitgelezen door sollicitatiesystemen (ATS).",
+      stepsTitle: "Zo gebruik je het",
+      steps: [
+        "Kies ‘Gebruik dit template gratis’ en maak je gratis account aan.",
+        "Vul elke sectie in, of importeer je huidige cv uit een PDF- of DOCX-bestand.",
+        "Laat de AI je profiel en werkervaring bijschaven en download daarna je PDF.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Templates",

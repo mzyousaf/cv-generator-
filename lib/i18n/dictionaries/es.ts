@@ -220,6 +220,39 @@ export const es: Dictionary = {
     notIncluded: "No incluidos",
     related: "Más plantillas para esta región",
     viewTemplate: "Ver plantilla",
+    guide: {
+      title: "Cuándo usar esta plantilla",
+      layout: {
+        single:
+          "El diseño de una sola columna mantiene un orden de lectura sencillo, ideal tanto para reclutadores que leen en diagonal como para los sistemas de seguimiento de candidatos.",
+        sidebar:
+          "Los datos de contacto, las habilidades y los idiomas van en una barra lateral de color, y la columna principal queda para tu experiencia y tu formación.",
+        europass:
+          "Sigue la estructura Europass: etiquetas en una columna estrecha a un lado y tus datos junto a ellas, un formato que empresas e instituciones de toda la UE reconocen.",
+        timeline:
+          "Las fechas ocupan su propia columna junto a cada entrada, el estilo tabular habitual en Alemania, Austria, Suiza y buena parte de Europa Central.",
+      },
+      photo: {
+        expected: "En la región {region} es habitual incluir una foto profesional, y el diseño reserva un espacio específico para ella.",
+        optional: "La foto es opcional: añádela si es lo habitual en tu sector o país, o simplemente prescinde de ella.",
+        none: "Prescinde de la foto, como esperan los reclutadores de EE. UU., Reino Unido, Canadá y Australia y como prefieren muchas candidaturas pensadas para ATS.",
+      },
+      personalDetails:
+        "Incluye un bloque de datos personales (como la fecha de nacimiento y la nacionalidad) para los mercados donde las empresas lo esperan.",
+      signature:
+        "Una línea con lugar y fecha y otra para la firma cierran el CV, como es costumbre en los países de habla alemana.",
+      references:
+        "Una breve línea de «referencias disponibles a petición» sigue la costumbre del Reino Unido, Irlanda, Sudáfrica y Australia.",
+      letter: "Tiene tamaño US Letter (8,5 × 11 in), el estándar en Estados Unidos y Canadá.",
+      a4: "Tiene tamaño A4, el estándar en casi todo el mundo fuera de Norteamérica.",
+      ats: "Su estructura sencilla y sin gráficos la leen sin problemas los sistemas de seguimiento de candidatos (ATS).",
+      stepsTitle: "Cómo usarla",
+      steps: [
+        "Selecciona «Usar esta plantilla gratis» y crea tu cuenta gratuita.",
+        "Rellena cada sección o importa tu CV actual desde un archivo PDF o DOCX.",
+        "Deja que la IA pula tu resumen y tu experiencia, y descarga tu PDF.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Plantillas",

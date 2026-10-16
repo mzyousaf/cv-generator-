@@ -220,6 +220,39 @@ export const de: Dictionary = {
     notIncluded: "Nicht enthalten",
     related: "Weitere Vorlagen für diese Region",
     viewTemplate: "Vorlage ansehen",
+    guide: {
+      title: "Wann sich diese Vorlage eignet",
+      layout: {
+        single:
+          "Das einspaltige Layout sorgt für eine einfache Lesereihenfolge – ideal für Recruiter, die Unterlagen nur überfliegen, und ebenso für Bewerbermanagementsysteme.",
+        sidebar:
+          "Kontaktdaten, Kenntnisse und Sprachen stehen in einer farbigen Seitenleiste, sodass die Hauptspalte frei für Ihre Berufserfahrung und Ausbildung bleibt.",
+        europass:
+          "Sie folgt dem Europass-Aufbau: Bezeichnungen in einer schmalen Spalte auf der einen Seite, Ihre Angaben direkt daneben – ein Format, das Arbeitgeber und Institutionen in der gesamten EU kennen.",
+        timeline:
+          "Die Zeitangaben stehen in einer eigenen Spalte neben jedem Eintrag – der tabellarische Stil, der in Deutschland, Österreich, der Schweiz und weiten Teilen Mitteleuropas üblich ist.",
+      },
+      photo: {
+        expected: "In der Region {region} ist ein professionelles Foto üblich, und das Layout sieht dafür einen eigenen Platz vor.",
+        optional: "Ein Foto ist optional: Fügen Sie eines hinzu, wenn es in Ihrer Branche oder Ihrem Land üblich ist, oder lassen Sie es einfach weg.",
+        none: "Sie verzichtet auf ein Foto, wie es Recruiter in den USA, Großbritannien, Kanada und Australien erwarten und wie es viele auf ATS ausgerichtete Bewerbungen bevorzugen.",
+      },
+      personalDetails:
+        "Sie enthält einen Block für persönliche Daten (etwa Geburtsdatum und Staatsangehörigkeit) für Märkte, in denen Arbeitgeber diese Angaben erwarten.",
+      signature:
+        "Eine Zeile für Ort und Datum sowie eine Unterschriftszeile schließen den Lebenslauf ab, wie es im deutschsprachigen Raum üblich ist.",
+      references:
+        "Ein kurzer Hinweis „Referenzen auf Anfrage“ entspricht den Gepflogenheiten in Großbritannien, Irland, Südafrika und Australien.",
+      letter: "Sie ist für das Papierformat US Letter (8,5 × 11 in) ausgelegt, den Standard in den USA und Kanada.",
+      a4: "Sie ist für das Papierformat A4 ausgelegt, den Standard fast überall außerhalb Nordamerikas.",
+      ats: "Ihr schlichter Aufbau ohne Grafiken wird von Bewerbermanagementsystemen (ATS) zuverlässig ausgelesen.",
+      stepsTitle: "So nutzen Sie die Vorlage",
+      steps: [
+        "Klicken Sie auf „Diese Vorlage kostenlos nutzen“ und erstellen Sie Ihr kostenloses Konto.",
+        "Füllen Sie die einzelnen Abschnitte aus oder importieren Sie Ihren aktuellen Lebenslauf aus einer PDF- oder DOCX-Datei.",
+        "Lassen Sie die KI Ihr Profil und Ihre Berufserfahrung überarbeiten und laden Sie dann Ihr PDF herunter.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Vorlagen",
