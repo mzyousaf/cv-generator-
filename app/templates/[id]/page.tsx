@@ -15,7 +15,7 @@ import { format } from "@/lib/i18n/format";
 import { getPreferences } from "@/lib/i18n/server";
 import { absoluteUrl, regionPath, templatePath, templatesInRegion } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/seo-schema";
-import { localizer, pageAlternates, routePath } from "@/lib/seo-server";
+import { localizer, pageMetadata } from "@/lib/seo-server";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -34,15 +34,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!id) return {};
   const { locale } = await getPreferences();
   const t = getDictionary(locale);
-  const title = format(t.templatesPage.templateTitle, { name: t.templateMeta[id].name });
-  const description = format(t.templatesPage.templateDescription, { description: t.templateMeta[id].description });
-  return {
-    title,
-    description,
-    alternates: await pageAlternates(templatePath(id)),
-    openGraph: { title, description, url: await routePath(templatePath(id)) },
-    twitter: { title, description },
-  };
+  return pageMetadata({
+    title: format(t.templatesPage.templateTitle, { name: t.templateMeta[id].name }),
+    description: format(t.templatesPage.templateDescription, { description: t.templateMeta[id].description }),
+    path: templatePath(id),
+  });
 }
 
 export default async function TemplatePage({ params }: Params) {
@@ -57,7 +53,17 @@ export default async function TemplatePage({ params }: Params) {
   const name = t.templateMeta[id].name;
   const regionName = t.templatePicker.regions[facets.region];
   const title = format(copy.templateTitle, { name });
-  const related = templatesInRegion(facets.region).filter((other) => other !== id).slice(0, 6);
+  const guide = [
+    t.templateMeta[id].description,
+    copy.guide.layout[spec?.layout ?? "single"],
+    format(copy.guide.photo[facets.photo], { region: regionName }),
+    ...(spec?.personalDetails ? [copy.guide.personalDetails] : []),
+    ...(spec?.signature ? [copy.guide.signature] : []),
+    ...(spec?.referencesNote ? [copy.guide.references] : []),
+    spec?.pageSize === "LETTER" ? copy.guide.letter : copy.guide.a4,
+    ...(facets.ats ? [copy.guide.ats] : []),
+  ];
+  const related = templatesInRegion(facets.region).filter((other) => other !== id).slice(0, 9);
 
   const rows: [string, string][] = [
     [copy.layoutLabel, copy.layouts[spec?.layout ?? "single"]],
@@ -128,6 +134,33 @@ export default async function TemplatePage({ params }: Params) {
           </div>
         </section>
       </div>
+
+      {/* Template-specific guidance: built from the format's real attributes. */}
+      <section aria-labelledby="guide-title" className="mx-auto grid max-w-6xl gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div>
+          <h2 id="guide-title" className="text-xl font-bold tracking-tight text-slate-950">
+            {copy.guide.title}
+          </h2>
+          <div className="mt-4 space-y-3 text-[0.95rem] leading-relaxed text-slate-600">
+            {guide.map((sentence) => (
+              <p key={sentence}>{sentence}</p>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 className="text-xl font-bold tracking-tight text-slate-950">{copy.guide.stepsTitle}</h2>
+          <ol className="mt-4 space-y-3">
+            {copy.guide.steps.map((step, index) => (
+              <li key={step} className="flex gap-3 text-[0.95rem] leading-relaxed text-slate-600">
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-sm font-bold text-blue-700 ring-1 ring-blue-100">
+                  {index + 1}
+                </span>
+                <span className="pt-0.5">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
       {related.length ? (
         <section aria-labelledby="related-title" className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">

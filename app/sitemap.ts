@@ -11,8 +11,11 @@ type Entry = { path: string; changeFrequency: MetadataRoute.Sitemap[number]["cha
  * Public, indexable pages in every language, each with its hreflang
  * alternates. Private areas (dashboard, API) and noindex pages are excluded.
  */
+/** Bump when public page content changes; a constant lastmod is one search engines can trust. */
+const CONTENT_UPDATED = new Date("2026-10-16");
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
+  const now = CONTENT_UPDATED;
   const entries: Entry[] = [
     { path: "/", changeFrequency: "weekly", priority: 1 },
     { path: "/templates", changeFrequency: "weekly", priority: 0.9 },

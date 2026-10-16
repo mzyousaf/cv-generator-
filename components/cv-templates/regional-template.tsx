@@ -267,9 +267,9 @@ function Header({ model, compactContacts = false }: { model: RegionalDocumentMod
       }}
     >
       <div style={{ flex: 1, minWidth: 0 }}>
-      <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.15, color: band ? "#fff" : spec.heading === "caps" ? "#18181b" : spec.accent === "#000000" ? "#000" : "#18181b" }}>
+      <p style={{ fontSize: 28, fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.15, color: band ? "#fff" : spec.heading === "caps" ? "#18181b" : spec.accent === "#000000" ? "#000" : "#18181b" }}>
         {model.name}
-      </h1>
+      </p>
       <p style={{ fontSize: 14, marginTop: 4, color: band ? bandTitleColor(spec.accent) : spec.accent, fontWeight: 600 }}>{model.title}</p>
       {!compactContacts && model.contacts.length ? (
         <p style={{ fontSize: 10.5, marginTop: 8, color: band ? "rgba(255,255,255,0.8)" : "#52525b" }}>
@@ -364,7 +364,7 @@ function EuropassLayout({ model }: { model: RegionalDocumentModel }) {
           <span style={{ ...label, fontSize: 9 }}>{labels.curriculumVitae}</span>
         </div>
         <div>
-          <h1 style={{ fontSize: 26, fontWeight: 700, color: "#18181b" }}>{model.name}</h1>
+          <p style={{ fontSize: 26, fontWeight: 700, color: "#18181b" }}>{model.name}</p>
           <p style={{ fontSize: 13, color: spec.accent, fontWeight: 600, marginTop: 2 }}>{model.title}</p>
         </div>
       </header>
@@ -454,7 +454,7 @@ function SidebarLayout({ model }: { model: RegionalDocumentModel }) {
       </aside>
       <div style={{ flex: 1, padding: "40px 36px" }}>
         <header style={{ marginBottom: 22 }}>
-          <h1 style={{ fontSize: 28, fontWeight: 700, color: "#18181b", lineHeight: 1.15 }}>{model.name}</h1>
+          <p style={{ fontSize: 28, fontWeight: 700, color: "#18181b", lineHeight: 1.15 }}>{model.name}</p>
           <p style={{ fontSize: 14, color: spec.accent, fontWeight: 600, marginTop: 4 }}>{model.title}</p>
         </header>
         <Sections sections={main} spec={spec} />

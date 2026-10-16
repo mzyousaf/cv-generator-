@@ -13,9 +13,9 @@ export function DefaultCvTemplate({ state }: { state: CvBuilderFormState }) {
   return (
     <DocumentPage className="px-10 py-10">
       <header className="border-b border-zinc-300 pb-4">
-        <h1 className="text-[28px] font-semibold leading-tight tracking-tight">
+        <p className="text-[28px] font-semibold leading-tight tracking-tight">
           {view.displayName}
-        </h1>
+        </p>
         <p className="mt-1 text-[14px] font-medium text-zinc-700">
           {view.displayTitle}
         </p>

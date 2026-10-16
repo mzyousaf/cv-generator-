@@ -12,7 +12,7 @@ import { format } from "@/lib/i18n/format";
 import { getPreferences } from "@/lib/i18n/server";
 import { absoluteUrl, regionPath, regionsWithTemplates, templatePath, templatesInRegion } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/seo-schema";
-import { localizer, pageAlternates, routePath } from "@/lib/seo-server";
+import { localizer, pageMetadata } from "@/lib/seo-server";
 
 type Params = { params: Promise<{ region: string }> };
 
@@ -32,15 +32,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { locale } = await getPreferences();
   const t = getDictionary(locale);
   const name = t.templatePicker.regions[region];
-  const title = format(t.templatesPage.regionTitle, { region: name });
-  const description = format(t.templatesPage.regionDescription, { n: templatesInRegion(region).length, region: name });
-  return {
-    title,
-    description,
-    alternates: await pageAlternates(regionPath(region)),
-    openGraph: { title, description, url: await routePath(regionPath(region)) },
-    twitter: { title, description },
-  };
+  return pageMetadata({
+    title: format(t.templatesPage.regionTitle, { region: name }),
+    description: format(t.templatesPage.regionDescription, { n: templatesInRegion(region).length, region: name }),
+    path: regionPath(region),
+  });
 }
 
 export default async function RegionPage({ params }: Params) {

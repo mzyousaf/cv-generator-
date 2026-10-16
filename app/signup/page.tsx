@@ -2,15 +2,11 @@ import type { Metadata } from "next";
 import { AuthLink, AuthShell } from "@/components/auth/auth-shell";
 import { SignupForm } from "@/components/auth/signup-form";
 import { getServerDictionary } from "@/lib/i18n/server";
-import { pageAlternates } from "@/lib/seo-server";
+import { pageMetadata } from "@/lib/seo-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getServerDictionary();
-  return {
-    title: t.auth.signupTitle,
-    description: t.cta.note,
-    alternates: await pageAlternates("/signup"),
-  };
+  return pageMetadata({ title: t.auth.signupTitle, description: t.meta.description, path: "/signup" });
 }
 
 export default async function SignupPage() {

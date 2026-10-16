@@ -228,6 +228,39 @@ export const en = {
     notIncluded: "Not included",
     related: "More templates for this region",
     viewTemplate: "View template",
+    guide: {
+      title: "When to use this template",
+      layout: {
+        single:
+          "A single-column layout keeps the reading order simple, which suits recruiters who skim and applicant tracking systems alike.",
+        sidebar:
+          "Contact details, skills and languages sit in a coloured sidebar, leaving the main column for your experience and education.",
+        europass:
+          "It follows the Europass structure: labels in a narrow column on one side and your details beside them, a format employers and institutions across the EU recognise.",
+        timeline:
+          "Dates sit in their own column beside each entry, the tabular style common in Germany, Austria, Switzerland and much of Central Europe.",
+      },
+      photo: {
+        expected: "A professional photo is customary for {region}, and the layout has a dedicated place for it.",
+        optional: "A photo is optional: add one if it's usual in your field or country, or simply leave it out.",
+        none: "It leaves out the photo, as recruiters in the US, UK, Canada and Australia expect and as many ATS-focused applications prefer.",
+      },
+      personalDetails:
+        "It includes a personal details block (such as date of birth and nationality) for markets where employers expect it.",
+      signature:
+        "A place-and-date line and a signature line close the CV, as is customary in German-speaking countries.",
+      references:
+        "A short “references available on request” line follows UK, Irish, South African and Australian convention.",
+      letter: "It is sized for US Letter paper (8.5 × 11 in), the standard in the United States and Canada.",
+      a4: "It is sized for A4 paper, the standard almost everywhere outside North America.",
+      ats: "Its plain structure without graphics is read reliably by applicant tracking systems (ATS).",
+      stepsTitle: "How to use it",
+      steps: [
+        "Select “Use this template for free” and create your free account.",
+        "Fill in each section, or import your current CV from a PDF or DOCX file.",
+        "Let the AI polish your summary and experience, then download your PDF.",
+      ],
+    },
   },
   templatesSection: {
     eyebrow: "Templates",

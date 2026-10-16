@@ -5,17 +5,19 @@ import { siteConfig } from "@/lib/constants";
 import { format } from "@/lib/i18n/format";
 import { getPreferences } from "@/lib/i18n/server";
 import { PRIVACY_POLICY } from "@/lib/legal/privacy";
-import { pageAlternates } from "@/lib/seo-server";
+import { pageMetadata } from "@/lib/seo-server";
+import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
   const doc = PRIVACY_POLICY[locale];
-  return {
-    // The root layout's title template appends the brand.
+  // The root layout's title template appends the brand; the free note makes the
+  // description a useful length for search snippets.
+  return pageMetadata({
     title: doc.title,
-    alternates: await pageAlternates("/privacy"),
-    description: format(doc.description, { name: siteConfig.name }),
-  };
+    description: `${format(doc.description, { name: siteConfig.name })} ${getDictionary(locale).cta.note}.`,
+    path: "/privacy",
+  });
 }
 
 export default async function PrivacyPage() {

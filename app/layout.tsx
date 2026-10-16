@@ -11,8 +11,9 @@ import { I18nProvider } from "@/components/i18n/i18n-provider";
 import { BrandDefs } from "@/components/ui/logo";
 import { siteConfig } from "@/lib/constants";
 import { SITE_URL } from "@/lib/seo";
+import { OG_LOCALE } from "@/lib/seo-server";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { localeDirection, type Locale } from "@/lib/i18n/preferences";
+import { localeDirection } from "@/lib/i18n/preferences";
 import { getPreferences } from "@/lib/i18n/server";
 import "./globals.css";
 
@@ -80,13 +81,14 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: siteConfig.name,
       title: `${siteConfig.name} · ${t.meta.title}`,
       description: t.meta.description,
-      url: "/",
       locale: OG_LOCALE[locale],
+      images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${siteConfig.name} · ${t.meta.title}`,
       description: t.meta.description,
+      images: ["/twitter-image.png"],
     },
     // Set these in the environment after verifying the site in each console.
     verification: {
@@ -99,21 +101,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-/** Open Graph locale per UI language. */
-const OG_LOCALE: Record<Locale, string> = {
-  en: "en_GB",
-  es: "es_ES",
-  fr: "fr_FR",
-  de: "de_DE",
-  pt: "pt_BR",
-  it: "it_IT",
-  nl: "nl_NL",
-  pl: "pl_PL",
-  tr: "tr_TR",
-  ru: "ru_RU",
-  ar: "ar_AR",
-  zh: "zh_CN",
-};
 
 export const viewport: Viewport = {
   themeColor: [

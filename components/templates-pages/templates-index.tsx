@@ -1,7 +1,6 @@
 "use client";
 
 import { LocalizedLink as Link } from "@/components/i18n/localized-link";
-import { useSearchParams } from "next/navigation";
 import { useDeferredValue, useMemo, useState } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { TemplateCard } from "@/components/templates-pages/template-card";
@@ -10,11 +9,13 @@ import { browseTemplates, REGION_COUNTRIES, templateFacets } from "@/lib/cv/temp
 import { format } from "@/lib/i18n/format";
 import { regionPath, regionsWithTemplates, templatesInRegion } from "@/lib/seo";
 
-/** All templates grouped by region, with a search box (?q= deep links work). */
-export function TemplatesIndex() {
+/**
+ * All templates grouped by region, with a search box. The server passes the
+ * ?q= query, so the full list renders in the first HTML (no streamed shift).
+ */
+export function TemplatesIndex({ initialQuery = "" }: { initialQuery?: string }) {
   const { t, locale } = useI18n();
-  const params = useSearchParams();
-  const [query, setQuery] = useState(params.get("q") ?? "");
+  const [query, setQuery] = useState(initialQuery);
   const deferred = useDeferredValue(query);
   const regions = regionsWithTemplates();
 

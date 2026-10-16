@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/templates-pages/page-hero";
@@ -10,21 +9,16 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getPreferences } from "@/lib/i18n/server";
 import { absoluteUrl, templatePath } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/seo-schema";
-import { localizer, pageAlternates, routePath } from "@/lib/seo-server";
+import { localizer, pageMetadata } from "@/lib/seo-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
   const t = getDictionary(locale).templatesPage;
-  return {
-    title: t.title,
-    description: t.description,
-    alternates: await pageAlternates("/templates"),
-    openGraph: { title: t.title, description: t.description, url: await routePath("/templates") },
-    twitter: { title: t.title, description: t.description },
-  };
+  return pageMetadata({ title: t.title, description: t.description, path: "/templates" });
 }
 
-export default async function TemplatesPage() {
+export default async function TemplatesPage({ searchParams }: { searchParams: Promise<{ q?: string | string[] }> }) {
+  const q = (await searchParams).q;
   const { locale } = await getPreferences();
   const t = getDictionary(locale);
   const loc = await localizer();
@@ -64,10 +58,7 @@ export default async function TemplatesPage() {
       >
         <GenerateFreeButton />
       </PageHero>
-      {/* useSearchParams (for ?q=) needs a Suspense boundary. */}
-      <Suspense>
-        <TemplatesIndex />
-      </Suspense>
+      <TemplatesIndex initialQuery={typeof q === "string" ? q.slice(0, 80) : ""} />
     </PublicPage>
   );
 }

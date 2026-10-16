@@ -5,16 +5,19 @@ import { siteConfig } from "@/lib/constants";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getPreferences } from "@/lib/i18n/server";
 import { homeSchema } from "@/lib/seo-schema";
-import { pageAlternates, routePath } from "@/lib/seo-server";
+import { pageMetadata } from "@/lib/seo-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
   const t = getDictionary(locale);
-  const title = `${siteConfig.name} · ${t.meta.title}`;
   return {
     // Absolute: the home page leads with the brand instead of the layout's suffix.
-    title: { absolute: title },
-    description: t.meta.description,
+    ...(await pageMetadata({
+      title: `${siteConfig.name} · ${t.meta.title}`,
+      description: t.meta.description,
+      path: "/",
+      absoluteTitle: true,
+    })),
     keywords: [
       "free CV builder",
       "free resume builder",
@@ -28,9 +31,6 @@ export async function generateMetadata(): Promise<Metadata> {
       "CV PDF",
       siteConfig.name,
     ],
-    alternates: await pageAlternates("/"),
-    openGraph: { title, description: t.meta.description, url: await routePath("/") },
-    twitter: { title, description: t.meta.description },
   };
 }
 
