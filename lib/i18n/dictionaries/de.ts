@@ -4,7 +4,7 @@ export const de: Dictionary = {
   meta: {
     title: "Kostenloser Lebenslauf-Generator mit KI: über 90 Vorlagen",
     description:
-      "Erstellen Sie kostenlos einen professionellen Lebenslauf mit über 90 Vorlagen für jedes Land, KI-Schreibassistent und PDF-Export – in 12 Sprachen. 100 % kostenlos für alle.",
+      "Erstellen Sie einen professionellen Lebenslauf mit über 90 Vorlagen für jedes Land, KI-Schreibhilfe und PDF-Export in 12 Sprachen. 100 % kostenlos für alle.",
   },
   prefs: {
     open: "Sprache, Design und Darstellung",
@@ -193,9 +193,9 @@ export const de: Dictionary = {
     title: "Kostenlose Lebenslauf-Vorlagen",
     description: "Über 90 recruiterfertige Lebenslauf-Vorlagen für 18 Regionen. Vorlage wählen, ausfüllen und als PDF herunterladen. 100 % kostenlos für alle.",
     regionTitle: "Kostenlose Lebenslauf-Vorlagen: {region}",
-    regionDescription: "{n} kostenlose Lebenslauf-Vorlagen nach den lokalen Konventionen für {region}. Passen Sie eine online an und laden Sie sie als PDF herunter.",
+    regionDescription: "{n} kostenlose Lebenslauf-Vorlagen nach lokalen Konventionen für {region}. Online anpassen und als PDF herunterladen.",
     templateTitle: "{name}: kostenlose Lebenslauf-Vorlage",
-    templateDescription: "{description} Kostenlos nutzbar: online anpassen und als druckfertiges PDF herunterladen.",
+    templateDescription: "{description} Kostenlos: online anpassen und als PDF herunterladen.",
     useTemplate: "Diese Vorlage kostenlos nutzen",
     allTemplates: "Alle Vorlagen",
     home: "Startseite",

@@ -44,4 +44,12 @@ describe("language-prefixed routes", () => {
     assert.ok(proxy.includes(`"/(${PREFIXED_LOCALES.join("|")})"`));
     assert.ok(proxy.includes(`"/(${PREFIXED_LOCALES.join("|")})/:path*"`));
   });
+
+  it("runs the proxy on every unprefixed localized route", () => {
+    const proxy = readFileSync("proxy.ts", "utf8");
+    for (const route of ["/", "/templates/:path*", "/privacy", "/terms", "/signup", "/login"]) {
+      assert.ok(proxy.includes(`"${route}"`), route);
+      assert.ok(isLocalizedRoute(route.replace("/:path*", "")), route);
+    }
+  });
 });

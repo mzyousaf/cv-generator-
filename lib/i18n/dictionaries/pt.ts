@@ -4,7 +4,7 @@ export const pt: Dictionary = {
   meta: {
     title: "Criador de currículo grátis com IA: mais de 90 modelos de CV",
     description:
-      "Crie um currículo profissional grátis com mais de 90 modelos para cada país, assistente de escrita com IA e exportação em PDF, em 12 idiomas. 100% grátis para todos.",
+      "Crie um currículo profissional com mais de 90 modelos para cada país, assistente de escrita com IA e exportação em PDF, em 12 idiomas. 100% grátis para todos.",
   },
   prefs: {
     open: "Idioma, tema e aparência",

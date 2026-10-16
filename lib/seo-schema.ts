@@ -2,6 +2,7 @@ import { CV_TEMPLATE_IDS } from "@/lib/cv/constants";
 import { siteConfig } from "@/lib/constants";
 import type { Dictionary } from "@/lib/i18n/dictionaries/en";
 import { LOCALES, type Locale } from "@/lib/i18n/preferences";
+import { localizePath } from "@/lib/i18n/routing";
 import { absoluteUrl } from "@/lib/seo";
 
 /**
@@ -11,6 +12,8 @@ import { absoluteUrl } from "@/lib/seo";
  */
 export function homeSchema(t: Dictionary, locale: Locale): Record<string, unknown> {
   const org = { "@id": absoluteUrl("/#organization") };
+  // Language-specific nodes (FAQ, how-to) belong to this language's home page.
+  const home = absoluteUrl(localizePath("/", locale));
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -31,7 +34,7 @@ export function homeSchema(t: Dictionary, locale: Locale): Record<string, unknow
         publisher: org,
         potentialAction: {
           "@type": "SearchAction",
-          target: { "@type": "EntryPoint", urlTemplate: `${absoluteUrl("/templates")}?q={search_term_string}` },
+          target: { "@type": "EntryPoint", urlTemplate: `${absoluteUrl(localizePath("/templates", locale))}?q={search_term_string}` },
           "query-input": "required name=search_term_string",
         },
       },
@@ -67,7 +70,8 @@ export function homeSchema(t: Dictionary, locale: Locale): Record<string, unknow
       },
       {
         "@type": "FAQPage",
-        "@id": absoluteUrl("/#faq"),
+        "@id": `${home}#faq`,
+        url: home,
         inLanguage: locale,
         mainEntity: t.faq.items.map((item) => ({
           "@type": "Question",
@@ -77,7 +81,7 @@ export function homeSchema(t: Dictionary, locale: Locale): Record<string, unknow
       },
       {
         "@type": "HowTo",
-        "@id": absoluteUrl("/#how-to"),
+        "@id": `${home}#how-to`,
         name: t.how.title,
         description: t.how.description,
         inLanguage: locale,
@@ -88,7 +92,7 @@ export function homeSchema(t: Dictionary, locale: Locale): Record<string, unknow
           position: index + 1,
           name: step.title,
           text: step.description,
-          url: absoluteUrl("/#how-it-works"),
+          url: `${home}#how-it-works`,
         })),
       },
     ],

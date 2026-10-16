@@ -3,12 +3,12 @@ import { Suspense } from "react";
 import { AuthLink, AuthShell } from "@/components/auth/auth-shell";
 import { LoginForm } from "@/components/auth/login-form";
 import { getServerDictionary } from "@/lib/i18n/server";
-import { pageAlternates } from "@/lib/seo-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getServerDictionary();
   // Sign-in has no search value; keep it out of the index but let links pass.
-  return { title: t.common.signIn, robots: { index: false, follow: true }, alternates: await pageAlternates("/login") };
+  // No hreflang on a noindex page.
+  return { title: t.common.signIn, robots: { index: false, follow: true } };
 }
 
 export default async function LoginPage() {

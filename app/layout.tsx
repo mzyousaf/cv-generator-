@@ -71,11 +71,12 @@ export async function generateMetadata(): Promise<Metadata> {
     category: "productivity",
     appleWebApp: { title: siteConfig.name, statusBarStyle: "black-translucent" },
     formatDetection: { telephone: false, email: false, address: false },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
-    },
+    // Indexing is the default; only preview deployments opt out. Pages that
+    // must stay out of search (login, dashboard, 404) set their own robots.
+    robots:
+      process.env.VERCEL_ENV === "preview"
+        ? { index: false, follow: false }
+        : { googleBot: { "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
     openGraph: {
       type: "website",
       siteName: siteConfig.name,

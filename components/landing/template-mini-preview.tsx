@@ -22,7 +22,12 @@ export function TemplateMiniPreview({
   className = "",
 }: TemplateMiniPreviewProps) {
   return (
+    // The sample CV is illustration: keep it out of the accessibility tree and
+    // out of search snippets, so template pages aren't judged on shared sample text.
     <div
+      aria-hidden="true"
+      data-nosnippet=""
+      inert
       className={`relative w-full max-w-full overflow-hidden ${heightClass} ${className}`.trim()}
     >
       <FitPage

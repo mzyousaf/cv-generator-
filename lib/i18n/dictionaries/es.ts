@@ -4,7 +4,7 @@ export const es: Dictionary = {
   meta: {
     title: "Creador de CV gratis con IA: más de 90 plantillas de currículum",
     description:
-      "Crea gratis un CV profesional con más de 90 plantillas para cada país, un asistente de redacción con IA y exportación a PDF, en 12 idiomas. 100 % gratis para todos.",
+      "Crea un CV profesional con más de 90 plantillas para cada país, asistente de redacción con IA y exportación a PDF, en 12 idiomas. 100 % gratis para todos.",
   },
   prefs: {
     open: "Idioma, tema y apariencia",

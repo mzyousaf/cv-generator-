@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getServerDictionary();
-  return pageMetadata({ title: t.auth.signupTitle, description: t.meta.description, path: "/signup" });
+  return pageMetadata({ title: t.auth.signupTitle, description: `${t.auth.signupDescription} ${t.cta.note}`, path: "/signup" });
 }
 
 export default async function SignupPage() {

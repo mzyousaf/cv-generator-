@@ -62,6 +62,8 @@ export default async function RegionPage({ params }: Params) {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             name: title,
+            description: format(t.templatesPage.regionDescription, { n: ids.length, region: name }),
+            inLanguage: locale,
             url: absoluteUrl(loc(regionPath(region))),
             isAccessibleForFree: true,
             mainEntity: {

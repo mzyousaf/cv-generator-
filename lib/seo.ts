@@ -3,14 +3,10 @@ import { TEMPLATE_REGIONS, templateRegion, type TemplateRegion } from "@/lib/cv/
 
 /**
  * Canonical origin for absolute URLs (canonical links, sitemap, structured
- * data). NEXT_PUBLIC_SITE_URL wins; AUTH_URL is the deployed origin in most
- * environments; the production domain is the last resort.
+ * data). Always the production domain unless NEXT_PUBLIC_SITE_URL overrides
+ * it, so preview and staging hosts never claim to be canonical.
  */
-export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-  process.env.AUTH_URL?.trim() ||
-  "https://resumorah.com"
-).replace(/\/+$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://resumorah.com").replace(/\/+$/, "");
 
 export function absoluteUrl(path = "/"): string {
   return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;

@@ -199,7 +199,7 @@ export const tr: Dictionary = {
     regionTitle: "Ücretsiz CV şablonları: {region}",
     regionDescription: "{region} için yerel teamüllere uygun {n} ücretsiz CV şablonu. Birini çevrimiçi özelleştirin ve PDF olarak indirin.",
     templateTitle: "{name}: ücretsiz CV şablonu",
-    templateDescription: "{description} Ücretsiz kullanın: çevrimiçi özelleştirin ve baskıya hazır bir PDF indirin.",
+    templateDescription: "{description} Ücretsiz: çevrimiçi özelleştirin ve PDF olarak indirin.",
     useTemplate: "Bu şablonu ücretsiz kullan",
     allTemplates: "Tüm şablonlar",
     home: "Ana sayfa",

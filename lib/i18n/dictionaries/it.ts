@@ -4,7 +4,7 @@ export const it: Dictionary = {
   meta: {
     title: "Crea CV gratis con l’IA: oltre 90 modelli di curriculum",
     description:
-      "Crea gratis un CV professionale con oltre 90 modelli per ogni Paese, un assistente di scrittura IA ed esportazione in PDF, in 12 lingue. 100% gratis per tutti.",
+      "Crea un CV professionale con oltre 90 modelli per ogni Paese, un assistente di scrittura IA ed esportazione in PDF, in 12 lingue. 100% gratis per tutti.",
   },
   prefs: {
     open: "Lingua, tema e aspetto",
@@ -199,7 +199,7 @@ export const it: Dictionary = {
     regionTitle: "Modelli di CV gratis: {region}",
     regionDescription: "{n} modelli di CV gratis che seguono le convenzioni locali per {region}. Personalizzane uno online e scaricalo in PDF.",
     templateTitle: "{name}: modello di CV gratis",
-    templateDescription: "{description} Gratis: personalizzalo online e scarica un PDF pronto per la stampa.",
+    templateDescription: "{description} Gratis: personalizzalo online e scaricalo in PDF.",
     useTemplate: "Usa questo modello gratis",
     allTemplates: "Tutti i modelli",
     home: "Home",
