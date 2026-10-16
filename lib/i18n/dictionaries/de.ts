@@ -189,6 +189,7 @@ export const de: Dictionary = {
     ],
   },
   templatesPage: {
+    noMatches: "Keine Vorlagen passen zu „{q}“.",
     clearSearch: "Suche löschen",
     title: "Kostenlose Lebenslauf-Vorlagen",
     description: "Über 90 recruiterfertige Lebenslauf-Vorlagen für 18 Regionen. Vorlage wählen, ausfüllen und als PDF herunterladen. 100 % kostenlos für alle.",

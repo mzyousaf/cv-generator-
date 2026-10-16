@@ -193,6 +193,7 @@ export const nl: Dictionary = {
     ],
   },
   templatesPage: {
+    noMatches: "Geen templates gevonden voor ‘{q}’.",
     clearSearch: "Zoekopdracht wissen",
     title: "Gratis cv- en resume-templates",
     description: "90+ cv- en resume-templates voor 18 regio’s, klaar voor recruiters. Kies er een, vul het in en download een PDF. 100% gratis voor iedereen.",

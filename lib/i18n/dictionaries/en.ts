@@ -195,6 +195,7 @@ export const en = {
     ],
   },
   templatesPage: {
+    noMatches: "No templates match “{q}”.",
     clearSearch: "Clear search",
     title: "Free CV and resume templates",
     description:

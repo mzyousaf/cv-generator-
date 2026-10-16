@@ -119,7 +119,7 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             className={cn(
               "flex min-w-0 items-center justify-between gap-2 rounded-xl border px-3 py-2 text-start text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-60",
               code === locale
-                ? "border-blue-300 bg-blue-50 text-blue-700"
+                ? "border-blue-500 bg-blue-50 text-blue-700 ring-1 ring-blue-500"
                 : "border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50",
             )}
           >
@@ -173,7 +173,7 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             className={cn(
               "flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-lg px-1 py-1.5 text-[11px] font-semibold leading-tight transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
               value === current.mode
-                ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.15)]"
+                ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.15)] ring-1 ring-blue-500/60"
                 : "text-slate-500 hover:text-slate-900",
             )}
           >

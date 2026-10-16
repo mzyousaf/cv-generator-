@@ -193,6 +193,7 @@ export const tr: Dictionary = {
     ],
   },
   templatesPage: {
+    noMatches: "“{q}” ile eşleşen şablon yok.",
     clearSearch: "Aramayı temizle",
     title: "Ücretsiz CV şablonları",
     description: "18 bölge için işverenlerin beğeneceği 90+ CV şablonu. Birini seçin, doldurun ve PDF olarak indirin. Herkes için %100 ücretsiz.",

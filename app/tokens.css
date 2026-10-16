@@ -142,9 +142,9 @@ html[data-theme="graphite"] {
   /* Slate with a hint of ink blue, so links and accents still read as accents. */
   --brand-50: oklch(97.9% 0.008 255);
   --brand-100: oklch(95.4% 0.016 255);
-  --brand-200: oklch(90.6% 0.03 257);
-  --brand-300: oklch(83% 0.05 258);
-  --brand-400: oklch(70% 0.075 260);
+  --brand-200: oklch(90.6% 0.04 257);
+  --brand-300: oklch(83% 0.09 258);
+  --brand-400: oklch(72% 0.12 260);
   --brand-500: oklch(55% 0.09 262);
   --brand-600: oklch(45% 0.1 264);
   --brand-700: oklch(38% 0.105 265);
@@ -286,6 +286,7 @@ html[data-mode="dark"] .scheme-follow {
 @media (prefers-color-scheme: dark) {
   html[data-mode="system"] {
     color-scheme: dark;
+    --logo-end-on-light: #fb923c;
     --surface: #11152a;
     --background: #090c1a;
     --foreground: #e9ecf5;

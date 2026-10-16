@@ -1,7 +1,7 @@
 "use client";
 
 import { LocalizedLink as Link } from "@/components/i18n/localized-link";
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { TemplateCard } from "@/components/templates-pages/template-card";
 import { CV_TEMPLATE_IDS } from "@/lib/cv/constants";
@@ -16,6 +16,7 @@ import { regionPath, regionsWithTemplates, templatesInRegion } from "@/lib/seo";
 export function TemplatesIndex({ initialQuery = "" }: { initialQuery?: string }) {
   const { t, locale } = useI18n();
   const [query, setQuery] = useState(initialQuery);
+  const inputRef = useRef<HTMLInputElement>(null);
   const deferred = useDeferredValue(query);
   const regions = regionsWithTemplates();
 
@@ -63,19 +64,23 @@ export function TemplatesIndex({ initialQuery = "" }: { initialQuery?: string })
             {t.templatePicker.search}
           </label>
           <input
+            ref={inputRef}
             id="templates-search"
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder={t.templatePicker.search}
-            className="h-11 w-full rounded-xl border border-slate-200 bg-surface pl-4 pr-11 text-sm [&::-webkit-search-cancel-button]:appearance-none text-slate-900 shadow-[0_1px_2px_rgb(15_23_42/0.04)] placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/12"
+            className="h-11 w-full rounded-xl border border-slate-200 bg-surface ps-4 pe-11 text-sm [&::-webkit-search-cancel-button]:appearance-none text-slate-900 shadow-[0_1px_2px_rgb(15_23_42/0.04)] placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/12"
           />
           {query ? (
             <button
               type="button"
-              onClick={() => setQuery("")}
+              onClick={() => {
+                setQuery("");
+                inputRef.current?.focus();
+              }}
               aria-label={t.templatesPage.clearSearch}
-              className="absolute right-1.5 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="absolute end-1.5 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             >
               <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M6 6l12 12M18 6 6 18" />
@@ -116,7 +121,7 @@ export function TemplatesIndex({ initialQuery = "" }: { initialQuery?: string })
           ))}
           {matches.length === 0 ? (
             <li className="col-span-full rounded-2xl border border-dashed border-slate-300 p-10 text-center text-sm text-slate-500">
-              {t.templatePicker.noResults}
+              {format(t.templatesPage.noMatches, { q: deferred.trim() })}
             </li>
           ) : null}
         </ul>

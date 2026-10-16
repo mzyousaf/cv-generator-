@@ -193,6 +193,7 @@ export const pl: Dictionary = {
     ],
   },
   templatesPage: {
+    noMatches: "Brak szablonów pasujących do „{q}”.",
     clearSearch: "Wyczyść wyszukiwanie",
     title: "Darmowe szablony CV",
     description: "Ponad 90 szablonów CV gotowych dla rekruterów, dla 18 regionów. Wybierz szablon, uzupełnij go i pobierz PDF. 100% za darmo dla wszystkich.",

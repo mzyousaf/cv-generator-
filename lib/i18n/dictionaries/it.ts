@@ -193,6 +193,7 @@ export const it: Dictionary = {
     ],
   },
   templatesPage: {
+    noMatches: "Nessun modello corrisponde a «{q}».",
     clearSearch: "Cancella ricerca",
     title: "Modelli di CV e curriculum gratis",
     description: "Oltre 90 modelli di CV e curriculum pronti per i recruiter, per 18 regioni. Scegline uno, compilalo e scarica il PDF. 100% gratis per tutti.",
