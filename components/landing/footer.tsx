@@ -26,18 +26,23 @@ export function LandingFooter() {
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">{t.footer.product}</p>
           <ul className="mt-2 space-y-0 text-sm md:mt-4 md:space-y-3">
             <li>
-              <Link href="#features" className={footerLinkClass}>
+              <Link href="/#features" className={footerLinkClass}>
                 {t.nav.features}
               </Link>
             </li>
             <li>
-              <Link href="#templates" className={footerLinkClass}>
-                {t.nav.templates}
+              <Link href="/templates" className={footerLinkClass}>
+                {t.footer.allTemplates}
               </Link>
             </li>
             <li>
-              <Link href="#how-it-works" className={footerLinkClass}>
+              <Link href="/#how-it-works" className={footerLinkClass}>
                 {t.footer.howItWorks}
+              </Link>
+            </li>
+            <li>
+              <Link href="/#faq" className={footerLinkClass}>
+                {t.nav.faq}
               </Link>
             </li>
             <li>

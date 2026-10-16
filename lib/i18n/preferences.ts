@@ -23,7 +23,7 @@ export function localeDirection(locale: Locale): "ltr" | "rtl" {
   return RTL_LOCALES.has(locale) ? "rtl" : "ltr";
 }
 
-export const THEMES = ["coral", "violet", "ocean", "emerald", "rose", "sunset"] as const;
+export const THEMES = ["coral", "violet", "ocean", "emerald", "fuchsia", "graphite"] as const;
 export type ThemeId = (typeof THEMES)[number];
 export const DEFAULT_THEME: ThemeId = "coral";
 
@@ -33,9 +33,12 @@ export const THEME_SWATCHES: Record<ThemeId, string> = {
   violet: "#6542ec",
   ocean: "oklch(54.6% 0.245 262.881)",
   emerald: "oklch(56% 0.115 184.704)",
-  rose: "oklch(58.6% 0.253 17.585)",
-  sunset: "oklch(62% 0.21 41.116)",
+  fuchsia: "oklch(59.1% 0.293 322.896)",
+  graphite: "oklch(37.2% 0.044 257.287)",
 };
+
+/** Themes that were renamed, so saved preferences keep a close match. */
+const LEGACY_THEMES: Record<string, ThemeId> = { rose: "fuchsia", sunset: "graphite" };
 
 export const COLOR_MODES = ["light", "dark", "system"] as const;
 export type ColorMode = (typeof COLOR_MODES)[number];
@@ -69,7 +72,7 @@ export function resolvePreferences(raw: {
 }): Preferences {
   return {
     locale: pick(raw.locale, LOCALES, DEFAULT_LOCALE),
-    theme: pick(raw.theme, THEMES, DEFAULT_THEME),
+    theme: pick(LEGACY_THEMES[raw.theme ?? ""] ?? raw.theme, THEMES, DEFAULT_THEME),
     mode: pick(raw.mode, COLOR_MODES, DEFAULT_COLOR_MODE),
   };
 }

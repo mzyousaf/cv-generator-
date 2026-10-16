@@ -12,6 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     // The root layout's title template appends the brand.
     title: doc.title,
+    alternates: { canonical: "/privacy" },
     description: format(doc.description, { name: siteConfig.name }),
   };
 }

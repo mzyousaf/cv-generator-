@@ -2,8 +2,9 @@ import type { Dictionary } from "./en";
 
 export const es: Dictionary = {
   meta: {
+    title: "Creador de CV gratis con IA: más de 90 plantillas de currículum",
     description:
-      "Crea, perfecciona y exporta CV profesionales con plantillas y asistencia de IA.",
+      "Crea gratis un CV profesional con más de 90 plantillas para cada país, un asistente de redacción con IA y exportación a PDF, en 12 idiomas. 100 % gratis para todos.",
   },
   prefs: {
     open: "Idioma, tema y apariencia",
@@ -16,8 +17,8 @@ export const es: Dictionary = {
       violet: "Violeta",
       ocean: "Océano",
       emerald: "Esmeralda",
-      rose: "Rosa",
-      sunset: "Atardecer",
+      fuchsia: "Fucsia",
+      graphite: "Grafito",
     },
     modes: { light: "Claro", dark: "Oscuro", system: "Sistema" },
   },
@@ -50,6 +51,7 @@ export const es: Dictionary = {
     features: "Funciones",
     howItWorks: "Cómo funciona",
     templates: "Plantillas",
+    faq: "Preguntas frecuentes",
   },
   hero: {
     badgeNew: "Nuevo",
@@ -58,7 +60,7 @@ export const es: Dictionary = {
     titleHighlight: "contada",
     titleEnd: "con estilo.",
     subtitle:
-      "Crea un CV pulido y listo para reclutadores en minutos. Un editor enfocado, una IA que mejora cada línea y plantillas elegantes que se exportan a un PDF impecable.",
+      "Crea un CV pulido y listo para reclutadores en minutos. Un editor enfocado, una IA que mejora cada línea y plantillas elegantes que se exportan a un PDF impecable. Totalmente gratis para todos.",
     browseTemplates: "Ver plantillas",
     highlights: [
       "Más de 90 plantillas profesionales",
@@ -139,6 +141,86 @@ export const es: Dictionary = {
       },
     ],
   },
+  faq: {
+    eyebrow: "Preguntas frecuentes",
+    title: "Tus preguntas, respondidas",
+    description: "Todo lo que necesitas saber antes de empezar.",
+    items: [
+      {
+        question: "¿Resumorah es realmente gratis?",
+        answer:
+          "Sí. Resumorah es 100 % gratis para todos: todas las plantillas, el asistente de redacción con IA, la importación de CV y las descargas ilimitadas en PDF. Sin periodo de prueba, sin muro de pago, sin marca de agua y sin tarjeta de crédito.",
+      },
+      {
+        question: "¿Cómo creo un CV con Resumorah?",
+        answer:
+          "Crea una cuenta gratuita, elige una de las más de 90 plantillas y completa cada sección o deja que la IA la redacte a partir de una breve descripción de tu experiencia. Cuando te guste el resultado, descarga un PDF listo para imprimir.",
+      },
+      {
+        question: "¿Las plantillas son compatibles con ATS?",
+        answer:
+          "Sí. Muchas plantillas usan una sola columna sin fotos ni gráficos, un formato que los sistemas de seguimiento de candidatos (ATS) leen sin problemas. Usa el filtro «Apto para ATS» de la galería de plantillas para verlas.",
+      },
+      {
+        question: "¿Qué países y formatos de CV se admiten?",
+        answer:
+          "Hay plantillas para 18 regiones, entre ellas Europass, el Lebenslauf alemán, el CV británico, el currículum estadounidense, el shokumu keirekisho japonés y los CV al estilo del Golfo. Cada una sigue las convenciones locales sobre la foto, los datos personales y el tamaño de página.",
+      },
+      {
+        question: "¿En qué idiomas puedo escribir mi CV?",
+        answer:
+          "Resumorah funciona en 12 idiomas: inglés, español, francés, alemán, portugués, italiano, neerlandés, polaco, turco, ruso, árabe y chino. Los títulos de sección y las fechas siguen el idioma de tu CV.",
+      },
+      {
+        question: "¿Puedo importar mi CV actual?",
+        answer:
+          "Sí. Sube un archivo PDF o DOCX y la IA lo convertirá en un CV editable, listo para cambiarle el estilo con cualquier plantilla.",
+      },
+      {
+        question: "¿Qué hace el asistente de redacción con IA?",
+        answer:
+          "Redacta o mejora tu resumen, tu experiencia laboral y otras secciones, y te sugiere habilidades relevantes a partir de lo que ya has introducido. Tú revisas cada sugerencia antes de aplicarla.",
+      },
+      {
+        question: "¿Quién puede ver mi CV?",
+        answer:
+          "Tus CV se guardan en tu propia cuenta y solo tú puedes verlos. Consulta la Política de privacidad para saber cómo se tratan los datos.",
+      },
+    ],
+  },
+  templatesPage: {
+    title: "Plantillas de CV y currículum gratis",
+    description: "Más de 90 plantillas de CV y currículum listas para reclutadores, para 18 regiones. Elige una, rellénala y descarga un PDF. 100 % gratis para todos.",
+    regionTitle: "Plantillas de CV gratis: {region}",
+    regionDescription: "{n} plantillas de CV gratis que siguen las convenciones locales de {region}. Personaliza una en línea y descárgala en PDF.",
+    templateTitle: "{name}: plantilla de CV gratis",
+    templateDescription: "{description} Gratis: personalízala en línea y descarga un PDF listo para imprimir.",
+    useTemplate: "Usar esta plantilla gratis",
+    allTemplates: "Todas las plantillas",
+    home: "Inicio",
+    browseByRegion: "Explorar por región",
+    count: "{n} plantillas",
+    details: "Detalles del formato",
+    layoutLabel: "Diseño",
+    layouts: {
+      single: "Una columna",
+      sidebar: "Barra lateral",
+      europass: "Columna de etiquetas Europass",
+      timeline: "Cronología con columna de fechas",
+    },
+    photoLabel: "Foto",
+    photoValues: {
+      expected: "Esperada",
+      optional: "Opcional",
+      none: "No se usa",
+    },
+    pageSizeLabel: "Tamaño de página",
+    personalDetailsLabel: "Datos personales",
+    included: "Incluidos",
+    notIncluded: "No incluidos",
+    related: "Más plantillas para esta región",
+    viewTemplate: "Ver plantilla",
+  },
   templatesSection: {
     eyebrow: "Plantillas",
     title: "Diseños elegantes. El mismo gran contenido.",
@@ -148,6 +230,7 @@ export const es: Dictionary = {
       "Empieza con cualquier plantilla en el editor. Puedes cambiar el diseño después y conservar tu contenido.",
     regionalTitle: "Y {n} plantillas más para cada región y perfil",
     regionalBody: "Europass, Lebenslauf alemán, currículum de EE. UU., CV británico, del Golfo, chino 简历 y más, cada uno con sus convenciones locales.",
+    browseAll: "Ver las {n} plantillas",
     tags: { default: "Versátil", classic: "Atemporal", modern: "Popular" },
   },
   templateMeta: {
@@ -526,12 +609,13 @@ export const es: Dictionary = {
     titleHighlight: "destaque?",
     description:
       "Abre el editor, mejora tu contenido con IA, elige una plantilla y descarga un PDF cuando estés listo para postularte.",
-    note: "Gratis para empezar · Sin tarjeta de crédito",
+    note: "100 % gratis para todos · Sin tarjeta de crédito",
   },
   footer: {
     product: "Producto",
     legal: "Legal",
     howItWorks: "Cómo funciona",
+    allTemplates: "Todas las plantillas",
     privacy: "Política de privacidad",
     terms: "Términos y condiciones",
     rights: "Todos los derechos reservados.",
@@ -553,7 +637,7 @@ export const es: Dictionary = {
         body: "Tus CV viven en tu cuenta, listos cuando los necesites.",
       },
     ],
-    shellNote: "Gratis para empezar · Exportación PDF · Sin tarjeta",
+    shellNote: "100 % gratis para todos · Exportación PDF · Sin tarjeta",
     loginTitle: "Bienvenido de nuevo",
     loginDescription: "Inicia sesión para continuar donde lo dejaste.",
     signupTitle: "Crea tu cuenta",

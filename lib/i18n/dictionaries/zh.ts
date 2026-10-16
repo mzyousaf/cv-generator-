@@ -2,7 +2,9 @@ import type { Dictionary } from "./en";
 
 export const zh: Dictionary = {
   meta: {
-    description: "借助模板与 AI 辅助，创建、润色并导出专业简历。",
+    title: "免费 AI 简历生成器：90+ 款简历模板",
+    description:
+      "免费制作专业简历：90+ 款覆盖各国的模板、AI 写作助手和 PDF 导出，支持 12 种语言。对所有人 100% 免费。",
   },
   prefs: {
     open: "语言、主题与外观",
@@ -15,8 +17,8 @@ export const zh: Dictionary = {
       violet: "紫罗兰",
       ocean: "海洋",
       emerald: "翡翠",
-      rose: "玫瑰",
-      sunset: "落日",
+      fuchsia: "紫红",
+      graphite: "石墨",
     },
     modes: { light: "浅色", dark: "深色", system: "跟随系统" },
   },
@@ -49,6 +51,7 @@ export const zh: Dictionary = {
     features: "功能",
     howItWorks: "使用流程",
     templates: "模板",
+    faq: "常见问题",
   },
   hero: {
     badgeNew: "新功能",
@@ -57,7 +60,7 @@ export const zh: Dictionary = {
     titleHighlight: "精彩",
     titleEnd: "呈现。",
     subtitle:
-      "几分钟内打造一份精致、可直接投递的简历。专注的编辑器、逐行优化的 AI，以及可导出为完美 PDF 的优雅模板。",
+      "几分钟内打造一份精致、可直接投递的简历。专注的编辑器、逐行优化的 AI，以及可导出为完美 PDF 的优雅模板。对所有人完全免费。",
     browseTemplates: "浏览模板",
     highlights: ["90+ 款招聘方青睐的模板", "AI 写作辅助", "一键导出 PDF"],
     chipAiTitle: "摘要已优化",
@@ -124,6 +127,86 @@ export const zh: Dictionary = {
       },
     ],
   },
+  faq: {
+    eyebrow: "常见问题",
+    title: "你关心的问题，这里都有答案",
+    description: "开始之前，你需要了解的一切。",
+    items: [
+      {
+        question: "Resumorah 真的免费吗？",
+        answer:
+          "是的。Resumorah 对所有人 100% 免费：全部模板、AI 写作助手、简历导入以及不限次数的 PDF 下载。没有试用期，没有付费墙，没有水印，也无需信用卡。",
+      },
+      {
+        question: "如何用 Resumorah 制作简历？",
+        answer:
+          "免费注册账户，从 90+ 款模板中任选一款，然后逐项填写各个板块，或者用一段简短的经历描述让 AI 帮你起草。满意后，下载可直接打印的 PDF。",
+      },
+      {
+        question: "模板适配 ATS 吗？",
+        answer:
+          "是的。许多模板采用单栏版式，不含照片和图形，招聘系统（ATS）能够稳定解析。在模板库中使用“适配 ATS”筛选即可查看这些模板。",
+      },
+      {
+        question: "支持哪些国家和简历格式？",
+        answer:
+          "模板覆盖 18 个地区，包括 Europass、德式 Lebenslauf、英式 CV、美式简历、日本 shokumu keirekisho（职务经历书）以及海湾地区简历。每款模板在照片、个人信息和纸张尺寸方面都遵循当地惯例。",
+      },
+      {
+        question: "可以用哪些语言写简历？",
+        answer:
+          "Resumorah 支持 12 种语言：英语、西班牙语、法语、德语、葡萄牙语、意大利语、荷兰语、波兰语、土耳其语、俄语、阿拉伯语和中文。板块标题和日期格式会随简历语言自动调整。",
+      },
+      {
+        question: "可以导入现有简历吗？",
+        answer:
+          "可以。上传 PDF 或 DOCX 文件，AI 会将其转换为可编辑的简历，并可随时套用任意模板。",
+      },
+      {
+        question: "AI 写作助手能做什么？",
+        answer:
+          "它会根据你已填写的内容，撰写或优化个人简介、工作经历等板块，并推荐相关技能。每条建议在应用前都由你确认。",
+      },
+      {
+        question: "谁能看到我的简历？",
+        answer:
+          "你的简历保存在你自己的账户中，仅你本人可见。有关数据处理方式的详情，请阅读隐私政策。",
+      },
+    ],
+  },
+  templatesPage: {
+    title: "免费简历模板",
+    description: "90+ 款可直接投递的简历模板，覆盖 18 个地区。选好模板、填写内容，即可下载 PDF。对所有人 100% 免费。",
+    regionTitle: "免费简历模板：{region}",
+    regionDescription: "{n} 款符合{region}当地惯例的免费简历模板。在线自定义，并下载为 PDF。",
+    templateTitle: "{name}：免费简历模板",
+    templateDescription: "{description}免费使用：在线自定义，并下载可直接打印的 PDF。",
+    useTemplate: "免费使用此模板",
+    allTemplates: "全部模板",
+    home: "首页",
+    browseByRegion: "按地区浏览",
+    count: "{n} 个模板",
+    details: "格式详情",
+    layoutLabel: "布局",
+    layouts: {
+      single: "单栏",
+      sidebar: "侧栏",
+      europass: "Europass 标签栏",
+      timeline: "带日期栏的时间线",
+    },
+    photoLabel: "照片",
+    photoValues: {
+      expected: "需要",
+      optional: "可选",
+      none: "不使用",
+    },
+    pageSizeLabel: "纸张尺寸",
+    personalDetailsLabel: "个人信息",
+    included: "包含",
+    notIncluded: "不包含",
+    related: "该地区的更多模板",
+    viewTemplate: "查看模板",
+  },
   templatesSection: {
     eyebrow: "模板",
     title: "优雅布局，同样出色的内容。",
@@ -131,6 +214,7 @@ export const zh: Dictionary = {
     footnote: "在编辑器中从任意模板开始。之后可更换布局，内容保持不变。",
     regionalTitle: "另有 {n} 个模板，覆盖各地区和职业",
     regionalBody: "Europass、德式 Lebenslauf、美式简历、英式 CV、海湾简历、中式简历等，均符合当地惯例。",
+    browseAll: "浏览全部 {n} 个模板",
     tags: { default: "百搭", classic: "经典", modern: "热门" },
   },
   templateMeta: {
@@ -509,12 +593,13 @@ export const zh: Dictionary = {
     titleHighlight: "脱颖而出的简历了吗？",
     description:
       "打开编辑器，用 AI 优化内容，选择模板，准备投递时下载 PDF。",
-    note: "免费开始 · 无需信用卡",
+    note: "对所有人 100% 免费 · 无需信用卡",
   },
   footer: {
     product: "产品",
     legal: "法律",
     howItWorks: "使用流程",
+    allTemplates: "全部模板",
     privacy: "隐私政策",
     terms: "条款与条件",
     rights: "保留所有权利。",
@@ -536,7 +621,7 @@ export const zh: Dictionary = {
         body: "简历保存在你的账户中，随时可用。",
       },
     ],
-    shellNote: "免费开始 · PDF 导出 · 无需信用卡",
+    shellNote: "对所有人 100% 免费 · PDF 导出 · 无需信用卡",
     loginTitle: "欢迎回来",
     loginDescription: "登录后即可从上次中断的地方继续。",
     signupTitle: "创建你的账户",

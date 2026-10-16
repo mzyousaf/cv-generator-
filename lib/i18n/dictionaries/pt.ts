@@ -2,8 +2,9 @@ import type { Dictionary } from "./en";
 
 export const pt: Dictionary = {
   meta: {
+    title: "Criador de currículo grátis com IA: mais de 90 modelos de CV",
     description:
-      "Crie, aprimore e exporte currículos profissionais com modelos e ajuda da IA.",
+      "Crie um currículo profissional grátis com mais de 90 modelos para cada país, assistente de escrita com IA e exportação em PDF, em 12 idiomas. 100% grátis para todos.",
   },
   prefs: {
     open: "Idioma, tema e aparência",
@@ -16,8 +17,8 @@ export const pt: Dictionary = {
       violet: "Violeta",
       ocean: "Oceano",
       emerald: "Esmeralda",
-      rose: "Rosa",
-      sunset: "Pôr do sol",
+      fuchsia: "Fúcsia",
+      graphite: "Grafite",
     },
     modes: {
       light: "Claro",
@@ -54,6 +55,7 @@ export const pt: Dictionary = {
     features: "Recursos",
     howItWorks: "Como funciona",
     templates: "Modelos",
+    faq: "Perguntas frequentes",
   },
   hero: {
     badgeNew: "Novo",
@@ -62,7 +64,7 @@ export const pt: Dictionary = {
     titleHighlight: "contada",
     titleEnd: "com elegância.",
     subtitle:
-      "Crie em minutos um currículo impecável, pronto para recrutadores. Um editor focado, IA que aprimora cada linha e modelos elegantes que exportam um PDF perfeito.",
+      "Crie em minutos um currículo impecável, pronto para recrutadores. Um editor focado, IA que aprimora cada linha e modelos elegantes que exportam um PDF perfeito. Totalmente grátis para todos.",
     browseTemplates: "Ver modelos",
     highlights: [
       "Mais de 90 modelos prontos para recrutadores",
@@ -143,6 +145,86 @@ export const pt: Dictionary = {
       },
     ],
   },
+  faq: {
+    eyebrow: "Perguntas frequentes",
+    title: "Suas dúvidas, respondidas",
+    description: "Tudo o que você precisa saber antes de começar.",
+    items: [
+      {
+        question: "O Resumorah é grátis mesmo?",
+        answer:
+          "Sim. O Resumorah é 100% grátis para todos: todos os modelos, o assistente de escrita com IA, a importação de currículos e downloads ilimitados em PDF. Sem período de teste, sem paywall, sem marca d'água e sem cartão de crédito.",
+      },
+      {
+        question: "Como faço um currículo no Resumorah?",
+        answer:
+          "Crie uma conta grátis, escolha um dos mais de 90 modelos e preencha cada seção ou deixe a IA redigi-la a partir de uma breve descrição da sua experiência. Quando estiver satisfeito, baixe um PDF pronto para impressão.",
+      },
+      {
+        question: "Os modelos são compatíveis com ATS?",
+        answer:
+          "Sim. Muitos modelos usam uma única coluna, sem fotos nem elementos gráficos, que os sistemas de recrutamento (ATS) leem sem problemas. Use o filtro “Compatível com ATS” na galeria de modelos para encontrá-los.",
+      },
+      {
+        question: "Quais países e formatos de currículo são suportados?",
+        answer:
+          "Há modelos para 18 regiões, incluindo Europass, o Lebenslauf alemão, o CV britânico, o resume americano, o shokumu keirekisho japonês e currículos no estilo do Golfo. Cada um segue as convenções locais de foto, dados pessoais e tamanho de página.",
+      },
+      {
+        question: "Em quais idiomas posso escrever meu currículo?",
+        answer:
+          "O Resumorah funciona em 12 idiomas: inglês, espanhol, francês, alemão, português, italiano, holandês, polonês, turco, russo, árabe e chinês. Os títulos das seções e as datas seguem o idioma do seu currículo.",
+      },
+      {
+        question: "Posso importar meu currículo atual?",
+        answer:
+          "Sim. Envie um arquivo PDF ou DOCX e a IA o transforma em um currículo editável, pronto para ganhar um novo visual com qualquer modelo.",
+      },
+      {
+        question: "O que o assistente de escrita com IA faz?",
+        answer:
+          "Ele escreve ou melhora seu resumo, sua experiência profissional e outras seções, além de sugerir habilidades relevantes com base no que você já preencheu. Você revisa cada sugestão antes de aplicá-la.",
+      },
+      {
+        question: "Quem pode ver meu currículo?",
+        answer:
+          "Seus currículos ficam salvos na sua própria conta e só você pode vê-los. Leia a Política de Privacidade para saber como os dados são tratados.",
+      },
+    ],
+  },
+  templatesPage: {
+    title: "Modelos de currículo e CV grátis",
+    description: "Mais de 90 modelos de currículo e CV prontos para recrutadores, para 18 regiões. Escolha um, preencha e baixe em PDF. 100% grátis para todos.",
+    regionTitle: "Modelos de currículo grátis: {region}",
+    regionDescription: "{n} modelos de currículo grátis que seguem as convenções locais de {region}. Personalize um on-line e baixe em PDF.",
+    templateTitle: "{name}: modelo de currículo grátis",
+    templateDescription: "{description} Grátis: personalize on-line e baixe um PDF pronto para impressão.",
+    useTemplate: "Usar este modelo grátis",
+    allTemplates: "Todos os modelos",
+    home: "Início",
+    browseByRegion: "Explorar por região",
+    count: "{n} modelos",
+    details: "Detalhes do formato",
+    layoutLabel: "Layout",
+    layouts: {
+      single: "Uma coluna",
+      sidebar: "Barra lateral",
+      europass: "Coluna de rótulos Europass",
+      timeline: "Linha do tempo com coluna de datas",
+    },
+    photoLabel: "Foto",
+    photoValues: {
+      expected: "Esperada",
+      optional: "Opcional",
+      none: "Não usada",
+    },
+    pageSizeLabel: "Tamanho da página",
+    personalDetailsLabel: "Dados pessoais",
+    included: "Incluídos",
+    notIncluded: "Não incluídos",
+    related: "Mais modelos para esta região",
+    viewTemplate: "Ver modelo",
+  },
   templatesSection: {
     eyebrow: "Modelos",
     title: "Layouts elegantes. O mesmo ótimo conteúdo.",
@@ -152,6 +234,7 @@ export const pt: Dictionary = {
       "Comece com qualquer modelo no editor. Você pode mudar o layout depois e manter seu conteúdo.",
     regionalTitle: "Mais {n} modelos para cada região e área",
     regionalBody: "Europass, Lebenslauf alemão, resume americano, CV britânico, Golfo, 简历 chinês e muito mais, cada um seguindo as convenções locais.",
+    browseAll: "Ver todos os {n} modelos",
     tags: {
       default: "Versátil",
       classic: "Atemporal",
@@ -534,12 +617,13 @@ export const pt: Dictionary = {
     titleHighlight: "se destaca?",
     description:
       "Abra o editor, aprimore seu conteúdo com IA, escolha um modelo e baixe o PDF quando estiver pronto para se candidatar.",
-    note: "Comece grátis · Sem cartão de crédito",
+    note: "100% grátis para todos · Sem cartão de crédito",
   },
   footer: {
     product: "Produto",
     legal: "Jurídico",
     howItWorks: "Como funciona",
+    allTemplates: "Todos os modelos",
     privacy: "Política de Privacidade",
     terms: "Termos e Condições",
     rights: "Todos os direitos reservados.",
@@ -561,7 +645,7 @@ export const pt: Dictionary = {
         body: "Seus currículos ficam na sua conta, prontos quando você precisar.",
       },
     ],
-    shellNote: "Comece grátis · Exportação em PDF · Sem cartão de crédito",
+    shellNote: "100% grátis para todos · Exportação em PDF · Sem cartão de crédito",
     loginTitle: "Que bom ver você de novo",
     loginDescription: "Entre para continuar de onde parou.",
     signupTitle: "Crie sua conta",

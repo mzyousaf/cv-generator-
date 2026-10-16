@@ -2,8 +2,9 @@ import type { Dictionary } from "./en";
 
 export const nl: Dictionary = {
   meta: {
+    title: "Gratis cv maken met AI: 90+ cv- en resume-templates",
     description:
-      "Maak, verfijn en exporteer professionele cv’s met templates en AI-hulp.",
+      "Maak gratis een professioneel cv met 90+ templates voor elk land, een AI-schrijfassistent en PDF-export, in 12 talen. 100% gratis voor iedereen.",
   },
   prefs: {
     open: "Taal, thema en weergave",
@@ -16,8 +17,8 @@ export const nl: Dictionary = {
       violet: "Violet",
       ocean: "Oceaan",
       emerald: "Smaragd",
-      rose: "Roze",
-      sunset: "Zonsondergang",
+      fuchsia: "Fuchsia",
+      graphite: "Grafiet",
     },
     modes: {
       light: "Licht",
@@ -54,6 +55,7 @@ export const nl: Dictionary = {
     features: "Functies",
     howItWorks: "Hoe het werkt",
     templates: "Templates",
+    faq: "FAQ",
   },
   hero: {
     badgeNew: "Nieuw",
@@ -62,7 +64,7 @@ export const nl: Dictionary = {
     titleHighlight: "prachtig",
     titleEnd: "verteld.",
     subtitle:
-      "Maak in een paar minuten een verzorgd cv waar recruiters op letten. Een overzichtelijke editor, AI die elke zin aanscherpt en stijlvolle templates die je als foutloze PDF exporteert.",
+      "Maak in een paar minuten een verzorgd cv waar recruiters op letten. Een overzichtelijke editor, AI die elke zin aanscherpt en stijlvolle templates die je als foutloze PDF exporteert. Helemaal gratis, voor iedereen.",
     browseTemplates: "Bekijk templates",
     highlights: [
       "Ruim 90 templates waar recruiters blij van worden",
@@ -143,6 +145,86 @@ export const nl: Dictionary = {
       },
     ],
   },
+  faq: {
+    eyebrow: "Veelgestelde vragen",
+    title: "Antwoord op je vragen",
+    description: "Alles wat je moet weten voordat je begint.",
+    items: [
+      {
+        question: "Is Resumorah echt gratis?",
+        answer:
+          "Ja. Resumorah is 100% gratis voor iedereen: alle templates, de AI-schrijfassistent, cv-import en onbeperkt PDF’s downloaden. Geen proefperiode, geen betaalmuur, geen watermerk en geen creditcard.",
+      },
+      {
+        question: "Hoe maak ik een cv met Resumorah?",
+        answer:
+          "Maak een gratis account aan, kies een van de 90+ templates en vul elke sectie in, of laat de AI een eerste versie schrijven op basis van een korte beschrijving van je ervaring. Tevreden? Download dan een printklare PDF.",
+      },
+      {
+        question: "Zijn de templates ATS-vriendelijk?",
+        answer:
+          "Ja. Veel templates gebruiken één kolom zonder foto’s of afbeeldingen, zodat sollicitatiesystemen (ATS) ze betrouwbaar kunnen uitlezen. Gebruik het filter ‘ATS-vriendelijk’ in de templategalerij om ze te bekijken.",
+      },
+      {
+        question: "Welke landen en cv-formaten worden ondersteund?",
+        answer:
+          "Er zijn templates voor 18 regio’s, waaronder Europass, de Duitse Lebenslauf, het Britse cv, het Amerikaanse resume, het Japanse shokumu keirekisho en cv’s in de stijl van de Golfstaten. Elk template volgt de lokale gebruiken voor foto’s, persoonsgegevens en paginaformaat.",
+      },
+      {
+        question: "In welke talen kan ik mijn cv schrijven?",
+        answer:
+          "Resumorah werkt in 12 talen: Engels, Spaans, Frans, Duits, Portugees, Italiaans, Nederlands, Pools, Turks, Russisch, Arabisch en Chinees. Sectiekoppen en datums volgen de taal van je cv.",
+      },
+      {
+        question: "Kan ik mijn bestaande cv importeren?",
+        answer:
+          "Ja. Upload een PDF- of DOCX-bestand en de AI zet het om in een bewerkbaar cv, dat je meteen in elk gewenst template kunt gieten.",
+      },
+      {
+        question: "Wat doet de AI-schrijfassistent?",
+        answer:
+          "Hij schrijft of verbetert je samenvatting, werkervaring en andere secties en stelt relevante vaardigheden voor, op basis van wat je al hebt ingevuld. Je beoordeelt elke suggestie voordat die wordt toegepast.",
+      },
+      {
+        question: "Wie kan mijn cv zien?",
+        answer:
+          "Je cv’s worden in je eigen account opgeslagen en zijn alleen voor jou zichtbaar. Lees het Privacybeleid voor details over hoe we met gegevens omgaan.",
+      },
+    ],
+  },
+  templatesPage: {
+    title: "Gratis cv- en resume-templates",
+    description: "90+ cv- en resume-templates voor 18 regio’s, klaar voor recruiters. Kies er een, vul het in en download een PDF. 100% gratis voor iedereen.",
+    regionTitle: "Gratis cv-templates: {region}",
+    regionDescription: "{n} gratis cv-templates die de lokale gebruiken voor {region} volgen. Pas er online een aan en download het als PDF.",
+    templateTitle: "{name}: gratis cv-template",
+    templateDescription: "{description} Gratis te gebruiken: pas het online aan en download een printklare PDF.",
+    useTemplate: "Gebruik dit template gratis",
+    allTemplates: "Alle templates",
+    home: "Home",
+    browseByRegion: "Bekijk per regio",
+    count: "{n} templates",
+    details: "Details van het formaat",
+    layoutLabel: "Opmaak",
+    layouts: {
+      single: "Eén kolom",
+      sidebar: "Zijbalk",
+      europass: "Europass-labelkolom",
+      timeline: "Tijdlijn met datumkolom",
+    },
+    photoLabel: "Foto",
+    photoValues: {
+      expected: "Verwacht",
+      optional: "Optioneel",
+      none: "Niet gebruikt",
+    },
+    pageSizeLabel: "Paginaformaat",
+    personalDetailsLabel: "Persoonsgegevens",
+    included: "Opgenomen",
+    notIncluded: "Niet opgenomen",
+    related: "Meer templates voor deze regio",
+    viewTemplate: "Template bekijken",
+  },
   templatesSection: {
     eyebrow: "Templates",
     title: "Stijlvolle opmaak. Dezelfde sterke inhoud.",
@@ -152,6 +234,7 @@ export const nl: Dictionary = {
       "Begin in de editor met elk template dat je wilt. Je kunt de opmaak later wijzigen en je inhoud behouden.",
     regionalTitle: "Plus {n} templates voor elke regio en functie",
     regionalBody: "Europass, Duitse Lebenslauf, Amerikaans resume, Brits cv, Golfstaten, Chinees 简历 en meer, elk volgens de lokale gebruiken.",
+    browseAll: "Bekijk alle {n} templates",
     tags: {
       default: "Veelzijdig",
       classic: "Tijdloos",
@@ -534,12 +617,13 @@ export const nl: Dictionary = {
     titleHighlight: "opvalt?",
     description:
       "Open de editor, verfijn je inhoud met AI, kies een template en download een PDF zodra je klaar bent om te solliciteren.",
-    note: "Gratis starten · Geen creditcard nodig",
+    note: "100% gratis voor iedereen · Geen creditcard nodig",
   },
   footer: {
     product: "Product",
     legal: "Juridisch",
     howItWorks: "Hoe het werkt",
+    allTemplates: "Alle templates",
     privacy: "Privacybeleid",
     terms: "Algemene voorwaarden",
     rights: "Alle rechten voorbehouden.",
@@ -561,7 +645,7 @@ export const nl: Dictionary = {
         body: "Je cv’s staan veilig in je account, klaar wanneer jij dat bent.",
       },
     ],
-    shellNote: "Gratis starten · PDF-export · Geen creditcard",
+    shellNote: "100% gratis voor iedereen · PDF-export · Geen creditcard",
     loginTitle: "Welkom terug",
     loginDescription: "Log in om verder te gaan waar je gebleven was.",
     signupTitle: "Maak je account aan",

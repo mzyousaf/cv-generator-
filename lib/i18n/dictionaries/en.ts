@@ -4,8 +4,9 @@
  */
 export const en = {
   meta: {
+    title: "Free AI CV Builder: 90+ CV & Resume Templates",
     description:
-      "Build, refine, and export professional CVs with templates and AI assist.",
+      "Create a professional CV for free with 90+ templates for every country, an AI writing assistant and PDF export, in 12 languages. 100% free for everyone.",
   },
   prefs: {
     open: "Language, theme and appearance",
@@ -18,8 +19,8 @@ export const en = {
       violet: "Violet",
       ocean: "Ocean",
       emerald: "Emerald",
-      rose: "Rose",
-      sunset: "Sunset",
+      fuchsia: "Fuchsia",
+      graphite: "Graphite",
     },
     modes: {
       light: "Light",
@@ -56,6 +57,7 @@ export const en = {
     features: "Features",
     howItWorks: "How it works",
     templates: "Templates",
+    faq: "FAQ",
   },
   hero: {
     badgeNew: "New",
@@ -64,7 +66,7 @@ export const en = {
     titleHighlight: "beautifully",
     titleEnd: "told.",
     subtitle:
-      "Craft a polished, recruiter-ready CV in minutes. A focused editor, AI that sharpens every line, and elegant templates that export to a flawless PDF.",
+      "Craft a polished, recruiter-ready CV in minutes. A focused editor, AI that sharpens every line, and elegant templates that export to a flawless PDF. Completely free for everyone.",
     browseTemplates: "Browse templates",
     highlights: [
       "90+ recruiter-ready templates",
@@ -145,6 +147,88 @@ export const en = {
       },
     ],
   },
+  faq: {
+    eyebrow: "FAQ",
+    title: "Questions, answered",
+    description: "Everything you need to know before you start.",
+    items: [
+      {
+        question: "Is Resumorah really free?",
+        answer:
+          "Yes. Resumorah is 100% free for everyone: every template, the AI writing assistant, CV import and unlimited PDF downloads. There is no trial, no paywall, no watermark and no credit card.",
+      },
+      {
+        question: "How do I make a CV with Resumorah?",
+        answer:
+          "Create a free account, pick one of 90+ templates, then fill in each section or let the AI draft it from a short description of your experience. When you're happy, download a print-ready PDF.",
+      },
+      {
+        question: "Are the templates ATS-friendly?",
+        answer:
+          "Yes. Many templates use a single column without photos or graphics, which applicant tracking systems read reliably. Use the ATS-friendly filter in the template gallery to see them.",
+      },
+      {
+        question: "Which countries and CV formats are supported?",
+        answer:
+          "There are templates for 18 regions, including Europass, the German Lebenslauf, the UK CV, the US résumé, the Japanese shokumu keirekisho and Gulf-style CVs. Each follows local conventions for photos, personal details and page size.",
+      },
+      {
+        question: "Which languages can I write my CV in?",
+        answer:
+          "Resumorah works in 12 languages: English, Spanish, French, German, Portuguese, Italian, Dutch, Polish, Turkish, Russian, Arabic and Chinese. Section headings and dates follow the language of your CV.",
+      },
+      {
+        question: "Can I import my existing CV?",
+        answer:
+          "Yes. Upload a PDF or DOCX file and the AI turns it into an editable CV, ready to restyle with any template.",
+      },
+      {
+        question: "What does the AI writing assistant do?",
+        answer:
+          "It writes or improves your summary, work experience and other sections, and suggests relevant skills, based on what you've already entered. You review every suggestion before it's applied.",
+      },
+      {
+        question: "Who can see my CV?",
+        answer:
+          "Your CVs are saved to your own account and are visible only to you. Read the Privacy Policy for details on how data is handled.",
+      },
+    ],
+  },
+  templatesPage: {
+    title: "Free CV and resume templates",
+    description:
+      "90+ recruiter-ready CV and resume templates for 18 regions. Pick one, fill it in and download a PDF. 100% free for everyone.",
+    regionTitle: "Free CV templates: {region}",
+    regionDescription:
+      "{n} free CV templates that follow local conventions for {region}. Customise one online and download it as a PDF.",
+    templateTitle: "{name}: free CV template",
+    templateDescription: "{description} Free to use: customise it online and download a print-ready PDF.",
+    useTemplate: "Use this template for free",
+    allTemplates: "All templates",
+    home: "Home",
+    browseByRegion: "Browse by region",
+    count: "{n} templates",
+    details: "Format details",
+    layoutLabel: "Layout",
+    layouts: {
+      single: "One column",
+      sidebar: "Sidebar",
+      europass: "Europass label column",
+      timeline: "Timeline with date column",
+    },
+    photoLabel: "Photo",
+    photoValues: {
+      expected: "Expected",
+      optional: "Optional",
+      none: "Not used",
+    },
+    pageSizeLabel: "Page size",
+    personalDetailsLabel: "Personal details",
+    included: "Included",
+    notIncluded: "Not included",
+    related: "More templates for this region",
+    viewTemplate: "View template",
+  },
   templatesSection: {
     eyebrow: "Templates",
     title: "Elegant layouts. Same great content.",
@@ -154,6 +238,7 @@ export const en = {
       "Start with any template in the builder. You can change the layout later and keep your content.",
     regionalTitle: "Plus {n} templates for every region and role",
     regionalBody: "Europass, German Lebenslauf, US resume, UK CV, Gulf, Chinese 简历 and more, each following local conventions.",
+    browseAll: "Browse all {n} templates",
     tags: {
       default: "Versatile",
       classic: "Timeless",
@@ -536,12 +621,13 @@ export const en = {
     titleHighlight: "stands out?",
     description:
       "Open the editor, refine your content with AI, choose a template, and download a PDF when you are ready to apply.",
-    note: "Free to start · No credit card required",
+    note: "100% free for everyone · No credit card required",
   },
   footer: {
     product: "Product",
     legal: "Legal",
     howItWorks: "How it works",
+    allTemplates: "All templates",
     privacy: "Privacy Policy",
     terms: "Terms & Conditions",
     rights: "All rights reserved.",
@@ -563,7 +649,7 @@ export const en = {
         body: "Your CVs live in your account, ready whenever you are.",
       },
     ],
-    shellNote: "Free to start · PDF export · No credit card",
+    shellNote: "100% free for everyone · PDF export · No credit card",
     loginTitle: "Welcome back",
     loginDescription: "Sign in to pick up right where you left off.",
     signupTitle: "Create your account",

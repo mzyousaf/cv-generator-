@@ -2,8 +2,9 @@ import type { Dictionary } from "./en";
 
 export const de: Dictionary = {
   meta: {
+    title: "Kostenloser Lebenslauf-Generator mit KI: über 90 Vorlagen",
     description:
-      "Professionelle Lebensläufe mit Vorlagen und KI-Unterstützung erstellen, verfeinern und exportieren.",
+      "Erstellen Sie kostenlos einen professionellen Lebenslauf mit über 90 Vorlagen für jedes Land, KI-Schreibassistent und PDF-Export – in 12 Sprachen. 100 % kostenlos für alle.",
   },
   prefs: {
     open: "Sprache, Design und Darstellung",
@@ -16,8 +17,8 @@ export const de: Dictionary = {
       violet: "Violett",
       ocean: "Ozean",
       emerald: "Smaragd",
-      rose: "Rosé",
-      sunset: "Abendrot",
+      fuchsia: "Fuchsia",
+      graphite: "Graphit",
     },
     modes: { light: "Hell", dark: "Dunkel", system: "System" },
   },
@@ -50,6 +51,7 @@ export const de: Dictionary = {
     features: "Funktionen",
     howItWorks: "So funktioniert's",
     templates: "Vorlagen",
+    faq: "FAQ",
   },
   hero: {
     badgeNew: "Neu",
@@ -58,7 +60,7 @@ export const de: Dictionary = {
     titleHighlight: "wunderschön",
     titleEnd: "erzählt.",
     subtitle:
-      "Erstellen Sie in wenigen Minuten einen ausgefeilten, recruiterfertigen Lebenslauf. Ein fokussierter Editor, eine KI, die jede Zeile schärft, und elegante Vorlagen, die als makelloses PDF exportiert werden.",
+      "Erstellen Sie in wenigen Minuten einen ausgefeilten, recruiterfertigen Lebenslauf. Ein fokussierter Editor, eine KI, die jede Zeile schärft, und elegante Vorlagen, die als makelloses PDF exportiert werden. Komplett kostenlos – für alle.",
     browseTemplates: "Vorlagen ansehen",
     highlights: [
       "Über 90 recruiterfertige Vorlagen",
@@ -139,6 +141,86 @@ export const de: Dictionary = {
       },
     ],
   },
+  faq: {
+    eyebrow: "FAQ",
+    title: "Häufige Fragen, klare Antworten",
+    description: "Alles, was Sie vor dem Start wissen sollten.",
+    items: [
+      {
+        question: "Ist Resumorah wirklich kostenlos?",
+        answer:
+          "Ja. Resumorah ist 100 % kostenlos für alle: alle Vorlagen, der KI-Schreibassistent, der Lebenslauf-Import und unbegrenzte PDF-Downloads. Keine Testphase, keine Bezahlschranke, kein Wasserzeichen und keine Kreditkarte.",
+      },
+      {
+        question: "Wie erstelle ich einen Lebenslauf mit Resumorah?",
+        answer:
+          "Legen Sie ein kostenloses Konto an, wählen Sie eine von über 90 Vorlagen und füllen Sie dann jeden Abschnitt aus – oder lassen Sie die KI ihn anhand einer kurzen Beschreibung Ihrer Erfahrung entwerfen. Wenn alles passt, laden Sie ein druckfertiges PDF herunter.",
+      },
+      {
+        question: "Sind die Vorlagen ATS-geeignet?",
+        answer:
+          "Ja. Viele Vorlagen sind einspaltig und kommen ohne Foto oder Grafiken aus, sodass Bewerbermanagementsysteme (ATS) sie zuverlässig auslesen. Mit dem Filter „ATS-geeignet“ in der Vorlagengalerie finden Sie sie.",
+      },
+      {
+        question: "Welche Länder und Lebenslauf-Formate werden unterstützt?",
+        answer:
+          "Es gibt Vorlagen für 18 Regionen, darunter Europass, den deutschen Lebenslauf, den britischen CV, das US-Resume, das japanische shokumu keirekisho und Lebensläufe für die Golfstaaten. Jede folgt den lokalen Konventionen zu Foto, persönlichen Daten und Seitenformat.",
+      },
+      {
+        question: "In welchen Sprachen kann ich meinen Lebenslauf schreiben?",
+        answer:
+          "Resumorah ist in 12 Sprachen verfügbar: Englisch, Spanisch, Französisch, Deutsch, Portugiesisch, Italienisch, Niederländisch, Polnisch, Türkisch, Russisch, Arabisch und Chinesisch. Abschnittsüberschriften und Datumsangaben richten sich nach der Sprache Ihres Lebenslaufs.",
+      },
+      {
+        question: "Kann ich meinen bestehenden Lebenslauf importieren?",
+        answer:
+          "Ja. Laden Sie eine PDF- oder DOCX-Datei hoch, und die KI macht daraus einen bearbeitbaren Lebenslauf, den Sie mit jeder beliebigen Vorlage neu gestalten können.",
+      },
+      {
+        question: "Was macht der KI-Schreibassistent?",
+        answer:
+          "Er schreibt oder verbessert Ihre Zusammenfassung, Ihre Berufserfahrung und weitere Abschnitte und schlägt passende Fähigkeiten vor – auf Grundlage dessen, was Sie bereits eingegeben haben. Sie prüfen jeden Vorschlag, bevor er übernommen wird.",
+      },
+      {
+        question: "Wer kann meinen Lebenslauf sehen?",
+        answer:
+          "Ihre Lebensläufe werden in Ihrem eigenen Konto gespeichert und sind nur für Sie sichtbar. Wie Daten verarbeitet werden, erfahren Sie in der Datenschutzerklärung.",
+      },
+    ],
+  },
+  templatesPage: {
+    title: "Kostenlose Lebenslauf-Vorlagen",
+    description: "Über 90 recruiterfertige Lebenslauf-Vorlagen für 18 Regionen. Vorlage wählen, ausfüllen und als PDF herunterladen. 100 % kostenlos für alle.",
+    regionTitle: "Kostenlose Lebenslauf-Vorlagen: {region}",
+    regionDescription: "{n} kostenlose Lebenslauf-Vorlagen nach den lokalen Konventionen für {region}. Passen Sie eine online an und laden Sie sie als PDF herunter.",
+    templateTitle: "{name}: kostenlose Lebenslauf-Vorlage",
+    templateDescription: "{description} Kostenlos nutzbar: online anpassen und als druckfertiges PDF herunterladen.",
+    useTemplate: "Diese Vorlage kostenlos nutzen",
+    allTemplates: "Alle Vorlagen",
+    home: "Startseite",
+    browseByRegion: "Nach Region durchsuchen",
+    count: "{n} Vorlagen",
+    details: "Formatdetails",
+    layoutLabel: "Layout",
+    layouts: {
+      single: "Einspaltig",
+      sidebar: "Seitenleiste",
+      europass: "Europass-Beschriftungsspalte",
+      timeline: "Zeitleiste mit Datumsspalte",
+    },
+    photoLabel: "Foto",
+    photoValues: {
+      expected: "Erwartet",
+      optional: "Optional",
+      none: "Nicht verwendet",
+    },
+    pageSizeLabel: "Seitenformat",
+    personalDetailsLabel: "Persönliche Daten",
+    included: "Enthalten",
+    notIncluded: "Nicht enthalten",
+    related: "Weitere Vorlagen für diese Region",
+    viewTemplate: "Vorlage ansehen",
+  },
   templatesSection: {
     eyebrow: "Vorlagen",
     title: "Elegante Layouts. Derselbe starke Inhalt.",
@@ -148,6 +230,7 @@ export const de: Dictionary = {
       "Beginnen Sie im Editor mit einer beliebigen Vorlage. Sie können das Layout später ändern und Ihren Inhalt behalten.",
     regionalTitle: "Dazu {n} Vorlagen für jede Region und jeden Beruf",
     regionalBody: "Europass, deutscher Lebenslauf, US-Resume, britischer CV, Golf-Lebenslauf, chinesischer 简历 und mehr – jeweils nach lokalen Konventionen.",
+    browseAll: "Alle {n} Vorlagen ansehen",
     tags: { default: "Vielseitig", classic: "Zeitlos", modern: "Beliebt" },
   },
   templateMeta: {
@@ -526,12 +609,13 @@ export const de: Dictionary = {
     titleHighlight: "heraussticht?",
     description:
       "Öffnen Sie den Editor, verfeinern Sie Ihre Inhalte mit KI, wählen Sie eine Vorlage und laden Sie ein PDF herunter, wenn Sie bereit sind.",
-    note: "Kostenlos starten · Keine Kreditkarte nötig",
+    note: "100 % kostenlos für alle · Keine Kreditkarte nötig",
   },
   footer: {
     product: "Produkt",
     legal: "Rechtliches",
     howItWorks: "So funktioniert's",
+    allTemplates: "Alle Vorlagen",
     privacy: "Datenschutzerklärung",
     terms: "Allgemeine Geschäftsbedingungen",
     rights: "Alle Rechte vorbehalten.",
@@ -553,7 +637,7 @@ export const de: Dictionary = {
         body: "Ihre Lebensläufe liegen in Ihrem Konto – jederzeit bereit.",
       },
     ],
-    shellNote: "Kostenlos starten · PDF-Export · Keine Kreditkarte",
+    shellNote: "100 % kostenlos für alle · PDF-Export · Keine Kreditkarte",
     loginTitle: "Willkommen zurück",
     loginDescription: "Melden Sie sich an und machen Sie dort weiter, wo Sie aufgehört haben.",
     signupTitle: "Konto erstellen",

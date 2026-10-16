@@ -10,8 +10,9 @@ import {
 import { I18nProvider } from "@/components/i18n/i18n-provider";
 import { BrandDefs } from "@/components/ui/logo";
 import { siteConfig } from "@/lib/constants";
+import { SITE_URL } from "@/lib/seo";
 import { getDictionary } from "@/lib/i18n/dictionaries";
-import { localeDirection } from "@/lib/i18n/preferences";
+import { localeDirection, type Locale } from "@/lib/i18n/preferences";
 import { getPreferences } from "@/lib/i18n/server";
 import "./globals.css";
 
@@ -58,13 +59,61 @@ const geistMono = Geist_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
+  const t = getDictionary(locale);
   return {
-    title: { default: siteConfig.name, template: `%s · ${siteConfig.name}` },
-    description: getDictionary(locale).meta.description,
+    metadataBase: new URL(SITE_URL),
+    title: { default: `${siteConfig.name} · ${t.meta.title}`, template: `%s · ${siteConfig.name}` },
+    description: t.meta.description,
     applicationName: siteConfig.name,
+    creator: siteConfig.name,
+    publisher: siteConfig.name,
+    category: "productivity",
     appleWebApp: { title: siteConfig.name, statusBarStyle: "black-translucent" },
+    formatDetection: { telephone: false, email: false, address: false },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+    },
+    openGraph: {
+      type: "website",
+      siteName: siteConfig.name,
+      title: `${siteConfig.name} · ${t.meta.title}`,
+      description: t.meta.description,
+      url: "/",
+      locale: OG_LOCALE[locale],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${siteConfig.name} · ${t.meta.title}`,
+      description: t.meta.description,
+    },
+    // Set these in the environment after verifying the site in each console.
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+      other: {
+        ...(process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : {}),
+        ...(process.env.YANDEX_SITE_VERIFICATION ? { "yandex-verification": process.env.YANDEX_SITE_VERIFICATION } : {}),
+      },
+    },
   };
 }
+
+/** Open Graph locale per UI language. */
+const OG_LOCALE: Record<Locale, string> = {
+  en: "en_GB",
+  es: "es_ES",
+  fr: "fr_FR",
+  de: "de_DE",
+  pt: "pt_BR",
+  it: "it_IT",
+  nl: "nl_NL",
+  pl: "pl_PL",
+  tr: "tr_TR",
+  ru: "ru_RU",
+  ar: "ar_AR",
+  zh: "zh_CN",
+};
 
 export const viewport: Viewport = {
   themeColor: [

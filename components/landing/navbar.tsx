@@ -15,9 +15,11 @@ const navLinkClass =
 export function LandingNavbar() {
   const { t } = useI18n();
   const navLinks = [
-    { href: "#features", label: t.nav.features },
-    { href: "#how-it-works", label: t.nav.howItWorks },
-    { href: "#templates", label: t.nav.templates },
+    // Absolute links so the bar also works on the public template pages.
+    { href: "/#features", label: t.nav.features },
+    { href: "/#how-it-works", label: t.nav.howItWorks },
+    { href: "/templates", label: t.nav.templates },
+    { href: "/#faq", label: t.nav.faq },
   ];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
