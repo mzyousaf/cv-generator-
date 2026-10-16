@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { TemplateMiniPreview } from "@/components/landing/template-mini-preview";
 import type { CvTemplateId } from "@/lib/cv/constants";

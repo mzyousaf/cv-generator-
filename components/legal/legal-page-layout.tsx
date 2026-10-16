@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/components/i18n/i18n-provider";
 
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import type { ReactNode } from "react";
 import { AuthModal } from "@/components/auth/auth-modal";
 import { AuthModalProvider } from "@/components/landing/auth-modal-context";

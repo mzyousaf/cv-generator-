@@ -5,6 +5,7 @@ import { siteConfig } from "@/lib/constants";
 import { format } from "@/lib/i18n/format";
 import { getPreferences } from "@/lib/i18n/server";
 import { PRIVACY_POLICY } from "@/lib/legal/privacy";
+import { pageAlternates } from "@/lib/seo-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
@@ -12,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     // The root layout's title template appends the brand.
     title: doc.title,
-    alternates: { canonical: "/privacy" },
+    alternates: await pageAlternates("/privacy"),
     description: format(doc.description, { name: siteConfig.name }),
   };
 }

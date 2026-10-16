@@ -5,6 +5,7 @@ import { siteConfig } from "@/lib/constants";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getPreferences } from "@/lib/i18n/server";
 import { homeSchema } from "@/lib/seo-schema";
+import { pageAlternates, routePath } from "@/lib/seo-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
@@ -27,8 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
       "CV PDF",
       siteConfig.name,
     ],
-    alternates: { canonical: "/" },
-    openGraph: { title, description: t.meta.description, url: "/" },
+    alternates: await pageAlternates("/"),
+    openGraph: { title, description: t.meta.description, url: await routePath("/") },
     twitter: { title, description: t.meta.description },
   };
 }

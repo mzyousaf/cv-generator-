@@ -35,6 +35,7 @@ export function GET() {
     `- [Sign up free](${absoluteUrl("/signup")}): create an account and start a CV`,
     `- [Privacy Policy](${absoluteUrl("/privacy")})`,
     `- [Terms & Conditions](${absoluteUrl("/terms")})`,
+    `- Every public page also exists in ${LOCALES.length - 1} more languages under a language prefix, e.g. ${absoluteUrl("/de/templates")} or ${absoluteUrl("/es/templates")}.`,
     "",
     "## Templates by region",
     "",

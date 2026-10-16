@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 
 /** Visible breadcrumb trail (for the dark page hero); the matching BreadcrumbList JSON-LD is emitted by the page. */
 export function Breadcrumbs({ items }: { items: { name: string; href?: string }[] }) {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import { notFound } from "next/navigation";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -12,6 +12,7 @@ import { format } from "@/lib/i18n/format";
 import { getPreferences } from "@/lib/i18n/server";
 import { absoluteUrl, regionPath, regionsWithTemplates, templatePath, templatesInRegion } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/seo-schema";
+import { localizer, pageAlternates, routePath } from "@/lib/seo-server";
 
 type Params = { params: Promise<{ region: string }> };
 
@@ -36,8 +37,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: { canonical: regionPath(region) },
-    openGraph: { title, description, url: regionPath(region) },
+    alternates: await pageAlternates(regionPath(region)),
+    openGraph: { title, description, url: await routePath(regionPath(region)) },
     twitter: { title, description },
   };
 }
@@ -47,6 +48,7 @@ export default async function RegionPage({ params }: Params) {
   if (!region) notFound();
   const { locale } = await getPreferences();
   const t = getDictionary(locale);
+  const loc = await localizer();
   const name = t.templatePicker.regions[region];
   const ids = templatesInRegion(region);
   const title = format(t.templatesPage.regionTitle, { region: name });
@@ -56,15 +58,15 @@ export default async function RegionPage({ params }: Params) {
       <JsonLd
         data={[
           breadcrumbSchema([
-            { name: t.templatesPage.home, path: "/" },
-            { name: t.templatesPage.allTemplates, path: "/templates" },
-            { name, path: regionPath(region) },
+            { name: t.templatesPage.home, path: loc("/") },
+            { name: t.templatesPage.allTemplates, path: loc("/templates") },
+            { name, path: loc(regionPath(region)) },
           ]),
           {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             name: title,
-            url: absoluteUrl(regionPath(region)),
+            url: absoluteUrl(loc(regionPath(region))),
             isAccessibleForFree: true,
             mainEntity: {
               "@type": "ItemList",
@@ -73,7 +75,7 @@ export default async function RegionPage({ params }: Params) {
                 "@type": "ListItem",
                 position: index + 1,
                 name: t.templateMeta[id].name,
-                url: absoluteUrl(templatePath(id)),
+                url: absoluteUrl(loc(templatePath(id))),
               })),
             },
           },

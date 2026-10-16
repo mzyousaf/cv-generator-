@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useId, useLayoutEffect, useRef, useState, useTransition } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { cn } from "@/lib/cn";
+import { isLocalizedRoute, localizePath, splitLocalePrefix } from "@/lib/i18n/routing";
 import {
   COLOR_MODES,
   LOCALE_LABELS,
@@ -82,6 +83,13 @@ function usePreferenceControls() {
       lang: next,
       dir: localeDirection(next),
     });
+    // Public pages have a URL per language: move to the chosen language's URL.
+    const { path } = splitLocalePrefix(window.location.pathname);
+    if (isLocalizedRoute(path)) {
+      const target = localizePath(path, next) + window.location.search + window.location.hash;
+      startTransition(() => router.push(target));
+      return;
+    }
     startTransition(() => router.refresh());
   }
 

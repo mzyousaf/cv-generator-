@@ -10,6 +10,7 @@ import { getDictionary } from "@/lib/i18n/dictionaries";
 import { getPreferences } from "@/lib/i18n/server";
 import { absoluteUrl, templatePath } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/seo-schema";
+import { localizer, pageAlternates, routePath } from "@/lib/seo-server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
@@ -17,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t.title,
     description: t.description,
-    alternates: { canonical: "/templates" },
-    openGraph: { title: t.title, description: t.description, url: "/templates" },
+    alternates: await pageAlternates("/templates"),
+    openGraph: { title: t.title, description: t.description, url: await routePath("/templates") },
     twitter: { title: t.title, description: t.description },
   };
 }
@@ -26,20 +27,21 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function TemplatesPage() {
   const { locale } = await getPreferences();
   const t = getDictionary(locale);
+  const loc = await localizer();
   return (
     <PublicPage>
       <JsonLd
         data={[
           breadcrumbSchema([
-            { name: t.templatesPage.home, path: "/" },
-            { name: t.templatesPage.allTemplates, path: "/templates" },
+            { name: t.templatesPage.home, path: loc("/") },
+            { name: t.templatesPage.allTemplates, path: loc("/templates") },
           ]),
           {
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             name: t.templatesPage.title,
             description: t.templatesPage.description,
-            url: absoluteUrl("/templates"),
+            url: absoluteUrl(loc("/templates")),
             isAccessibleForFree: true,
             mainEntity: {
               "@type": "ItemList",
@@ -48,7 +50,7 @@ export default async function TemplatesPage() {
                 "@type": "ListItem",
                 position: index + 1,
                 name: t.templateMeta[id].name,
-                url: absoluteUrl(templatePath(id)),
+                url: absoluteUrl(loc(templatePath(id))),
               })),
             },
           },
