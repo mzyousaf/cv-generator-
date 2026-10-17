@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useId, useLayoutEffect, useRef, useState, useTransition } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { cn } from "@/lib/cn";
+import { isLocalizedRoute, localizePath, splitLocalePrefix } from "@/lib/i18n/routing";
 import {
   COLOR_MODES,
   LOCALE_LABELS,
@@ -82,6 +83,13 @@ function usePreferenceControls() {
       lang: next,
       dir: localeDirection(next),
     });
+    // Public pages have a URL per language: move to the chosen language's URL.
+    const { path } = splitLocalePrefix(window.location.pathname);
+    if (isLocalizedRoute(path)) {
+      const target = localizePath(path, next) + window.location.search + window.location.hash;
+      startTransition(() => router.push(target));
+      return;
+    }
     startTransition(() => router.refresh());
   }
 
@@ -111,7 +119,7 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             className={cn(
               "flex min-w-0 items-center justify-between gap-2 rounded-xl border px-3 py-2 text-start text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 disabled:opacity-60",
               code === locale
-                ? "border-blue-300 bg-blue-50 text-blue-700"
+                ? "border-blue-500 bg-blue-50 text-blue-700 ring-1 ring-blue-500"
                 : "border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-50",
             )}
           >
@@ -142,7 +150,7 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             <span
               className={cn(
                 "size-5 shrink-0 rounded-full shadow-inner ring-offset-2 ring-offset-surface transition-transform group-hover:scale-110",
-                id === current.theme && "ring-2 ring-slate-900/60",
+                id === current.theme ? "ring-2 ring-slate-900/60" : "ring-1 ring-black/10 dark:ring-white/30",
               )}
               style={{ background: THEME_SWATCHES[id] }}
               aria-hidden="true"
@@ -165,7 +173,7 @@ function PreferenceOptions({ controls }: { controls: PreferenceControls }) {
             className={cn(
               "flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-lg px-1 py-1.5 text-[11px] font-semibold leading-tight transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500",
               value === current.mode
-                ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.15)]"
+                ? "bg-surface text-blue-700 shadow-[0_1px_3px_rgb(15_23_42/0.15)] ring-1 ring-blue-500/60"
                 : "text-slate-500 hover:text-slate-900",
             )}
           >

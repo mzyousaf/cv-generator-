@@ -10,6 +10,8 @@ import {
 import { I18nProvider } from "@/components/i18n/i18n-provider";
 import { BrandDefs } from "@/components/ui/logo";
 import { siteConfig } from "@/lib/constants";
+import { SITE_URL } from "@/lib/seo";
+import { OG_LOCALE } from "@/lib/seo-server";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import { localeDirection } from "@/lib/i18n/preferences";
 import { getPreferences } from "@/lib/i18n/server";
@@ -58,13 +60,48 @@ const geistMono = Geist_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale } = await getPreferences();
+  const t = getDictionary(locale);
   return {
-    title: { default: siteConfig.name, template: `%s · ${siteConfig.name}` },
-    description: getDictionary(locale).meta.description,
+    metadataBase: new URL(SITE_URL),
+    title: { default: `${siteConfig.name} · ${t.meta.title}`, template: `%s · ${siteConfig.name}` },
+    description: t.meta.description,
     applicationName: siteConfig.name,
+    creator: siteConfig.name,
+    publisher: siteConfig.name,
+    category: "productivity",
     appleWebApp: { title: siteConfig.name, statusBarStyle: "black-translucent" },
+    formatDetection: { telephone: false, email: false, address: false },
+    // Indexing is the default; only preview deployments opt out. Pages that
+    // must stay out of search (login, dashboard, 404) set their own robots.
+    robots:
+      process.env.VERCEL_ENV === "preview"
+        ? { index: false, follow: false }
+        : { googleBot: { "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
+    openGraph: {
+      type: "website",
+      siteName: siteConfig.name,
+      title: `${siteConfig.name} · ${t.meta.title}`,
+      description: t.meta.description,
+      locale: OG_LOCALE[locale],
+      images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${siteConfig.name} · ${t.meta.title}`,
+      description: t.meta.description,
+      images: ["/twitter-image.png"],
+    },
+    // Set these in the environment after verifying the site in each console.
+    verification: {
+      google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+      other: {
+        ...(process.env.BING_SITE_VERIFICATION ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION } : {}),
+        ...(process.env.YANDEX_SITE_VERIFICATION ? { "yandex-verification": process.env.YANDEX_SITE_VERIFICATION } : {}),
+      },
+    },
   };
 }
+
 
 export const viewport: Viewport = {
   themeColor: [

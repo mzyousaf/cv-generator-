@@ -1,9 +1,10 @@
 "use client";
 
+import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import { useI18n } from "@/components/i18n/i18n-provider";
-import { CORE_TEMPLATE_IDS, REGIONAL_TEMPLATE_IDS } from "@/lib/cv/constants";
-import { TEMPLATE_REGIONS } from "@/lib/cv/template-catalog";
+import { CORE_TEMPLATE_IDS, CV_TEMPLATE_IDS, REGIONAL_TEMPLATE_IDS } from "@/lib/cv/constants";
 import { format } from "@/lib/i18n/format";
+import { regionPath, regionsWithTemplates } from "@/lib/seo";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { SectionHeading } from "@/components/landing/section-heading";
 import { TemplateMiniPreview } from "@/components/landing/template-mini-preview";
@@ -60,7 +61,7 @@ export function TemplatesSection() {
         </ul>
 
         <div className="mt-12 rounded-3xl border border-slate-200/70 bg-surface p-6 shadow-soft sm:p-8">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h3 className="text-xl font-bold tracking-tight text-slate-950">
                 {format(t.templatesSection.regionalTitle, { n: REGIONAL_TEMPLATE_IDS.length })}
@@ -69,14 +70,24 @@ export function TemplatesSection() {
                 {t.templatesSection.regionalBody}
               </p>
             </div>
+            <Link
+              href="/templates"
+              className="inline-flex min-h-10 shrink-0 items-center gap-1.5 self-start rounded-xl px-1 text-sm font-semibold text-blue-700 hover:text-blue-800 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 sm:self-auto"
+            >
+              {format(t.templatesSection.browseAll, { n: CV_TEMPLATE_IDS.length })}
+              <span aria-hidden="true" className="rtl:rotate-180">→</span>
+            </Link>
           </div>
           <ul className="mt-5 flex flex-wrap gap-2">
-            {TEMPLATE_REGIONS.filter((region) => region !== "global").map((region) => (
-              <li
-                key={region}
-                className="rounded-full border border-blue-100 bg-blue-50/70 px-3 py-1.5 text-xs font-semibold text-blue-700"
-              >
-                {t.templatePicker.regions[region]}
+            {regionsWithTemplates().filter((region) => region !== "global").map((region) => (
+              <li key={region}>
+                {/* Each region links to its indexable template page. */}
+                <Link
+                  href={regionPath(region)}
+                  className="inline-flex min-h-8 items-center rounded-full border border-blue-100 bg-blue-50/70 px-3 py-1.5 text-xs font-semibold text-blue-700 transition-colors hover:border-blue-200 hover:bg-blue-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                >
+                  {t.templatePicker.regions[region]}
+                </Link>
               </li>
             ))}
           </ul>

@@ -14,9 +14,9 @@ export function ModernCvTemplate({ state }: { state: CvBuilderFormState }) {
   return (
     <DocumentPage className="overflow-hidden py-0">
       <header className="bg-zinc-900 px-10 py-8 text-white">
-        <h1 className="text-[32px] font-semibold leading-tight tracking-tight">
+        <p className="text-[32px] font-semibold leading-tight tracking-tight">
           {view.displayName}
-        </h1>
+        </p>
         <p className="mt-2 text-[15px] font-medium text-zinc-200">
           {view.displayTitle}
         </p>

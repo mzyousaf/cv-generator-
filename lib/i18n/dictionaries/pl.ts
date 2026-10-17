@@ -2,8 +2,9 @@ import type { Dictionary } from "./en";
 
 export const pl: Dictionary = {
   meta: {
+    title: "Darmowy kreator CV z AI: ponad 90 szablonów CV",
     description:
-      "Twórz, dopracowuj i eksportuj profesjonalne CV dzięki szablonom i wsparciu AI.",
+      "Stwórz profesjonalne CV za darmo: ponad 90 szablonów dla każdego kraju, asystent pisania AI i eksport do PDF, w 12 językach. 100% za darmo dla wszystkich.",
   },
   prefs: {
     open: "Język, motyw i wygląd",
@@ -16,8 +17,8 @@ export const pl: Dictionary = {
       violet: "Fiolet",
       ocean: "Ocean",
       emerald: "Szmaragd",
-      rose: "Róż",
-      sunset: "Zachód",
+      fuchsia: "Fuksja",
+      graphite: "Grafit",
     },
     modes: {
       light: "Jasny",
@@ -54,6 +55,7 @@ export const pl: Dictionary = {
     features: "Funkcje",
     howItWorks: "Jak to działa",
     templates: "Szablony",
+    faq: "FAQ",
   },
   hero: {
     badgeNew: "Nowość",
@@ -62,7 +64,7 @@ export const pl: Dictionary = {
     titleHighlight: "pięknie",
     titleEnd: "opowiedziana.",
     subtitle:
-      "Przygotuj dopracowane CV, gotowe dla rekruterów, w kilka minut. Przejrzysty edytor, AI, które szlifuje każdą linijkę, i eleganckie szablony eksportowane do nienagannego PDF.",
+      "Przygotuj dopracowane CV, gotowe dla rekruterów, w kilka minut. Przejrzysty edytor, AI, które szlifuje każdą linijkę, i eleganckie szablony eksportowane do nienagannego PDF. Całkowicie za darmo dla wszystkich.",
     browseTemplates: "Przeglądaj szablony",
     highlights: [
       "Ponad 90 szablonów gotowych dla rekruterów",
@@ -143,6 +145,121 @@ export const pl: Dictionary = {
       },
     ],
   },
+  faq: {
+    eyebrow: "FAQ",
+    title: "Pytania i odpowiedzi",
+    description: "Wszystko, co warto wiedzieć, zanim zaczniesz.",
+    items: [
+      {
+        question: "Czy Resumorah jest naprawdę darmowy?",
+        answer:
+          "Tak. Resumorah jest w 100% darmowy dla wszystkich: wszystkie szablony, asystent pisania AI, import CV i nielimitowane pobieranie plików PDF. Bez okresu próbnego, bez płatnych funkcji, bez znaku wodnego i bez karty kredytowej.",
+      },
+      {
+        question: "Jak stworzyć CV w Resumorah?",
+        answer:
+          "Załóż darmowe konto, wybierz jeden z ponad 90 szablonów, a potem uzupełnij każdą sekcję albo pozwól AI przygotować wersję roboczą na podstawie krótkiego opisu Twojego doświadczenia. Gdy wszystko będzie gotowe, pobierz PDF gotowy do druku.",
+      },
+      {
+        question: "Czy szablony są przyjazne dla ATS?",
+        answer:
+          "Tak. Wiele szablonów ma jedną kolumnę bez zdjęć i grafik, dzięki czemu systemy ATS niezawodnie je odczytują. Aby je zobaczyć, użyj filtra „Przyjazne dla ATS” w galerii szablonów.",
+      },
+      {
+        question: "Jakie kraje i formaty CV są obsługiwane?",
+        answer:
+          "Dostępne są szablony dla 18 regionów, m.in. Europass, niemiecki Lebenslauf, brytyjskie CV, amerykańskie resume, japoński shokumu keirekisho i CV w stylu krajów Zatoki. Każdy z nich uwzględnia lokalne zwyczaje dotyczące zdjęcia, danych osobowych i formatu strony.",
+      },
+      {
+        question: "W jakich językach mogę napisać CV?",
+        answer:
+          "Resumorah działa w 12 językach: angielskim, hiszpańskim, francuskim, niemieckim, portugalskim, włoskim, niderlandzkim, polskim, tureckim, rosyjskim, arabskim i chińskim. Nagłówki sekcji i daty są dopasowane do języka Twojego CV.",
+      },
+      {
+        question: "Czy mogę zaimportować moje obecne CV?",
+        answer:
+          "Tak. Prześlij plik PDF lub DOCX, a AI zamieni go w edytowalne CV, któremu od razu możesz nadać wygląd dowolnego szablonu.",
+      },
+      {
+        question: "Co robi asystent pisania AI?",
+        answer:
+          "Pisze lub ulepsza podsumowanie, doświadczenie zawodowe i inne sekcje oraz podpowiada odpowiednie umiejętności na podstawie już wprowadzonych danych. Każdą sugestię sprawdzasz, zanim zostanie zastosowana.",
+      },
+      {
+        question: "Kto może zobaczyć moje CV?",
+        answer:
+          "Twoje CV są zapisywane na Twoim koncie i widoczne tylko dla Ciebie. Szczegóły dotyczące przetwarzania danych znajdziesz w Polityce prywatności.",
+      },
+    ],
+  },
+  templatesPage: {
+    noMatches: "Brak szablonów pasujących do „{q}”.",
+    clearSearch: "Wyczyść wyszukiwanie",
+    title: "Darmowe szablony CV",
+    description: "Ponad 90 szablonów CV gotowych dla rekruterów, dla 18 regionów. Wybierz szablon, uzupełnij go i pobierz PDF. 100% za darmo dla wszystkich.",
+    regionTitle: "Darmowe szablony CV: {region}",
+    regionDescription: "{region}: {n} darmowych szablonów CV zgodnych z lokalnymi zwyczajami. Dostosuj wybrany szablon online i pobierz go jako PDF.",
+    templateTitle: "{name}: darmowy szablon CV",
+    templateDescription: "{description} Za darmo: dostosuj go online i pobierz PDF gotowy do druku.",
+    useTemplate: "Użyj tego szablonu za darmo",
+    allTemplates: "Wszystkie szablony",
+    home: "Strona główna",
+    browseByRegion: "Przeglądaj według regionu",
+    count: "Szablony: {n}",
+    details: "Szczegóły formatu",
+    layoutLabel: "Układ",
+    layouts: {
+      single: "Jedna kolumna",
+      sidebar: "Pasek boczny",
+      europass: "Kolumna etykiet Europass",
+      timeline: "Oś czasu z kolumną dat",
+    },
+    photoLabel: "Zdjęcie",
+    photoValues: {
+      expected: "Oczekiwane",
+      optional: "Opcjonalne",
+      none: "Niestosowane",
+    },
+    pageSizeLabel: "Format strony",
+    personalDetailsLabel: "Dane osobowe",
+    included: "Uwzględnione",
+    notIncluded: "Nieuwzględnione",
+    related: "Więcej szablonów dla tego regionu",
+    viewTemplate: "Zobacz szablon",
+    guide: {
+      title: "Kiedy warto wybrać ten szablon",
+      layout: {
+        single:
+          "Układ jednokolumnowy zapewnia prostą kolejność czytania, co odpowiada zarówno rekruterom, którzy przeglądają CV pobieżnie, jak i systemom ATS.",
+        sidebar:
+          "Dane kontaktowe, umiejętności i języki znajdują się w kolorowym panelu bocznym, a główna kolumna pozostaje na doświadczenie zawodowe i wykształcenie.",
+        europass:
+          "Odwzorowuje strukturę Europass: etykiety w wąskiej kolumnie po jednej stronie, a obok nich Twoje dane – format rozpoznawany przez pracodawców i instytucje w całej UE.",
+        timeline:
+          "Daty mają własną kolumnę obok każdego wpisu – to tabelaryczny styl popularny w Niemczech, Austrii, Szwajcarii i dużej części Europy Środkowej.",
+      },
+      photo: {
+        expected: "W regionie „{region}” profesjonalne zdjęcie jest standardem, a układ ma na nie wydzielone miejsce.",
+        optional: "Zdjęcie jest opcjonalne: dodaj je, jeśli jest przyjęte w Twojej branży lub kraju, albo po prostu je pomiń.",
+        none: "Nie zawiera zdjęcia, czego oczekują rekruterzy w USA, Wielkiej Brytanii, Kanadzie i Australii i co preferuje wiele aplikacji przygotowanych z myślą o ATS.",
+      },
+      personalDetails:
+        "Zawiera sekcję danych osobowych (np. data urodzenia i obywatelstwo) dla rynków, na których pracodawcy jej oczekują.",
+      signature:
+        "CV zamyka wiersz z miejscowością i datą oraz miejsce na podpis, jak przyjęło się w krajach niemieckojęzycznych.",
+      references:
+        "Krótka adnotacja „referencje dostępne na życzenie” odpowiada zwyczajom w Wielkiej Brytanii, Irlandii, RPA i Australii.",
+      letter: "Ma format US Letter (8,5 × 11 in), standardowy w Stanach Zjednoczonych i Kanadzie.",
+      a4: "Ma format A4, standardowy niemal wszędzie poza Ameryką Północną.",
+      ats: "Prosta struktura bez grafik jest niezawodnie odczytywana przez systemy ATS.",
+      stepsTitle: "Jak z niego skorzystać",
+      steps: [
+        "Wybierz „Użyj tego szablonu za darmo” i załóż darmowe konto.",
+        "Uzupełnij poszczególne sekcje lub zaimportuj obecne CV z pliku PDF albo DOCX.",
+        "Pozwól AI dopracować podsumowanie i doświadczenie, a potem pobierz PDF.",
+      ],
+    },
+  },
   templatesSection: {
     eyebrow: "Szablony",
     title: "Eleganckie układy. Ta sama świetna treść.",
@@ -152,6 +269,7 @@ export const pl: Dictionary = {
       "Zacznij od dowolnego szablonu w kreatorze. Układ możesz zmienić później, zachowując treść.",
     regionalTitle: "A także szablony dla każdego regionu i zawodu (łącznie {n})",
     regionalBody: "Europass, niemiecki Lebenslauf, amerykańskie resume, brytyjskie CV, kraje Zatoki, chińskie 简历 i wiele innych, każdy zgodny z lokalnymi zwyczajami.",
+    browseAll: "Przeglądaj wszystkie szablony ({n})",
     tags: {
       default: "Uniwersalny",
       classic: "Ponadczasowy",
@@ -534,12 +652,13 @@ export const pl: Dictionary = {
     titleHighlight: "się wyróżnia?",
     description:
       "Otwórz edytor, dopracuj treść z AI, wybierz szablon i pobierz PDF, gdy przyjdzie czas na aplikowanie.",
-    note: "Darmowy start · Bez karty kredytowej",
+    note: "100% za darmo dla wszystkich · Bez karty kredytowej",
   },
   footer: {
     product: "Produkt",
     legal: "Informacje prawne",
     howItWorks: "Jak to działa",
+    allTemplates: "Wszystkie szablony",
     privacy: "Polityka prywatności",
     terms: "Regulamin",
     rights: "Wszelkie prawa zastrzeżone.",
@@ -561,7 +680,7 @@ export const pl: Dictionary = {
         body: "Twoje CV są na Twoim koncie i czekają, aż do nich wrócisz.",
       },
     ],
-    shellNote: "Darmowy start · Eksport do PDF · Bez karty kredytowej",
+    shellNote: "100% za darmo dla wszystkich · Eksport do PDF · Bez karty kredytowej",
     loginTitle: "Witaj ponownie",
     loginDescription: "Zaloguj się i kontynuuj pracę w miejscu, w którym ją przerwano.",
     signupTitle: "Utwórz konto",

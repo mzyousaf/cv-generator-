@@ -2,8 +2,9 @@ import type { Dictionary } from "./en";
 
 export const fr: Dictionary = {
   meta: {
+    title: "Créateur de CV gratuit avec IA : plus de 90 modèles de CV",
     description:
-      "Créez, peaufinez et exportez des CV professionnels avec des modèles et l'aide de l'IA.",
+      "Créez un CV professionnel avec plus de 90 modèles par pays, un assistant de rédaction IA et l'export PDF, en 12 langues. 100 % gratuit pour tous.",
   },
   prefs: {
     open: "Langue, thème et apparence",
@@ -16,8 +17,8 @@ export const fr: Dictionary = {
       violet: "Violet",
       ocean: "Océan",
       emerald: "Émeraude",
-      rose: "Rose",
-      sunset: "Couchant",
+      fuchsia: "Fuchsia",
+      graphite: "Graphite",
     },
     modes: { light: "Clair", dark: "Sombre", system: "Système" },
   },
@@ -50,6 +51,7 @@ export const fr: Dictionary = {
     features: "Fonctionnalités",
     howItWorks: "Comment ça marche",
     templates: "Modèles",
+    faq: "FAQ",
   },
   hero: {
     badgeNew: "Nouveau",
@@ -58,7 +60,7 @@ export const fr: Dictionary = {
     titleHighlight: "magnifiquement",
     titleEnd: "raconté.",
     subtitle:
-      "Rédigez en quelques minutes un CV soigné, prêt pour les recruteurs. Un éditeur épuré, une IA qui affine chaque ligne et des modèles élégants exportés en un PDF impeccable.",
+      "Rédigez en quelques minutes un CV soigné, prêt pour les recruteurs. Un éditeur épuré, une IA qui affine chaque ligne et des modèles élégants exportés en un PDF impeccable. Entièrement gratuit, pour tous.",
     browseTemplates: "Voir les modèles",
     highlights: [
       "Plus de 90 modèles prêts à l’emploi",
@@ -139,6 +141,121 @@ export const fr: Dictionary = {
       },
     ],
   },
+  faq: {
+    eyebrow: "FAQ",
+    title: "Vos questions, nos réponses",
+    description: "Tout ce qu'il faut savoir avant de commencer.",
+    items: [
+      {
+        question: "Resumorah est-il vraiment gratuit ?",
+        answer:
+          "Oui. Resumorah est 100 % gratuit pour tous : tous les modèles, l'assistant de rédaction par IA, l'import de CV et les téléchargements PDF illimités. Pas de période d'essai, pas de fonctions payantes, pas de filigrane et pas de carte bancaire.",
+      },
+      {
+        question: "Comment créer un CV avec Resumorah ?",
+        answer:
+          "Créez un compte gratuit, choisissez l'un des plus de 90 modèles, puis remplissez chaque section ou laissez l'IA la rédiger à partir d'une courte description de votre parcours. Quand le résultat vous convient, téléchargez un PDF prêt à imprimer.",
+      },
+      {
+        question: "Les modèles sont-ils compatibles ATS ?",
+        answer:
+          "Oui. De nombreux modèles utilisent une seule colonne, sans photo ni graphisme, que les logiciels de recrutement (ATS) lisent de façon fiable. Utilisez le filtre « Compatible ATS » de la galerie de modèles pour les afficher.",
+      },
+      {
+        question: "Quels pays et formats de CV sont pris en charge ?",
+        answer:
+          "Des modèles sont proposés pour 18 régions, dont Europass, le Lebenslauf allemand, le CV britannique, le resume américain, le shokumu keirekisho japonais et les CV du Golfe. Chacun respecte les usages locaux en matière de photo, d'informations personnelles et de format de page.",
+      },
+      {
+        question: "Dans quelles langues puis-je rédiger mon CV ?",
+        answer:
+          "Resumorah fonctionne en 12 langues : anglais, espagnol, français, allemand, portugais, italien, néerlandais, polonais, turc, russe, arabe et chinois. Les titres de section et les dates suivent la langue de votre CV.",
+      },
+      {
+        question: "Puis-je importer mon CV actuel ?",
+        answer:
+          "Oui. Importez un fichier PDF ou DOCX et l'IA le transforme en CV modifiable, prêt à être remis en forme avec n'importe quel modèle.",
+      },
+      {
+        question: "Que fait l'assistant de rédaction par IA ?",
+        answer:
+          "Il rédige ou améliore votre résumé, votre expérience professionnelle et les autres sections, et suggère des compétences pertinentes à partir de ce que vous avez déjà saisi. Vous validez chaque suggestion avant qu'elle soit appliquée.",
+      },
+      {
+        question: "Qui peut voir mon CV ?",
+        answer:
+          "Vos CV sont enregistrés dans votre propre compte et vous êtes seul à pouvoir les consulter. Pour savoir comment les données sont traitées, consultez la Politique de confidentialité.",
+      },
+    ],
+  },
+  templatesPage: {
+    noMatches: "Aucun modèle ne correspond à « {q} ».",
+    clearSearch: "Effacer la recherche",
+    title: "Modèles de CV gratuits",
+    description: "Plus de 90 modèles de CV prêts pour les recruteurs, pour 18 régions. Choisissez-en un, remplissez-le et téléchargez un PDF. 100 % gratuit pour tous.",
+    regionTitle: "Modèles de CV gratuits : {region}",
+    regionDescription: "{n} modèles de CV gratuits adaptés aux usages locaux (région : {region}). Personnalisez-en un en ligne et téléchargez-le en PDF.",
+    templateTitle: "{name} : modèle de CV gratuit",
+    templateDescription: "{description} Gratuit : personnalisez-le en ligne et téléchargez-le en PDF.",
+    useTemplate: "Utiliser ce modèle gratuitement",
+    allTemplates: "Tous les modèles",
+    home: "Accueil",
+    browseByRegion: "Parcourir par région",
+    count: "{n} modèles",
+    details: "Détails du format",
+    layoutLabel: "Mise en page",
+    layouts: {
+      single: "Une colonne",
+      sidebar: "Barre latérale",
+      europass: "Colonne d'intitulés Europass",
+      timeline: "Chronologie avec colonne de dates",
+    },
+    photoLabel: "Photo",
+    photoValues: {
+      expected: "Attendue",
+      optional: "Facultative",
+      none: "Non utilisée",
+    },
+    pageSizeLabel: "Format de page",
+    personalDetailsLabel: "Informations personnelles",
+    included: "Incluses",
+    notIncluded: "Non incluses",
+    related: "Autres modèles pour cette région",
+    viewTemplate: "Voir le modèle",
+    guide: {
+      title: "Quand utiliser ce modèle",
+      layout: {
+        single:
+          "La mise en page sur une seule colonne garde un ordre de lecture simple, idéal aussi bien pour les recruteurs qui survolent les CV que pour les logiciels de recrutement.",
+        sidebar:
+          "Les coordonnées, les compétences et les langues figurent dans une colonne latérale colorée, ce qui laisse la colonne principale à votre expérience et à votre formation.",
+        europass:
+          "Il reprend la structure Europass : des intitulés dans une colonne étroite d'un côté et vos informations en regard, un format reconnu par les employeurs et les institutions de toute l'UE.",
+        timeline:
+          "Les dates occupent leur propre colonne à côté de chaque entrée, le style tabulaire courant en Allemagne, en Autriche, en Suisse et dans une grande partie de l'Europe centrale.",
+      },
+      photo: {
+        expected: "Pour la région {region}, une photo professionnelle est d'usage, et la mise en page lui réserve un emplacement dédié.",
+        optional: "La photo est facultative : ajoutez-en une si c'est l'usage dans votre secteur ou votre pays, ou laissez-la simplement de côté.",
+        none: "Il n'inclut pas de photo, comme l'attendent les recruteurs aux États-Unis, au Royaume-Uni, au Canada et en Australie, et comme le privilégient de nombreuses candidatures pensées pour les ATS.",
+      },
+      personalDetails:
+        "Il comprend un bloc d'informations personnelles (date de naissance, nationalité, etc.) pour les marchés où les employeurs s'y attendent.",
+      signature:
+        "Une ligne lieu et date suivie d'une ligne de signature termine le CV, comme le veut l'usage dans les pays germanophones.",
+      references:
+        "Une courte mention « références disponibles sur demande » suit l'usage au Royaume-Uni, en Irlande, en Afrique du Sud et en Australie.",
+      letter: "Il est au format US Letter (8,5 × 11 in), la norme aux États-Unis et au Canada.",
+      a4: "Il est au format A4, la norme presque partout en dehors de l'Amérique du Nord.",
+      ats: "Sa structure simple, sans éléments graphiques, est lue de façon fiable par les logiciels de recrutement (ATS).",
+      stepsTitle: "Comment l'utiliser",
+      steps: [
+        "Cliquez sur « Utiliser ce modèle gratuitement » et créez votre compte gratuit.",
+        "Remplissez chaque section, ou importez votre CV actuel depuis un fichier PDF ou DOCX.",
+        "Laissez l'IA peaufiner votre résumé et votre expérience, puis téléchargez votre PDF.",
+      ],
+    },
+  },
   templatesSection: {
     eyebrow: "Modèles",
     title: "Des mises en page élégantes. Le même contenu.",
@@ -148,6 +265,7 @@ export const fr: Dictionary = {
       "Commencez avec n'importe quel modèle dans l'éditeur. Vous pourrez changer de mise en page plus tard en gardant votre contenu.",
     regionalTitle: "Et {n} modèles de plus pour chaque région et chaque métier",
     regionalBody: "Europass, Lebenslauf allemand, resume américain, CV britannique, du Golfe, chinois 简历 et plus, chacun selon les usages locaux.",
+    browseAll: "Voir les {n} modèles",
     tags: { default: "Polyvalent", classic: "Intemporel", modern: "Populaire" },
   },
   templateMeta: {
@@ -526,12 +644,13 @@ export const fr: Dictionary = {
     titleHighlight: "se démarque ?",
     description:
       "Ouvrez l'éditeur, peaufinez votre contenu avec l'IA, choisissez un modèle et téléchargez un PDF quand vous êtes prêt à postuler.",
-    note: "Gratuit pour commencer · Sans carte bancaire",
+    note: "100 % gratuit pour tous · Sans carte bancaire",
   },
   footer: {
     product: "Produit",
     legal: "Mentions légales",
     howItWorks: "Comment ça marche",
+    allTemplates: "Tous les modèles",
     privacy: "Politique de confidentialité",
     terms: "Conditions générales",
     rights: "Tous droits réservés.",
@@ -553,7 +672,7 @@ export const fr: Dictionary = {
         body: "Vos CV restent dans votre compte, prêts quand vous l'êtes.",
       },
     ],
-    shellNote: "Gratuit pour commencer · Export PDF · Sans carte bancaire",
+    shellNote: "100 % gratuit pour tous · Export PDF · Sans carte bancaire",
     loginTitle: "Bon retour parmi nous",
     loginDescription: "Connectez-vous pour reprendre là où vous vous étiez arrêté.",
     signupTitle: "Créez votre compte",

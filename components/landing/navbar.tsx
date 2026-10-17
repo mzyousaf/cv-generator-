@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import { useEffect, useId, useState } from "react";
 import { useI18n } from "@/components/i18n/i18n-provider";
 import { PreferencesMenu, PreferencesPanel } from "@/components/preferences/preferences-menu";
@@ -10,14 +10,16 @@ import { cn } from "@/lib/cn";
 
 
 const navLinkClass =
-  "cursor-pointer rounded-full px-3.5 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400";
+  "cursor-pointer whitespace-nowrap rounded-full px-3.5 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400";
 
 export function LandingNavbar() {
   const { t } = useI18n();
   const navLinks = [
-    { href: "#features", label: t.nav.features },
-    { href: "#how-it-works", label: t.nav.howItWorks },
-    { href: "#templates", label: t.nav.templates },
+    // Absolute links so the bar also works on the public template pages.
+    { href: "/#features", label: t.nav.features },
+    { href: "/#how-it-works", label: t.nav.howItWorks },
+    { href: "/templates", label: t.nav.templates },
+    { href: "/#faq", label: t.nav.faq },
   ];
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -44,7 +46,7 @@ export function LandingNavbar() {
     }
 
     // The menu is a desktop-hidden overlay; close it if the screen grows past it.
-    const desktop = window.matchMedia("(min-width: 64rem)");
+    const desktop = window.matchMedia("(min-width: 80rem)");
     function onDesktopChange(event: MediaQueryListEvent) {
       if (event.matches) {
         setMobileOpen(false);
@@ -83,7 +85,7 @@ export function LandingNavbar() {
           <Logo tone="light" className="max-[359px]:[&_[data-logo-word]]:sr-only max-[359px]:[&_svg]:translate-y-0" />
         </Link>
 
-        <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1 lg:flex">
+        <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] p-1 xl:flex">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href} className={navLinkClass}>
               {link.label}
@@ -91,10 +93,10 @@ export function LandingNavbar() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-3 xl:flex">
           <Link
             href="/login"
-            className="inline-flex h-10 items-center rounded-full px-3 text-sm font-semibold text-slate-200 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+            className="inline-flex h-10 items-center whitespace-nowrap rounded-full px-3 text-sm font-semibold text-slate-200 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
           >
             {t.common.signIn}
           </Link>
@@ -102,7 +104,7 @@ export function LandingNavbar() {
           <GenerateFreeButton variant="nav" />
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 lg:hidden">
+        <div className="flex shrink-0 items-center gap-2 xl:hidden">
           <PreferencesMenu tone="dark" className="hidden sm:block" />
           <GenerateFreeButton variant="nav" />
           <button
@@ -125,12 +127,12 @@ export function LandingNavbar() {
           {/* Overlay: floats over the page instead of pushing it down. */}
           <div
             aria-hidden="true"
-            className="absolute inset-x-0 top-full h-dvh animate-fade-in bg-ink/60 backdrop-blur-sm lg:hidden"
+            className="absolute inset-x-0 top-full h-dvh animate-fade-in bg-ink/60 backdrop-blur-sm xl:hidden"
             onClick={() => setMobileOpen(false)}
           />
           <div
             id={menuId}
-            className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] animate-fade-up overflow-y-auto border-y border-white/10 bg-ink/95 px-4 pb-5 pt-3 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.6)] backdrop-blur-xl [animation-duration:0.2s] lg:hidden"
+            className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] animate-fade-up overflow-y-auto border-y border-white/10 bg-ink/95 px-4 pb-5 pt-3 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.6)] backdrop-blur-xl [animation-duration:0.2s] xl:hidden"
           >
             <ul className="space-y-1">
               {[...navLinks, { href: "/login", label: t.common.signIn }].map((link) => (

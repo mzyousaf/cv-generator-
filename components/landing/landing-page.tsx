@@ -1,3 +1,4 @@
+import { FaqSection } from "@/components/landing/faq-section";
 import { FeaturesSection } from "@/components/landing/features-section";
 import { FinalCtaSection } from "@/components/landing/final-cta-section";
 import { LandingFooter } from "@/components/landing/footer";
@@ -14,6 +15,7 @@ export function LandingPage() {
         <FeaturesSection />
         <HowItWorksSection />
         <TemplatesSection />
+        <FaqSection />
         <FinalCtaSection />
       </main>
     </LandingShell>

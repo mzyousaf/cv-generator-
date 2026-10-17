@@ -15,9 +15,12 @@ test("resolvePreferences falls back to defaults for unknown values", () => {
 });
 
 test("resolvePreferences keeps supported values", () => {
-  assert.deepEqual(resolvePreferences({ locale: "ar", theme: "rose", mode: "dark" }), {
+  // Renamed themes map to their replacements.
+  assert.equal(resolvePreferences({ theme: "rose" }).theme, "fuchsia");
+  assert.equal(resolvePreferences({ theme: "sunset" }).theme, "graphite");
+  assert.deepEqual(resolvePreferences({ locale: "ar", theme: "fuchsia", mode: "dark" }), {
     locale: "ar",
-    theme: "rose",
+    theme: "fuchsia",
     mode: "dark",
   });
 });

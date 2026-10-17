@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@/components/i18n/i18n-provider";
-import Link from "next/link";
+import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import type { ReactNode } from "react";
 import { Logo } from "@/components/ui/logo";
 import { PreferencesMenu } from "@/components/preferences/preferences-menu";

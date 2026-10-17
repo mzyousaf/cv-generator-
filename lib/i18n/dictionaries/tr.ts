@@ -2,8 +2,9 @@ import type { Dictionary } from "./en";
 
 export const tr: Dictionary = {
   meta: {
+    title: "Ücretsiz Yapay Zeka CV Oluşturucu: 90+ CV Şablonu",
     description:
-      "Şablonlar ve yapay zeka desteğiyle profesyonel CV’ler oluşturun, geliştirin ve dışa aktarın.",
+      "Her ülke için 90+ şablon, yapay zeka yazım asistanı ve PDF dışa aktarma ile 12 dilde ücretsiz, profesyonel bir CV oluşturun. Herkes için %100 ücretsiz.",
   },
   prefs: {
     open: "Dil, tema ve görünüm",
@@ -16,8 +17,8 @@ export const tr: Dictionary = {
       violet: "Menekşe",
       ocean: "Okyanus",
       emerald: "Zümrüt",
-      rose: "Gül",
-      sunset: "Gün batımı",
+      fuchsia: "Fuşya",
+      graphite: "Grafit",
     },
     modes: {
       light: "Açık",
@@ -34,7 +35,7 @@ export const tr: Dictionary = {
   common: {
     cancel: "İptal",
     signIn: "Giriş yap",
-    createCvFree: "CV’nizi Ücretsiz Oluşturun",
+    createCvFree: "CV’nizi ücretsiz oluşturun",
     createCvShort: "Ücretsiz başla",
     back: "Geri",
     remove: "Kaldır",
@@ -54,6 +55,7 @@ export const tr: Dictionary = {
     features: "Özellikler",
     howItWorks: "Nasıl Çalışır",
     templates: "Şablonlar",
+    faq: "SSS",
   },
   hero: {
     badgeNew: "Yeni",
@@ -62,7 +64,7 @@ export const tr: Dictionary = {
     titleHighlight: "en güzel haliyle",
     titleEnd: "anlatılsın.",
     subtitle:
-      "Dakikalar içinde işverenlerin ilgisini çekecek, özenli bir CV hazırlayın. Odaklı bir düzenleyici, her satırı güçlendiren yapay zeka ve kusursuz PDF’ye dönüşen şık şablonlar.",
+      "Dakikalar içinde işverenlerin ilgisini çekecek, özenli bir CV hazırlayın. Odaklı bir düzenleyici, her satırı güçlendiren yapay zeka ve kusursuz PDF’ye dönüşen şık şablonlar. Herkes için tamamen ücretsiz.",
     browseTemplates: "Şablonlara göz atın",
     highlights: [
       "90’dan fazla işe alımcı dostu şablon",
@@ -143,6 +145,121 @@ export const tr: Dictionary = {
       },
     ],
   },
+  faq: {
+    eyebrow: "SSS",
+    title: "Merak edilenler",
+    description: "Başlamadan önce bilmeniz gereken her şey.",
+    items: [
+      {
+        question: "Resumorah gerçekten ücretsiz mi?",
+        answer:
+          "Evet. Resumorah herkes için %100 ücretsizdir: tüm şablonlar, yapay zeka yazım asistanı, CV içe aktarma ve sınırsız PDF indirme. Deneme süresi, ücretli içerik, filigran veya kredi kartı yok.",
+      },
+      {
+        question: "Resumorah ile nasıl CV hazırlarım?",
+        answer:
+          "Ücretsiz bir hesap oluşturun, 90+ şablondan birini seçin, ardından her bölümü doldurun ya da deneyiminizi kısaca anlatın, taslağı yapay zeka hazırlasın. Sonuçtan memnun kaldığınızda baskıya hazır bir PDF indirin.",
+      },
+      {
+        question: "Şablonlar ATS uyumlu mu?",
+        answer:
+          "Evet. Birçok şablon, fotoğraf veya grafik içermeyen tek sütunlu bir düzen kullanır; aday takip sistemleri (ATS) bu düzeni güvenilir şekilde okur. Bu şablonları görmek için şablon galerisindeki “ATS uyumlu” filtresini kullanın.",
+      },
+      {
+        question: "Hangi ülkeler ve CV formatları destekleniyor?",
+        answer:
+          "Europass, Alman Lebenslauf, İngiltere CV’si, ABD tarzı CV (résumé), Japon shokumu keirekisho ve Körfez tarzı CV’ler dahil 18 bölge için şablonlar var. Her biri fotoğraf, kişisel bilgiler ve sayfa boyutu konusunda yerel teamüllere uyar.",
+      },
+      {
+        question: "CV’mi hangi dillerde yazabilirim?",
+        answer:
+          "Resumorah 12 dilde çalışır: İngilizce, İspanyolca, Fransızca, Almanca, Portekizce, İtalyanca, Felemenkçe, Lehçe, Türkçe, Rusça, Arapça ve Çince. Bölüm başlıkları ve tarihler CV’nizin diline göre ayarlanır.",
+      },
+      {
+        question: "Mevcut CV’mi içe aktarabilir miyim?",
+        answer:
+          "Evet. Bir PDF veya DOCX dosyası yükleyin; yapay zeka onu düzenlenebilir bir CV’ye dönüştürür, siz de dilediğiniz şablonla yeniden biçimlendirirsiniz.",
+      },
+      {
+        question: "Yapay zeka yazım asistanı ne yapar?",
+        answer:
+          "Daha önce girdiğiniz bilgilere dayanarak özetinizi, iş deneyiminizi ve diğer bölümleri yazar veya iyileştirir, ayrıca uygun beceriler önerir. Her öneriyi uygulanmadan önce siz gözden geçirirsiniz.",
+      },
+      {
+        question: "CV’mi kimler görebilir?",
+        answer:
+          "CV’leriniz kendi hesabınıza kaydedilir ve yalnızca siz görebilirsiniz. Verilerin nasıl işlendiğine dair ayrıntılar için Gizlilik Politikası’nı okuyun.",
+      },
+    ],
+  },
+  templatesPage: {
+    noMatches: "“{q}” ile eşleşen şablon yok.",
+    clearSearch: "Aramayı temizle",
+    title: "Ücretsiz CV şablonları",
+    description: "18 bölge için işverenlerin beğeneceği 90+ CV şablonu. Birini seçin, doldurun ve PDF olarak indirin. Herkes için %100 ücretsiz.",
+    regionTitle: "Ücretsiz CV şablonları: {region}",
+    regionDescription: "{region} için yerel teamüllere uygun {n} ücretsiz CV şablonu. Birini çevrimiçi özelleştirin ve PDF olarak indirin.",
+    templateTitle: "{name}: ücretsiz CV şablonu",
+    templateDescription: "{description} Ücretsiz: çevrimiçi özelleştirin ve PDF olarak indirin.",
+    useTemplate: "Bu şablonu ücretsiz kullan",
+    allTemplates: "Tüm şablonlar",
+    home: "Ana sayfa",
+    browseByRegion: "Bölgeye göre göz atın",
+    count: "{n} şablon",
+    details: "Format ayrıntıları",
+    layoutLabel: "Düzen",
+    layouts: {
+      single: "Tek sütun",
+      sidebar: "Kenar çubuğu",
+      europass: "Europass etiket sütunu",
+      timeline: "Tarih sütunlu zaman çizelgesi",
+    },
+    photoLabel: "Fotoğraf",
+    photoValues: {
+      expected: "Beklenir",
+      optional: "İsteğe bağlı",
+      none: "Kullanılmaz",
+    },
+    pageSizeLabel: "Sayfa boyutu",
+    personalDetailsLabel: "Kişisel bilgiler",
+    included: "Dahil",
+    notIncluded: "Dahil değil",
+    related: "Bu bölge için diğer şablonlar",
+    viewTemplate: "Şablonu görüntüle",
+    guide: {
+      title: "Bu şablon ne zaman kullanılmalı?",
+      layout: {
+        single:
+          "Tek sütunlu düzen okuma sırasını sade tutar; bu da CV’lere hızla göz atan işe alım uzmanlarına ve aday takip sistemlerine aynı ölçüde uyar.",
+        sidebar:
+          "İletişim bilgileri, beceriler ve diller renkli bir kenar çubuğunda yer alır; ana sütun deneyiminize ve eğitiminize kalır.",
+        europass:
+          "Europass yapısını izler: bir yanda dar bir sütunda başlıklar, hemen yanında da sizin bilgileriniz. AB genelindeki işverenlerin ve kurumların tanıdığı bir formattır.",
+        timeline:
+          "Tarihler her kaydın yanında ayrı bir sütunda yer alır; bu, Almanya, Avusturya, İsviçre ve Orta Avrupa’nın büyük bölümünde yaygın olan tablo düzenidir.",
+      },
+      photo: {
+        expected: "{region} bölgesinde profesyonel bir fotoğraf eklemek teamüldür ve düzende fotoğraf için ayrılmış bir alan bulunur.",
+        optional: "Fotoğraf isteğe bağlıdır: Alanınızda veya ülkenizde yaygınsa ekleyin, değilse hiç eklemeyin.",
+        none: "ABD, Birleşik Krallık, Kanada ve Avustralya’daki işe alım uzmanlarının beklediği ve ATS odaklı birçok başvurunun tercih ettiği gibi fotoğraf içermez.",
+      },
+      personalDetails:
+        "İşverenlerin beklediği pazarlar için bir kişisel bilgiler bölümü (doğum tarihi ve uyruk gibi) içerir.",
+      signature:
+        "Almanca konuşulan ülkelerdeki teamüle uygun olarak CV, bir yer-tarih satırı ve bir imza satırıyla biter.",
+      references:
+        "Kısa bir “referanslar talep üzerine verilir” satırı, Birleşik Krallık, İrlanda, Güney Afrika ve Avustralya’daki teamülü izler.",
+      letter: "ABD ve Kanada’da standart olan US Letter kâğıt boyutuna (8,5 × 11 inç) göre hazırlanmıştır.",
+      a4: "Kuzey Amerika dışında neredeyse her yerde standart olan A4 kâğıt boyutuna göre hazırlanmıştır.",
+      ats: "Grafik içermeyen sade yapısı, aday takip sistemleri (ATS) tarafından güvenilir şekilde okunur.",
+      stepsTitle: "Nasıl kullanılır?",
+      steps: [
+        "“Bu şablonu ücretsiz kullan” seçeneğine tıklayın ve ücretsiz hesabınızı oluşturun.",
+        "Her bölümü doldurun ya da mevcut CV’nizi bir PDF veya DOCX dosyasından içe aktarın.",
+        "Özetinizi ve deneyiminizi yapay zekanın iyileştirmesine izin verin, ardından PDF’inizi indirin.",
+      ],
+    },
+  },
   templatesSection: {
     eyebrow: "Şablonlar",
     title: "Şık düzenler. Aynı güçlü içerik.",
@@ -152,6 +269,7 @@ export const tr: Dictionary = {
       "Oluşturucuda herhangi bir şablonla başlayın. Düzeni daha sonra değiştirip içeriğinizi koruyabilirsiniz.",
     regionalTitle: "Ayrıca her bölge ve rol için {n} şablon daha",
     regionalBody: "Europass, Alman Lebenslauf, ABD tarzı CV, İngiltere CV’si, Körfez, Çin 简历 ve daha fazlası; her biri yerel teamüllere uygun.",
+    browseAll: "{n} şablonun tümüne göz atın",
     tags: {
       default: "Çok yönlü",
       classic: "Zamansız",
@@ -534,12 +652,13 @@ export const tr: Dictionary = {
     titleHighlight: "oluşturmaya hazır mısınız?",
     description:
       "Düzenleyiciyi açın, içeriğinizi yapay zekayla geliştirin, bir şablon seçin ve başvurmaya hazır olduğunuzda PDF olarak indirin.",
-    note: "Ücretsiz başlayın · Kredi kartı gerekmez",
+    note: "Herkes için %100 ücretsiz · Kredi kartı gerekmez",
   },
   footer: {
     product: "Ürün",
     legal: "Yasal",
     howItWorks: "Nasıl çalışır",
+    allTemplates: "Tüm şablonlar",
     privacy: "Gizlilik Politikası",
     terms: "Şartlar ve Koşullar",
     rights: "Tüm hakları saklıdır.",
@@ -561,7 +680,7 @@ export const tr: Dictionary = {
         body: "CV’leriniz hesabınızda saklanır, siz hazır olduğunuzda hazırdır.",
       },
     ],
-    shellNote: "Ücretsiz başlayın · PDF dışa aktarma · Kredi kartı gerekmez",
+    shellNote: "Herkes için %100 ücretsiz · PDF dışa aktarma · Kredi kartı gerekmez",
     loginTitle: "Tekrar hoş geldiniz",
     loginDescription: "Kaldığınız yerden devam etmek için giriş yapın.",
     signupTitle: "Hesabınızı oluşturun",

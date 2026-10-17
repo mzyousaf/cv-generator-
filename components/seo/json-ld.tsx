@@ -1,0 +1,12 @@
+/**
+ * Structured data for search and answer engines. `<` is escaped so values
+ * can never close the script element.
+ */
+export function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
+    />
+  );
+}
