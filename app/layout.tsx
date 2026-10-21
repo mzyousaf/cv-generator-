@@ -129,8 +129,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           value={{ ...preferences, t: getDictionary(preferences.locale) }}
         >
           {children}
+          <GoogleAnalytics />
         </I18nProvider>
-        <GoogleAnalytics />
       </body>
     </html>
   );

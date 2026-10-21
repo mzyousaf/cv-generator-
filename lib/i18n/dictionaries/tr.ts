@@ -662,6 +662,7 @@ export const tr: Dictionary = {
     privacy: "Gizlilik Politikası",
     terms: "Şartlar ve Koşullar",
     rights: "Tüm hakları saklıdır.",
+    cookieSettings: "Çerez ayarları",
   },
   auth: {
     shellTitle: "Deneyiminizin hak ettiği",
@@ -705,10 +706,18 @@ export const tr: Dictionary = {
     redirecting: "Yönlendiriliyor…",
     signOut: "Çıkış yap",
   },
+  cookies: {
+    title: "Gizliliğinize önem veriyoruz",
+    message:
+      "Oturumunuzu açık tutmak ve tercihlerinizi hatırlamak için zorunlu çerezler kullanıyoruz. İzninizle, sitenin nasıl kullanıldığını anlamak ve geliştirmek için Google Analytics çerezlerini de kullanıyoruz.",
+    learnMore: "Gizlilik Politikası",
+    accept: "Analitiği kabul et",
+    decline: "Reddet",
+  },
   legal: {
     eyebrow: "Yasal",
     backHome: "Ana sayfaya dön",
-    lastUpdated: "Son güncelleme: [YER TUTUCU: tarihi ekleyin]",
+    lastUpdated: "Son güncelleme: {date}",
     englishOnly:
       "Bu çeviri size kolaylık sağlamak amacıyla sunulmuştur. Herhangi bir farklılık olması durumunda İngilizce sürüm geçerlidir.",
   },

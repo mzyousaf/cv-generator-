@@ -9,6 +9,9 @@ import { AuthModalProvider } from "@/components/landing/auth-modal-context";
 import { LandingFooter } from "@/components/landing/footer";
 import { Logo } from "@/components/ui/logo";
 import { PreferencesMenu } from "@/components/preferences/preferences-menu";
+import { CV_DATE_LOCALE } from "@/lib/cv/document-labels";
+import { format } from "@/lib/i18n/format";
+import { LEGAL_LAST_UPDATED } from "@/lib/legal/types";
 
 type LegalPageLayoutProps = {
   title: string;
@@ -55,7 +58,11 @@ export function LegalPageLayout({ title, children }: LegalPageLayoutProps) {
               {title}
             </h1>
             <p className="mt-3 text-sm text-slate-400">
-              {t.legal.lastUpdated}
+              {format(t.legal.lastUpdated, {
+                date: new Intl.DateTimeFormat(CV_DATE_LOCALE[locale], { dateStyle: "long", timeZone: "UTC" }).format(
+                  new Date(LEGAL_LAST_UPDATED),
+                ),
+              })}
             </p>
           </div>
         </header>

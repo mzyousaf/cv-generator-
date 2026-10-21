@@ -638,6 +638,7 @@ export const zh: Dictionary = {
     privacy: "隐私政策",
     terms: "条款与条件",
     rights: "保留所有权利。",
+    cookieSettings: "Cookie 设置",
   },
   auth: {
     shellTitle: "打造配得上你",
@@ -680,10 +681,18 @@ export const zh: Dictionary = {
     redirecting: "正在跳转…",
     signOut: "退出登录",
   },
+  cookies: {
+    title: "我们重视您的隐私",
+    message:
+      "我们使用必要的 Cookie 来保持您的登录状态并记住您的偏好设置。经您同意后，我们还会使用 Google Analytics Cookie 来了解网站的使用情况并加以改进。",
+    learnMore: "隐私政策",
+    accept: "接受分析",
+    decline: "拒绝",
+  },
   legal: {
     eyebrow: "法律",
     backHome: "返回首页",
-    lastUpdated: "最后更新：[PLACEHOLDER: 填写日期]",
+    lastUpdated: "最后更新：{date}",
     englishOnly: "本译文仅为方便阅读而提供。如有任何差异，以英文版本为准。",
   },
   dashboard: {

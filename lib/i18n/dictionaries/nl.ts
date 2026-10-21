@@ -662,6 +662,7 @@ export const nl: Dictionary = {
     privacy: "Privacybeleid",
     terms: "Algemene voorwaarden",
     rights: "Alle rechten voorbehouden.",
+    cookieSettings: "Cookie-instellingen",
   },
   auth: {
     shellTitle: "Maak het cv dat je",
@@ -705,10 +706,18 @@ export const nl: Dictionary = {
     redirecting: "Doorsturen…",
     signOut: "Uitloggen",
   },
+  cookies: {
+    title: "Wij respecteren je privacy",
+    message:
+      "We gebruiken noodzakelijke cookies om je ingelogd te houden en je voorkeuren te onthouden. Met je toestemming gebruiken we ook Google Analytics-cookies om te begrijpen hoe de site wordt gebruikt en deze te verbeteren.",
+    learnMore: "Privacybeleid",
+    accept: "Analyse accepteren",
+    decline: "Weigeren",
+  },
   legal: {
     eyebrow: "Juridisch",
     backHome: "Terug naar home",
-    lastUpdated: "Laatst bijgewerkt: [PLACEHOLDER: datum invullen]",
+    lastUpdated: "Laatst bijgewerkt: {date}",
     englishOnly:
       "Deze vertaling is voor je gemak beschikbaar gesteld. Bij verschillen is de Engelse versie leidend.",
   },
