@@ -709,7 +709,7 @@ export const tr: Dictionary = {
   cookies: {
     title: "Gizliliğinize önem veriyoruz",
     message:
-      "Oturumunuzu açık tutmak ve tercihlerinizi hatırlamak için zorunlu çerezler kullanıyoruz. İzninizle, sitenin nasıl kullanıldığını anlamak ve geliştirmek için Google Analytics çerezlerini de kullanıyoruz.",
+      "Oturumunuzu açık tutmak ve tercihlerinizi hatırlamak için zorunlu çerezler, sitenin nasıl kullanıldığını anlamak ve geliştirmek için de Google Analytics çerezleri kullanıyoruz. Analitiği istediğiniz zaman reddedebilirsiniz.",
     learnMore: "Gizlilik Politikası",
     accept: "Analitiği kabul et",
     decline: "Reddet",

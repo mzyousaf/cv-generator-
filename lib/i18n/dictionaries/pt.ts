@@ -709,7 +709,7 @@ export const pt: Dictionary = {
   cookies: {
     title: "Valorizamos sua privacidade",
     message:
-      "Usamos cookies essenciais para manter você conectado e lembrar suas preferências. Com sua permissão, também usamos cookies do Google Analytics para entender como o site é usado e melhorá-lo.",
+      "Usamos cookies essenciais para manter você conectado e lembrar suas preferências, e cookies do Google Analytics para entender como o site é usado e melhorá-lo. Você pode recusar a análise a qualquer momento.",
     learnMore: "Política de Privacidade",
     accept: "Aceitar análise",
     decline: "Recusar",

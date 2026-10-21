@@ -709,7 +709,7 @@ export const nl: Dictionary = {
   cookies: {
     title: "Wij respecteren je privacy",
     message:
-      "We gebruiken noodzakelijke cookies om je ingelogd te houden en je voorkeuren te onthouden. Met je toestemming gebruiken we ook Google Analytics-cookies om te begrijpen hoe de site wordt gebruikt en deze te verbeteren.",
+      "We gebruiken noodzakelijke cookies om je ingelogd te houden en je voorkeuren te onthouden, en Google Analytics-cookies om te begrijpen hoe de site wordt gebruikt en deze te verbeteren. Je kunt analyse op elk moment weigeren.",
     learnMore: "Privacybeleid",
     accept: "Analyse accepteren",
     decline: "Weigeren",

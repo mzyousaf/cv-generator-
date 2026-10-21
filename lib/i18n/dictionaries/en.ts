@@ -713,7 +713,7 @@ export const en = {
   cookies: {
     title: "We value your privacy",
     message:
-      "We use essential cookies to keep you signed in and remember your preferences. With your permission, we also use Google Analytics cookies to understand how the site is used and improve it.",
+      "We use essential cookies to keep you signed in and remember your preferences, and Google Analytics cookies to understand how the site is used and improve it. You can decline analytics at any time.",
     learnMore: "Privacy Policy",
     accept: "Accept analytics",
     decline: "Decline",

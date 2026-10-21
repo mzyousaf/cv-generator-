@@ -684,7 +684,7 @@ export const zh: Dictionary = {
   cookies: {
     title: "我们重视您的隐私",
     message:
-      "我们使用必要的 Cookie 来保持您的登录状态并记住您的偏好设置。经您同意后，我们还会使用 Google Analytics Cookie 来了解网站的使用情况并加以改进。",
+      "我们使用必要的 Cookie 来保持您的登录状态并记住您的偏好设置，并使用 Google Analytics Cookie 来了解网站的使用情况并加以改进。您可以随时拒绝分析。",
     learnMore: "隐私政策",
     accept: "接受分析",
     decline: "拒绝",

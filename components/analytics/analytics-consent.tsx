@@ -15,57 +15,80 @@ import {
 
 type Gtag = (...args: unknown[]) => void;
 
-/** Until hydration the stored choice is unknown, so nothing renders. */
-const PENDING = "pending";
+function getGtag(): Gtag | undefined {
+  return (window as unknown as { gtag?: Gtag }).gtag;
+}
+
+function setDisabled(measurementId: string, disabled: boolean) {
+  (window as unknown as Record<string, unknown>)[`ga-disable-${measurementId}`] = disabled;
+}
+
+/** GA4 event recording the visitor's banner choice. */
+function trackChoice(gtag: Gtag, choice: Consent) {
+  gtag("event", "cookie_consent", { consent_choice: choice === "granted" ? "accepted" : "rejected" });
+}
 
 /**
- * Cookie banner plus Google Analytics. gtag.js loads only after the visitor
- * accepts; declining (now or later via "Cookie settings") turns it off.
+ * Cookie banner plus Google Analytics (opt-out). Analytics runs until the
+ * visitor declines; accepting just confirms it. Page views are tracked by
+ * GA4 itself, including client-side route changes (enhanced measurement).
  */
-export function AnalyticsConsent({ measurementId }: { measurementId: string }) {
+export function AnalyticsConsent({
+  measurementId,
+  initialConsent,
+}: {
+  measurementId: string;
+  /** The consent cookie as the server saw it, so the tag and banner render in the HTML. */
+  initialConsent: Consent | null;
+}) {
   const { t } = useI18n();
   const copy = t.cookies;
-  const consent = useSyncExternalStore<Consent | null | typeof PENDING>(
-    subscribeConsent,
-    readConsent,
-    () => PENDING,
-  );
+  const consent = useSyncExternalStore(subscribeConsent, readConsent, () => initialConsent);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const previous = useRef(consent);
+  /** Accepting after an earlier decline: gtag.js still has to load before the event can be sent. */
+  const pendingChoice = useRef<Consent | null>(null);
 
   useEffect(() => subscribeOpenSettings(() => setSettingsOpen(true)), []);
 
-  // A choice changed after the tag loaded: switch the running tag off or back on.
-  useEffect(() => {
-    const gtag = (window as unknown as { gtag?: Gtag }).gtag;
-    if (gtag && previous.current !== consent && (consent === "granted" || consent === "denied")) {
-      (window as unknown as Record<string, unknown>)[`ga-disable-${measurementId}`] = consent === "denied";
-      gtag("consent", "update", { analytics_storage: consent });
-    }
-    previous.current = consent;
-  }, [consent, measurementId]);
-
   function choose(choice: Consent) {
+    const gtag = getGtag();
+    if (gtag) {
+      // Record the choice first; declining switches the tag off right after.
+      trackChoice(gtag, choice);
+      if (choice === "denied") {
+        gtag("consent", "update", { analytics_storage: "denied" });
+        setDisabled(measurementId, true);
+      } else {
+        setDisabled(measurementId, false);
+        gtag("consent", "update", { analytics_storage: "granted" });
+      }
+    } else {
+      pendingChoice.current = choice;
+    }
     saveConsent(choice);
     setSettingsOpen(false);
   }
 
-  if (consent === PENDING) {
-    return null;
-  }
-
   return (
     <>
-      {consent === "granted" ? (
+      {consent !== "denied" ? (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
             strategy="afterInteractive"
+            onReady={() => {
+              const gtag = getGtag();
+              if (gtag && pendingChoice.current) {
+                trackChoice(gtag, pendingChoice.current);
+                pendingChoice.current = null;
+              }
+            }}
           />
           <Script id="google-analytics" strategy="afterInteractive">
             {`window['ga-disable-${measurementId}'] = false;
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+window.gtag = gtag;
 gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
 gtag('js', new Date());
 gtag('config', '${measurementId}');`}

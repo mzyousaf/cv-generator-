@@ -701,7 +701,7 @@ export const es: Dictionary = {
   cookies: {
     title: "Respetamos tu privacidad",
     message:
-      "Usamos cookies esenciales para mantener tu sesión iniciada y recordar tus preferencias. Con tu permiso, también usamos cookies de Google Analytics para entender cómo se usa el sitio y mejorarlo.",
+      "Usamos cookies esenciales para mantener tu sesión iniciada y recordar tus preferencias, y cookies de Google Analytics para entender cómo se usa el sitio y mejorarlo. Puedes rechazar las analíticas en cualquier momento.",
     learnMore: "Política de privacidad",
     accept: "Aceptar analíticas",
     decline: "Rechazar",

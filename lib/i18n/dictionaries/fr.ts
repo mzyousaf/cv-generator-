@@ -701,7 +701,7 @@ export const fr: Dictionary = {
   cookies: {
     title: "Votre vie privée compte",
     message:
-      "Nous utilisons des cookies essentiels pour vous garder connecté et mémoriser vos préférences. Avec votre accord, nous utilisons aussi des cookies Google Analytics pour comprendre l’utilisation du site et l’améliorer.",
+      "Nous utilisons des cookies essentiels pour vous garder connecté et mémoriser vos préférences, ainsi que des cookies Google Analytics pour comprendre l’utilisation du site et l’améliorer. Vous pouvez refuser l’analyse à tout moment.",
     learnMore: "Politique de confidentialité",
     accept: "Accepter l’analyse",
     decline: "Refuser",
