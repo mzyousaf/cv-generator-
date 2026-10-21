@@ -709,7 +709,7 @@ export const pl: Dictionary = {
   cookies: {
     title: "Szanujemy Twoją prywatność",
     message:
-      "Używamy niezbędnych plików cookie, aby utrzymać Twoje logowanie i zapamiętać preferencje. Za Twoją zgodą używamy też plików cookie Google Analytics, aby zrozumieć, jak korzystasz z witryny, i ją ulepszać.",
+      "Używamy niezbędnych plików cookie, aby utrzymać Twoje logowanie i zapamiętać preferencje, oraz plików cookie Google Analytics, aby zrozumieć, jak korzystasz z witryny, i ją ulepszać. Analitykę możesz w każdej chwili odrzucić.",
     learnMore: "Polityka prywatności",
     accept: "Akceptuj analitykę",
     decline: "Odrzuć",

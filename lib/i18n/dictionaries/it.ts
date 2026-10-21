@@ -709,7 +709,7 @@ export const it: Dictionary = {
   cookies: {
     title: "Teniamo alla tua privacy",
     message:
-      "Usiamo cookie essenziali per mantenere l’accesso e ricordare le tue preferenze. Con il tuo consenso, usiamo anche cookie di Google Analytics per capire come viene usato il sito e migliorarlo.",
+      "Usiamo cookie essenziali per mantenere l’accesso e ricordare le tue preferenze, e cookie di Google Analytics per capire come viene usato il sito e migliorarlo. Puoi rifiutare l’analisi in qualsiasi momento.",
     learnMore: "Informativa sulla privacy",
     accept: "Accetta analisi",
     decline: "Rifiuta",

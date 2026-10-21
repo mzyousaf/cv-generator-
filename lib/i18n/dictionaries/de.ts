@@ -701,7 +701,7 @@ export const de: Dictionary = {
   cookies: {
     title: "Ihre Privatsphäre ist uns wichtig",
     message:
-      "Wir verwenden notwendige Cookies, damit Sie angemeldet bleiben und Ihre Einstellungen gespeichert werden. Mit Ihrer Zustimmung verwenden wir außerdem Google-Analytics-Cookies, um zu verstehen, wie die Website genutzt wird, und sie zu verbessern.",
+      "Wir verwenden notwendige Cookies, damit Sie angemeldet bleiben und Ihre Einstellungen gespeichert werden, sowie Google-Analytics-Cookies, um zu verstehen, wie die Website genutzt wird, und sie zu verbessern. Sie können die Analyse jederzeit ablehnen.",
     learnMore: "Datenschutzerklärung",
     accept: "Analyse akzeptieren",
     decline: "Ablehnen",
