@@ -4,6 +4,7 @@ import { siteConfig } from "@/lib/constants";
 import { pdfFontFamily } from "@/lib/pdf/fonts";
 import { PdfBodySections } from "@/lib/pdf/sections";
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
+import { capsTracking } from "@/lib/pdf/tracking";
 
 const styles = StyleSheet.create({
   page: {
@@ -27,8 +28,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: 700,
     textTransform: "uppercase",
-    // Wider tracking makes PDF text extractors split headings into letters.
-    letterSpacing: 1,
+    letterSpacing: capsTracking(9),
     color: "#71717a",
   },
   entryTitle: { fontSize: 11, fontWeight: 700 },
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     color: "#71717a",
     textTransform: "uppercase",
-    letterSpacing: 0.6,
+    letterSpacing: capsTracking(9),
   },
   entryDate: {
     fontSize: 9,

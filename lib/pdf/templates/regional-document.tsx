@@ -13,15 +13,16 @@ import {
 import { bandTitleColor, type RegionalTemplateSpec } from "@/lib/cv/template-catalog";
 import { DirText as Text, pdfDir } from "@/lib/pdf/direction";
 import { pdfFontFamily } from "@/lib/pdf/fonts";
+import { capsTracking } from "@/lib/pdf/tracking";
 
 type Tone = "page" | "side";
 
 const MUTED = "#52525b";
 const INK = "#18181b";
 
-function caps(model: RegionalDocumentModel, spacing: number): Style {
+function caps(model: RegionalDocumentModel, fontSize: number): Style {
   return model.script === "latin"
-    ? { textTransform: "uppercase", letterSpacing: spacing }
+    ? { textTransform: "uppercase", letterSpacing: capsTracking(fontSize) }
     : {};
 }
 
@@ -29,7 +30,7 @@ function Heading({ title, model, tone = "page" }: { title: string; model: Region
   const { spec } = model;
   const { rtl } = pdfDir(model.dir);
   const side = tone === "side";
-  const base: Style = { fontSize: 9, fontWeight: 700, marginBottom: 6, ...caps(model, 0.8) };
+  const base: Style = { fontSize: 9, fontWeight: 700, marginBottom: 6, ...caps(model, 9) };
 
   switch (spec.heading) {
     case "block":
@@ -58,7 +59,7 @@ function Heading({ title, model, tone = "page" }: { title: string; model: Region
         </View>
       );
     case "caps":
-      return <Text style={{ ...base, fontSize: 8.5, ...caps(model, 1), color: side ? "#ffffff" : spec.accent }}>{title}</Text>;
+      return <Text style={{ ...base, fontSize: 8.5, ...caps(model, 8.5), color: side ? "#ffffff" : spec.accent }}>{title}</Text>;
     case "rule":
     default:
       return (
@@ -288,7 +289,7 @@ function TimelineBody({ model }: { model: RegionalDocumentModel }) {
 function EuropassBody({ model }: { model: RegionalDocumentModel }) {
   const { spec, labels } = model;
   const { row, rtl } = pdfDir(model.dir);
-  const labelStyle: Style = { width: "30%", fontSize: 8, color: spec.accent, fontWeight: 700, textAlign: rtl ? "left" : "right", ...caps(model, 0.6) };
+  const labelStyle: Style = { width: "30%", fontSize: 8, color: spec.accent, fontWeight: 700, textAlign: rtl ? "left" : "right", ...caps(model, 8) };
   const gap: Style = rtl ? { marginLeft: 14 } : { marginRight: 14 };
   const personal = [...model.contacts, ...model.details];
   const headingRow = (title: string) => (
@@ -360,7 +361,7 @@ function SidebarBody({ model }: { model: RegionalDocumentModel }) {
     <View>
       {pairs.map((pair) => (
         <View key={pair.label} style={{ marginBottom: 5 }}>
-          <Text style={{ fontSize: 7, color: "#ffffff99", ...caps(model, 0.6) }}>{pair.label}</Text>
+          <Text style={{ fontSize: 7, color: "#ffffff99", ...caps(model, 7) }}>{pair.label}</Text>
           <Text style={{ fontSize: 8.75, color: "#ffffff" }}>{pair.value}</Text>
         </View>
       ))}

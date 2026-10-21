@@ -654,6 +654,7 @@ export const es: Dictionary = {
     privacy: "Política de privacidad",
     terms: "Términos y condiciones",
     rights: "Todos los derechos reservados.",
+    cookieSettings: "Configuración de cookies",
   },
   auth: {
     shellTitle: "Crea el CV que tu",
@@ -697,10 +698,18 @@ export const es: Dictionary = {
     redirecting: "Redirigiendo…",
     signOut: "Cerrar sesión",
   },
+  cookies: {
+    title: "Respetamos tu privacidad",
+    message:
+      "Usamos cookies esenciales para mantener tu sesión iniciada y recordar tus preferencias. Con tu permiso, también usamos cookies de Google Analytics para entender cómo se usa el sitio y mejorarlo.",
+    learnMore: "Política de privacidad",
+    accept: "Aceptar analíticas",
+    decline: "Rechazar",
+  },
   legal: {
     eyebrow: "Legal",
     backHome: "Volver al inicio",
-    lastUpdated: "Última actualización: [PLACEHOLDER: insertar fecha]",
+    lastUpdated: "Última actualización: {date}",
     englishOnly:
       "Esta traducción se ofrece para tu comodidad. En caso de discrepancia, prevalece la versión en inglés.",
   },

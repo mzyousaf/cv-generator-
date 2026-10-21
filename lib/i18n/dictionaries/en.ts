@@ -666,6 +666,7 @@ export const en = {
     privacy: "Privacy Policy",
     terms: "Terms & Conditions",
     rights: "All rights reserved.",
+    cookieSettings: "Cookie settings",
   },
   auth: {
     shellTitle: "Build the CV your",
@@ -709,10 +710,18 @@ export const en = {
     redirecting: "Redirecting…",
     signOut: "Sign out",
   },
+  cookies: {
+    title: "We value your privacy",
+    message:
+      "We use essential cookies to keep you signed in and remember your preferences. With your permission, we also use Google Analytics cookies to understand how the site is used and improve it.",
+    learnMore: "Privacy Policy",
+    accept: "Accept analytics",
+    decline: "Decline",
+  },
   legal: {
     eyebrow: "Legal",
     backHome: "Back home",
-    lastUpdated: "Last updated: [PLACEHOLDER: insert date]",
+    lastUpdated: "Last updated: {date}",
     englishOnly:
       "This is a translation provided for your convenience. If there is any difference, the English version prevails.",
   },

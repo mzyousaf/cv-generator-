@@ -6,3 +6,6 @@ export type LegalDocument = {
   description: string;
   blocks: LegalBlock[];
 };
+
+/** Shown as "Last updated" on the legal pages; bump when either document changes. */
+export const LEGAL_LAST_UPDATED = "2026-10-21";

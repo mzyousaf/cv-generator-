@@ -662,6 +662,7 @@ export const pl: Dictionary = {
     privacy: "Polityka prywatności",
     terms: "Regulamin",
     rights: "Wszelkie prawa zastrzeżone.",
+    cookieSettings: "Ustawienia plików cookie",
   },
   auth: {
     shellTitle: "Stwórz CV, na jakie",
@@ -705,10 +706,18 @@ export const pl: Dictionary = {
     redirecting: "Przekierowywanie…",
     signOut: "Wyloguj się",
   },
+  cookies: {
+    title: "Szanujemy Twoją prywatność",
+    message:
+      "Używamy niezbędnych plików cookie, aby utrzymać Twoje logowanie i zapamiętać preferencje. Za Twoją zgodą używamy też plików cookie Google Analytics, aby zrozumieć, jak korzystasz z witryny, i ją ulepszać.",
+    learnMore: "Polityka prywatności",
+    accept: "Akceptuj analitykę",
+    decline: "Odrzuć",
+  },
   legal: {
     eyebrow: "Informacje prawne",
     backHome: "Wróć na stronę główną",
-    lastUpdated: "Ostatnia aktualizacja: [PLACEHOLDER: wstaw datę]",
+    lastUpdated: "Ostatnia aktualizacja: {date}",
     englishOnly:
       "To tłumaczenie udostępniamy dla Twojej wygody. W razie rozbieżności rozstrzygająca jest wersja angielska.",
   },

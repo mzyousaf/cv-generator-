@@ -22,3 +22,12 @@ for (const [name, docs] of [
     });
   }
 }
+
+test("legal documents contain no unfinished placeholders", () => {
+  for (const docs of [PRIVACY_POLICY, TERMS_AND_CONDITIONS]) {
+    for (const locale of LOCALES) {
+      const text = JSON.stringify(docs[locale]);
+      assert.doesNotMatch(text, /PLACEHOLDER|YER TUTUCU|\[[A-Z]/, `${docs[locale].title} (${locale})`);
+    }
+  }
+});

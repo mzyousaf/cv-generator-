@@ -4,6 +4,7 @@ import { siteConfig } from "@/lib/constants";
 import { pdfFontFamily } from "@/lib/pdf/fonts";
 import { PdfBodySections } from "@/lib/pdf/sections";
 import type { CvDocumentView } from "@/components/cv-templates/view-model";
+import { capsTracking } from "@/lib/pdf/tracking";
 
 const styles = StyleSheet.create({
   page: {
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: 700,
     textTransform: "uppercase",
-    letterSpacing: 0.8,
+    letterSpacing: capsTracking(11),
     borderBottomWidth: 2,
     borderBottomColor: "#18181b",
     paddingBottom: 3,

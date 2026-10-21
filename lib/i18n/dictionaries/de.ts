@@ -654,6 +654,7 @@ export const de: Dictionary = {
     privacy: "Datenschutzerklärung",
     terms: "Allgemeine Geschäftsbedingungen",
     rights: "Alle Rechte vorbehalten.",
+    cookieSettings: "Cookie-Einstellungen",
   },
   auth: {
     shellTitle: "Der Lebenslauf, den Ihre",
@@ -697,10 +698,18 @@ export const de: Dictionary = {
     redirecting: "Weiterleitung…",
     signOut: "Abmelden",
   },
+  cookies: {
+    title: "Ihre Privatsphäre ist uns wichtig",
+    message:
+      "Wir verwenden notwendige Cookies, damit Sie angemeldet bleiben und Ihre Einstellungen gespeichert werden. Mit Ihrer Zustimmung verwenden wir außerdem Google-Analytics-Cookies, um zu verstehen, wie die Website genutzt wird, und sie zu verbessern.",
+    learnMore: "Datenschutzerklärung",
+    accept: "Analyse akzeptieren",
+    decline: "Ablehnen",
+  },
   legal: {
     eyebrow: "Rechtliches",
     backHome: "Zur Startseite",
-    lastUpdated: "Zuletzt aktualisiert: [PLACEHOLDER: Datum einfügen]",
+    lastUpdated: "Zuletzt aktualisiert: {date}",
     englishOnly:
       "Diese Übersetzung dient Ihrer Bequemlichkeit. Bei Abweichungen ist die englische Fassung maßgeblich.",
   },

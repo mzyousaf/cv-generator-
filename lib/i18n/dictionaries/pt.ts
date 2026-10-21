@@ -662,6 +662,7 @@ export const pt: Dictionary = {
     privacy: "Política de Privacidade",
     terms: "Termos e Condições",
     rights: "Todos os direitos reservados.",
+    cookieSettings: "Configurações de cookies",
   },
   auth: {
     shellTitle: "Crie o currículo que sua",
@@ -705,10 +706,18 @@ export const pt: Dictionary = {
     redirecting: "Redirecionando…",
     signOut: "Sair",
   },
+  cookies: {
+    title: "Valorizamos sua privacidade",
+    message:
+      "Usamos cookies essenciais para manter você conectado e lembrar suas preferências. Com sua permissão, também usamos cookies do Google Analytics para entender como o site é usado e melhorá-lo.",
+    learnMore: "Política de Privacidade",
+    accept: "Aceitar análise",
+    decline: "Recusar",
+  },
   legal: {
     eyebrow: "Jurídico",
     backHome: "Voltar ao início",
-    lastUpdated: "Última atualização: [PLACEHOLDER: inserir data]",
+    lastUpdated: "Última atualização: {date}",
     englishOnly:
       "Esta é uma tradução oferecida para sua conveniência. Em caso de divergência, prevalece a versão em inglês.",
   },

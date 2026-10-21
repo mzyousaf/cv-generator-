@@ -7,6 +7,7 @@ import {
   Plus_Jakarta_Sans,
   Syne,
 } from "next/font/google";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { I18nProvider } from "@/components/i18n/i18n-provider";
 import { BrandDefs } from "@/components/ui/logo";
 import { siteConfig } from "@/lib/constants";
@@ -128,6 +129,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           value={{ ...preferences, t: getDictionary(preferences.locale) }}
         >
           {children}
+          <GoogleAnalytics />
         </I18nProvider>
       </body>
     </html>

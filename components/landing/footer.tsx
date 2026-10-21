@@ -4,6 +4,7 @@ import { useI18n } from "@/components/i18n/i18n-provider";
 import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import { siteConfig } from "@/lib/constants";
 import { Logo } from "@/components/ui/logo";
+import { openConsentSettings } from "@/lib/analytics/consent";
 
 const footerLinkClass =
   "inline-flex min-h-10 cursor-pointer items-center md:min-h-0 text-slate-400 transition-colors hover:text-white focus:outline-none focus-visible:underline";
@@ -65,6 +66,11 @@ export function LandingFooter() {
               <Link href="/terms" className={footerLinkClass}>
                 {t.footer.terms}
               </Link>
+            </li>
+            <li>
+              <button type="button" onClick={openConsentSettings} className={footerLinkClass}>
+                {t.footer.cookieSettings}
+              </button>
             </li>
           </ul>
         </div>
