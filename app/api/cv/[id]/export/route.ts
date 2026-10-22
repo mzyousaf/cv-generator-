@@ -1,4 +1,7 @@
+import { auth } from "@/auth";
 import { isValidCvId } from "@/lib/cv/validation";
+import { RATE_LIMITED_MESSAGE, RATE_LIMITS } from "@/lib/rate-limit";
+import { enforceRateLimit } from "@/lib/rate-limit-server";
 import {
   contentDispositionFilename,
 } from "@/lib/pdf/filename";
@@ -22,6 +25,19 @@ export async function GET(_request: Request, context: RouteContext) {
       { status: 404 },
     );
   }
+
+  // PDF rendering is CPU-heavy; cap it per signed-in user (signed-out requests get 401 below).
+  const userId = (await auth())?.user?.id;
+  if (userId) {
+    const limit = await enforceRateLimit(RATE_LIMITS.pdfExport, userId);
+    if (!limit.ok) {
+      return Response.json(
+        { message: RATE_LIMITED_MESSAGE },
+        { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } },
+      );
+    }
+  }
+
   const result = await cvExportService.exportCvPdfById(id);
 
   if (!result.success) {

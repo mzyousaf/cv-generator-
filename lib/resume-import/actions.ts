@@ -17,6 +17,16 @@ import { resumeImportParseService } from "@/lib/resume-import/parse-service-inst
 import { resumeImportService } from "@/lib/resume-import/service-instance";
 import { RESUME_IMPORT_MIN_PARSE_TEXT_LENGTH } from "@/lib/resume-import/parse-constants";
 import { LOCALES, type Locale } from "@/lib/i18n/preferences";
+import { RATE_LIMITS } from "@/lib/rate-limit";
+import { enforceRateLimit } from "@/lib/rate-limit-server";
+
+/** AI-backed import and creation share one budget per user. */
+async function resumeAiRateLimitError(userId: string) {
+  const limit = await enforceRateLimit(RATE_LIMITS.resumeAi, userId);
+  return limit.ok
+    ? null
+    : resumeImportError(RESUME_IMPORT_ERROR_CODES.RATE_LIMITED, RESUME_IMPORT_ERROR_MESSAGES.RATE_LIMITED);
+}
 
 async function readUploadFromFormData(formData: FormData) {
   const file = formData.get("file");
@@ -65,6 +75,10 @@ export async function importResumeForReviewAction(
   const authError = resumeImportAuthError(user);
   if (authError) {
     return authError;
+  }
+  const limited = await resumeAiRateLimitError(user!.id);
+  if (limited) {
+    return limited;
   }
 
   const upload = await readUploadFromFormData(formData);
@@ -145,6 +159,10 @@ export async function createCvFromDescriptionAction(input: {
   const authError = resumeImportAuthError(user);
   if (authError) {
     return authError;
+  }
+  const limited = await resumeAiRateLimitError(user!.id);
+  if (limited) {
+    return limited;
   }
 
   const description =

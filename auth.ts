@@ -1,9 +1,22 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import authConfig from "@/auth.config";
 import { normalizeAuthEmail, resolveJwtSub } from "@/lib/auth/resolve-jwt-sub";
 import { verifyPassword } from "@/lib/auth/password";
+
+/** Too many sign-in attempts; the login form shows a "wait and retry" message. */
+class RateLimitedSignin extends CredentialsSignin {
+  code = "rate_limited";
+}
+
+function requestIp(request: Request | undefined): string {
+  return (
+    request?.headers.get("x-real-ip")?.trim() ||
+    request?.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "unknown"
+  );
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -15,7 +28,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials) => {
+      authorize: async (credentials, request) => {
         const email =
           typeof credentials?.email === "string"
             ? credentials.email.trim().toLowerCase()
@@ -25,8 +38,19 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             ? credentials.password
             : "";
 
-        if (!email || !password) {
+        if (!email || !password || email.length > 254 || password.length > 128) {
           return null;
+        }
+
+        // Stop password guessing: per IP and per account.
+        const { RATE_LIMITS, checkRateLimit } = await import("@/lib/rate-limit");
+        const { mongoRateLimitStore } = await import("@/lib/rate-limit-store");
+        const [byIp, byEmail] = await Promise.all([
+          checkRateLimit(RATE_LIMITS.loginIp, requestIp(request), mongoRateLimitStore),
+          checkRateLimit(RATE_LIMITS.loginEmail, email, mongoRateLimitStore),
+        ]);
+        if (!byIp.ok || !byEmail.ok) {
+          throw new RateLimitedSignin();
         }
 
         const { connectToDatabase } = await import("@/lib/db/connect");
@@ -73,16 +97,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       await connectToDatabase();
 
       const email = normalizeAuthEmail(user.email);
-      let dbUser = await UserModel.findOne({ email });
+      let dbUser = await UserModel.findOne({ email }).select("+passwordHash");
 
       if (!dbUser) {
         dbUser = await UserModel.create({
           email,
           name: user.name?.trim() || email,
           image: user.image ?? undefined,
+          emailVerified: new Date(),
         });
       } else {
         let shouldSave = false;
+        if (!dbUser.get("emailVerified")) {
+          // Email sign-up doesn't verify addresses, so anyone could have registered this
+          // email first. Google proves the owner signed in now: drop that unverified
+          // password so a pre-registered account can't be used to read their CVs.
+          if (dbUser.get("passwordHash")) {
+            dbUser.set("passwordHash", undefined);
+          }
+          dbUser.set("emailVerified", new Date());
+          shouldSave = true;
+        }
         if (user.image && !dbUser.image) {
           dbUser.image = user.image;
           shouldSave = true;

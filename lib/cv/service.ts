@@ -5,7 +5,9 @@ import {
   type CvResult,
 } from "@/lib/cv/errors";
 import { checkCvOwnership } from "@/lib/cv/ownership";
-import { cvRepository, type CvRepository } from "@/lib/cv/repository";
+import { countCvsForUser, cvRepository, type CvRepository } from "@/lib/cv/repository";
+import { RATE_LIMITS } from "@/lib/rate-limit";
+import { enforceRateLimit } from "@/lib/rate-limit-server";
 import type { CvRecord } from "@/lib/cv/serialize";
 import {
   isValidCvId,
@@ -29,11 +31,16 @@ export type UpdateCvPayload = {
   content?: unknown;
 };
 
+/** Per-account cap that keeps storage use bounded. */
+export const MAX_CVS_PER_USER = 100;
+
 type CvServiceDeps = {
   getUser: () => Promise<CurrentUser | null>;
   repository: CvRepository;
   /** Account profile picture as a CV photo data URL (null when unavailable). */
   getAccountPhoto?: (user: CurrentUser) => Promise<string | null>;
+  /** Rate limit / per-account cap; returns an error result to block creation. */
+  checkCreateAllowed?: (user: CurrentUser) => Promise<CvResult<never> | null>;
 };
 
 function mapValidationFailure(message: string): CvResult<never> {
@@ -75,6 +82,11 @@ export function createCvService(deps: CvServiceDeps) {
       let validated = validateCreateCvInput(input);
       if (!validated.ok) {
         return mapValidationFailure(validated.message);
+      }
+
+      const blocked = await deps.checkCreateAllowed?.(authResult.user);
+      if (blocked) {
+        return blocked;
       }
 
       // New CVs (blank, imported, AI-built) always use the account's picture.
@@ -260,6 +272,16 @@ export const cvService = createCvService({
   getUser: getCurrentUser,
   repository: cvRepository,
   getAccountPhoto: (user) => fetchAccountPhotoDataUrl(user.image),
+  checkCreateAllowed: async (user) => {
+    const limit = await enforceRateLimit(RATE_LIMITS.createCv, user.id);
+    if (!limit.ok) {
+      return cvError(CV_ERROR_CODES.RATE_LIMITED, CV_ERROR_MESSAGES.RATE_LIMITED);
+    }
+    if ((await countCvsForUser(user.id)) >= MAX_CVS_PER_USER) {
+      return cvError(CV_ERROR_CODES.LIMIT_REACHED, CV_ERROR_MESSAGES.LIMIT_REACHED);
+    }
+    return null;
+  },
 });
 
 export type CvService = ReturnType<typeof createCvService>;

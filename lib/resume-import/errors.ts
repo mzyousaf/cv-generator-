@@ -13,6 +13,7 @@ export const RESUME_IMPORT_ERROR_CODES = {
   MALFORMED_PARSE: "MALFORMED_PARSE",
   PARSING_FAILED: "PARSING_FAILED",
   PARSING_TIMEOUT: "PARSING_TIMEOUT",
+  RATE_LIMITED: "RATE_LIMITED",
   EMPTY_PARSE_RESULT: "EMPTY_PARSE_RESULT",
   INVALID_REVIEW: "INVALID_REVIEW",
   CREATE_FAILED: "CREATE_FAILED",
@@ -69,4 +70,5 @@ export const RESUME_IMPORT_ERROR_MESSAGES: Record<
     "We couldn't find enough resume information to review. Try another file or edit fields manually after retrying.",
   INVALID_REVIEW: "Some imported fields are invalid. Fix them and try again.",
   CREATE_FAILED: "We couldn't save your resume. Try again in a moment.",
+  RATE_LIMITED: "Too many requests. Please wait a few minutes and try again.",
 };

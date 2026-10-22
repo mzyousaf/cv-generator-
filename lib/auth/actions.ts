@@ -4,6 +4,10 @@ import { signOut } from "@/auth";
 import { hashPassword } from "@/lib/auth/password";
 import { connectToDatabase } from "@/lib/db/connect";
 import { UserModel } from "@/lib/db/models";
+import { RATE_LIMITED_MESSAGE, RATE_LIMITS } from "@/lib/rate-limit";
+import { clientIp, enforceRateLimit } from "@/lib/rate-limit-server";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export type RegisterUserState = {
   error?: string;
@@ -28,7 +32,20 @@ export async function registerUser(
     return { error: "Password must be at least 8 characters." };
   }
 
+  if (name.length > 100 || email.length > 254 || password.length > 128) {
+    return { error: "Name, email or password is too long." };
+  }
+
+  if (!EMAIL_PATTERN.test(email)) {
+    return { error: "Enter a valid email address." };
+  }
+
   try {
+    const limit = await enforceRateLimit(RATE_LIMITS.signupIp, await clientIp());
+    if (!limit.ok) {
+      return { error: RATE_LIMITED_MESSAGE };
+    }
+
     await connectToDatabase();
 
     const existing = await UserModel.findOne({ email });

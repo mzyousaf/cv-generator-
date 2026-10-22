@@ -4,6 +4,8 @@ export const CV_ERROR_CODES = {
   FORBIDDEN: "FORBIDDEN",
   INVALID_INPUT: "INVALID_INPUT",
   DATABASE_ERROR: "DATABASE_ERROR",
+  RATE_LIMITED: "RATE_LIMITED",
+  LIMIT_REACHED: "LIMIT_REACHED",
 } as const;
 
 export type CvErrorCode =
@@ -31,4 +33,6 @@ export const CV_ERROR_MESSAGES: Record<CvErrorCode, string> = {
   FORBIDDEN: "You do not have access to this CV.",
   INVALID_INPUT: "Invalid CV data.",
   DATABASE_ERROR: "Something went wrong. Please try again.",
+  RATE_LIMITED: "Too many requests. Please wait a few minutes and try again.",
+  LIMIT_REACHED: "You have reached the maximum number of CVs. Delete one to create another.",
 };

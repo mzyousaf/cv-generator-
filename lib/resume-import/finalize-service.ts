@@ -33,9 +33,11 @@ export function createResumeImportFinalizeService(deps: ResumeImportFinalizeDeps
       });
 
       if (!result.success) {
+        // Limits keep their own message so users know to wait or tidy up.
+        const limited = result.error.code === "RATE_LIMITED" || result.error.code === "LIMIT_REACHED";
         return resumeImportError(
           RESUME_IMPORT_ERROR_CODES.CREATE_FAILED,
-          RESUME_IMPORT_ERROR_MESSAGES.CREATE_FAILED,
+          limited ? result.error.message : RESUME_IMPORT_ERROR_MESSAGES.CREATE_FAILED,
         );
       }
 
