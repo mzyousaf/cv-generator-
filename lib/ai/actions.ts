@@ -8,6 +8,8 @@ import {
   type AiResult,
 } from "@/lib/ai/errors";
 import { aiService } from "@/lib/ai/service";
+import { RATE_LIMITS } from "@/lib/rate-limit";
+import { enforceRateLimit } from "@/lib/rate-limit-server";
 
 async function withAuthenticatedUser<T>(
   callback: () => Promise<AiResult<T>>,
@@ -18,6 +20,11 @@ async function withAuthenticatedUser<T>(
       AI_ERROR_CODES.UNAUTHENTICATED,
       AI_ERROR_MESSAGES.UNAUTHENTICATED,
     );
+  }
+
+  const limit = await enforceRateLimit(RATE_LIMITS.ai, user.id);
+  if (!limit.ok) {
+    return aiError(AI_ERROR_CODES.RATE_LIMITED, AI_ERROR_MESSAGES.RATE_LIMITED);
   }
 
   return callback();

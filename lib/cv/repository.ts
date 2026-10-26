@@ -126,3 +126,9 @@ export const cvRepository = {
 };
 
 export type CvRepository = typeof cvRepository;
+
+/** Number of CVs a user owns (for the per-account cap). */
+export async function countCvsForUser(userId: string): Promise<number> {
+  await ensureConnection();
+  return CVModel.countDocuments({ userId: new mongoose.Types.ObjectId(userId) }).exec();
+}

@@ -5,6 +5,7 @@ export const AI_ERROR_CODES = {
   INVALID_INPUT: "INVALID_INPUT",
   CONFIGURATION: "CONFIGURATION",
   PROVIDER: "PROVIDER",
+  RATE_LIMITED: "RATE_LIMITED",
 } as const;
 
 export type AiErrorCode = (typeof AI_ERROR_CODES)[keyof typeof AI_ERROR_CODES];
@@ -27,6 +28,7 @@ export const AI_ERROR_MESSAGES = {
   INVALID_INPUT: "Please check your AI input and try again.",
   CONFIGURATION: "AI assistance is not configured yet.",
   PROVIDER: "AI assistance is temporarily unavailable. Please try again.",
+  RATE_LIMITED: "Too many requests. Please wait a few minutes and try again.",
 } as const;
 
 /** Specific, actionable messages for OpenRouter failures (see AiFailureKind). */

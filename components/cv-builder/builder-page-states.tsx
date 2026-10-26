@@ -13,6 +13,8 @@ const CV_ERROR_KEYS = {
   FORBIDDEN: "cvForbidden",
   INVALID_INPUT: "cvInvalidInput",
   DATABASE_ERROR: "cvDatabase",
+  RATE_LIMITED: "rateLimited",
+  LIMIT_REACHED: "cvLimitReached",
 } as const satisfies Record<CvErrorCode, string>;
 
 export function BuilderLoadingState() {

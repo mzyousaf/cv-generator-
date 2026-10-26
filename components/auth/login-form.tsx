@@ -63,7 +63,7 @@ export function LoginForm({
     setIsSubmitting(false);
 
     if (result?.error) {
-      setError(t.auth.invalidCredentials);
+      setError(result.code === "rate_limited" ? t.serverErrors.rateLimited : t.auth.invalidCredentials);
       return;
     }
 

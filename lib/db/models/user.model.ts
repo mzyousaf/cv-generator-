@@ -21,6 +21,10 @@ const userSchema = new Schema(
       type: String,
       select: false,
     },
+    /** Set once the owner proved control of the email (Google sign-in). */
+    emailVerified: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
