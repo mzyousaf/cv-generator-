@@ -3,8 +3,10 @@ import { LocalizedLink as Link } from "@/components/i18n/localized-link";
 import { notFound } from "next/navigation";
 import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { JsonLd } from "@/components/seo/json-ld";
+import { FaqList, faqSchema, type FaqItem } from "@/components/templates-pages/faq-list";
 import { PageHero } from "@/components/templates-pages/page-hero";
 import { PublicPage } from "@/components/templates-pages/public-page";
+import { RegionGuide } from "@/components/templates-pages/region-guide";
 import { TemplateCard } from "@/components/templates-pages/template-card";
 import { TemplatePreview } from "@/components/templates-pages/template-preview";
 import { CV_TEMPLATE_IDS, type CvTemplateId } from "@/lib/cv/constants";
@@ -15,6 +17,7 @@ import { format } from "@/lib/i18n/format";
 import { getPreferences } from "@/lib/i18n/server";
 import { absoluteUrl, regionPath, templatePath, templatesInRegion } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/seo-schema";
+import { TEMPLATES_CONTENT } from "@/lib/templates-content";
 import { localizer, pageMetadata } from "@/lib/seo-server";
 
 type Params = { params: Promise<{ id: string }> };
@@ -64,6 +67,22 @@ export default async function TemplatePage({ params }: Params) {
     ...(facets.ats ? [copy.guide.ats] : []),
   ];
   const related = templatesInRegion(facets.region).filter((other) => other !== id).slice(0, 9);
+  const content = TEMPLATES_CONTENT[locale];
+  const regionGuide = content.regions[facets.region];
+  const regionPhrase = facets.region === "global" ? content.globalRegion : regionName;
+  const fill = (text: string) => format(text, { name, region: regionPhrase, count: CV_TEMPLATE_IDS.length });
+  const photoAnswer = {
+    expected: content.faq.photoExpected,
+    optional: content.faq.photoOptional,
+    none: content.faq.photoNone,
+  }[facets.photo];
+  const faq: FaqItem[] = [
+    { question: fill(content.faq.atsQ), answer: fill(facets.ats ? content.faq.atsYes : content.faq.atsNo) },
+    { question: fill(content.faq.photoQ), answer: fill(photoAnswer) },
+    { question: fill(content.faq.lengthQ), answer: regionGuide.length },
+    { question: fill(content.faq.freeQ), answer: fill(content.faq.freeA) },
+    { question: fill(content.faq.switchQ), answer: fill(content.faq.switchA) },
+  ];
 
   const rows: [string, string][] = [
     [copy.layoutLabel, copy.layouts[spec?.layout ?? "single"]],
@@ -98,6 +117,7 @@ export default async function TemplatePage({ params }: Params) {
             publisher: { "@type": "Organization", name: siteConfig.name, url: absoluteUrl("/") },
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock" },
           },
+          faqSchema(faq, { url: absoluteUrl(loc(templatePath(id))), locale }),
         ]}
       />
       <PageHero
@@ -146,6 +166,8 @@ export default async function TemplatePage({ params }: Params) {
               <p key={sentence}>{sentence}</p>
             ))}
           </div>
+          <h2 className="mt-10 text-xl font-bold tracking-tight text-slate-950">{content.fitHeading}</h2>
+          <p className="mt-4 text-[0.95rem] leading-relaxed text-slate-600">{content.styles[facets.style]}</p>
         </div>
         <div>
           <h2 className="text-xl font-bold tracking-tight text-slate-950">{copy.guide.stepsTitle}</h2>
@@ -161,6 +183,15 @@ export default async function TemplatePage({ params }: Params) {
           </ol>
         </div>
       </section>
+
+      <div className="mx-auto max-w-6xl space-y-16 px-4 pb-16 sm:px-6">
+        <RegionGuide
+          title={fill(content.regionHeading)}
+          labels={content.regionLabels}
+          guide={regionGuide}
+        />
+        <FaqList title={content.faq.heading} items={faq} />
+      </div>
 
       {related.length ? (
         <section aria-labelledby="related-title" className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
