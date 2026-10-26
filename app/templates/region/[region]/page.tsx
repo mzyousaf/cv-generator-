@@ -5,6 +5,7 @@ import { GenerateFreeButton } from "@/components/landing/generate-free-button";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/templates-pages/page-hero";
 import { PublicPage } from "@/components/templates-pages/public-page";
+import { RegionGuide } from "@/components/templates-pages/region-guide";
 import { TemplateCard } from "@/components/templates-pages/template-card";
 import type { TemplateRegion } from "@/lib/cv/template-catalog";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -12,6 +13,7 @@ import { format } from "@/lib/i18n/format";
 import { getPreferences } from "@/lib/i18n/server";
 import { absoluteUrl, regionPath, regionsWithTemplates, templatePath, templatesInRegion } from "@/lib/seo";
 import { breadcrumbSchema } from "@/lib/seo-schema";
+import { TEMPLATES_CONTENT } from "@/lib/templates-content";
 import { localizer, pageMetadata } from "@/lib/seo-server";
 
 type Params = { params: Promise<{ region: string }> };
@@ -48,6 +50,7 @@ export default async function RegionPage({ params }: Params) {
   const name = t.templatePicker.regions[region];
   const ids = templatesInRegion(region);
   const title = format(t.templatesPage.regionTitle, { region: name });
+  const content = TEMPLATES_CONTENT[locale];
 
   return (
     <PublicPage>
@@ -100,6 +103,14 @@ export default async function RegionPage({ params }: Params) {
             </li>
           ))}
         </ul>
+
+        <div className="mt-16">
+          <RegionGuide
+            title={format(content.regionHeading, { region: region === "global" ? content.globalRegion : name })}
+            labels={content.regionLabels}
+            guide={content.regions[region]}
+          />
+        </div>
 
         <nav aria-labelledby="other-regions" className="mt-16 border-t border-slate-200 pt-10">
           <h2 id="other-regions" className="text-lg font-bold text-slate-950">
